@@ -1,0 +1,89 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
+  resources:
+    add-mappings: false #不要为我们工程中的资源文件建立映射
+
+  jackson:
+    #      日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+
+  ## MULTIPART (MultipartProperties)
+  # 开启 multipart 上传功能
+  servlet:
+    multipart:
+      enabled: true
+      # 文件写入磁盘的阈值
+      file-size-threshold: 2KB
+      # 最大文件大小
+      max-file-size: 200MB
+      # 最大请求大小
+      max-request-size: 215MB
+
+  datasource:
+    name: interactive
+    url: jdbc:mysql://localhost:3306/interactive-class?useUnicode=true&serverTimezone=UTC
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 100
+    # 配置获取连接等待超时的时间
+    maxWait: 6000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 1000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+  devtools:
+    restart:
+      enabled: true
+      #添加那个目录的文件需要restart
+      additional-paths: src/main/java
+      #排除那个目录的文件不需要restart
+      additional-exclude: static/**,public/**
+
+
+
+## 文件存储所需参数
+# 所有通过 REST APIs 上传的文件都将存储在此目录下
+file:
+  upload-dir: ./uploads
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    #打印SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # true,Mybatisplus中的selectMaps方法返回值字段为空显示
+    call-setters-on-nulls: true
+
+#  设置日志级别：debug，便于查看全局异常（关了，开发时候查看空指针异常很不方便）
+logging:
+  level:
+   com.code: debug
