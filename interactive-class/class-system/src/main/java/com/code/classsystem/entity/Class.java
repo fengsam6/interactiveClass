@@ -1,8 +1,10 @@
 package com.code.classsystem.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -16,9 +18,9 @@ import java.io.Serializable;
 public class Class implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
+    @NotNull(message = "班级名称不能为空")
     private String className;
     /**
      * 班级人数
@@ -40,11 +42,11 @@ public class Class implements Serializable {
     private Integer isDelete;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,8 +1,9 @@
 package com.code.classsystem.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -16,9 +17,8 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
     private String name;
     /**
      * 性别，0：未知；1：男性；2：女性。
@@ -36,7 +36,7 @@ public class User implements Serializable {
     /**
      * 用户图像路径
      */
-    private String userAvater;
+    private String userAvatar;
     /**
      * 角色id
      */
@@ -67,11 +67,11 @@ public class User implements Serializable {
     private Integer isUsed;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -115,12 +115,12 @@ public class User implements Serializable {
         this.userNum = userNum;
     }
 
-    public String getUserAvater() {
-        return userAvater;
+    public String getUserAvatar() {
+        return userAvatar;
     }
 
-    public void setUserAvater(String userAvater) {
-        this.userAvater = userAvater;
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 
     public Integer getRoleId() {
@@ -188,7 +188,7 @@ public class User implements Serializable {
         ", account=" + account +
         ", password=" + password +
         ", userNum=" + userNum +
-        ", userAvater=" + userAvater +
+        ", userAvatar=" + userAvatar +
         ", roleId=" + roleId +
         ", loginIp=" + loginIp +
         ", loginTime=" + loginTime +

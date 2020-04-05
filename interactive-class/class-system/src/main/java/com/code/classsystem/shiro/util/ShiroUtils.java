@@ -1,6 +1,8 @@
 package com.code.classsystem.shiro.util;
 
 import com.code.classsystem.entity.User;
+import com.code.core.enums.ErrorEnum;
+import com.code.core.exception.AuthenticationFailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -23,8 +25,12 @@ public static Session getSession() {
         return (User)SecurityUtils.getSubject().getPrincipal();
     }
 
-    public static Integer getUserId() {
-        return getUserEntity().getId();
+    public static String getUserId() {
+        User userEntity = getUserEntity();
+        if(userEntity==null){
+            throw new AuthenticationFailException(ErrorEnum.INVALIDATE_PARAM_EXCEPTION.setMsg("获取用户信息失败"));
+        }
+        return userEntity.getId();
     }
 
     public static void setSessionAttribute(Object key, Object value) {

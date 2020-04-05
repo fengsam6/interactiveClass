@@ -17,4 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClassUserServiceImpl extends ServiceImpl<ClassUserMapper, ClassUser> implements ClassUserService {
 
+    @Override
+    public void saveClassUser(String classId, String userId) {
+        ClassUser classUser = new ClassUser();
+        classUser.setCreatedUserId(userId);
+        this.insert(classUser);
+    }
 }

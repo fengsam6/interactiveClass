@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ClassUserService extends IService<ClassUser> {
 
+    void saveClassUser(String classId, String userId);
 }

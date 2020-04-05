@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ClassService extends IService<Class> {
 
+    /**
+     * 创建班级
+     * @param cla
+     */
+    void createClass(Class cla);
 }

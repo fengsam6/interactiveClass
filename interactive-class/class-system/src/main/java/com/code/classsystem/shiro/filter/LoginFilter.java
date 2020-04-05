@@ -42,7 +42,7 @@ public class    LoginFilter extends FormAuthenticationFilter {
             logger.info("-----------------------获取token失败----------");
             //如果开启测试环境，直接通行
             if (openTestEnv) {
-                logger.info("----------token为空，开发环境已经开启，不校验token有效，方便前端访问后端swagger ui接口------------");
+                logger.debug("----------token为空，开发环境已经开启，不校验token有效，方便前端访问后端swagger ui接口------------");
                 return true;
             }
             //返回false，底层会调用redirectToLogin返回json格式数据
@@ -52,11 +52,11 @@ public class    LoginFilter extends FormAuthenticationFilter {
         boolean tokenFlag = tokenUtil.checkTokenValidate(token);
 //        token有效，更新token在redis中存活时间
         if (tokenFlag) {
-            logger.info("----------更新token、用户信息在redis中存活时间------------");
+            logger.debug("----------token有效------------");
             return true;
         } else {
             if (openTestEnv) {
-                logger.info("----------token无效，开发环境已经开启，不校验token有效，方便前端访问后端swagger ui接口------------");
+                logger.debug("----------token无效，开发环境已经开启，不校验token有效，方便前端访问后端swagger ui接口------------");
                 return true;
             }
             //返回false，底层会调用redirectToLogin返回json格式数据

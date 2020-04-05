@@ -1,8 +1,9 @@
 package com.code.classsystem.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -17,36 +18,32 @@ public class UserSign implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-    private Integer userId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
+    private String userId;
     private String userName;
     private Date signTime;
     private String signPlace;
     /**
-     * 签到
+     * 签到。1表示签到，0表示签退
      */
     private Integer signIn;
-    /**
-     * 签退
-     */
-    private Integer signOut;
     private String ip;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -82,14 +79,6 @@ public class UserSign implements Serializable {
         this.signIn = signIn;
     }
 
-    public Integer getSignOut() {
-        return signOut;
-    }
-
-    public void setSignOut(Integer signOut) {
-        this.signOut = signOut;
-    }
-
     public String getIp() {
         return ip;
     }
@@ -107,7 +96,6 @@ public class UserSign implements Serializable {
         ", signTime=" + signTime +
         ", signPlace=" + signPlace +
         ", signIn=" + signIn +
-        ", signOut=" + signOut +
         ", ip=" + ip +
         "}";
     }

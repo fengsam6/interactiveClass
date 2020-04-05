@@ -29,14 +29,6 @@ public class ShiroConfig {
     @Autowired
     private LoginFilter loginFilter;
 
-
-//    @Bean(name = "userRealm")
-//    public UserRealm userRealm() {
-//        UserRealm realm = new UserRealm();
-//        return realm;
-//    }
-
-
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -71,8 +63,6 @@ public class ShiroConfig {
 
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
         filtersMap.put("authc", loginFilter);
-        //访问权限配置
-//        filtersMap.put("requestURL", new FormLoginFilter(authorUrlConfig));
         shiroFilterFactoryBean.setFilters(filtersMap);
 
         /**
@@ -91,7 +81,7 @@ public class ShiroConfig {
         //退出地址
         filterChainDefinitionMap.put(authorUrlConfig.getLogoutUrl(), "logout");
         //swaggwer UI放行
-        allowSwaggerUIRequest(filterChainDefinitionMap);
+//        allowSwaggerUIRequest(filterChainDefinitionMap);
         //白名单
         String[] whitelist = authorUrlConfig.getWhiteUrlArray();
         for (String url : whitelist) {
@@ -102,8 +92,6 @@ public class ShiroConfig {
 
         // 注册
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-
         return shiroFilterFactoryBean;
     }
     /**

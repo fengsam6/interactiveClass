@@ -87,10 +87,10 @@ mybatis-plus:
 #  设置日志级别：debug，便于查看全局异常（关了，开发时候查看空指针异常很不方便）
 logging:
   level:
-    com.code: debug
-
+    com.code: info
+#  openTestEnv 为false，关闭开发环境，token有效性及用户权限
 system:
-  openTestEnv: true
+  openTestEnv: false
   shiro:
     loginUrl: /login
     doLoginUrl: /doLoginUrl

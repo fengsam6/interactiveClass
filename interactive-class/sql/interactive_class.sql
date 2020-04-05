@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-04-05 11:19:39
+Date: 2020-04-05 16:09:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,13 +20,13 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(36) NOT NULL,
   `class_name` varchar(60) DEFAULT NULL,
   `class_num` int(6) DEFAULT '0' COMMENT '班级人数',
   `class_introduce` varchar(255) DEFAULT NULL COMMENT '班级简介',
   `class_create_code` varchar(32) DEFAULT '' COMMENT '班级创建j标识,可以根据班级code 搜索',
-  `create_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除。1标识被删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_class_code` (`class_create_code`) USING BTREE
@@ -41,12 +41,13 @@ CREATE TABLE `class` (
 -- ----------------------------
 DROP TABLE IF EXISTS `class_user`;
 CREATE TABLE `class_user` (
-  `id` int(11) DEFAULT NULL,
-  `class_name` varchar(255) DEFAULT NULL,
-  `member_id` int(11) DEFAULT '0' COMMENT '班级成员id',
-  `created_user_id` int(11) DEFAULT NULL COMMENT '班级创建者Id',
-  `creat_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `id` varchar(36) NOT NULL,
+  `class_name` varchar(200) NOT NULL,
+  `member_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级成员id',
+  `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
+  `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -78,18 +79,18 @@ INSERT INTO `role` VALUES ('3', '管理员', 'admin', '0', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(36) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `sex` tinyint(4) DEFAULT '0' COMMENT '性别，0：未知；1：男性；2：女性。',
   `account` varchar(255) DEFAULT '' COMMENT '登录账号',
   `password` varchar(255) DEFAULT NULL,
   `user_num` varchar(32) DEFAULT '' COMMENT '学号',
-  `user_avater` varchar(60) DEFAULT '' COMMENT '用户图像路径',
+  `user_avatar` varchar(60) DEFAULT '' COMMENT '用户图像路径',
   `role_id` int(11) DEFAULT '0' COMMENT '角色id',
   `login_ip` varchar(255) DEFAULT '' COMMENT '登录ip',
   `login_time` varchar(50) DEFAULT '' COMMENT '登录时间',
-  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_delete` tinyint(1) DEFAULT '0' COMMENT '逻辑删除。1被删除',
   `is_used` tinyint(1) DEFAULT '1' COMMENT '是否禁用。0账号被禁用',
   PRIMARY KEY (`id`),
@@ -99,19 +100,19 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', 'test', '0', 'test', 'test', '', '', '0', '', '', '2020-04-05 14:44:22', '2020-04-05 14:44:22', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_sign
 -- ----------------------------
 DROP TABLE IF EXISTS `user_sign`;
 CREATE TABLE `user_sign` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `sign_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `sign_place` varchar(255) DEFAULT NULL,
-  `sign_in` tinyint(4) DEFAULT '1' COMMENT '签到',
-  `sign_out` tinyint(4) DEFAULT '0' COMMENT '签退',
+  `id` varchar(36) NOT NULL,
+  `user_id` varchar(36) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `sign_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `sign_place` varchar(255) NOT NULL,
+  `sign_in` tinyint(1) NOT NULL DEFAULT '1' COMMENT '签到。1表示签到，0表示签退',
   `ip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

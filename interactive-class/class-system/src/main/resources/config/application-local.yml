@@ -84,15 +84,16 @@ mybatis-plus:
     # true,Mybatisplus中的selectMaps方法返回值字段为空显示
     call-setters-on-nulls: true
 
-#  设置日志级别：debug，便于查看全局异常（
+#  设置日志级别：debug，便于查看全局异常
 logging:
   level:
    com.code: debug
 
+#  openTestEnv 为true，开启开发环境，不校验token有效性
 system:
   openTestEnv: true
   shiro:
     loginUrl: /login
     doLoginUrl: /doLoginUrl
     loginOutUrl: /loginOut
-    whiteUrl:  /test
+    whiteUrl:  /druid

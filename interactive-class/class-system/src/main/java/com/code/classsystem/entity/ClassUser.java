@@ -17,26 +17,26 @@ import java.io.Serializable;
 public class ClassUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
     private String className;
     /**
      * 班级成员id
      */
-    private Integer memberId;
+    private String memberId;
     /**
      * 班级创建者Id
      */
-    private Integer createdUserId;
+    private String createdUserId;
     private Date creatTime;
     private Date updateTime;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,19 +48,19 @@ public class ClassUser implements Serializable {
         this.className = className;
     }
 
-    public Integer getMemberId() {
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
 
-    public Integer getCreatedUserId() {
+    public String getCreatedUserId() {
         return createdUserId;
     }
 
-    public void setCreatedUserId(Integer createdUserId) {
+    public void setCreatedUserId(String createdUserId) {
         this.createdUserId = createdUserId;
     }
 
