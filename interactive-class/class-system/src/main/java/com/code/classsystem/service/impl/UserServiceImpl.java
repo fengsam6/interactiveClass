@@ -6,14 +6,16 @@ import com.code.classsystem.entity.User;
 import com.code.classsystem.dao.UserMapper;
 import com.code.classsystem.service.UserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.code.core.enums.ErrorEnum;
-import com.code.core.exception.AuthenticationFailException;
+import com.code.classsystem.shiro.util.ShiroUtils;
+import com.code.core.util.UUIDUtil;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author coder
@@ -23,22 +25,31 @@ import org.springframework.util.Assert;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public User login(String userAccount, String password) {
-        User user1 = this.getByUserAccount(userAccount);
-        if(user1==null){
-            throw new AuthenticationFailException(ErrorEnum.USER_NAME_ERROR);
-        }
-        if(user1.getPassword().equals(password)){
-            throw new AuthenticationFailException(ErrorEnum.USER_PASSWORD_ERROR);
-        }
+    public String login(String userAccount, String password) {
+        AuthenticationToken token = new UsernamePasswordToken(userAccount, password);
+        //调用shiro userRealm登录，登录失败会抛出异常，由spring 拦截器拦截返回json数据
+        ShiroUtils.getSubject().login(token);
+
+        // 登录成功，将token 存储session中
+        String loginToken = UUIDUtil.getRandomUUID();
+        Session session = ShiroUtils.getSession();
+        session.setAttribute(loginToken, session.getId());
+        return loginToken;
+    }
+
+
+    @Override
+    public User getByUserAccount(String userAccount) {
+        User user = new User();
+        user.setAccount(userAccount);
+        Wrapper<User> userWrapper = new EntityWrapper<>(user);
+        User user1 = this.selectOne(userWrapper);
         return user1;
     }
 
-    private User getByUserAccount(String userAccount){
-        User  user = new User();
-        user.setAccount(userAccount);
-        Wrapper<User> userWrapper =new EntityWrapper<>(user);
-        User user1 = this.selectOne(userWrapper);
-        return user1;
+    @Override
+    public User register(User user) {
+        this.insert(user);
+        return user;
     }
 }

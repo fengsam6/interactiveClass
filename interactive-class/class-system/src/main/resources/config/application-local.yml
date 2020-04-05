@@ -5,7 +5,7 @@ server:
 
 spring:
   mvc:
-    throw-exception-if-no-handler-found: true #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
+    throw-exception-if-no-handler-found: false #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
   resources:
     add-mappings: false #true,不要为我们工程中的资源文件建立映射
 
@@ -84,7 +84,15 @@ mybatis-plus:
     # true,Mybatisplus中的selectMaps方法返回值字段为空显示
     call-setters-on-nulls: true
 
-#  设置日志级别：debug，便于查看全局异常（关了，开发时候查看空指针异常很不方便）
+#  设置日志级别：debug，便于查看全局异常（
 logging:
   level:
    com.code: debug
+
+system:
+  openTestEnv: true
+  shiro:
+    loginUrl: /login
+    doLoginUrl: /doLoginUrl
+    loginOutUrl: /loginOut
+    whiteUrl:  /test

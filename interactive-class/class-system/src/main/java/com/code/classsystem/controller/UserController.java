@@ -3,6 +3,7 @@ package com.code.classsystem.controller;
 
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.UserService;
+import com.code.classsystem.shiro.util.ShiroUtils;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import io.swagger.annotations.Api;
@@ -23,16 +24,43 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户接口",tags = "用户接口")
+@Api(value = "用户接口", tags = "用户接口")
 public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 用户注册
+     *
+     * @return
+     */
+    @GetMapping("/register")
+    @ApiOperation(value = "用户注册接口", notes = "用户注册接口")
+    public ResponseResult register(User user) {
+        userService.register(user);
+        return ResponseResultUtil.renderSuccessMsg("用户注册成功");
+    }
+
+
+    /**
+     * 用户登录接口，登录成功返回token
+     *
+     * @param userAccount
+     * @param password
+     * @return
+     */
     @GetMapping("/login")
-    @ApiOperation(value="用户登录接口",notes="用户登录接口")
+    @ApiOperation(value = "用户登录接口", notes = "用户登录接口")
     public ResponseResult login(String userAccount, String password) {
-        User user = userService.login(userAccount, password);
-        return ResponseResultUtil.renderSuccess(user);
+        String token = userService.login(userAccount, password);
+        return ResponseResultUtil.renderSuccess(token);
+    }
+
+    @GetMapping("/getUserInfo")
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
+    public ResponseResult getUserInfo() {
+        User userEntity = ShiroUtils.getUserEntity();
+        return ResponseResultUtil.renderSuccess(userEntity);
     }
 }
 
