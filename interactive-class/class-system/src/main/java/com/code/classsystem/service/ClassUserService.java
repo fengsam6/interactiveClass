@@ -1,6 +1,6 @@
 package com.code.classsystem.service;
 
-import com.code.classsystem.entity.Class;
+import com.code.classsystem.entity.ClassUser;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author coder
  * @since 2020-04-05
  */
-public interface ClassService extends IService<Class> {
+public interface ClassUserService extends IService<ClassUser> {
 
 }

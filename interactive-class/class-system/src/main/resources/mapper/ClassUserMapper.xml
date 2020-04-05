@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.ClassUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.ClassUser">
+        <result column="id" property="id" />
+        <result column="class_name" property="className" />
+        <result column="member_id" property="memberId" />
+        <result column="created_user_id" property="createdUserId" />
+        <result column="creat_time" property="creatTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, class_name, member_id, created_user_id, creat_time, update_time
+    </sql>
+
+</mapper>

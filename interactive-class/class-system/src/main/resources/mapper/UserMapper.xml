@@ -2,23 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.code.classsystem.dao.UserMapper">
 
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.User">
-        <result column="id" property="id" />
+        <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="sex" property="sex" />
         <result column="account" property="account" />
         <result column="password" property="password" />
-        <result column="num" property="num" />
-        <result column="class_id" property="classId" />
+        <result column="user_num" property="userNum" />
+        <result column="user_avater" property="userAvater" />
         <result column="role_id" property="roleId" />
+        <result column="login_ip" property="loginIp" />
+        <result column="login_time" property="loginTime" />
         <result column="create_date" property="createDate" />
         <result column="update_date" property="updateDate" />
+        <result column="is_delete" property="isDelete" />
+        <result column="is_used" property="isUsed" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, account, password, num, class_id, role_id, create_date, update_date
+        id, name, sex, account, password, user_num, user_avater, role_id, login_ip, login_time, create_date, update_date, is_delete, is_used
     </sql>
 
 </mapper>

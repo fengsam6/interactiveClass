@@ -1,5 +1,7 @@
 package com.code.classsystem.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 
 /**
@@ -7,13 +9,14 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author rf
- * @since 2020-04-04
+ * @author coder
+ * @since 2020-04-05
  */
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 角色名称
@@ -23,6 +26,14 @@ public class Role implements Serializable {
      * 角色描述
      */
     private String desc;
+    /**
+     * 用于逻辑删除，1标识数据被删除
+     */
+    private Integer isDelete;
+    /**
+     * 是否使用。1正在使用，0禁止使用
+     */
+    private Integer isUsed;
 
 
     public Integer getId() {
@@ -49,12 +60,30 @@ public class Role implements Serializable {
         this.desc = desc;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Integer getIsUsed() {
+        return isUsed;
+    }
+
+    public void setIsUsed(Integer isUsed) {
+        this.isUsed = isUsed;
+    }
+
     @Override
     public String toString() {
         return "Role{" +
         "id=" + id +
         ", roleName=" + roleName +
         ", desc=" + desc +
+        ", isDelete=" + isDelete +
+        ", isUsed=" + isUsed +
         "}";
     }
 }

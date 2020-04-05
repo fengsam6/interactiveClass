@@ -1,6 +1,8 @@
 package com.code.classsystem.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 
 /**
@@ -8,23 +10,34 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author rf
- * @since 2020-04-04
+ * @author coder
+ * @since 2020-04-05
  */
 public class Class implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     private String className;
+    /**
+     * 班级人数
+     */
     private Integer classNum;
+    /**
+     * 班级简介
+     */
     private String classIntroduce;
     /**
-     * 班级标识,可以根据班级code 搜索
+     * 班级创建j标识,可以根据班级code 搜索
      */
-    private String classCode;
+    private String classCreateCode;
     private Date createDate;
     private Date updateDate;
+    /**
+     * 逻辑删除。1标识被删除
+     */
+    private Integer isDelete;
 
 
     public Integer getId() {
@@ -59,12 +72,12 @@ public class Class implements Serializable {
         this.classIntroduce = classIntroduce;
     }
 
-    public String getClassCode() {
-        return classCode;
+    public String getClassCreateCode() {
+        return classCreateCode;
     }
 
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
+    public void setClassCreateCode(String classCreateCode) {
+        this.classCreateCode = classCreateCode;
     }
 
     public Date getCreateDate() {
@@ -83,6 +96,14 @@ public class Class implements Serializable {
         this.updateDate = updateDate;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
     @Override
     public String toString() {
         return "Class{" +
@@ -90,9 +111,10 @@ public class Class implements Serializable {
         ", className=" + className +
         ", classNum=" + classNum +
         ", classIntroduce=" + classIntroduce +
-        ", classCode=" + classCode +
+        ", classCreateCode=" + classCreateCode +
         ", createDate=" + createDate +
         ", updateDate=" + updateDate +
+        ", isDelete=" + isDelete +
         "}";
     }
 }

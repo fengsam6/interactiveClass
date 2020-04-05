@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.service.IService;
  *  服务类
  * </p>
  *
- * @author rf
- * @since 2020-04-04
+ * @author coder
+ * @since 2020-04-05
  */
 public interface RoleService extends IService<Role> {
 

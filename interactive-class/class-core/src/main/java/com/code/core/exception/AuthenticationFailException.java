@@ -11,6 +11,7 @@ public class AuthenticationFailException extends RuntimeException implements Com
     private int code;
     private String msg;
     public AuthenticationFailException(int code, String msg) {
+        super(msg);
         this.code = code;
         this.msg = msg;
     }

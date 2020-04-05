@@ -1,6 +1,8 @@
 package com.code.classsystem.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 
 /**
@@ -8,26 +10,45 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author rf
- * @since 2020-04-04
+ * @author coder
+ * @since 2020-04-05
  */
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     private String name;
+    /**
+     * 性别，0：未知；1：男性；2：女性。
+     */
+    private Integer sex;
+    /**
+     * 登录账号
+     */
     private String account;
     private String password;
-    private Integer num;
     /**
-     * 班级id
+     * 学号
      */
-    private Integer classId;
+    private String userNum;
+    /**
+     * 用户图像路径
+     */
+    private String userAvater;
     /**
      * 角色id
      */
     private Integer roleId;
+    /**
+     * 登录ip
+     */
+    private String loginIp;
+    /**
+     * 登录时间
+     */
+    private String loginTime;
     /**
      * 创建时间
      */
@@ -36,6 +57,14 @@ public class User implements Serializable {
      * 更新时间
      */
     private Date updateDate;
+    /**
+     * 逻辑删除。1被删除
+     */
+    private Integer isDelete;
+    /**
+     * 是否禁用。0账号被禁用
+     */
+    private Integer isUsed;
 
 
     public Integer getId() {
@@ -54,6 +83,14 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -70,20 +107,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getNum() {
-        return num;
+    public String getUserNum() {
+        return userNum;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
     }
 
-    public Integer getClassId() {
-        return classId;
+    public String getUserAvater() {
+        return userAvater;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setUserAvater(String userAvater) {
+        this.userAvater = userAvater;
     }
 
     public Integer getRoleId() {
@@ -92,6 +129,22 @@ public class User implements Serializable {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
     }
 
     public Date getCreateDate() {
@@ -110,18 +163,39 @@ public class User implements Serializable {
         this.updateDate = updateDate;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Integer getIsUsed() {
+        return isUsed;
+    }
+
+    public void setIsUsed(Integer isUsed) {
+        this.isUsed = isUsed;
+    }
+
     @Override
     public String toString() {
         return "User{" +
         "id=" + id +
         ", name=" + name +
+        ", sex=" + sex +
         ", account=" + account +
         ", password=" + password +
-        ", num=" + num +
-        ", classId=" + classId +
+        ", userNum=" + userNum +
+        ", userAvater=" + userAvater +
         ", roleId=" + roleId +
+        ", loginIp=" + loginIp +
+        ", loginTime=" + loginTime +
         ", createDate=" + createDate +
         ", updateDate=" + updateDate +
+        ", isDelete=" + isDelete +
+        ", isUsed=" + isUsed +
         "}";
     }
 }

@@ -11,9 +11,14 @@ public class ParamInvalidException extends RuntimeException implements CommonErr
     private String msg;
     private int code;
 
+    public ParamInvalidException( int code,String msg) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
+    }
+
     public ParamInvalidException(ErrorEnum errorEnum) {
-        this.code = errorEnum.getCode();
-        this.msg= errorEnum.getMsg();
+       this(errorEnum.getCode(),errorEnum.getMsg());
     }
 
     @Override

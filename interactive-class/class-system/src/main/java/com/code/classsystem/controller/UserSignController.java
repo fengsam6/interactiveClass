@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-04-05
  */
 @RestController
-@RequestMapping("/role")
-public class RoleController {
+@RequestMapping("/userSign")
+public class UserSignController {
 
 }
 

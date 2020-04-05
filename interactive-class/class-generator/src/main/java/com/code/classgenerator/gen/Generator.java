@@ -140,7 +140,7 @@ public class Generator {
      * @author Terry
      */
     private static DataSourceConfig getDataSourceConfig() {
-//        String dbUrl = "jdbc:mysql://localhost:3306/interactive-class?useUnicode=true&serverTimezone=UTC";
+//        String dbUrl = "jdbc:mysql://localhost:3306/interactive_class?useUnicode=true&serverTimezone=UTC";
 //        return new DataSourceConfig().setDbType(DbType.MYSQL)
 //                .setUrl(dbUrl)
 //                .setUsername("root")

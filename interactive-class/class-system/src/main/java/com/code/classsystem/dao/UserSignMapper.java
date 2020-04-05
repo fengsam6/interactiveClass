@@ -1,6 +1,6 @@
 package com.code.classsystem.dao;
 
-import com.code.classsystem.entity.Role;
+import com.code.classsystem.entity.UserSign;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author coder
  * @since 2020-04-05
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface UserSignMapper extends BaseMapper<UserSign> {
 
 }
