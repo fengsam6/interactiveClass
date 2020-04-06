@@ -1,9 +1,25 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view>
-			<text class="title">{{title}}</text>
-			<text>{{title}}</text>
+	<view>
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-title uni-common-mt">
+				flex-direction: row
+				<text>\n横向布局</text>
+			</view>
+			<view class="uni-flex uni-row">
+				<view class="flex-item uni-bg-red">A</view>
+				<view class="flex-item uni-bg-green">B</view>
+				<view class="flex-item uni-bg-blue">C</view>
+			</view>
+			<view class="uni-title uni-common-mt">
+				flex-direction: column
+				<text>\n纵向布局</text>
+			</view>
+
+			<view class="uni-flex uni-column">
+				<view class="flex-item flex-item-V uni-bg-red">A</view>
+				<view class="flex-item flex-item-V uni-bg-green">B</view>
+				<view class="flex-item flex-item-V uni-bg-blue">C</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -20,24 +36,11 @@
 		},
 		methods: {
 
+
 		}
 	}
 </script>
 
 <style>
-	.content {
-		text-align: center;
-		height: 400upx;
-	}
 
-	.logo {
-		height: 200upx;
-		width: 200upx;
-		margin-top: 200upx;
-	}
-
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
 </style>
