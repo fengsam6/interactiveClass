@@ -81,7 +81,7 @@ public class ShiroConfig {
         //退出地址
         filterChainDefinitionMap.put(authorUrlConfig.getLogoutUrl(), "logout");
         //swaggwer UI放行
-//        allowSwaggerUIRequest(filterChainDefinitionMap);
+        allowSwaggerUIRequest(filterChainDefinitionMap);
         //白名单
         String[] whitelist = authorUrlConfig.getWhiteUrlArray();
         for (String url : whitelist) {

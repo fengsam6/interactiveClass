@@ -25,10 +25,11 @@
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
-	  "usingComponents": {
-		  "van-button": "/wxcomponents/vant/button/index",
-        "van-field": "/wxcomponents/vant/field/index"
-	  }
+    "usingComponents": {
+      "van-button": "/wxcomponents/vant/button/index",
+      "van-field": "/wxcomponents/vant/field/index",
+      "van-toast": "/wxcomponents/vant/toast/index"
+    }
   },
   "tabBar": {
     "color": "#7A7E83",

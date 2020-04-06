@@ -7,7 +7,7 @@ spring:
   mvc:
     throw-exception-if-no-handler-found: false #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
   resources:
-    add-mappings: false #true,不要为我们工程中的资源文件建立映射
+    add-mappings: true #false,不要为我们工程中的资源文件建立映射
 
   jackson:
     #      日期格式化

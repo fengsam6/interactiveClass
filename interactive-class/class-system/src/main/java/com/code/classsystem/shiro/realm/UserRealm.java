@@ -68,12 +68,12 @@ public class UserRealm extends AuthorizingRealm {
 
         if (user == null) {
             logger.error("用户名错误：{}", userName);
-            throw new UnknownAccountException("用户名" + userName + "错误");
+            throw new AuthenticationFailException(ErrorEnum.USER_NAME_ERROR.setMsg("用户名" + userName + "错误"));
         }
         String loginPassword = new String(token.getPassword());
         if (StringUtils.isEmpty(loginPassword) || !loginPassword.equals(user.getPassword())) {
             logger.error("登录密码错误：{}", token.getPassword());
-            throw new IncorrectCredentialsException("登录密码" + loginPassword + "错误");
+            throw new AuthenticationFailException(ErrorEnum.USER_NAME_ERROR.setMsg("登录密码" + loginPassword + "错误"));
         }
 
         ShiroUtils.setSessionAttribute("user",user);
