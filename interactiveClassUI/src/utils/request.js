@@ -10,21 +10,20 @@ export default function request(params) {
         uni.request({
             ...params,
             success(res) {
-
                 const data = res.data
                 let code = data.code
-
+                console.debug(data)
                 //code!=200 直接reject
-                if (code !== OK) {
+                if (code != OK) {
                     const msg = data.message
                     uni.showToast({
                         title: msg,
                         duration: 2000
                     });
                     reject(data);
+                }else {
+                    resolve(data);
                 }
-
-                resolve(res.data);
             },
             fail(err) {
                 reject(err);

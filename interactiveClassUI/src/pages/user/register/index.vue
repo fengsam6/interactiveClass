@@ -2,19 +2,19 @@
     <view>
         <van-cell-group class="form">
             <van-field
-                    v-model="form.userAccount"
+                    v-model="formData.account"
                     placeholder="请输入用户名"
                     label="用户名"
                     class="form_field"
             />
             <van-field
-                    v-model="form.password"
+                    v-model="formData.password"
                     placeholder="请输入密码"
                     password="true"
                     label="用户密码"
                     class="form_field"
             />
-            <van-radio-group v-model="form.role" bind:change="onChange">
+            <van-radio-group v-model="formData.role">
                 <van-radio name="1">学生</van-radio>
                 <van-radio name="2">老师</van-radio>
             </van-radio-group>
@@ -31,7 +31,7 @@
     export default {
         data() {
             return {
-                form: {}
+                formData: {}
             }
         },
         onLoad() {
@@ -44,7 +44,8 @@
 				});
 			},
 			register(){
-                doRegister(this.from).then(resp=>{
+                console.log(this.formData)
+                doRegister(this.formData).then(resp=>{
                     uni.navigateTo({
                         url: '/pages/user/login/index'
                     });

@@ -2,7 +2,7 @@
     <view>
         <van-cell-group class="form">
             <van-field
-                    v-model="form.userAccount"
+                    v-model="formData.userAccount"
                     placeholder="请输入用户名"
                     label="用户名"
 					autosize
@@ -10,7 +10,7 @@
             />
 
             <van-field
-                    v-model="form.password"
+                    v-model="formData.password"
                     placeholder="请输入密码"
                     password="true"
                     label="用户密码"
@@ -31,7 +31,7 @@
     export default {
         data() {
             return {
-                form: {}
+                formData: {}
             }
         },
         onLoad() {
@@ -39,7 +39,8 @@
         },
         methods: {
 			login(){
-                doLogin(this.form).then(resp=>{
+                doLogin(this.formData).then(resp=>{
+                    debugger
                     uni.log(resp)
                     uni.redirectTo({
                         url: '/pages/index/index'
