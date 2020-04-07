@@ -40,7 +40,6 @@
         methods: {
 			login(){
                 doLogin(this.formData).then(resp=>{
-                    debugger
                     uni.log(resp)
                     uni.redirectTo({
                         url: '/pages/index/index'
