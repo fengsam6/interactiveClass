@@ -36,6 +36,12 @@
       "style": {
         "navigationBarTitleText": "创建课程"
       }
+    },
+    {
+      "path": "pages/class/index",
+      "style": {
+        "navigationBarTitleText": "班级管理"
+      }
     }
   ],
   "globalStyle": {
@@ -53,7 +59,8 @@
       "van-popup": "/wxcomponents/vant/popup/index",
       "van-cell": "/wxcomponents/vant/cell/index",
       "van-cell-group": "/wxcomponents/vant/cell-group/index",
-      "van-action-sheet": "/wxcomponents/vant/action-sheet/index"
+      "van-action-sheet": "/wxcomponents/vant/action-sheet/index",
+      "van-dialog": "/wxcomponents/vant/dialog/index"
     }
   },
   "tabBar": {
