@@ -4,7 +4,6 @@ import request from "./utils/request"
 import  './style/uni-common.css'
 Vue.config.productionTip = false
 Vue.prototype.request=request;
-
 App.mpType = 'app'
 
 const app = new Vue({
