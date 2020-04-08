@@ -30,6 +30,12 @@
       "style": {
         "navigationBarTitleText": "试卷库"
       }
+    },
+    {
+      "path": "pages/index/encourse/index",
+      "style": {
+        "navigationBarTitleText": "创建课程"
+      }
     }
   ],
   "globalStyle": {
@@ -46,7 +52,8 @@
       "van-col": "/wxcomponents/vant/col/index",
       "van-popup": "/wxcomponents/vant/popup/index",
       "van-cell": "/wxcomponents/vant/cell/index",
-      "van-cell-group": "/wxcomponents/vant/cell-group/index"
+      "van-cell-group": "/wxcomponents/vant/cell-group/index",
+      "van-action-sheet": "/wxcomponents/vant/action-sheet/index"
     }
   },
   "tabBar": {

@@ -47,20 +47,14 @@
 				</van-col>
 		</van-row>
 		<view class="line"></view>
-		<van-popup
-				:show="addKcShow"
-				position="bottom"
-				closeable=true
-				round=true
-				close-on-click-overlay=true
-				custom-style="height: 20%;"
-				@close="onClose"
-		>
-			<van-cell-group>
-				<van-cell title="单元格" value="添加课程" />
-				<van-cell title="单元格" value="加入班级" />
-			</van-cell-group>
-		</van-popup>
+		<van-action-sheet
+					:show="addKcShow"
+					:actions="actions"
+					@select="onSelect"
+					@cancel="onClose"
+					round
+					cancel-text="取消"
+		/>
 	</view>
 </template>
 <script>
@@ -69,21 +63,49 @@
 			return {
 				title: 'Hello',
 				IsTeacher:true,
-				addKcShow:false
+				addKcShow:false,
+				actions: [
+					{
+						name: '创建课程'
+					},
+					{
+						name: '加入班级'
+					}
+				]
 			}
 		},
 		onLoad() {
-
 		},
 		methods: {
 			addkc(){
 				this.addKcShow=true;
 			},
-			onClose(){
-				this.addKcShow=false;
+			onClose() {
+				this.addKcShow=false ;
+			},
+
+			onSelect(event) {
+				if(event.detail.name=='创建课程'){
+					this.encourse();
+				}
+				if(event.detail.name=='加入班级'){
+					this.joinClass();
+				}
+
+			},
+			encourse(){
+				console.log("创建课程");
+				uni.redirectTo({
+					url: 'pages/index/encourse/index'
+				});
+			},
+			joinClass(){
+				console.log("加入班级")
 			}
 		}
 	}
+
+
 </script>
 
 <style>
