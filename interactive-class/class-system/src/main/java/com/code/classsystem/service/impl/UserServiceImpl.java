@@ -31,9 +31,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         ShiroUtils.getSubject().login(token);
 
         // 登录成功，将token 存储session中
-        String loginToken = UUIDUtil.getRandomUUID();
         Session session = ShiroUtils.getSession();
-        session.setAttribute(loginToken, session.getId());
+//        String loginToken = UUIDUtil.getRandomUUID();
+//        session.setAttribute(loginToken, session.getId());
+
+        String loginToken = (String) session.getId();
         return loginToken;
     }
 

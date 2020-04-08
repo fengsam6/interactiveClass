@@ -3,6 +3,7 @@ package com.code.classsystem.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -27,7 +28,9 @@ public class User implements Serializable {
     /**
      * 登录账号
      */
+    @NotNull(message = "账号不能为空")
     private String account;
+    @NotNull(message = "密码不能为空")
     private String password;
     /**
      * 学号

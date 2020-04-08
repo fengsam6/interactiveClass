@@ -6,7 +6,7 @@ import {get ,post} from "@/utils/request"
  * @returns {*}
  */
 export  function doLogin(data) {
-   return  post("/user/login",data)
+   return  post("user/login",data)
 }
 
 /**
@@ -15,5 +15,5 @@ export  function doLogin(data) {
  * @returns {*}
  */
 export function doRegister(data) {
-    return  post("/user/register",data)
+    return  post("user/register",data)
 }
