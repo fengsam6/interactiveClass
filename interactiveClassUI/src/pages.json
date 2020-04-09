@@ -48,6 +48,12 @@
       "style": {
         "navigationBarTitleText": "班级管理"
       }
+    },
+    {
+      "path": "pages/user/me/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
     }
   ],
   "globalStyle": {
@@ -66,7 +72,9 @@
       "van-cell": "/wxcomponents/vant/cell/index",
       "van-cell-group": "/wxcomponents/vant/cell-group/index",
       "van-action-sheet": "/wxcomponents/vant/action-sheet/index",
-      "van-dialog": "/wxcomponents/vant/dialog/index"
+      "van-dialog": "/wxcomponents/vant/dialog/index",
+      "van-divider": "/wxcomponents/vant/divider/index",
+      "van-image": "/wxcomponents/vant/image/index"
     }
   },
   "tabBar": {
@@ -77,8 +85,8 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/icon/测试.png",
-        "selectedIconPath": "static/icon/测试.png",
+        "iconPath": "static/icon/classroom.png",
+        "selectedIconPath": "static/icon/classroom-active.png",
         "text": "课堂"
       },
       {
@@ -94,7 +102,9 @@
         "text": "签到"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/user/me/index",
+        "iconPath": "static/icon/me.png",
+        "selectedIconPath": "static/icon/me-active.png",
         "text": "我的"
       }
     ]
