@@ -8,6 +8,12 @@
       }
     },
     {
+      "path": "pages/aboutme/index",
+      "style": {
+        "navigationBarTitleText": "关于我"
+      }
+    },
+    {
       "path": "pages/user/login/index",
       "style": {
         "navigationBarTitleText": "登录"
@@ -38,9 +44,9 @@
       }
     },
     {
-      "path": "pages/user/me/index",
+      "path": "pages/class/index",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationBarTitleText": "班级管理"
       }
     }
   ],
@@ -60,8 +66,7 @@
       "van-cell": "/wxcomponents/vant/cell/index",
       "van-cell-group": "/wxcomponents/vant/cell-group/index",
       "van-action-sheet": "/wxcomponents/vant/action-sheet/index",
-      "van-divider": "/wxcomponents/vant/divider/index",
-      "van-image": "/wxcomponents/vant/image/index"
+      "van-dialog": "/wxcomponents/vant/dialog/index"
     }
   },
   "tabBar": {
@@ -72,18 +77,24 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/icon/classroom.png",
-        "selectedIconPath": "static/icon/classroom-active.png",
+        "iconPath": "static/icon/测试.png",
+        "selectedIconPath": "static/icon/测试.png",
         "text": "课堂"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "通知"
+        "text": "课后复习"
       },
       {
-        "pagePath": "pages/user/me/index",
-        "iconPath": "static/icon/me.png",
-        "selectedIconPath": "static/icon/me-active.png",
+        "pagePath": "pages/index/index",
+        "text": "讨论"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "签到"
+      },
+      {
+        "pagePath": "pages/index/index",
         "text": "我的"
       }
     ]
