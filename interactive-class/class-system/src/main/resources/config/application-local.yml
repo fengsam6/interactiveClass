@@ -93,7 +93,7 @@ logging:
 system:
   openTestEnv: true
   shiro:
-    loginUrl: /login
-    doLoginUrl: /doLoginUrl
-    loginOutUrl: /loginOut
+    loginUrl: /user/login
+    doLoginUrl: /user/doLoginUrl
+    loginOutUrl: /logout
     whiteUrl:  /druid

@@ -21,10 +21,8 @@ public class TokenUtil {
 
     public boolean checkTokenValidate(String token) {
         //todo 等待前后端接口对接时候测试
-        Object result = ShiroUtils.getSessionAttribute(token);
-        if (result != null) {
-            return true;
-        }
-        return false;
+        boolean result = ShiroUtils.getSession().equals(token);
+
+        return result;
     }
 }

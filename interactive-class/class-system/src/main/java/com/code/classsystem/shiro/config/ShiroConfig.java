@@ -34,6 +34,8 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 关联realm.
         securityManager.setRealm(userRealm);
+        //自定义session管理
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 

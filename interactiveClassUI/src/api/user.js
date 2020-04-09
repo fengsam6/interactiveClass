@@ -1,5 +1,6 @@
 import {get ,post} from "@/utils/request"
-
+import {getStorage, setStorage} from '@/utils/storage'
+const userStoreKey ="user"
 /**
  * 登录接口
  * @param data
@@ -18,6 +19,25 @@ export function doRegister(data) {
     return  post("user/register",data)
 }
 
-export function getUserInfo(data) {
-    return  get("user/getUserInfo",data)
+export function getUserInfo() {
+    return  get("user/getUserInfo")
+}
+
+export function logout() {
+    return  get("user/logout")
+}
+
+export function saveUserInfoStore(userInfo) {
+    if(userInfo==null){
+        userInfo = getUserInfo()
+    }
+    return  setStorage(userStoreKey,userInfo)
+}
+
+export function getStoreUserInfo() {
+   let userInfo  = getStorage(userStoreKey)
+    if(userInfo==null){
+        userInfo = getUserInfo()
+    }
+    return userInfo
 }

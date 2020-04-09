@@ -80,5 +80,12 @@ public class UserController {
         User userEntity = ShiroUtils.getUserEntity();
         return ResponseResultUtil.renderSuccess(userEntity);
     }
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "退出登录", notes = "退出登录")
+    public ResponseResult logout() {
+        ShiroUtils.logout();
+        return ResponseResultUtil.renderSuccessMsg("退出登录成功");
+    }
 }
 

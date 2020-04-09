@@ -1,6 +1,7 @@
 package com.code.classsystem.shiro.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.code.classsystem.shiro.util.ShiroUtils;
 import com.code.classsystem.shiro.util.TokenUtil;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
@@ -37,19 +38,9 @@ public class    LoginFilter extends FormAuthenticationFilter {
         if (req.getMethod().toUpperCase(Locale.ENGLISH).equals("OPTIONS".toUpperCase(Locale.ENGLISH))) {
             return true;
         }
-        String token = tokenUtil.getToken(req);
-        if (StringUtils.isEmpty(token)) {
-            logger.info("-----------------------获取token失败----------");
-            //如果开启测试环境，直接通行
-            if (openTestEnv) {
-                logger.debug("----------token为空，开发环境已经开启，不校验token有效，方便前端访问后端swagger ui接口------------");
-                return true;
-            }
-            //返回false，底层会调用redirectToLogin返回json格式数据
-            return false;
-        }
-        //检查token是否有效，有效返回true，放行
-        boolean tokenFlag = tokenUtil.checkTokenValidate(token);
+
+        //判断用户是否登录
+        boolean tokenFlag = ShiroUtils.isLogin();
 //        token有效，更新token在redis中存活时间
         if (tokenFlag) {
             logger.debug("----------token有效------------");
