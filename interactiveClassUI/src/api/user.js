@@ -34,10 +34,13 @@ export function saveUserInfoStore(userInfo) {
     return  setStorage(userStoreKey,userInfo)
 }
 
-export function getStoreUserInfo() {
+export async function getStoreUserInfo() {
    let userInfo  = getStorage(userStoreKey)
-    if(userInfo==null){
-        userInfo = getUserInfo()
+    if(userInfo==null || userInfo==''|| userInfo.name==''){
+        userInfo = await getUserInfo()
+        console.log(userInfo)
+        saveUserInfoStore(userInfo)
     }
     return userInfo
 }
+

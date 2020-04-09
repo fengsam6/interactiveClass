@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {getUserInfo, logout,saveUserInfoStore,getStoreUserInfo} from "@/api/user"
+    import {getUserInfo, logout, saveUserInfoStore, getStoreUserInfo} from "@/api/user"
     import {clearStorageSync} from '@/utils/storage'
 
     export default {
@@ -48,11 +48,11 @@
                 }
             }
         },
-       // 页面展示时候显示
-        onShow(){
+        // 页面展示时候显示
+        onShow() {
             this.doGetStoreUserInfo()
         },
-        mounted(){
+        mounted() {
             this.doGetUserInfo()
         },
         methods: {
@@ -62,9 +62,8 @@
                     saveUserInfoStore(resp)
                 })
             },
-            doGetStoreUserInfo() {
-                this.userInfo = getStoreUserInfo()
-                console.log(this.userInfo)
+            async doGetStoreUserInfo() {
+                this.userInfo = await getStoreUserInfo()
             },
             doLogout() {
                 logout()
