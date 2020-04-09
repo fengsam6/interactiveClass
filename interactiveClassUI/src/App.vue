@@ -1,9 +1,10 @@
 <template>
     <view>
-        <van-toast id="van-toast" />
+
     </view>
 </template>
 <script>
+
     export default {
 		onLaunch: function() {
 			console.log('App Launch')

@@ -17,3 +17,7 @@ export  function doLogin(data) {
 export function doRegister(data) {
     return  post("user/register",data)
 }
+
+export function getUserInfo(data) {
+    return  get("user/getUserInfo",data)
+}
