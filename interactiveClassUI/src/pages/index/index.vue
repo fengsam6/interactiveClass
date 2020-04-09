@@ -83,7 +83,8 @@
 				/>
 			</van-cell-group>
 		</van-dialog>
-		<van-row>
+		<view style="width: 100%;">
+			<van-row>
 				<view>
 					<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 								 @scroll="scroll">
@@ -118,6 +119,7 @@
 					</scroll-view>
 				</view>
 		</van-row>
+		</view>
 	</view>
 </template>
 <script>
