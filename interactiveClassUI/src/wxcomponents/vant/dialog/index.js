@@ -1,10 +1,16 @@
 import { VantComponent } from '../common/component';
 import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
+import { GRAY, BLUE } from '../common/color';
 VantComponent({
     mixins: [button, openType],
     props: {
-        show: Boolean,
+        show: {
+            type: Boolean,
+            observer(show) {
+                !show && this.stopLoading();
+            }
+        },
         title: String,
         message: String,
         useSlot: Boolean,
@@ -12,9 +18,12 @@ VantComponent({
         customStyle: String,
         asyncClose: Boolean,
         messageAlign: String,
+        overlayStyle: String,
+        useTitleSlot: Boolean,
         showCancelButton: Boolean,
         closeOnClickOverlay: Boolean,
         confirmButtonOpenType: String,
+        width: null,
         zIndex: {
             type: Number,
             value: 2000
@@ -26,6 +35,14 @@ VantComponent({
         cancelButtonText: {
             type: String,
             value: '取消'
+        },
+        confirmButtonColor: {
+            type: String,
+            value: BLUE
+        },
+        cancelButtonColor: {
+            type: String,
+            value: GRAY
         },
         showConfirmButton: {
             type: Boolean,
@@ -46,11 +63,6 @@ VantComponent({
             cancel: false
         }
     },
-    watch: {
-        show(show) {
-            !show && this.stopLoading();
-        }
-    },
     methods: {
         onConfirm() {
             this.handleAction('confirm');
@@ -63,19 +75,19 @@ VantComponent({
         },
         handleAction(action) {
             if (this.data.asyncClose) {
-                this.set({
+                this.setData({
                     [`loading.${action}`]: true
                 });
             }
             this.onClose(action);
         },
         close() {
-            this.set({
+            this.setData({
                 show: false
             });
         },
         stopLoading() {
-            this.set({
+            this.setData({
                 loading: {
                     confirm: false,
                     cancel: false

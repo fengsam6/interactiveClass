@@ -1,9 +1,16 @@
 import { VantComponent } from '../common/component';
+import { BLUE, GRAY_DARK } from '../common/color';
 VantComponent({
     field: true,
     classes: ['node-class'],
     props: {
-        checked: null,
+        checked: {
+            type: null,
+            observer(value) {
+                const loadingColor = this.getLoadingColor(value);
+                this.setData({ value, loadingColor });
+            }
+        },
         loading: Boolean,
         disabled: Boolean,
         activeColor: String,
@@ -21,15 +28,16 @@ VantComponent({
             value: false
         }
     },
-    watch: {
-        checked(value) {
-            this.set({ value });
-        }
-    },
     created() {
-        this.set({ value: this.data.checked });
+        const { checked: value } = this.data;
+        const loadingColor = this.getLoadingColor(value);
+        this.setData({ value, loadingColor });
     },
     methods: {
+        getLoadingColor(checked) {
+            const { activeColor, inactiveColor } = this.data;
+            return checked ? activeColor || BLUE : inactiveColor || GRAY_DARK;
+        },
         onClick() {
             const { activeValue, inactiveValue } = this.data;
             if (!this.data.disabled && !this.data.loading) {

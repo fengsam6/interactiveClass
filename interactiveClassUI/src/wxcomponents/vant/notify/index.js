@@ -1,17 +1,16 @@
 import { VantComponent } from '../common/component';
-import { RED } from '../common/color';
-import { safeArea } from '../mixins/safe-area';
+import { WHITE } from '../common/color';
 VantComponent({
-    mixins: [safeArea()],
     props: {
-        text: String,
+        message: String,
+        background: String,
+        type: {
+            type: String,
+            value: 'danger'
+        },
         color: {
             type: String,
-            value: '#fff'
-        },
-        backgroundColor: {
-            type: String,
-            value: RED
+            value: WHITE
         },
         duration: {
             type: Number,
@@ -20,15 +19,25 @@ VantComponent({
         zIndex: {
             type: Number,
             value: 110
+        },
+        safeAreaInsetTop: {
+            type: Boolean,
+            value: false
         }
+    },
+    data: {
+        show: false,
+    },
+    created() {
+        const { statusBarHeight } = wx.getSystemInfoSync();
+        this.setData({ statusBarHeight });
     },
     methods: {
         show() {
-            const { duration } = this.data;
+            const { duration, onOpened } = this.data;
             clearTimeout(this.timer);
-            this.set({
-                show: true
-            });
+            this.setData({ show: true });
+            wx.nextTick(onOpened);
             if (duration > 0 && duration !== Infinity) {
                 this.timer = setTimeout(() => {
                     this.hide();
@@ -36,10 +45,16 @@ VantComponent({
             }
         },
         hide() {
+            const { onClose } = this.data;
             clearTimeout(this.timer);
-            this.set({
-                show: false
-            });
+            this.setData({ show: false });
+            wx.nextTick(onClose);
+        },
+        onTap(event) {
+            const { onClick } = this.data;
+            if (onClick) {
+                onClick(event.detail);
+            }
         }
     }
 });

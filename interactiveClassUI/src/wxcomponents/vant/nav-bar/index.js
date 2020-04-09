@@ -1,11 +1,16 @@
 import { VantComponent } from '../common/component';
-import { safeArea } from '../mixins/safe-area';
 VantComponent({
-    mixins: [safeArea({ safeAreaInsetTop: true })],
     classes: ['title-class'],
     props: {
         title: String,
-        fixed: Boolean,
+        fixed: {
+            type: Boolean,
+            observer: 'setHeight'
+        },
+        placeholder: {
+            type: Boolean,
+            observer: 'setHeight'
+        },
         leftText: String,
         rightText: String,
         leftArrow: Boolean,
@@ -15,8 +20,26 @@ VantComponent({
         },
         zIndex: {
             type: Number,
-            value: 120
+            value: 1
+        },
+        safeAreaInsetTop: {
+            type: Boolean,
+            value: true
         }
+    },
+    data: {
+        statusBarHeight: 0,
+        height: 44
+    },
+    created() {
+        const { statusBarHeight } = wx.getSystemInfoSync();
+        this.setData({
+            statusBarHeight,
+            height: 44 + statusBarHeight
+        });
+    },
+    mounted() {
+        this.setHeight();
     },
     methods: {
         onClickLeft() {
@@ -24,6 +47,16 @@ VantComponent({
         },
         onClickRight() {
             this.$emit('click-right');
+        },
+        setHeight() {
+            if (!this.data.fixed || !this.data.placeholder) {
+                return;
+            }
+            wx.nextTick(() => {
+                this.getRect('.van-nav-bar').then((res) => {
+                    this.setData({ height: res.height });
+                });
+            });
         }
     }
 });

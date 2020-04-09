@@ -1,23 +1,20 @@
 import { VantComponent } from '../common/component';
-import { safeArea } from '../mixins/safe-area';
 VantComponent({
-    mixins: [safeArea()],
     relation: {
         name: 'tabbar-item',
         type: 'descendant',
+        current: 'tabbar',
         linked(target) {
-            this.children.push(target);
             target.parent = this;
             target.updateFromParent();
         },
-        unlinked(target) {
-            this.children = this.children.filter((item) => item !== target);
+        unlinked() {
             this.updateChildren();
         }
     },
     props: {
         active: {
-            type: [Number, String],
+            type: null,
             observer: 'updateChildren'
         },
         activeColor: {
@@ -39,10 +36,11 @@ VantComponent({
         zIndex: {
             type: Number,
             value: 1
+        },
+        safeAreaInsetBottom: {
+            type: Boolean,
+            value: true
         }
-    },
-    beforeCreate() {
-        this.children = [];
     },
     methods: {
         updateChildren() {

@@ -5,7 +5,12 @@ VantComponent({
     props: {
         text: {
             type: String,
-            value: ''
+            value: '',
+            observer() {
+                wx.nextTick(() => {
+                    this.init();
+                });
+            },
         },
         mode: {
             type: String,
@@ -25,7 +30,12 @@ VantComponent({
         },
         speed: {
             type: Number,
-            value: 50
+            value: 50,
+            observer() {
+                wx.nextTick(() => {
+                    this.init();
+                });
+            }
         },
         scrollable: {
             type: Boolean,
@@ -47,11 +57,6 @@ VantComponent({
     },
     data: {
         show: true
-    },
-    watch: {
-        text() {
-            this.set({}, this.init);
-        }
     },
     created() {
         this.resetAnimation = wx.createAnimation({
@@ -93,14 +98,14 @@ VantComponent({
         scroll() {
             this.timer && clearTimeout(this.timer);
             this.timer = null;
-            this.set({
+            this.setData({
                 animationData: this.resetAnimation
                     .translateX(this.wrapWidth)
                     .step()
                     .export()
             });
             setTimeout(() => {
-                this.set({
+                this.setData({
                     animationData: this.animation
                         .translateX(-this.contentWidth)
                         .step()
@@ -114,7 +119,7 @@ VantComponent({
         onClickIcon() {
             this.timer && clearTimeout(this.timer);
             this.timer = null;
-            this.set({ show: false });
+            this.setData({ show: false });
         },
         onClick(event) {
             this.$emit('click', event);

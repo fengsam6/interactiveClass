@@ -1,18 +1,34 @@
 import { VantComponent } from '../common/component';
 import { touch } from '../mixins/touch';
+import { range } from '../common/utils';
 const THRESHOLD = 0.3;
+let ARRAY = [];
 VantComponent({
     props: {
         disabled: Boolean,
         leftWidth: {
             type: Number,
-            value: 0
+            value: 0,
+            observer(leftWidth = 0) {
+                if (this.offset > 0) {
+                    this.swipeMove(leftWidth);
+                }
+            }
         },
         rightWidth: {
             type: Number,
-            value: 0
+            value: 0,
+            observer(rightWidth = 0) {
+                if (this.offset < 0) {
+                    this.swipeMove(-rightWidth);
+                }
+            }
         },
-        asyncClose: Boolean
+        asyncClose: Boolean,
+        name: {
+            type: [Number, String],
+            value: ''
+        }
     },
     mixins: [touch],
     data: {
@@ -20,23 +36,31 @@ VantComponent({
     },
     created() {
         this.offset = 0;
+        ARRAY.push(this);
+    },
+    destroyed() {
+        ARRAY = ARRAY.filter(item => item !== this);
     },
     methods: {
         open(position) {
             const { leftWidth, rightWidth } = this.data;
             const offset = position === 'left' ? leftWidth : -rightWidth;
             this.swipeMove(offset);
+            this.$emit('open', {
+                position,
+                name: this.data.name
+            });
         },
         close() {
             this.swipeMove(0);
         },
         swipeMove(offset = 0) {
-            this.offset = offset;
-            const transform = `translate3d(${offset}px, 0, 0)`;
-            const transition = this.draging
+            this.offset = range(offset, -this.data.rightWidth, this.data.leftWidth);
+            const transform = `translate3d(${this.offset}px, 0, 0)`;
+            const transition = this.dragging
                 ? 'none'
-                : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)';
-            this.set({
+                : 'transform .6s cubic-bezier(0.18, 0.89, 0.32, 1)';
+            this.setData({
                 wrapperStyle: `
         -webkit-transform: ${transform};
         -webkit-transition: ${transition};
@@ -57,15 +81,13 @@ VantComponent({
             else {
                 this.swipeMove(0);
             }
-            this.set({ catchMove: false });
+            this.setData({ catchMove: false });
         },
         startDrag(event) {
             if (this.data.disabled) {
                 return;
             }
-            this.draging = true;
             this.startOffset = this.offset;
-            this.firstDirection = '';
             this.touchStart(event);
         },
         noop() { },
@@ -74,26 +96,19 @@ VantComponent({
                 return;
             }
             this.touchMove(event);
-            if (!this.firstDirection) {
-                this.firstDirection = this.direction;
-                this.set({ catchMove: this.firstDirection === 'horizontal' });
-            }
-            if (this.firstDirection === 'vertical') {
+            if (this.direction !== 'horizontal') {
                 return;
             }
-            const { leftWidth, rightWidth } = this.data;
-            const offset = this.startOffset + this.deltaX;
-            if ((rightWidth > 0 && -offset > rightWidth) ||
-                (leftWidth > 0 && offset > leftWidth)) {
-                return;
-            }
-            this.swipeMove(offset);
+            this.dragging = true;
+            ARRAY.filter(item => item !== this).forEach(item => item.close());
+            this.setData({ catchMove: true });
+            this.swipeMove(this.startOffset + this.deltaX);
         },
         endDrag() {
             if (this.data.disabled) {
                 return;
             }
-            this.draging = false;
+            this.dragging = false;
             this.swipeLeaveTransition();
         },
         onClick(event) {
@@ -103,7 +118,11 @@ VantComponent({
                 return;
             }
             if (this.data.asyncClose) {
-                this.$emit('close', { position, instance: this });
+                this.$emit('close', {
+                    position,
+                    instance: this,
+                    name: this.data.name
+                });
             }
             else {
                 this.swipeMove(0);

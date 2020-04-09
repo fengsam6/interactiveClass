@@ -4,14 +4,10 @@ VantComponent({
     relation: {
         name: 'checkbox',
         type: 'descendant',
+        current: 'checkbox-group',
         linked(target) {
-            this.children = this.children || [];
-            this.children.push(target);
             this.updateChild(target);
         },
-        unlinked(target) {
-            this.children = this.children.filter((child) => child !== target);
-        }
     },
     props: {
         max: Number,
@@ -30,9 +26,9 @@ VantComponent({
         },
         updateChild(child) {
             const { value, disabled } = this.data;
-            child.set({
+            child.setData({
                 value: value.indexOf(child.data.name) !== -1,
-                disabled: disabled || child.data.disabled
+                parentDisabled: disabled
             });
         }
     }

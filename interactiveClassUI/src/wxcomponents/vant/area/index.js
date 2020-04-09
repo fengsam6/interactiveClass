@@ -3,12 +3,24 @@ import { pickerProps } from '../picker/shared';
 const COLUMNSPLACEHOLDERCODE = '000000';
 VantComponent({
     classes: ['active-class', 'toolbar-class', 'column-class'],
-    props: Object.assign({}, pickerProps, { value: String, areaList: {
+    props: Object.assign(Object.assign({}, pickerProps), { value: {
+            type: String,
+            observer(value) {
+                this.code = value;
+                this.setValues();
+            },
+        }, areaList: {
             type: Object,
-            value: {}
+            value: {},
+            observer: 'setValues'
         }, columnsNum: {
-            type: [String, Number],
-            value: 3
+            type: null,
+            value: 3,
+            observer(value) {
+                this.setData({
+                    displayColumns: this.data.columns.slice(0, +value)
+                });
+            }
         }, columnsPlaceholder: {
             type: Array,
             observer(val) {
@@ -25,18 +37,6 @@ VantComponent({
         columns: [{ values: [] }, { values: [] }, { values: [] }],
         displayColumns: [{ values: [] }, { values: [] }, { values: [] }],
         typeToColumnsPlaceholder: {}
-    },
-    watch: {
-        value(value) {
-            this.code = value;
-            this.setValues();
-        },
-        areaList: 'setValues',
-        columnsNum(value) {
-            this.set({
-                displayColumns: this.data.columns.slice(0, +value)
-            });
-        }
     },
     mounted() {
         setTimeout(() => {
@@ -82,12 +82,10 @@ VantComponent({
         onChange(event) {
             const { index, picker, value } = event.detail;
             this.code = value[index].code;
-            let getValues = picker.getValues();
-            getValues = this.parseOutputValues(getValues);
             this.setValues().then(() => {
                 this.$emit('change', {
                     picker,
-                    values: getValues,
+                    values: this.parseOutputValues(picker.getValues()),
                     index
                 });
             });
@@ -204,8 +202,8 @@ VantComponent({
             }
             return area;
         },
-        reset() {
-            this.code = '';
+        reset(code) {
+            this.code = code || '';
             return this.setValues();
         }
     }
