@@ -2,42 +2,42 @@
     <view>
         <van-cell-group class="form">
             <van-field
-                    :value="formData.userAccount"
-                    placeholder="请输入用户名"
+                    v-model="formData.account"
+                    placeholder="用户名"
                     label="用户名"
-                    autosize
-                    @change="onUserAccountChange"
                     class="form_field"
+                    @change="onUserAccountChange"
             />
-
             <van-field
-                    :value="formData.password"
+                    v-model="formData.password"
                     placeholder="请输入密码"
                     password="true"
                     label="用户密码"
-                    autosize
-                    @change="onPasswordChange"
                     class="form_field"
+                    @change="onUserAccountChange"
             />
+            <van-radio-group v-model="formData.role">
+                <van-radio name="1">学生</van-radio>
+                <van-radio name="2">老师</van-radio>
+            </van-radio-group>
             <view class="btn_info">
-                <van-button @click="login" type="info" size="small" round>登录</van-button>
-                <van-button type="info" size="small" class="btn_margin" @click="register" round>注册</van-button>
+                <van-button type="info" size="small" @click="register">注册</van-button>
+                <van-button @click="login" type="info" class="btn_margin" size="small">登录</van-button>
             </view>
-
         </van-cell-group>
     </view>
 </template>
 
 <script>
-    import {doLogin} from "@/api/user"
-    import {setToken} from '@/utils/tokenUtil'
+    import {doRegister} from "@/api/user"
 
     export default {
         data() {
             return {
                 formData: {
-                    userAccount: "test",
-                    password: 'test'
+                    account: "",
+                    password: "",
+                    role: 1
                 }
             }
         },
@@ -46,32 +46,24 @@
         },
         methods: {
             login() {
-                doLogin(this.formData).then(resp => {
-                    const token = resp
-                    if (token != null && token != '') {
-                        uni.showToast("登录成功")
-                        setToken(token)
-
-                        uni.switchTab({
-                            url: '/pages/index/index'
-                        });
-                    }
-
-                    console.log(resp)
-
-                })
-
+                uni.navigateTo({
+                    url: '/pages/index/index'
+                });
             },
             register() {
-                uni.redirectTo({
-                    url: '/pages/user/register/index'
-                });
+                console.log(this.formData)
+                doRegister(this.formData).then(resp => {
+                    uni.showToast("注册成功")
+                    uni.navigateTo({
+                        url: '/pages/user/login/index'
+                    });
+                })
 
             },
             onUserAccountChange(event) {
                 // event.detail 为当前输入的值
                 console.log(event.detail);
-                this.formData.userAccount = event.detail
+                this.formData.account = event.detail
             },
             onPasswordChange(event) {
                 // event.detail 为当前输入的值
@@ -84,7 +76,7 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 250px;
+        margin-top: 150px;
     }
 
     .btn_info {

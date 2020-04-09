@@ -1,11 +1,11 @@
 <template>
     <view>
         <view class="top_wrap">
-            <van-row >
+            <van-row>
                 <van-col span="12">
                     <view class="top_aside">
                         <view>
-                            <text class="user-name">{{userInfo.userName}}</text>
+                            <text class="user-name" v-text="userInfo.name"></text>
                         </view>
                         <view>
                             <van-button type="default" size="small">编辑个人资料</van-button>
@@ -24,10 +24,11 @@
         </view>
         <view class="me_main">
             <van-cell-group>
-                <van-cell title="我的课件库" value=">"/>
-                <van-cell title="我的试卷库" value=">"/>
-                <van-cell title="签到" value=">"/>
-                <van-cell title="帮助" value=">"/>
+                <van-cell title="我的课件库" is-link value=">"/>
+                <van-cell title="我的试卷库" is-link value=">"/>
+                <van-cell title="签到" is-link value=">"/>
+                <van-cell title="帮助" is-link value=">"/>
+                <van-cell title="退出" is-link @click="doLogout"/>
             </van-cell-group>
         </view>
 
@@ -35,28 +36,52 @@
 </template>
 
 <script>
-    import {doLogin} from "@/api/user"
+    import {getUserInfo, logout,saveUserInfoStore,getStoreUserInfo} from "@/api/user"
+    import {clearStorageSync} from '@/utils/storage'
 
     export default {
         data() {
             return {
                 userInfo: {
-                    userName: 'test',
+                    name: 'test',
                     avatar: '/static/images/user/cat.jpeg'
                 }
             }
         },
-        onLoad() {
-
+       // 页面展示时候显示
+        onShow(){
+            this.doGetStoreUserInfo()
         },
-        methods: {}
+        mounted(){
+            this.doGetUserInfo()
+        },
+        methods: {
+            doGetUserInfo() {
+                getUserInfo().then(resp => {
+                    this.userInfo = resp
+                    saveUserInfoStore(resp)
+                })
+            },
+            doGetStoreUserInfo() {
+                this.userInfo = getStoreUserInfo()
+                console.log(this.userInfo)
+            },
+            doLogout() {
+                logout()
+                clearStorageSync()
+                uni.navigateTo({
+                    url: '/pages/user/login/index'
+                });
+            }
+        }
     }
 </script>
 
 <style type="text/css" scoped>
-    .top_wrap{
+    .top_wrap {
         margin-top: 10px;
     }
+
     .top_aside {
         margin-left: 15px;
     }
