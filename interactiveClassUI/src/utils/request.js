@@ -48,6 +48,11 @@ export default function request(params) {
                 }
             },
             fail(err) {
+                uni.showToast({
+                    title: err || "服务器繁忙，请稍后访问",
+                    image: '/static/icon/error.png',
+                    duration: 4000
+                });
                 reject(err);
             },
             complete() {

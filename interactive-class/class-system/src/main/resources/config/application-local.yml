@@ -92,6 +92,9 @@ logging:
 #  openTestEnv 为true，开启开发环境，不校验token有效性
 system:
   openTestEnv: true
+#  文件下载位置
+  fileUpload:
+   url: ./../upload
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl
