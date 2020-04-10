@@ -8,7 +8,7 @@
                             <text class="user-name" v-text="userInfo.name"></text>
                         </view>
                         <view>
-                            <van-button type="default" size="small">编辑个人资料</van-button>
+                            <van-button type="default" size="small" @click="editUserInfo">编辑个人资料</van-button>
                         </view>
                     </view>
                 </van-col>
@@ -24,10 +24,10 @@
         </view>
         <view class="me_main">
             <van-cell-group>
-                <van-cell title="我的课件库" is-link value=">"/>
-                <van-cell title="我的试卷库" is-link value=">"/>
-                <van-cell title="签到" is-link value=">"/>
-                <van-cell title="帮助" is-link value=">"/>
+                <van-cell title="我的课件库" is-link/>
+                <van-cell title="我的试卷库" is-link/>
+                <van-cell title="签到" is-link/>
+                <van-cell title="帮助" is-link/>
                 <van-cell title="退出" is-link @click="doLogout"/>
             </van-cell-group>
         </view>
@@ -44,7 +44,8 @@
             return {
                 userInfo: {
                     name: 'test',
-                    avatar: '/static/images/user/cat.jpeg'
+                    avatar: '/static/images/user/cat.jpeg',
+                    role:"1"
                 }
             }
         },
@@ -64,12 +65,18 @@
             },
             async doGetStoreUserInfo() {
                 this.userInfo = await getStoreUserInfo()
+                console.log(this.userInfo)
             },
             doLogout() {
                 logout()
                 clearStorageSync()
                 uni.navigateTo({
                     url: '/pages/user/login/index'
+                });
+            },
+            editUserInfo(){
+                uni.navigateTo({
+                    url: '/pages/user/userInfo/index'
                 });
             }
         }
