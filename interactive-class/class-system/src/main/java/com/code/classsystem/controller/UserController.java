@@ -3,7 +3,7 @@ package com.code.classsystem.controller;
 
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.UserService;
-import com.code.classsystem.shiro.util.ShiroUtils;
+import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.util.ResponseResultUtil;

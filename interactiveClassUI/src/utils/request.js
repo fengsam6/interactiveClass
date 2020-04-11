@@ -1,7 +1,7 @@
 //es6
 import {getToken} from '@/utils/tokenUtil'
-
-const url_base = "http://localhost:8080/"
+import config from "./config";
+const url_base = config.url_base
 const OK = 200
 export default function request(params) {
     let url = params.url

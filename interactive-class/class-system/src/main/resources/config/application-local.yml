@@ -94,7 +94,7 @@ system:
   openTestEnv: true
 #  文件下载位置
   fileUpload:
-   url: ./../upload
+   url: ./upload
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

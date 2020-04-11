@@ -1,4 +1,4 @@
-package com.code.classsystem.shiro.util;
+package com.code.classsystem.common.shiro.util;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

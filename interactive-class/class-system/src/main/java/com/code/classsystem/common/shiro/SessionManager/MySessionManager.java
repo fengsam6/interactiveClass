@@ -1,4 +1,4 @@
-package com.code.classsystem.shiro.SessionManager;
+package com.code.classsystem.common.shiro.SessionManager;
 
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;

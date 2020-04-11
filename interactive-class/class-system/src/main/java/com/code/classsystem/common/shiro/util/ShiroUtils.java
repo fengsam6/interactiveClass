@@ -1,4 +1,4 @@
-package com.code.classsystem.shiro.util;
+package com.code.classsystem.common.shiro.util;
 
 import com.code.classsystem.entity.User;
 import com.code.core.enums.ErrorEnum;

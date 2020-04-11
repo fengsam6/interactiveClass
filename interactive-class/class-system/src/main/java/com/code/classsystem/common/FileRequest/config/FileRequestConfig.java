@@ -1,6 +1,6 @@
-package com.code.classsystem.config;
+package com.code.classsystem.common.FileRequest.config;
 
-import com.code.core.util.FileUtils;
+import com.code.classsystem.common.FileRequest.util.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,4 +1,4 @@
-package com.code.classsystem.shiro.config;
+package com.code.classsystem.common.shiro.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

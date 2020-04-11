@@ -1,8 +1,8 @@
-package com.code.classsystem.shiro.filter;
+package com.code.classsystem.common.shiro.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.code.classsystem.shiro.util.ShiroUtils;
-import com.code.classsystem.shiro.util.TokenUtil;
+import com.code.classsystem.common.shiro.util.ShiroUtils;
+import com.code.classsystem.common.shiro.util.TokenUtil;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.util.ResponseResultUtil;

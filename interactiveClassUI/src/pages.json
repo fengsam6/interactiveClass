@@ -82,7 +82,8 @@
       "van-divider": "/wxcomponents/vant/divider/index",
       "van-image": "/wxcomponents/vant/image/index",
       "van-radio": "/wxcomponents/vant/radio/index",
-      "van-radio-group": "/wxcomponents/vant/radio-group/index"
+      "van-radio-group": "/wxcomponents/vant/radio-group/index",
+      "van-uploader": "/wxcomponents/vant/uploader/index"
     }
   },
   "tabBar": {

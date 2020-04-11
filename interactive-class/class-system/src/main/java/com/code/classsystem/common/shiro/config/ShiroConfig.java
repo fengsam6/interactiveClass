@@ -1,9 +1,9 @@
-package com.code.classsystem.shiro.config;
+package com.code.classsystem.common.shiro.config;
 
 
-import com.code.classsystem.shiro.SessionManager.MySessionManager;
-import com.code.classsystem.shiro.filter.LoginFilter;
-import com.code.classsystem.shiro.realm.UserRealm;
+import com.code.classsystem.common.shiro.SessionManager.MySessionManager;
+import com.code.classsystem.common.shiro.filter.LoginFilter;
+import com.code.classsystem.common.shiro.realm.UserRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;

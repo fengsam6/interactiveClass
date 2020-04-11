@@ -1,9 +1,9 @@
-package com.code.classsystem.controller.FileRequest;
+package com.code.classsystem.common.FileRequest.controller;
 
-import com.code.classsystem.config.FileRequestConfig;
+import com.code.classsystem.common.FileRequest.config.FileRequestConfig;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
-import com.code.core.util.FileUtils;
+import com.code.classsystem.common.FileRequest.util.FileUtils;
 import com.code.core.util.ResponseResultUtil;
 import com.code.core.util.StringUtils;
 import io.swagger.annotations.Api;
@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 @RestController
 @RequestMapping("/file")
@@ -63,7 +61,7 @@ public class FileRequestController {
         String fileName = FileUtils.getFileName(filePath);
         //获取浏览器名（IE/Chome/firefox）
         String userAgent = request.getHeader("User-Agent");
-        fileName = getFileDownName(fileName, userAgent);
+        fileName = FileUtils.getFileDownName(fileName, userAgent);
 
         response.setContentType("application/force-download");
         response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
@@ -72,20 +70,5 @@ public class FileRequestController {
         OutputStream os = response.getOutputStream();
         FileUtils.fileWrite(fis, os);
     }
-
-    private String getFileDownName(String fileName, String userAgent) throws UnsupportedEncodingException {
-        if (userAgent.contains("firefox")) {
-            // firefox浏览器
-            fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
-        } else if (userAgent.contains("MSIE")) {
-            // IE浏览器
-            fileName = URLEncoder.encode(fileName, "UTF-8");
-        } else if (userAgent.contains("CHROME")) {
-            // 谷歌
-            fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
-        }
-        return fileName;
-    }
-
 
 }

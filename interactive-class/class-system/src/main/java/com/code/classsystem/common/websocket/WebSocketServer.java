@@ -1,4 +1,4 @@
-package com.code.classsystem.websocket;
+package com.code.classsystem.common.websocket;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
