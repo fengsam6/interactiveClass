@@ -23,23 +23,14 @@
                 </van-col>
             </van-row>
         </view>
-        <view>
-            <van-uploader :file-list="fileList" accept="image" @after-read="afterRead"/>
-            <van-uploader @after-read="afterRead" :file-list="fileList" accept="all">
-                <van-button icon="photo" type="primary">上传文件</van-button>
-            </van-uploader>
 
-        </view>
-        <view>
-            <button @click="uploadFile2">微信上传文件</button>
-        </view>
         <view class="me_main">
             <van-cell-group>
-                <van-cell title="我的课件库" is-link/>
-                <van-cell title="我的试卷库" is-link/>
-                <van-cell title="签到" is-link/>
-                <van-cell title="帮助" is-link/>
-                <van-cell title="退出" is-link @click="doLogout"/>
+                <van-cell title="我的课件库" is-link size="large"/>
+                <van-cell title="我的试卷库" is-link size="large"/>
+                <van-cell title="签到" is-link size="large"/>
+                <van-cell title="帮助" is-link size="large"/>
+                <van-cell title="退出" is-link size="large" @click="doLogout"/>
             </van-cell-group>
         </view>
 
@@ -49,7 +40,7 @@
 <script>
     import {getUserInfo, logout, saveUserInfoStore, getStoreUserInfo} from "@/api/user"
     import {clearStorageSync} from '@/utils/storage'
-    import {uploadUrl} from '@/utils/fileUpload'
+    import {uploadUrl,chooseAndUploadImage} from '@/utils/fileUpload'
 
     export default {
         data() {
@@ -94,55 +85,11 @@
                 });
             },
             changeImg() {
-                uni.uploadFile({
-                    url: uploadUrl, //仅为示例，非真实的接口地址
-                    filePath: "/test",
-                    name: 'file',
-                    formData: {
-                        'user': 'test'
-                    },
-                    success: (uploadFileRes) => {
-                        console.log(uploadFileRes.data);
-                    }
-                });
-            },
-            afterRead(event) {
-                const {file} = event.detail;
-                // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-                wx.uploadFile({
-                    url: uploadUrl, // 仅为示例，非真实的接口地址
-                    filePath: file.path,
-                    name: 'file',
-                    formData: {user: 'test'},
-                    success(res) {
-                        // 上传完成需要更新 fileList
-                        const {fileList = []} = this.data;
-                        console.log(fileList);
-                    }
-                });
-            },
-            uploadFile2() {
-                wx.chooseMessageFile({
-                    count: 10,
-                    type: 'all',
-                    success(res) {
-                        // tempFilePath可以作为img标签的src属性显示图片
-                        const tempFilePaths = res.tempFiles
-                        console.log(tempFilePaths)
-                        uni.uploadFile({
-                            url: uploadUrl, //仅为示例，非真实的接口地址
-                            filePath: tempFilePaths[0].path,
-                            name: 'file',
-                            formData: {
-                                'user': 'test'
-                            },
-                            success: (uploadFileRes) => {
-                                console.log(uploadFileRes.data);
-                            }
-                        });
-                    }
+                chooseAndUploadImage().then(data=>{
+                    console.log(data)
                 })
             }
+
         }
     }
 </script>
@@ -161,6 +108,6 @@
     }
 
     .me_main {
-        margin-top: 25px;
+        margin: 20px 2px 4px 2px;
     }
 </style>

@@ -1,29 +1,30 @@
 <template>
     <view>
-        <van-cell-group class="form">
-            <van-field
-                    :value="formData.userAccount"
-                    placeholder="请输入用户名"
-                    label="用户名"
-                    autosize
-                    @change="onUserAccountChange"
-                    class="form_field"
-            />
+        <van-cell-group>
+            <view class="form">
+                <van-field
+                        :value="formData.userAccount"
+                        placeholder="请输入用户名"
+                        label="用户名"
+                        autosize
+                        @change="onUserAccountChange"
+                        class="form_field"
+                />
 
-            <van-field
-                    :value="formData.password"
-                    placeholder="请输入密码"
-                    password="true"
-                    label="用户密码"
-                    autosize
-                    @change="onPasswordChange"
-                    class="form_field"
-            />
-            <view class="btn_info">
-                <van-button @click="login" type="info" size="small" round>登录</van-button>
-                <van-button type="info" size="small" class="btn_margin" @click="register" round>注册</van-button>
+                <van-field
+                        :value="formData.password"
+                        placeholder="请输入密码"
+                        password="true"
+                        label="用户密码"
+                        autosize
+                        @change="onPasswordChange"
+                        class="form_field"
+                />
+                <view class="btn_info">
+                    <van-button @click="login" type="info" round>登录</van-button>
+                    <van-button type="info" class="btn_margin" @click="register" plain round>注册</van-button>
+                </view>
             </view>
-
         </van-cell-group>
     </view>
 </template>
@@ -84,19 +85,20 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 250px;
+        margin-top: 50px;
     }
 
     .btn_info {
         width: 200px;
-        margin: 0 auto;
+        margin: 5px auto;
     }
 
     .form_field {
-        margin: 5px 0;
+        margin: 5px 3px;
+        padding: 8px 0;
     }
 
     .btn_margin {
-        margin-left: 10px;
+        margin-left: 20px;
     }
 </style>

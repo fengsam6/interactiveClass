@@ -1,34 +1,36 @@
 <template>
     <view>
-        <van-cell-group class="form">
-            <van-field
-                    :value="formData.account"
-                    placeholder="请输入用户名"
-                    label="用户名"
-                    class="form_field"
-                    @change="onUserAccountChange"
-            />
-            <van-field
-                    :value="formData.password"
-                    placeholder="请输入密码"
-                    password="true"
-                    label="用户密码"
-                    class="form_field"
-                    @change="onPasswordChange"
-            />
-            <van-radio-group :value="formData.role" @change="onRoleChange">
-                <van-row>
-                    <van-col span="8" offset="4">
-                        <van-radio name="1" value="1">学生</van-radio>
-                    </van-col>
-                    <van-col span="10" offset="4">
-                        <van-radio name="2" value="2">老师</van-radio>
-                    </van-col>
-                </van-row>
-            </van-radio-group>
-            <view class="btn_info">
-                <van-button type="info" size="small" @click="register">注册</van-button>
-                <van-button @click="login" type="info" class="btn_margin" size="small">登录</van-button>
+        <van-cell-group>
+            <view class="form">
+                <van-field
+                        :value="formData.account"
+                        placeholder="请输入用户名"
+                        label="用户名"
+                        class="form_field"
+                        @change="onUserAccountChange"
+                />
+                <van-field
+                        :value="formData.password"
+                        placeholder="请输入密码"
+                        password="true"
+                        label="用户密码"
+                        class="form_field"
+                        @change="onPasswordChange"
+                />
+                <van-radio-group :value="formData.role" @change="onRoleChange">
+                    <van-row>
+                        <van-col span="8" offset="4">
+                            <van-radio name="1" value="1">学生</van-radio>
+                        </van-col>
+                        <van-col span="10" offset="4">
+                            <van-radio name="2" value="2">老师</van-radio>
+                        </van-col>
+                    </van-row>
+                </van-radio-group>
+                <view class="btn_info">
+                    <van-button type="info" @click="register" round>注册</van-button>
+                    <van-button @click="login" type="info" class="btn_margin" round plain>登录</van-button>
+                </view>
             </view>
         </van-cell-group>
     </view>
@@ -76,7 +78,7 @@
                 console.log(event.detail);
                 this.formData.password = event.detail
             },
-            onRoleChange(event){
+            onRoleChange(event) {
                 this.formData.role = event.detail
             }
         }
@@ -85,7 +87,7 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 150px;
+        margin-top: 50px;
     }
 
     .btn_info {
@@ -94,10 +96,10 @@
     }
 
     .form_field {
-        margin: 5px 0;
+        margin: 8px 2px;
     }
 
     .btn_margin {
-        margin-left: 10px;
+        margin-left: 20px;
     }
 </style>

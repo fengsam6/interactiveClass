@@ -62,7 +62,7 @@ public class FileRequestController {
         //获取浏览器名（IE/Chome/firefox）
         String userAgent = request.getHeader("User-Agent");
         fileName = FileUtils.getFileDownName(fileName, userAgent);
-
+        response.reset();
         response.setContentType("application/force-download");
         response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
 
