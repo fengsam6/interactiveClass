@@ -34,11 +34,10 @@
                 </view>
 
                 <view class="btn_info">
-                    <van-button type="info" size="small" @click="update">更新</van-button>
-                    <van-button @click="login" type="info" class="btn_margin" size="small">取消</van-button>
+                    <van-button type="info" @click="update" round>更新</van-button>
+                    <van-button @click="reset" type="info" class="btn_margin" plain round>重置</van-button>
                 </view>
             </view>
-
         </van-cell-group>
     </view>
 </template>
@@ -65,8 +64,13 @@
             },
             update() {
                 updateUserInfo(this.formData)
+                this.successAlert("修改用户信息成功")
                 saveUserInfoStore(this.formData)
-                console.log(this.formData)
+
+                setTimeout(() => {
+                    uni.navigateBack({});
+                }, 2000)
+
             },
             onUserAccountChange(event) {
                 // event.detail 为当前输入的值
@@ -80,6 +84,9 @@
             },
             onRoleChange(event) {
                 this.formData.roleId = event.detail
+            },
+            reset() {
+                this.getUserInfo()
             }
         }
     }
@@ -100,7 +107,7 @@
     }
 
     .role {
-        margin: 5px 2px;
+        margin: 5px 4px;
     }
 
     .btn_margin {

@@ -58,7 +58,7 @@
     {
       "path": "pages/user/userInfo/index",
       "style": {
-        "navigationBarTitleText": "用户信息"
+        "navigationBarTitleText": "修改用户信息"
       }
     }
   ],

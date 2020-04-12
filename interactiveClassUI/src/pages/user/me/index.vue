@@ -8,7 +8,8 @@
                             <text class="user-name" v-text="userInfo.name"></text>
                         </view>
                         <view>
-                            <van-button type="default" size="small" @click="editUserInfo">编辑个人资料</van-button>
+                            <van-button type="default" size="small" @click="editUserInfo" class="edit_btn">编辑个人资料
+                            </van-button>
                         </view>
                     </view>
                 </van-col>
@@ -40,12 +41,12 @@
 <script>
     import {getUserInfo, logout, saveUserInfoStore, getStoreUserInfo} from "@/api/user"
     import {clearStorageSync} from '@/utils/storage'
-    import {uploadUrl,chooseAndUploadImage} from '@/utils/fileUpload'
+    import {uploadUrl, chooseAndUploadImage} from '@/utils/fileUpload'
 
     export default {
         data() {
             return {
-                defaultAvatar:'/static/images/user/cat.jpeg',
+                defaultAvatar: '/static/images/user/cat.jpeg',
                 userInfo: {
                     name: 'test',
                     avatar: '/static/images/user/cat.jpeg',
@@ -86,7 +87,7 @@
                 });
             },
             changeImg() {
-                chooseAndUploadImage().then(data=>{
+                chooseAndUploadImage().then(data => {
                     console.log(data)
                 })
             }
@@ -97,6 +98,10 @@
 <style type="text/css" scoped>
     .top_wrap {
         margin-top: 10px;
+    }
+
+    .edit_btn {
+        margin: 8px 1px;
     }
 
     .top_aside {

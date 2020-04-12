@@ -71,19 +71,21 @@
             register() {
                 console.log(this.formData)
                 doRegister(this.formData).then(resp => {
-                    uni.showToast("注册成功")
-                    uni.navigateTo({
-                        url: '/pages/user/login/index'
-                    });
-                })
+                    this.successAlert("注册成功")
+                    setTimeout(() => {
+                        uni.navigateTo({
+                            url: '/pages/user/login/index'
+                        });
+                    }, 2000)
 
+                })
             },
             onUserNameChange(event) {
                 // event.detail 为当前输入的值
                 console.log(event.detail);
                 this.formData.name = event.detail
             },
-            onUserNumChange(event){
+            onUserNumChange(event) {
                 this.formData.userNum = event.detail
             },
             onPasswordChange(event) {
@@ -100,7 +102,7 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 80rpx;
+        margin-top: 40px;
     }
 
     .btn_info {

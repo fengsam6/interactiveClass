@@ -52,16 +52,15 @@
                 doLogin(this.formData).then(resp => {
                     const token = resp
                     if (token != null && token != '') {
-                        uni.showToast("登录成功")
+                        this.successAlert("登录成功")
                         setToken(token)
-
-                        uni.switchTab({
-                            url: '/pages/index/index'
-                        });
+                        setTimeout(() => {
+                            uni.switchTab({
+                                url: '/pages/index/index'
+                            })
+                        }, 1500)
                     }
-
                     console.log(resp)
-
                 })
 
             },
@@ -69,7 +68,6 @@
                 uni.redirectTo({
                     url: '/pages/user/register/index'
                 });
-
             },
             onUserAccountChange(event) {
                 // event.detail 为当前输入的值
@@ -87,20 +85,20 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 50rpx;
+        margin-top: 40px;
     }
 
     .btn_info {
-        width: 400rpx;
-        margin: 5rpx auto;
+        width: 200px;
+        margin: 10px auto;
     }
 
     .form_field {
-        margin: 10rpx 6rpx;
-        padding: 16rpx 0;
+        margin: 4px 3px;
+        padding: 8px 0;
     }
 
     .btn_margin {
-        margin-left: 40rpx;
+        margin-left: 20px;
     }
 </style>
