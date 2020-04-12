@@ -7,6 +7,8 @@ import com.code.classsystem.dao.UserMapper;
 import com.code.classsystem.service.UserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
+import com.code.classsystem.util.IPUtil;
+import com.code.core.util.StringUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -31,8 +33,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 登录成功，将token 存储session中
         Session session = ShiroUtils.getSession();
-//        String loginToken = UUIDUtil.getRandomUUID();
-//        session.setAttribute(loginToken, session.getId());
 
         String loginToken = (String) session.getId();
         return loginToken;
@@ -50,7 +50,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User register(User user) {
+        if(StringUtils.isNull(user.getAccount())){
+            user.setAccount(user.getUserNum());
+        }
+        Integer roleId = user.getRoleId();
+        if(roleId==null || roleId==0){
+            roleId = 1;
+            user.setRoleId(roleId);
+        }
+        String ip = IPUtil.getIp();
+        user.setLoginIp(ip);
         this.insert(user);
         return user;
+    }
+
+    @Override
+    public User update(User user) {
+        String ip = IPUtil.getIp();
+        user.setLoginIp(ip);
+        this.updateById(user);
+         return user;
+    }
+
+    @Override
+    public User updateUserAvatar(String userId,String avatarPath) {
+        User user = this.selectById(userId);
+        user.setUserAvatar(avatarPath);
+        return update(user);
     }
 }

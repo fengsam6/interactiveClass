@@ -1,35 +1,50 @@
 <template>
     <view>
-        <van-cell-group class="form">
-            <van-field
-                    :value="formData.account"
-                    placeholder="用户名"
-                    label="用户名"
-                    class="form_field"
-                    @change="onUserAccountChange"
-            />
-            <van-field
-                    :value="formData.password"
-                    placeholder="请输入密码"
-                    password="true"
-                    label="用户密码"
-                    class="form_field"
-                    @change="onUserAccountChange"
-            />
-            <van-radio-group :value="formData.role">
-                <van-radio name="1" value="1">学生</van-radio>
-                <van-radio name="2" value="2">老师</van-radio>
-            </van-radio-group>
-            <view class="btn_info">
-                <van-button type="info" size="small" @click="update">更新</van-button>
-                <van-button @click="login" type="info" class="btn_margin" size="small">取消</van-button>
+        <van-cell-group>
+            <view class="form">
+                <van-field
+                        :value="formData.name"
+                        placeholder="用户名"
+                        label="用户名"
+                        class="form_field"
+                        required
+                        @change="onUserAccountChange"
+                />
+                <van-field
+                        :value="formData.userNum"
+                        placeholder="学号"
+                        label="学号"
+                        disabled
+                        class="form_field"
+                />
+                <van-field
+                        :value="formData.password"
+                        placeholder="请输入密码"
+                        password="true"
+                        label="用户密码"
+                        class="form_field"
+                        required
+                        @change="onUserAccountChange"
+                />
+                <view class="role">
+                    <van-radio-group :value="formData.roleId" @change="onRoleChange">
+                        <van-radio name="1" value="1">学生</van-radio>
+                        <van-radio name="2" value="2">老师</van-radio>
+                    </van-radio-group>
+                </view>
+
+                <view class="btn_info">
+                    <van-button type="info" size="small" @click="update">更新</van-button>
+                    <van-button @click="login" type="info" class="btn_margin" size="small">取消</van-button>
+                </view>
             </view>
+
         </van-cell-group>
     </view>
 </template>
 
 <script>
-    import {saveUserInfoStore, getStoreUserInfo} from "@/api/user"
+    import {updateUserInfo, getStoreUserInfo, saveUserInfoStore} from "@/api/user"
 
     export default {
         data() {
@@ -37,7 +52,7 @@
                 formData: {
                     account: "",
                     password: "",
-                    role: 1
+                    roleId: "1"
                 }
             }
         },
@@ -46,28 +61,33 @@
         },
         methods: {
             async getUserInfo() {
-                this.userInfo = await getStoreUserInfo()
+                this.formData = await getStoreUserInfo()
             },
             update() {
+                updateUserInfo(this.formData)
+                saveUserInfoStore(this.formData)
                 console.log(this.formData)
             },
             onUserAccountChange(event) {
                 // event.detail 为当前输入的值
                 console.log(event.detail);
-                this.formData.account = event.detail
+                this.formData.name = event.detail
             },
             onPasswordChange(event) {
                 // event.detail 为当前输入的值
                 console.log(event.detail);
                 this.formData.password = event.detail
             },
+            onRoleChange(event) {
+                this.formData.roleId = event.detail
+            }
         }
     }
 </script>
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 150px;
+        margin-top: 50px;
     }
 
     .btn_info {
@@ -77,6 +97,10 @@
 
     .form_field {
         margin: 5px 0;
+    }
+
+    .role {
+        margin: 5px 2px;
     }
 
     .btn_margin {

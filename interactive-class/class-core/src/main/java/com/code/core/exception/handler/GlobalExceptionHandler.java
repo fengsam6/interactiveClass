@@ -25,10 +25,10 @@ public class GlobalExceptionHandler {
         // ex.getFieldError():随机返回一个对象属性的异常信息。如果要一次性返回所有对象属性异常信息，则调用ex.getAllErrors()
         FieldError fieldError = e.getFieldError();
         String msg = fieldError.getDefaultMessage();
-        log.error("--------错误提示{}:{}---- ----", e.getClass().getName(), e.getMessage());
+        log.error("--------错误提示{}:{}---- ----", e.getClass().getName(), msg);
         e.printStackTrace();
         // 生成返回结果
-        return ResponseResultUtil.renderError(ErrorEnum.INVALIDATE_PARAM_EXCEPTION.setMsg(e.getMessage()));
+        return ResponseResultUtil.renderError(ErrorEnum.INVALIDATE_PARAM_EXCEPTION.setMsg(msg));
     }
 
     @ExceptionHandler(AuthenticationFailException.class)

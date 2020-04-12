@@ -17,7 +17,7 @@
                             round
                             width="5rem"
                             height="5rem"
-                            :src="userInfo.avatar"
+                            :src="userInfo.avatar || defaultAvatar"
                             @click="changeImg"
                     />
                 </van-col>
@@ -45,6 +45,7 @@
     export default {
         data() {
             return {
+                defaultAvatar:'/static/images/user/cat.jpeg',
                 userInfo: {
                     name: 'test',
                     avatar: '/static/images/user/cat.jpeg',
@@ -89,7 +90,6 @@
                     console.log(data)
                 })
             }
-
         }
     }
 </script>

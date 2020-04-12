@@ -4,11 +4,12 @@
             <view class="form">
                 <van-field
                         :value="formData.userAccount"
-                        placeholder="请输入用户名"
-                        label="用户名"
+                        placeholder="请输入学号"
+                        label="学号"
                         autosize
                         @change="onUserAccountChange"
                         class="form_field"
+                        required
                 />
 
                 <van-field
@@ -19,6 +20,7 @@
                         autosize
                         @change="onPasswordChange"
                         class="form_field"
+                        required
                 />
                 <view class="btn_info">
                     <van-button @click="login" type="info" round>登录</van-button>
@@ -37,8 +39,8 @@
         data() {
             return {
                 formData: {
-                    userAccount: "test",
-                    password: 'test'
+                    userAccount: "222",
+                    password: '222'
                 }
             }
         },
@@ -85,20 +87,20 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 50px;
+        margin-top: 50rpx;
     }
 
     .btn_info {
-        width: 200px;
-        margin: 5px auto;
+        width: 400rpx;
+        margin: 5rpx auto;
     }
 
     .form_field {
-        margin: 5px 3px;
-        padding: 8px 0;
+        margin: 10rpx 6rpx;
+        padding: 16rpx 0;
     }
 
     .btn_margin {
-        margin-left: 20px;
+        margin-left: 40rpx;
     }
 </style>

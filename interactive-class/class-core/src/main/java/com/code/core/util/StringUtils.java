@@ -15,4 +15,13 @@ public class StringUtils {
         String timeStr = DateUtils.getFileSaveDirPathStr();
         return timeStr;
     }
+
+    public static boolean isNull(String str){
+        return str==null || str.trim().equals("");
+    }
+
+    public static boolean isNotNull(String str){
+        return !isNull(str);
+    }
+
 }

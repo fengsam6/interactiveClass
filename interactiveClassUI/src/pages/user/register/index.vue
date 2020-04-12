@@ -3,11 +3,20 @@
         <van-cell-group>
             <view class="form">
                 <van-field
-                        :value="formData.account"
+                        :value="formData.name"
                         placeholder="请输入用户名"
                         label="用户名"
                         class="form_field"
-                        @change="onUserAccountChange"
+                        required
+                        @change="onUserNameChange"
+                />
+                <van-field
+                        :value="formData.userNum"
+                        placeholder="请输入学号"
+                        label="学号"
+                        class="form_field"
+                        required
+                        @change="onUserNumChange"
                 />
                 <van-field
                         :value="formData.password"
@@ -15,9 +24,10 @@
                         password="true"
                         label="用户密码"
                         class="form_field"
+                        required
                         @change="onPasswordChange"
                 />
-                <van-radio-group :value="formData.role" @change="onRoleChange">
+                <van-radio-group :value="formData.roleId" @change="onRoleChange">
                     <van-row>
                         <van-col span="8" offset="4">
                             <van-radio name="1" value="1">学生</van-radio>
@@ -68,10 +78,13 @@
                 })
 
             },
-            onUserAccountChange(event) {
+            onUserNameChange(event) {
                 // event.detail 为当前输入的值
                 console.log(event.detail);
-                this.formData.account = event.detail
+                this.formData.name = event.detail
+            },
+            onUserNumChange(event){
+                this.formData.userNum = event.detail
             },
             onPasswordChange(event) {
                 // event.detail 为当前输入的值
@@ -79,7 +92,7 @@
                 this.formData.password = event.detail
             },
             onRoleChange(event) {
-                this.formData.role = event.detail
+                this.formData.roleId = event.detail
             }
         }
     }
@@ -87,7 +100,7 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 50px;
+        margin-top: 80rpx;
     }
 
     .btn_info {

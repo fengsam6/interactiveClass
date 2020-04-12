@@ -24,4 +24,8 @@ public interface UserService extends IService<User> {
     User getByUserAccount(String userName);
 
     User register(User user);
+
+    User update(User user);
+
+    public User updateUserAvatar(String userId,String avatarPath);
 }
