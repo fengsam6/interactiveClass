@@ -31,7 +31,7 @@ service.interceptors.request.use(
 )
 
 // response interceptor
-const OK =200
+const OK = 200
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
