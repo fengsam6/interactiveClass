@@ -18,6 +18,11 @@ public class ResponseResult {
         this.message = message;
     }
 
+    public ResponseResult(String message, Object data) {
+        this.message = message;
+        this.data = data;
+    }
+
     public ResponseResult(int code, Object data) {
         this.code = code;
         this.data = data;

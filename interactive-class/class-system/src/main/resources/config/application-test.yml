@@ -91,6 +91,9 @@ logging:
 #  openTestEnv 为false，关闭开发环境，token有效性及用户权限
 system:
   openTestEnv: false
+    #  文件下载位置
+  fileUpload:
+      url: ./upload
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

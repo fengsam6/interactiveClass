@@ -14,8 +14,7 @@ public class ValidationUtils {
     /**
      * 使用hibernate的注解来进行验证
      */
-    private static Validator validator = Validation
-            .byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory().getValidator();
+    private static Validator validator = SpringUtil.getBean("validator",Validator.class);
 
     /**
      * 功能描述: <br>

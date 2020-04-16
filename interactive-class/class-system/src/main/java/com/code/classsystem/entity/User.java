@@ -20,6 +20,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId(value = "id", type = IdType.UUID)
     private String id;
+    @NotNull(message = "姓名不能为空")
     private String name;
     /**
      * 性别，0：未知；1：男性；2：女性。
@@ -28,13 +29,14 @@ public class User implements Serializable {
     /**
      * 登录账号
      */
-    @NotNull(message = "账号不能为空")
+
     private String account;
     @NotNull(message = "密码不能为空")
     private String password;
     /**
      * 学号
      */
+    @NotNull(message = "学号不能为空")
     private String userNum;
     /**
      * 用户图像路径
@@ -55,11 +57,11 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    private Date createDate;
+    private String createDate;
     /**
      * 更新时间
      */
-    private Date updateDate;
+    private String updateDate;
     /**
      * 逻辑删除。1被删除
      */
@@ -150,19 +152,20 @@ public class User implements Serializable {
         this.loginTime = loginTime;
     }
 
-    public Date getCreateDate() {
+
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

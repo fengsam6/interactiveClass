@@ -17,6 +17,10 @@ public class ResponseResultUtil {
     public static ResponseResult renderSuccess(int code,Object data) {
         return new ResponseResult(code,data);
     }
+
+    public static ResponseResult renderSuccess(String msg,Object data) {
+        return new ResponseResult(msg,data);
+    }
     public static ResponseResult renderError(int code,String msg) {
         return new ResponseResult(code,msg);
     }

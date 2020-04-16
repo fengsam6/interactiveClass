@@ -5,7 +5,7 @@ import com.code.classsystem.dao.ClassMapper;
 import com.code.classsystem.service.ClassService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.service.ClassUserService;
-import com.code.classsystem.shiro.util.ShiroUtils;
+import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.core.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

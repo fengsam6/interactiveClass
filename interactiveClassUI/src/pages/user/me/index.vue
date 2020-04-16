@@ -8,7 +8,8 @@
                             <text class="user-name" v-text="userInfo.name"></text>
                         </view>
                         <view>
-                            <van-button type="default" size="small">编辑个人资料</van-button>
+                            <van-button type="default" size="small" @click="editUserInfo" class="edit_btn">编辑个人资料
+                            </van-button>
                         </view>
                     </view>
                 </van-col>
@@ -17,18 +18,20 @@
                             round
                             width="5rem"
                             height="5rem"
-                            :src="userInfo.avatar"
+                            :src="userInfo.avatar || defaultAvatar"
+                            @click="changeImg"
                     />
                 </van-col>
             </van-row>
         </view>
+
         <view class="me_main">
             <van-cell-group>
-                <van-cell title="我的课件库" is-link value=">"/>
-                <van-cell title="我的试卷库" is-link value=">"/>
-                <van-cell title="签到" is-link value=">"/>
-                <van-cell title="帮助" is-link value=">"/>
-                <van-cell title="退出" is-link @click="doLogout"/>
+                <van-cell title="我的课件库" is-link size="large"/>
+                <van-cell title="我的试卷库" is-link size="large"/>
+                <van-cell title="签到" is-link size="large"/>
+                <van-cell title="帮助" is-link size="large"/>
+                <van-cell title="退出" is-link size="large" @click="doLogout"/>
             </van-cell-group>
         </view>
 
@@ -38,14 +41,19 @@
 <script>
     import {getUserInfo, logout, saveUserInfoStore, getStoreUserInfo} from "@/api/user"
     import {clearStorageSync} from '@/utils/storage'
+    import {uploadUrl, chooseAndUploadImage} from '@/utils/fileUpload'
 
     export default {
         data() {
             return {
+                defaultAvatar: '/static/images/user/cat.jpeg',
                 userInfo: {
                     name: 'test',
-                    avatar: '/static/images/user/cat.jpeg'
-                }
+                    avatar: '/static/images/user/cat.jpeg',
+                    role: "1"
+                },
+                uploadUrl: uploadUrl,
+                fileList: []
             }
         },
         // 页面展示时候显示
@@ -64,6 +72,7 @@
             },
             async doGetStoreUserInfo() {
                 this.userInfo = await getStoreUserInfo()
+                console.log(this.userInfo)
             },
             doLogout() {
                 logout()
@@ -71,6 +80,16 @@
                 uni.navigateTo({
                     url: '/pages/user/login/index'
                 });
+            },
+            editUserInfo() {
+                uni.navigateTo({
+                    url: '/pages/user/userInfo/index'
+                });
+            },
+            changeImg() {
+                chooseAndUploadImage().then(data => {
+                    console.log(data)
+                })
             }
         }
     }
@@ -79,6 +98,10 @@
 <style type="text/css" scoped>
     .top_wrap {
         margin-top: 10px;
+    }
+
+    .edit_btn {
+        margin: 8px 1px;
     }
 
     .top_aside {
@@ -90,6 +113,6 @@
     }
 
     .me_main {
-        margin-top: 25px;
+        margin: 20px 2px 4px 2px;
     }
 </style>

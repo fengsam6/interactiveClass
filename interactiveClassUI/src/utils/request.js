@@ -1,7 +1,8 @@
 //es6
 import {getToken} from '@/utils/tokenUtil'
-
-const url_base = "http://localhost:8080/"
+import config from "./config";
+import {errorAlert} from './alert'
+const url_base = config.url_base
 const OK = 200
 export default function request(params) {
     let url = params.url
@@ -39,15 +40,13 @@ export default function request(params) {
                 } else {
                     //code!=200 提示错误信息
                     const msg = data.message
-                    uni.showToast({
-                        title: msg,
-                        image: '/static/icon/error.png',
-                        duration: 4000
-                    });
+                    errorAlert(msg)
                     reject(data);
                 }
             },
             fail(err) {
+                const msg =err || "服务器繁忙，请稍后访问"
+                errorAlert(msg)
                 reject(err);
             },
             complete() {

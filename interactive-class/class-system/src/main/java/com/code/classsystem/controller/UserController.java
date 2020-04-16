@@ -3,7 +3,7 @@ package com.code.classsystem.controller;
 
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.UserService;
-import com.code.classsystem.shiro.util.ShiroUtils;
+import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.util.ResponseResultUtil;
@@ -46,7 +46,24 @@ public class UserController {
     public ResponseResult register(@Valid User user) {
         ValidationUtils.validate(user);
         userService.register(user);
-        return ResponseResultUtil.renderSuccessMsg("用户注册成功");
+        return ResponseResultUtil.renderSuccess("用户注册成功");
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "更新用户信息接口", notes = "更新用户信息接口")
+    public ResponseResult update(@Valid User user) {
+        ValidationUtils.validate(user);
+        userService.update(user);
+        return ResponseResultUtil.renderSuccess("更新用户信息成功");
+    }
+
+    @PostMapping("/updateUserAvatar")
+    @ApiOperation(value = "更新用户信息接口", notes = "更新用户信息接口")
+    public ResponseResult updateUserAvatar(String userId,String avatarPath) {
+        Assert.hasLength(userId,"userId不能为空");
+        Assert.hasLength(avatarPath,"avatarPath不能为空");
+        userService.updateUserAvatar(userId,avatarPath);
+        return ResponseResultUtil.renderSuccess("更新用户信息成功");
     }
 
 
@@ -60,7 +77,7 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "用户登录接口", notes = "用户登录接口")
     public ResponseResult login(String userAccount, String password) {
-        Assert.hasLength(userAccount,"用户账号不能为空！");
+        Assert.hasLength(userAccount,"用户学号不能为空！");
         Assert.hasLength(userAccount,"账号密码不能为空！");
         String token;
         try {
@@ -85,7 +102,7 @@ public class UserController {
     @ApiOperation(value = "退出登录", notes = "退出登录")
     public ResponseResult logout() {
         ShiroUtils.logout();
-        return ResponseResultUtil.renderSuccessMsg("退出登录成功");
+        return ResponseResultUtil.renderSuccess("退出登录成功");
     }
 }
 

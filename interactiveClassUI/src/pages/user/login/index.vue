@@ -1,29 +1,32 @@
 <template>
     <view>
-        <van-cell-group class="form">
-            <van-field
-                    :value="formData.userAccount"
-                    placeholder="请输入用户名"
-                    label="用户名"
-                    autosize
-                    @change="onUserAccountChange"
-                    class="form_field"
-            />
+        <van-cell-group>
+            <view class="form">
+                <van-field
+                        :value="formData.userAccount"
+                        placeholder="请输入学号"
+                        label="学号"
+                        autosize
+                        @change="onUserAccountChange"
+                        class="form_field"
+                        required
+                />
 
-            <van-field
-                    :value="formData.password"
-                    placeholder="请输入密码"
-                    password="true"
-                    label="用户密码"
-                    autosize
-                    @change="onPasswordChange"
-                    class="form_field"
-            />
-            <view class="btn_info">
-                <van-button @click="login" type="info" size="small" round>登录</van-button>
-                <van-button type="info" size="small" class="btn_margin" @click="register" round>注册</van-button>
+                <van-field
+                        :value="formData.password"
+                        placeholder="请输入密码"
+                        password="true"
+                        label="用户密码"
+                        autosize
+                        @change="onPasswordChange"
+                        class="form_field"
+                        required
+                />
+                <view class="btn_info">
+                    <van-button @click="login" type="info" round>登录</van-button>
+                    <van-button type="info" class="btn_margin" @click="register" plain round>注册</van-button>
+                </view>
             </view>
-
         </van-cell-group>
     </view>
 </template>
@@ -36,8 +39,8 @@
         data() {
             return {
                 formData: {
-                    userAccount: "test",
-                    password: 'test'
+                    userAccount: "222",
+                    password: '222'
                 }
             }
         },
@@ -49,16 +52,15 @@
                 doLogin(this.formData).then(resp => {
                     const token = resp
                     if (token != null && token != '') {
-                        uni.showToast("登录成功")
+                        this.successAlert("登录成功")
                         setToken(token)
-
-                        uni.switchTab({
-                            url: '/pages/index/index'
-                        });
+                        setTimeout(() => {
+                            uni.switchTab({
+                                url: '/pages/index/index'
+                            })
+                        }, 1500)
                     }
-
                     console.log(resp)
-
                 })
 
             },
@@ -66,7 +68,6 @@
                 uni.redirectTo({
                     url: '/pages/user/register/index'
                 });
-
             },
             onUserAccountChange(event) {
                 // event.detail 为当前输入的值
@@ -84,19 +85,20 @@
 
 <style type="text/css" scoped>
     .form {
-        margin-top: 250px;
+        margin-top: 40px;
     }
 
     .btn_info {
         width: 200px;
-        margin: 0 auto;
+        margin: 10px auto;
     }
 
     .form_field {
-        margin: 5px 0;
+        margin: 4px 3px;
+        padding: 8px 0;
     }
 
     .btn_margin {
-        margin-left: 10px;
+        margin-left: 20px;
     }
 </style>
