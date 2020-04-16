@@ -66,9 +66,42 @@
                         </view>
                     </van-tab>
                     <van-tab title="课件">
-                        <van-button type="primary" @click="preview">预览</van-button>
+                        <view v-for="(item,i) in [1,2,3,4,5,6,7,8]" :key="i" class="kj_zlist">
+                            <view class="kj_list">
+                                <view class="kj_title">JAVA课程PPT</view>
+                                <view class="kj_yl">
+                                    <van-button type="primary" size="small" @click="preview">预览</van-button>
+                                </view>
+                                <view class="kj_download" style="margin-right: 24px;">
+                                    <van-button color="#1E9FFF"  size="small">下载</van-button>
+                                </view>
+                            </view>
+                            <view class="line"></view>
+                        </view>
                     </van-tab>
-                    <van-tab title="试卷">内容 3</van-tab>
+                    <van-tab title="试卷">
+                        <view v-for="(item,i) in [1,2,3,4,5]" :key="i">
+                            <view class="sj_st">{{i+1}}、在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是（ ）</view>
+                            <view class="sj_xx">
+                                <view>
+                                    <text>A、</text>
+                                    <text>java Test . class</text>
+                                </view>
+                                <view>
+                                    <text>B、</text>
+                                    <text>javac Test . class</text>
+                                </view>
+                                <view>
+                                    <text>C、</text>
+                                    <text>java Test</text>
+                                </view>
+                                <view>
+                                    <text>D、</text>
+                                    <text>javac Test</text>
+                                </view>
+                            </view>
+                        </view>
+                    </van-tab>
                     <van-tab title="签到">
                         <van-row>
                             <view>
@@ -250,4 +283,43 @@
     font-size: 12px;
     color: #b3b3b3;
 }
+.kj_zlist{
+    box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
+    margin: 10px auto;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
+}
+.kj_list{
+    display: flex;
+    margin-bottom: 2px;
+}
+.kj_title{
+    flex: 1;
+    height: 50px;
+    line-height: 50px;
+    color:black;
+    margin-left: 10px;
+
+}
+.kj_yl,.kj_download{
+    width: 40px;
+    margin: auto 10px;
+}
+    .sj_xx view{
+        min-height: 46px;
+        background: #fff;
+        box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 20px 12px;
+        box-sizing: border-box;
+    }
+    .sj_xx text,.sj_st{
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #1c1f21;
+        letter-spacing: 0;
+        line-height: 22px;
+        word-break: break-word;
+    }
 </style>

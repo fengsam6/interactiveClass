@@ -39,8 +39,10 @@
 		<view class="line"></view>
 		<van-row>
 				<van-col span="10" offset="4">
-					<text v-if="IsTeacher" class="m_label">我教的课</text>
-					<text v-else class="m_label">我听的课</text>
+					<view style="line-height: 46px;height: 46px">
+						<text v-if="IsTeacher" class="m_label">我教的课</text>
+						<text v-else class="m_label">我听的课</text>
+					</view>
 				</van-col>
 				<van-col span="6" offset="4">
 					<view class="m_contant2_l">
@@ -88,33 +90,33 @@
 				<view>
 					<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 								 @scroll="scroll">
-						<view v-for="(item,i) in [1,2,3,4,5,6]" class="scroll-view-item uni-bg-red">
-							<van-row>
+						<view v-for="(item,i) in [1,2,3,4,5,6]" class="scroll-view-item">
 								<view class="cls_list">
 									<view class="cls_list_1">
 										<view class="cls_list_title cls_fontSize">
 											JAVA第一期
 										</view>
-										<view class="cls_list_icon cls_fontSize" @click="clsIsShow=true">
+										<view class="cls_list_icon cls_fontSize" @click="clsIsShow=true" style="font-size:20px;">
 											<van-icon name="bars" />
 										</view>
 									</view>
 									<view v-for="(item2,i1) in [1,2,3,4,5,6]" @click="managerCls">
 										<view class="cls_list_2">
-											<view class="cls_list2_left">
-												1501班
+											<view>
+												<view style="height: 50%;line-height: 30px;">
+													1501班
+												</view>
+												<view style="color: #FF5722;height: 50%;line-height: 30px;">
+													32人
+												</view>
 											</view>
-											<view class="cls_list2_icon">
+											<view class="cls_list2_icon" style="margin: auto 4px;font-size:20px;">
 												<van-icon name="arrow" />
 											</view>
-										</view>
-										<view>
-											32人
 										</view>
 										<view class="line"></view>
 									</view>
 								</view>
-							</van-row>
 						</view>
 					</scroll-view>
 				</view>
@@ -206,7 +208,7 @@
 	.m_add{
 		width: 60rpx;
 		height: 60rpx;
-		margin: 5px 10px;
+		margin-top: 10px;
 	}
 	.line{
 		width: 100%;
@@ -215,19 +217,34 @@
 		background-color: #D8D8D8;
 	}
 	.m_label{
-		font-size: 20px;
+		font-family:"微软雅黑","黑体","宋体";
+		font-size: 18px;
+		font-weight: 500;
+	}
+	.cls_list{
+		margin-left: 20px;
+		margin-right: 20px;
+		border: 1px solid #F0F0F0;
+		box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
+		margin-top: 2px;
+		margin-bottom: 6px;
 	}
 	.cls_list_1{
 		display: flex;
-		height: 60px;
+		height: 50px;
 		justify-content:space-between;
+		background-color: #009688;
 	}
 	.cls_list_2{
 		display: flex;
-		height: 20px;
+		height: 60px;
+		margin: auto 4px;
 		justify-content:space-between;
 	}
 	.cls_fontSize{
-		font-size: 26px;
+		font-size: 14px;
+		font-weight: bold;
+		color: white;
+		margin: auto 4px;
 	}
 </style>

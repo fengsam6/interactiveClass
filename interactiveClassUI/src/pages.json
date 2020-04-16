@@ -2,15 +2,15 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/user/login/index",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
-    },
-    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "主页"
+      }
+    },
+    {
+      "path": "pages/user/login/index",
+      "style": {
+        "navigationBarTitleText": "登录"
       }
     },
     {
@@ -88,6 +88,7 @@
       "van-grid-item": "/wxcomponents/vant/grid-item/index",
       "van-tab": "/wxcomponents/vant/tab/index",
       "van-tabs": "/wxcomponents/vant/tabs/index",
+      "van-overlay": "/wxcomponents/vant/overlay/index",
       "van-uploader": "/wxcomponents/vant/uploader/index"
     }
   },
