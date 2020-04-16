@@ -2,6 +2,12 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
+      "path": "pages/class/index",
+      "style": {
+        "navigationBarTitleText": "班级管理"
+      }
+    },
+    {
       "path": "pages/user/login/index",
       "style": {
         "navigationBarTitleText": "登录"
@@ -45,12 +51,6 @@
       }
     },
     {
-      "path": "pages/class/index",
-      "style": {
-        "navigationBarTitleText": "班级管理"
-      }
-    },
-    {
       "path": "pages/user/me/index",
       "style": {
         "navigationBarTitleText": "我的"
@@ -75,7 +75,13 @@
       "van-action-sheet": "/wxcomponents/vant/action-sheet/index",
       "van-dialog": "/wxcomponents/vant/dialog/index",
       "van-divider": "/wxcomponents/vant/divider/index",
-      "van-image": "/wxcomponents/vant/image/index"
+      "van-image": "/wxcomponents/vant/image/index",
+      "van-grid": "/wxcomponents/vant/grid/index",
+      "van-grid-item": "/wxcomponents/vant/grid-item/index",
+      "van-tab": "/wxcomponents/vant/tab/index",
+      "van-tabs": "/wxcomponents/vant/tabs/index",
+      "van-steps": "/wxcomponents/vant/steps/index",
+      "van-overlay": "/wxcomponents/vant/overlay/index"
     }
   },
   "tabBar": {

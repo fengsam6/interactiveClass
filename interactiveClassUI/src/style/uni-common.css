@@ -1446,3 +1446,9 @@ radio-group label, checkbox-group label{
     left: 0;
     transform: translateY(50%);
 }
+.line{
+    width: 100%;
+    margin: 0 auto;
+    height: 1px;
+    background-color: #D8D8D8;
+}

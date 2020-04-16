@@ -18,9 +18,10 @@
                         <view class="course_title">班级</view>
                         <view style="margin-top:4px;margin-right: 15px;"><van-button type="primary" size="small" @click="addClass">添加班级</van-button></view>
                     </view>
-                        <van-field v-for="(item,i) in classNum "
+                        <van-field v-for="(item,i) in classNum"
                                 :value="item.value"
                                 :name="item.name"
+                                :key="i"
                                  @change="getClassName($event,item.name)"
                                 placeholder="请输入班级名称"
                                 input-align="left"
@@ -48,7 +49,7 @@
         data() {
             return {
                 courseName: '',
-                classNum:[]
+                classNum:[1]
             }
         },
         methods:{
