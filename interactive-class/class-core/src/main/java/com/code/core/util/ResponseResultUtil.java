@@ -18,7 +18,7 @@ public class ResponseResultUtil {
         return new ResponseResult(code,data);
     }
 
-    public static ResponseResult renderSuccess(String msg,Object data) {
+    public static ResponseResult renderSuccess(Object data,String msg) {
         return new ResponseResult(msg,data);
     }
     public static ResponseResult renderError(int code,String msg) {

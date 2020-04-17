@@ -2,6 +2,9 @@ package com.code.classsystem.dao;
 
 import com.code.classsystem.entity.User;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.code.classsystem.vo.UserInfoVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    List<UserInfoVo> listPage(User user);
 }

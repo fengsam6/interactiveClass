@@ -2,6 +2,9 @@ package com.code.classsystem.service;
 
 import com.code.classsystem.entity.User;
 import com.baomidou.mybatisplus.service.IService;
+import com.code.classsystem.vo.UserInfoVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * <p>
@@ -28,4 +31,6 @@ public interface UserService extends IService<User> {
     User update(User user);
 
     public User updateUserAvatar(String userId,String avatarPath);
+
+    PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize);
 }

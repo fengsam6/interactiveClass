@@ -4,20 +4,18 @@ package com.code.classsystem.controller;
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.UserService;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
+import com.code.classsystem.vo.UserInfoVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.util.ResponseResultUtil;
 import com.code.core.util.ValidationUtils;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -103,6 +101,13 @@ public class UserController {
     public ResponseResult logout() {
         ShiroUtils.logout();
         return ResponseResultUtil.renderSuccess("退出登录成功");
+    }
+
+    @GetMapping("/listPage")
+    @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
+    public ResponseResult listPage(User user, @RequestParam(defaultValue = "1") int pageNum,@RequestParam(defaultValue = "20") int pageSize) {
+        PageInfo<UserInfoVo> userInfoVoPageInfo = userService.listPage(user, pageNum, pageSize);
+        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo,"退分页查找用户成功");
     }
 }
 

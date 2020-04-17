@@ -8,11 +8,18 @@ import com.code.classsystem.service.UserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.util.IPUtil;
+import com.code.classsystem.vo.UserInfoVo;
 import com.code.core.util.StringUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +31,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public String login(String userAccount, String password) {
@@ -50,11 +59,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User register(User user) {
-        if(StringUtils.isNull(user.getAccount())){
+        if (StringUtils.isNull(user.getAccount())) {
             user.setAccount(user.getUserNum());
         }
         Integer roleId = user.getRoleId();
-        if(roleId==null || roleId==0){
+        if (roleId == null || roleId == 0) {
             roleId = 1;
             user.setRoleId(roleId);
         }
@@ -69,13 +78,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String ip = IPUtil.getIp();
         user.setLoginIp(ip);
         this.updateById(user);
-         return user;
+        return user;
     }
 
     @Override
-    public User updateUserAvatar(String userId,String avatarPath) {
+    public User updateUserAvatar(String userId, String avatarPath) {
         User user = this.selectById(userId);
         user.setUserAvatar(avatarPath);
         return update(user);
+    }
+
+    @Override
+    public PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize) {
+        PageHelper.startPage( pageNum, pageSize);
+        List<UserInfoVo> userInfoVos = userMapper.listPage(user);
+        return new PageInfo<>(userInfoVos);
     }
 }

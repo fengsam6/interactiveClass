@@ -6,6 +6,7 @@
       element-loading-text="Loading"
       border
       fit
+      stripe
       highlight-current-row
     >
       <el-table-column align="center" label="ID" width="95">

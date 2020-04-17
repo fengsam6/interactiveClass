@@ -10,7 +10,7 @@
         <result column="account" property="account" />
         <result column="password" property="password" />
         <result column="user_num" property="userNum" />
-        <result column="user_avater" property="userAvater" />
+        <result column="user_avater" property="userAvatar" />
         <result column="role_id" property="roleId" />
         <result column="login_ip" property="loginIp" />
         <result column="login_time" property="loginTime" />
@@ -20,9 +20,31 @@
         <result column="is_used" property="isUsed" />
     </resultMap>
 
+    <resultMap id="UserInfoResultMap" type="com.code.classsystem.vo.UserInfoVo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="user_num" property="userNum" />
+        <result column="user_avatar" property="userAvatar" />
+        <result column="role_id" property="roleId" />
+        <result column="login_ip" property="loginIp" />
+        <result column="login_time" property="loginTime" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="is_delete" property="isDelete" />
+        <result column="is_used" property="isUsed" />
+
+        <result column="roleName" property="roleName" />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, name, sex, account, password, user_num, user_avater, role_id, login_ip, login_time, create_date, update_date, is_delete, is_used
     </sql>
-
+<select id="listPage" parameterType="com.code.classsystem.entity.User" resultMap="UserInfoResultMap">
+  select *,r.role_name from user t
+    inner join role  r on t.role_id = r.id
+</select>
 </mapper>

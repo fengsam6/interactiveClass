@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+import { get, post } from '@/utils/request'
 export function login(data) {
   return request({
     url: '/vue-admin-template/user/login',
@@ -22,3 +22,8 @@ export function logout() {
     method: 'post'
   })
 }
+// =========================================================
+export function listPage(data) {
+  return get('/api/user/listPage', data)
+}
+

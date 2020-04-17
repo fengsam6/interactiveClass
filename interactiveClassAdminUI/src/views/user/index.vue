@@ -5,6 +5,7 @@
       :data="list"
       element-loading-text="Loading"
       border
+      stripe
       fit
       highlight-current-row
     >
@@ -13,38 +14,18 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="用户id" prop="id" width="280px" />
+      <el-table-column label="用户名称" prop="name" />
+      <el-table-column label="学号" align="center" prop="userNum" />
+      <el-table-column label="角色名称" align="center" prop="roleId" />
+      <el-table-column class-name="status-col" label="登录ip" align="center" prop="loginIp" />
+      <el-table-column align="center" label="登录时间" prop="loginTime" />
     </el-table>
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { listPage } from '@/api/user'
 
 export default {
   filters: {
@@ -60,19 +41,20 @@ export default {
   data() {
     return {
       list: null,
+      pageData: {},
       listLoading: true
     }
   },
   created() {
-    this.fetchData()
+    this.listPageData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    async listPageData() {
+      const data = await listPage()
+      this.pageData = data.data
+      debugger
+      this.list = this.pageData.list
+      this.listLoading = false
     }
   }
 }

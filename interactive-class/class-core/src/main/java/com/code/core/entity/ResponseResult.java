@@ -21,6 +21,7 @@ public class ResponseResult {
     public ResponseResult(String message, Object data) {
         this.message = message;
         this.data = data;
+        this.code = 200;
     }
 
     public ResponseResult(int code, Object data) {
