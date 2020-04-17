@@ -27,7 +27,7 @@ public class FileRequestController {
 
     @PostMapping("/upload")
     public ResponseResult upload(@RequestParam("file") MultipartFile file) {
-        String fileUploadDir = fileRequestConfig.getFileUploadUrl();
+        String fileUploadDir = fileRequestConfig.getFileUploadPath();
         // 获取原始名字
         String fileName = file.getOriginalFilename();
 
@@ -48,10 +48,32 @@ public class FileRequestController {
         return ResponseResultUtil.renderSuccess("上传文件", relativePath);
     }
 
+    @PostMapping("/uploadImg")
+    public ResponseResult uploadImg(@RequestParam("file") MultipartFile file) {
+        String fileUploadDir = fileRequestConfig.getImgUploadDirPath();
+        // 获取原始名字
+        String fileName = file.getOriginalFilename();
+
+        // 文件重命名，防止重复
+        String relativePath = StringUtils.getFileSaveDirStr() + "/" + StringUtils.getTimeRandomCode(6) + "_" + fileName;
+        // 文件保存路径
+        String absolutePath = fileUploadDir + "/" + relativePath;
+        // 文件对象
+        File dest = new File(absolutePath);
+        FileUtils.checkFileDir(dest);
+        try {
+            // 保存到服务器中
+            file.transferTo(dest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseResultUtil.renderError(ErrorEnum.FILE_UPLOAD_FAIL);
+        }
+        return ResponseResultUtil.renderSuccess("上传图片成功", relativePath);
+    }
 
     @GetMapping("/download")
     public void download(String filePath, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String fileUploadDir = fileRequestConfig.getFileUploadUrl();
+        String fileUploadDir = fileRequestConfig.getFileUploadPath();
         // 文件地址，真实环境是存放在数据库中的
         String absolutePath = fileUploadDir + "/" + filePath;
         File file = new File(absolutePath);

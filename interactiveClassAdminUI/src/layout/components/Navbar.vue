@@ -1,7 +1,9 @@
 <template>
   <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
+    <span class="sysTitle">
+      互动课堂
+    </span>
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
@@ -60,6 +62,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .sysTitle{
+    margin: 0 8px;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+  }
 .navbar {
   height: 50px;
   overflow: hidden;

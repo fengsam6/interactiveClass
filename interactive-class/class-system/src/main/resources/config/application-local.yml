@@ -4,11 +4,6 @@ server:
     context-path: /
 
 spring:
-  mvc:
-    throw-exception-if-no-handler-found: false #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
-  resources:
-    add-mappings: true #false,不要为我们工程中的资源文件建立映射
-
   jackson:
     #      日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
@@ -74,6 +69,7 @@ spring:
 # 所有通过 REST APIs 上传的文件都将存储在此目录下
 file:
   upload-dir: ./uploads
+
 #mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml
@@ -94,7 +90,13 @@ system:
   openTestEnv: true
 #  文件下载位置
   fileUpload:
-   url: ./upload
+    path: ./upload
+    # 图片请求配置(springboot虚拟路径)
+  img:
+#    图片请求url
+    requestUrl: /img/**
+#    图片所在磁盘位置
+    uploadDir: file:D:\data\img\
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

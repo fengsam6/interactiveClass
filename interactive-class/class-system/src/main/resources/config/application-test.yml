@@ -4,11 +4,6 @@ server:
     context-path: /
 
 spring:
-  mvc:
-    throw-exception-if-no-handler-found: false #出现错误时，直接抛出异常,由spring 异常处理器拦截返回去json
-  resources:
-    add-mappings: true # false,不要为我们工程中的资源文件建立映射
-
   jackson:
     #      日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
@@ -90,10 +85,16 @@ logging:
     com.code: info
 #  openTestEnv 为false，关闭开发环境，token有效性及用户权限
 system:
-  openTestEnv: false
-    #  文件下载位置
+  openTestEnv: true
+  #  文件下载位置
   fileUpload:
-      url: ./upload
+    path: ./upload
+    # 图片请求配置(springboot虚拟路径)
+  img:
+    #    图片请求url
+    requestUrl: /img/**
+    #    图片所在磁盘位置
+    uploadDir: file:D:\data\img\
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

@@ -7,15 +7,25 @@ import org.springframework.context.annotation.Configuration;
 import java.io.File;
 @Configuration
 public class FileRequestConfig {
-    @Value("${system.fileUpload.url}")
-    private String fileUploadUrl;
+    @Value("${system.fileUpload.path}")
+    private String fileUploadPath;
+    @Value("${system.img.uploadDir}")
+    private String imgUploadPath;
 
-    public String getFileUploadUrl() {
-        if(FileUtils.isRelativePath(fileUploadUrl)){
-            File file = new File(fileUploadUrl);
+    /**
+     * 文件存储位置
+     * @return
+     */
+    public String getFileUploadPath() {
+        if(FileUtils.isRelativePath(fileUploadPath)){
+            File file = new File(fileUploadPath);
             return file.getAbsolutePath();
         }
 
-        return fileUploadUrl;
+        return fileUploadPath;
+    }
+
+    public String getImgUploadDirPath() {
+        return imgUploadPath;
     }
 }
