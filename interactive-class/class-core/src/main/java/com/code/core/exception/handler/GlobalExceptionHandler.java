@@ -5,6 +5,7 @@ import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.AuthenticationFailException;
 import com.code.core.exception.BusinessException;
+import com.code.core.exception.FileException;
 import com.code.core.exception.ParamInvalidException;
 import com.code.core.util.ResponseResultUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +62,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseResult businessExceptionHandler(BusinessException e) {
+        log.error("--------{}错误提示: {}---- ----", e.getClass().getName(), e.getMessage());
+        e.printStackTrace();
+        return ResponseResultUtil.renderError(e);
+    }
+
+    @ExceptionHandler(FileException.class)
+    public ResponseResult businessExceptionHandler(FileException e) {
         log.error("--------{}错误提示: {}---- ----", e.getClass().getName(), e.getMessage());
         e.printStackTrace();
         return ResponseResultUtil.renderError(e);

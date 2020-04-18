@@ -53,7 +53,7 @@ public class FileRequestController {
         String fileUploadDir = fileRequestConfig.getImgUploadDirPath();
         // 获取原始名字
         String fileName = file.getOriginalFilename();
-
+        FileUtils.checkImgEtc(fileName);
         // 文件重命名，防止重复
         String relativePath = StringUtils.getFileSaveDirStr() + "/" + StringUtils.getTimeRandomCode(6) + "_" + fileName;
         // 文件保存路径

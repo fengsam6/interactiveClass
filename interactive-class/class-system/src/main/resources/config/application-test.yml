@@ -94,7 +94,7 @@ system:
     #    图片请求url
     requestUrl: /img/**
     #    图片所在磁盘位置
-    uploadDir: file:D:\data\img\
+    uploadDir:  D://data//img/
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

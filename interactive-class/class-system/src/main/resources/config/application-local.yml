@@ -90,13 +90,13 @@ system:
   openTestEnv: true
 #  文件下载位置
   fileUpload:
-    path: ./upload
+    path: ./upload/file/
     # 图片请求配置(springboot虚拟路径)
   img:
 #    图片请求url
     requestUrl: /img/**
 #    图片所在磁盘位置
-    uploadDir: file:D:\data\img\
+    uploadDir: ./upload/img/
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl

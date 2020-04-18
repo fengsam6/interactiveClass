@@ -1,5 +1,7 @@
 package com.code.classsystem.common.FileRequest.util;
 
+import com.code.core.enums.ErrorEnum;
+import com.code.core.exception.FileException;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
@@ -77,5 +79,30 @@ public class FileUtils {
             fileName = new String(fileName.replaceAll(" ", "").getBytes("UTF-8"), "ISO8859-1");
         }
         return fileName;
+    }
+
+    public static String getFileExt(String fileName) {
+        if(StringUtils.isEmpty(fileName)){
+            return null;
+        }
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+    }
+    public static boolean checkFileEtc(String fileName,String[] fileExts) {
+        String fileExt = getFileExt(fileName);
+        boolean result = false;
+        for(String fileAllowedExt: fileExts){
+            if(fileAllowedExt.equals(fileExt)){
+                result = true;
+            }
+        }
+        return  result;
+    }
+    public static boolean checkImgEtc(String fileName) {
+        String imgExt[]={"jpg","gif","jpeg"};
+        boolean result = checkFileEtc(fileName, imgExt);
+        if(!result){
+            throw new FileException(ErrorEnum.FILE_FORMAT_ERROR.setMsg("请上传图片"));
+        }
+        return result;
     }
 }
