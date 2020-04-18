@@ -172,7 +172,7 @@
 </template>
 <script>
     var moment = require('moment');
-    var QQMapWX = require('../../lib/qqmap-wx-jssdk.js');
+    var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
     var qqmapsdk;
     qqmapsdk = new QQMapWX({
         key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
