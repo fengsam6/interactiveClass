@@ -19,4 +19,7 @@
         id, class_name, class_num, class_introduce, class_create_code, create_date, update_date, is_delete
     </sql>
 
+<select id="getClassByClassCode" resultMap="BaseResultMap" parameterType="string">
+    select * from  class where class_create_code = #{classCreateCode}
+</select>
 </mapper>

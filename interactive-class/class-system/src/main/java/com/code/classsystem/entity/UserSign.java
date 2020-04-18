@@ -3,6 +3,7 @@ package com.code.classsystem.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -20,9 +21,11 @@ public class UserSign implements Serializable {
 
     @TableId(value = "id", type = IdType.UUID)
     private String id;
+    @NotNull(message = "用户id不能为空")
     private String userId;
     private String userName;
-    private Date signTime;
+    private String signTime;
+    @NotNull(message = "签到地点不能为空")
     private String signPlace;
     /**
      * 签到。1表示签到，0表示签退
@@ -55,11 +58,11 @@ public class UserSign implements Serializable {
         this.userName = userName;
     }
 
-    public Date getSignTime() {
+    public String getSignTime() {
         return signTime;
     }
 
-    public void setSignTime(Date signTime) {
+    public void setSignTime(String signTime) {
         this.signTime = signTime;
     }
 

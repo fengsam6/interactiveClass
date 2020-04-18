@@ -17,4 +17,6 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
 
     List<UserInfoVo> listPage(User user);
+
+    UserInfoVo getUserInfoByUserId(String userId);
 }

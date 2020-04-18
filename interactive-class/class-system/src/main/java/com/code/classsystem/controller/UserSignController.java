@@ -1,13 +1,23 @@
 package com.code.classsystem.controller;
 
 
+import com.code.classsystem.entity.UserSign;
+import com.code.classsystem.service.UserSignService;
+import com.code.classsystem.util.DateUtils;
+import com.code.core.entity.ResponseResult;
+import com.code.core.util.ResponseResultUtil;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author coder
@@ -16,6 +26,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/userSign")
 public class UserSignController {
+    @Autowired
+    private UserSignService userSignService;
+    @ApiOperation(value = "签到", notes = "签到")
+    @PostMapping("/signIn")
+    public ResponseResult signIn(@Valid UserSign userSign) {
+        userSign.setSignTime(DateUtils.getCurTimeStr());
+        userSign.setSignIn(1);
+        userSignService.insert(userSign);
+        return ResponseResultUtil.renderSuccess("签到成功！");
+    }
 
+    @ApiOperation(value = "签退", notes = "签退")
+    @PostMapping("/signOut")
+    public ResponseResult signOut(@Valid UserSign userSign) {
+        userSign.setSignTime(DateUtils.getCurTimeStr());
+        userSign.setSignIn(0);
+        userSignService.insert(userSign);
+        return ResponseResultUtil.renderSuccess("签退成功！");
+    }
 }
 

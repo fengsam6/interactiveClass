@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 班级用户
  * </p>
  *
  * @author coder
@@ -19,6 +19,7 @@ public class ClassUser implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId(value = "id", type = IdType.UUID)
     private String id;
+    private String classId;
     private String className;
     /**
      * 班级成员id
@@ -38,6 +39,14 @@ public class ClassUser implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public String getClassName() {

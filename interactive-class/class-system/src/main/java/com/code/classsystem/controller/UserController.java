@@ -92,8 +92,8 @@ public class UserController {
     @GetMapping("/getUserInfo")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     public ResponseResult getUserInfo() {
-        User userEntity = ShiroUtils.getUserEntity();
-        return ResponseResultUtil.renderSuccess(userEntity);
+      UserInfoVo userInfoVo =  userService.getUserInfo();
+        return ResponseResultUtil.renderSuccess(userInfoVo);
     }
 
     @GetMapping("/logout")

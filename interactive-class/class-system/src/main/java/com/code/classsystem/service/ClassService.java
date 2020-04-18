@@ -3,6 +3,8 @@ package com.code.classsystem.service;
 import com.code.classsystem.entity.Class;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -18,4 +20,7 @@ public interface ClassService extends IService<Class> {
      * @param cla
      */
     void createClass(Class cla);
+
+
+    Class getClassByClassCode(String classCode);
 }

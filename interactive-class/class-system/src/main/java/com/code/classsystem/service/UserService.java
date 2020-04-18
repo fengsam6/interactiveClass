@@ -33,4 +33,6 @@ public interface UserService extends IService<User> {
     public User updateUserAvatar(String userId,String avatarPath);
 
     PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize);
+
+    UserInfoVo getUserInfo();
 }

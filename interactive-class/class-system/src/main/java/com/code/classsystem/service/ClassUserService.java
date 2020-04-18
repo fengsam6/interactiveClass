@@ -1,7 +1,11 @@
 package com.code.classsystem.service;
 
+import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.ClassUser;
 import com.baomidou.mybatisplus.service.IService;
+import com.code.classsystem.entity.User;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +18,10 @@ import com.baomidou.mybatisplus.service.IService;
 public interface ClassUserService extends IService<ClassUser> {
 
     void saveClassUser(String classId, String userId);
+
+    List<Class> listClassByUserId(String userId);
+
+    void joinClass(String classCode);
+
+    List<User> showClassUsers(String classId);
 }

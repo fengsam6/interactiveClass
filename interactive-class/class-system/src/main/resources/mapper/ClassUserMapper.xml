@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.ClassUser">
         <result column="id" property="id" />
+        <result column="class_id" property="classId" />
         <result column="class_name" property="className" />
         <result column="member_id" property="memberId" />
         <result column="created_user_id" property="createdUserId" />
@@ -16,5 +17,16 @@
     <sql id="Base_Column_List">
         id, class_name, member_id, created_user_id, creat_time, update_time
     </sql>
+
+    <select id="showClassUsers" resultType="com.code.classsystem.entity.User" parameterType="string">
+        select * from user u
+        where u.id in (select memberId where class_id = #{classId} )
+    </select>
+
+    <select id="listClassByUserId" resultType="com.code.classsystem.entity.Class" parameterType="string">
+        select * from class c
+        where c.id in (select class_id where memberId = #{userId} )
+    </select>
+
 
 </mapper>

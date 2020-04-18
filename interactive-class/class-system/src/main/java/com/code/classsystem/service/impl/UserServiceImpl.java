@@ -2,8 +2,10 @@ package com.code.classsystem.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.code.classsystem.entity.Role;
 import com.code.classsystem.entity.User;
 import com.code.classsystem.dao.UserMapper;
+import com.code.classsystem.service.RoleService;
 import com.code.classsystem.service.UserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
@@ -16,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public String login(String userAccount, String password) {
@@ -90,8 +95,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize) {
-        PageHelper.startPage( pageNum, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<UserInfoVo> userInfoVos = userMapper.listPage(user);
         return new PageInfo<>(userInfoVos);
+    }
+
+    @Override
+    public UserInfoVo getUserInfo() {
+        String userId = ShiroUtils.getUserId();
+        return userMapper.getUserInfoByUserId(userId);
     }
 }

@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface ClassMapper extends BaseMapper<Class> {
 
+    Class getClassByClassCode(String classCode);
 }
