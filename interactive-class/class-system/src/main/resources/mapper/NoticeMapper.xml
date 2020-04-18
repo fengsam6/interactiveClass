@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.NoticeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Notice">
+        <id column="id" property="id" />
+        <result column="notice_title" property="noticeTitle" />
+        <result column="notice_content" property="noticeContent" />
+        <result column="publish_time" property="publishTime" />
+        <result column="publish_user_id" property="publishUserId" />
+        <result column="class_id" property="classId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, notice_title, notice_content, publish_time, publish_user_id, class_id
+    </sql>
+
+</mapper>

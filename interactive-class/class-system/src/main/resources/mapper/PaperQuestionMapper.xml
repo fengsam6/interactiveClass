@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.PaperQuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.PaperQuestion">
+        <id column="id" property="id" />
+        <result column="question_name" property="questionName" />
+        <result column="question_type" property="questionType" />
+        <result column="question_answer" property="questionAnswer" />
+        <result column="question_num" property="questionNum" />
+        <result column="score" property="score" />
+        <result column="paper_id" property="paperId" />
+        <result column="order" property="order" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, question_name, question_type, question_answer, question_num, score, paper_id, order
+    </sql>
+
+</mapper>

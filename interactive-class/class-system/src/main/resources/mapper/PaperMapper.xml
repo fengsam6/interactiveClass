@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.PaperMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Paper">
+        <id column="id" property="id" />
+        <result column="paper_name" property="paperName" />
+        <result column="paper_score" property="paperScore" />
+        <result column="paper_time" property="paperTime" />
+        <result column="answer_begin_time" property="answerBeginTime" />
+        <result column="answer_end_time" property="answerEndTime" />
+        <result column="publish_user_id" property="publishUserId" />
+        <result column="publish_time" property="publishTime" />
+        <result column="answer_user_id" property="answerUserId" />
+        <result column="class_id" property="classId" />
+        <result column="student_num" property="studentNum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, paper_name, paper_score, paper_time, answer_begin_time, answer_end_time, publish_user_id, publish_time, answer_user_id, class_id, student_num
+    </sql>
+
+</mapper>

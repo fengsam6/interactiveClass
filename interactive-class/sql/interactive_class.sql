@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-04-05 16:09:41
+Date: 2020-04-18 23:54:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,16 +42,121 @@ CREATE TABLE `class` (
 DROP TABLE IF EXISTS `class_user`;
 CREATE TABLE `class_user` (
   `id` varchar(36) NOT NULL,
+  `class_id` varchar(255) NOT NULL DEFAULT '',
   `class_name` varchar(200) NOT NULL,
   `member_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级成员id',
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
   `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class_user
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for course
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `id` varchar(36) NOT NULL,
+  `course_name` varchar(180) DEFAULT '' COMMENT '课程名称',
+  `course_introduce` varchar(255) DEFAULT '' COMMENT '课程介绍',
+  `course_time` varchar(50) DEFAULT '' COMMENT '课程时长',
+  `course_score` varchar(80) DEFAULT '' COMMENT '课程学分',
+  `class_id` varchar(255) NOT NULL DEFAULT '',
+  `class_name` varchar(120) DEFAULT NULL,
+  `class_num` int(11) DEFAULT '0' COMMENT '上课人数',
+  `begin_time` varchar(50) DEFAULT '' COMMENT '上课时间',
+  `end_time` varchar(50) DEFAULT '' COMMENT '下课时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for course_resource
+-- ----------------------------
+DROP TABLE IF EXISTS `course_resource`;
+CREATE TABLE `course_resource` (
+  `id` varchar(36) NOT NULL,
+  `course_resource_name` varchar(180) DEFAULT NULL COMMENT '课程资源名称',
+  `resource_des` varchar(255) DEFAULT '' COMMENT '课件资源说明',
+  `resource_type` int(11) DEFAULT '1' COMMENT '课件类型1：ppt；2：视频',
+  `resource_path` varchar(180) DEFAULT '' COMMENT '资源存储路径',
+  `user_id` varchar(36) DEFAULT '' COMMENT '资源作者id',
+  `course_id` varchar(36) DEFAULT NULL,
+  `class_id` varchar(36) DEFAULT NULL,
+  `create_time` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of course_resource
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for notice
+-- ----------------------------
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE `notice` (
+  `id` varchar(36) NOT NULL,
+  `notice_title` varchar(180) DEFAULT '' COMMENT '通知、公告标题',
+  `notice_content` varchar(255) DEFAULT NULL COMMENT '通知公告内容',
+  `publish_time` varchar(50) DEFAULT NULL,
+  `publish_user_id` varchar(36) DEFAULT NULL,
+  `class_id` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for paper
+-- ----------------------------
+DROP TABLE IF EXISTS `paper`;
+CREATE TABLE `paper` (
+  `id` varchar(36) NOT NULL,
+  `paper_name` varchar(180) DEFAULT NULL,
+  `paper_score` varchar(120) DEFAULT NULL,
+  `paper_time` varchar(50) DEFAULT '' COMMENT '答题时长',
+  `answer_begin_time` varchar(50) DEFAULT NULL,
+  `answer_end_time` varchar(50) DEFAULT NULL,
+  `publish_user_id` varchar(36) DEFAULT '' COMMENT '试卷发布者id',
+  `publish_time` varchar(50) DEFAULT NULL,
+  `answer_user_id` varchar(36) DEFAULT '' COMMENT '试卷答题用户id',
+  `class_id` varchar(36) DEFAULT '' COMMENT '试卷答题班级班级',
+  `student_num` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of paper
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for paper_question
+-- ----------------------------
+DROP TABLE IF EXISTS `paper_question`;
+CREATE TABLE `paper_question` (
+  `id` int(36) NOT NULL,
+  `question_name` varchar(255) DEFAULT '' COMMENT '问题名称',
+  `question_type` tinyint(2) DEFAULT '1' COMMENT '试卷题目类型。1：选择题；2：填空题',
+  `question_answer` varchar(255) DEFAULT '' COMMENT '问题答案',
+  `question_num` varchar(20) DEFAULT '' COMMENT '问题编号',
+  `score` varchar(20) DEFAULT NULL,
+  `paper_id` varchar(36) DEFAULT NULL,
+  `order` smallint(6) DEFAULT '1' COMMENT '试题排序顺序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of paper_question
 -- ----------------------------
 
 -- ----------------------------
@@ -100,7 +205,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'test', '0', 'test', 'test', '', '', '0', '', '', '2020-04-05 14:44:22', '2020-04-05 14:44:22', '0', '1');
+INSERT INTO `user` VALUES ('547b89b94e0b4591a5cd72dd04fce14d', 'test7', '0', '222', '222', '222', '', '1', '', '', '2020-04-12 17:41:03', '2020-04-12 17:41:03', '0', '1');
+INSERT INTO `user` VALUES ('547b89b94e0b4591a5cd72dd04fwe14d', 'test', '0', '111', 'test', '111', '', '1', '', '', '2020-04-05 14:44:22', '2020-04-18 23:36:52', '0', '1');
+INSERT INTO `user` VALUES ('5bb13a4b87144f2fbe7cc8def0fc7daa', 'test', '0', '333', '333', '333', '', '1', '', '', '2020-04-12 16:56:28', '2020-04-12 16:56:28', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_sign
@@ -108,9 +215,10 @@ INSERT INTO `user` VALUES ('1', 'test', '0', 'test', 'test', '', '', '0', '', ''
 DROP TABLE IF EXISTS `user_sign`;
 CREATE TABLE `user_sign` (
   `id` varchar(36) NOT NULL,
+  `class_id` int(11) DEFAULT NULL,
   `user_id` varchar(36) NOT NULL,
   `user_name` varchar(255) NOT NULL,
-  `sign_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `sign_time` varchar(50) NOT NULL DEFAULT '0000-00-00 00:00:00',
   `sign_place` varchar(255) NOT NULL,
   `sign_in` tinyint(1) NOT NULL DEFAULT '1' COMMENT '签到。1表示签到，0表示签退',
   `ip` varchar(255) DEFAULT NULL,

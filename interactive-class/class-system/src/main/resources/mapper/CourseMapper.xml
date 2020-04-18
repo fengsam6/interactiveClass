@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.CourseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Course">
+        <id column="id" property="id" />
+        <result column="course_name" property="courseName" />
+        <result column="course_introduce" property="courseIntroduce" />
+        <result column="course_time" property="courseTime" />
+        <result column="course_score" property="courseScore" />
+        <result column="class_id" property="classId" />
+        <result column="class_name" property="className" />
+        <result column="class_num" property="classNum" />
+        <result column="begin_time" property="beginTime" />
+        <result column="end_time" property="endTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, course_name, course_introduce, course_time, course_score, class_id, class_name, class_num, begin_time, end_time
+    </sql>
+
+</mapper>
