@@ -91,7 +91,7 @@ export default function request(params) {
  * @returns {*|Promise<unknown>}
  */
 export function get(url, data, dataType) {
-    return request({url: url_base + url, method: "GET", data})
+    return request({url: url_base + url, method: "GET", data, dataType})
 }
 
 /**
@@ -112,7 +112,7 @@ export function getWithJsonData(url, data) {
  * @returns {*|Promise<unknown>}
  */
 export function post(url, data, dataType) {
-    return request({url: url_base + url, method: "POST", data})
+    return request({url: url_base + url, method: "POST", data, dataType})
 }
 
 
