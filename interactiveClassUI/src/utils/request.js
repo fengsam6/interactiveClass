@@ -2,8 +2,11 @@
 import {getToken} from '@/utils/tokenUtil'
 import config from "./config";
 import {errorAlert} from './alert'
+
 const url_base = config.url_base
 const OK = 200
+const jsonDataType = 'json'
+const formContentType = 'application/x-www-form-urlencoded'
 export default function request(params) {
     let url = params.url
     //设置url前缀
@@ -13,13 +16,22 @@ export default function request(params) {
     }
     //超时时间5000ms
     params.timeout = 5000
-    let header = {'content-type': 'application/x-www-form-urlencoded'}
+    let dataType = params.dataType
+    let header = {}
+    debugger
+    if (dataType == undefined || dataType == null || dataType != jsonDataType) {
+        //默认是json格式
+        //请求参数类型改为application/x-www-form-urlencoded
+        header['content-type'] = formContentType
+    }
+
     const token = getToken()
     if (token != null) {
-        header = {
-            'content-type': 'application/x-www-form-urlencoded',
-            'USER-TOKEN': token
-        }
+        header['USER-TOKEN'] = token
+        // header = {
+        //     'content-type': 'application/x-www-form-urlencoded',
+        //     'USER-TOKEN': token
+        // }
     }
     params.header = header
     return new Promise((resolve, reject) => {
@@ -45,7 +57,7 @@ export default function request(params) {
                 }
             },
             fail(err) {
-                const msg =err || "服务器繁忙，请稍后访问"
+                const msg = err || "服务器繁忙，请稍后访问"
                 errorAlert(msg)
                 reject(err);
             },
@@ -56,12 +68,45 @@ export default function request(params) {
     })
 }
 
-export function get(url, data) {
+/**
+ *如果发送json请求参数，dataType值为json
+ * @param url
+ * @param data
+ * @param dataType 如果值为json，请求参数为json格式
+ * @returns {*|Promise<unknown>}
+ */
+export function get(url, data, dataType) {
     return request({url: url_base + url, method: "GET", data})
 }
 
-export function post(url, data) {
+/**
+ * 发送json请求参数
+ * @param url
+ * @param data
+ * @returns {*|Promise<unknown>}
+ */
+export function getWithJsonData(url, data) {
+    return get(url, data, jsonDataType)
+}
+/**
+ *如果发送json请求参数，dataType值为json
+ * @param url
+ * @param data
+ * @param dataType 如果值为json，请求参数为json格式
+ * @returns {*|Promise<unknown>}
+ */
+export function post(url, data, dataType) {
     //数据转换为 query string
-
     return request({url: url_base + url, method: "POST", data})
+}
+
+
+/**
+ * 发送json请求参数
+ * @param url
+ * @param data
+ * @returns {*|Promise<unknown>}
+ */
+export function postWithJsonData(url, data) {
+    return post(url, data, jsonDataType)
 }
