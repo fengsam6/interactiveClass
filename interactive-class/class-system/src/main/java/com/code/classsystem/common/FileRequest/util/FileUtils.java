@@ -14,14 +14,14 @@ public class FileUtils {
         byte[] buf = new byte[1024];
         int len = 0;
         try {
-            while((len = fis.read(buf)) != -1) {
+            while ((len = fis.read(buf)) != -1) {
                 os.write(buf, 0, len);
             }
         } finally {
-            if(fis!=null){
+            if (fis != null) {
                 fis.close();
             }
-            if(os!=null){
+            if (os != null) {
                 os.close();
             }
         }
@@ -29,24 +29,24 @@ public class FileUtils {
     }
 
 
-    public static String getFileName(String filePath){
-        if(StringUtils.isEmpty(filePath)){
-            return  null;
+    public static String getFileName(String filePath) {
+        if (StringUtils.isEmpty(filePath)) {
+            return null;
         }
-        if(filePath.contains("/")){
-            return filePath.substring(filePath.lastIndexOf("/")+1);
+        if (filePath.contains("/")) {
+            filePath = filePath.substring(filePath.lastIndexOf("/") + 1);
         }
-        return  filePath;
+        return getShortName(filePath);
     }
 
-    public static boolean isRelativePath(String filePath){
-        if(StringUtils.isEmpty(filePath)){
-            return  false;
+    public static boolean isRelativePath(String filePath) {
+        if (StringUtils.isEmpty(filePath)) {
+            return false;
         }
-        if(filePath.startsWith(".")||filePath.startsWith("./")){
+        if (filePath.startsWith(".") || filePath.startsWith("./")) {
             return true;
         }
-        return  false;
+        return false;
     }
 
 
@@ -70,7 +70,7 @@ public class FileUtils {
 //            fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
 //        }
         if (userAgent.toLowerCase().indexOf("msie") > 0
-                ||userAgent.indexOf("like Gecko") > 0) {
+                || userAgent.indexOf("like Gecko") > 0) {
             // IE浏览器
             fileName = URLEncoder.encode(fileName, "UTF-8");
         } else {
@@ -82,27 +82,37 @@ public class FileUtils {
     }
 
     public static String getFileExt(String fileName) {
-        if(StringUtils.isEmpty(fileName)){
+        if (StringUtils.isEmpty(fileName)) {
             return null;
         }
-        return fileName.substring(fileName.lastIndexOf(".")+1);
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
-    public static boolean checkFileEtc(String fileName,String[] fileExts) {
+
+    public static boolean checkFileEtc(String fileName, String[] fileExts) {
         String fileExt = getFileExt(fileName);
         boolean result = false;
-        for(String fileAllowedExt: fileExts){
-            if(fileAllowedExt.equals(fileExt)){
+        for (String fileAllowedExt : fileExts) {
+            if (fileAllowedExt.equals(fileExt)) {
                 result = true;
             }
         }
-        return  result;
+        return result;
     }
+
     public static boolean checkImgEtc(String fileName) {
-        String imgExt[]={"jpg","gif","jpeg"};
+        String imgExt[] = {"jpg", "gif", "jpeg"};
         boolean result = checkFileEtc(fileName, imgExt);
-        if(!result){
+        if (!result) {
             throw new FileException(ErrorEnum.FILE_FORMAT_ERROR.setMsg("请上传图片"));
         }
         return result;
+    }
+
+    public static String getShortName(String fileName) {
+        int length = fileName.length();
+        if (length >= 12) {
+            fileName = fileName.substring(length - 12 - 4, length);
+        }
+        return fileName;
     }
 }

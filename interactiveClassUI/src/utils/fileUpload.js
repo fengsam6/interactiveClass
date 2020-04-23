@@ -1,24 +1,35 @@
-import config from "./config";
-export const uploadUrl = config.url_base+"/file/upload"
+import {imgUploadUrl,imgAccessUrl} from "./config";
+export const imgHttpBaseUrl = imgAccessUrl
 export function chooseAndUploadImage(){
     return new Promise((resolve, reject)=>{
         uni.chooseImage({
             success: (chooseImageRes) => {
                 const tempFilePaths = chooseImageRes.tempFilePaths;
                 uni.uploadFile({
-                    url: uploadUrl, //仅为示例，非真实的接口地址
+                    count: 1,
+                    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album'], //从相册选择
+                    url: imgUploadUrl, //图片上传地址
                     filePath: tempFilePaths[0],
                     name: 'file',
                     success: (uploadFileRes) => {
-                        console.log(uploadFileRes.data);
-                        resolve(uploadFileRes.data)
+                        const resp = uploadFileRes.data
+                        const respObj = JSON.parse(resp)
+                        let imgUrl = respObj.data
+                        debugger
+                        console.log(imgUrl);
+                        let imgHttpUrl = imgAccessUrl+imgUrl
+                        console.log(imgHttpUrl)
+                        resolve(imgUrl)
                     },
                     fail:(error)=>{
+                        console.log(error);
                         reject(error)
                     }
                 });
             }
         });
     })
+
 
 }

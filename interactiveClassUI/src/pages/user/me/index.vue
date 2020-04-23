@@ -18,7 +18,7 @@
                             round
                             width="5rem"
                             height="5rem"
-                            :src="userInfo.avatar || defaultAvatar"
+                            :src="avatarUrl"
                             @click="changeImg"
                     />
                 </van-col>
@@ -41,7 +41,7 @@
 <script>
     import {getUserInfo, logout, saveUserInfoStore, getStoreUserInfo} from "@/api/user"
     import {clearStorageSync} from '@/utils/storage'
-    import {uploadUrl, chooseAndUploadImage} from '@/utils/fileUpload'
+    import {imgHttpBaseUrl, chooseAndUploadImage} from '@/utils/fileUpload'
 
     export default {
         data() {
@@ -52,7 +52,7 @@
                     avatar: '/static/images/user/cat.jpeg',
                     role: "1"
                 },
-                uploadUrl: uploadUrl,
+                imgHttpBaseUrl: imgHttpBaseUrl,
                 fileList: []
             }
         },
@@ -62,6 +62,16 @@
         },
         mounted() {
             this.doGetUserInfo()
+        },
+        computed:{
+            avatarUrl() {
+                const defaultAvatar = this.defaultAvatar
+                let imgUrl = this.userInfo.avatar
+                if (imgUrl == undefined || imgUrl == null) {
+                    return defaultAvatar;
+                }
+                return this.imgHttpBaseUrl + this.userInfo.avatar
+            }
         },
         methods: {
             doGetUserInfo() {
@@ -89,8 +99,12 @@
             changeImg() {
                 chooseAndUploadImage().then(data => {
                     console.log(data)
+                    this.userInfo.avatar = data
+                    saveUserInfoStore(this.userInfo)
                 })
-            }
+            },
+
+
         }
     }
 </script>

@@ -45,7 +45,7 @@ public class FileRequestController {
             e.printStackTrace();
             return ResponseResultUtil.renderError(ErrorEnum.FILE_UPLOAD_FAIL);
         }
-        return ResponseResultUtil.renderSuccess("上传文件", relativePath);
+        return ResponseResultUtil.renderSuccess( relativePath,"上传文件");
     }
 
     @PostMapping("/uploadImg")
@@ -53,6 +53,7 @@ public class FileRequestController {
         String fileUploadDir = fileRequestConfig.getImgUploadDirPath();
         // 获取原始名字
         String fileName = file.getOriginalFilename();
+        fileName = FileUtils.getShortName(fileName);
         FileUtils.checkImgEtc(fileName);
         // 文件重命名，防止重复
         String relativePath = StringUtils.getFileSaveDirStr() + "/" + StringUtils.getTimeRandomCode(6) + "_" + fileName;
@@ -68,7 +69,7 @@ public class FileRequestController {
             e.printStackTrace();
             return ResponseResultUtil.renderError(ErrorEnum.FILE_UPLOAD_FAIL);
         }
-        return ResponseResultUtil.renderSuccess("上传图片成功", relativePath);
+        return ResponseResultUtil.renderSuccess( relativePath,"上传图片成功");
     }
 
     @GetMapping("/download")
@@ -92,5 +93,7 @@ public class FileRequestController {
         OutputStream os = response.getOutputStream();
         FileUtils.fileWrite(fis, os);
     }
+
+
 
 }

@@ -17,8 +17,8 @@ const formContentType = 'application/x-www-form-urlencoded'
 function isHttpUrl(url) {
     // 微信小程序，判断是否相等，不能用“===”，使用“===”报错
     if (url == undefined || url == null) {
-        console.log("请求url错误")
-        return false;
+        console.log("请求url无效")
+        throw new Error("请求url无效");
     }
     if (url.startsWith("http://") || url.startsWith("https://")) {
         return true
@@ -44,7 +44,7 @@ export default function request(params) {
     }
 
     const token = getToken()
-    if (token != null) {
+    if (token != undefined && token != null && token != '') {
         header['USER-TOKEN'] = token
     }
     params.header = header

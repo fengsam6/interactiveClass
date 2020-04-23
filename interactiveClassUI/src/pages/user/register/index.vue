@@ -27,7 +27,7 @@
                         required
                         @change="onPasswordChange"
                 />
-                <van-radio-group :value="formData.roleId" @change="onRoleChange">
+                <van-radio-group :value="formData.roleId" @change="onRoleChange" class="roleRadio">
                     <van-row>
                         <van-col span="8" offset="4">
                             <van-radio name="1" value="1">学生</van-radio>
@@ -55,7 +55,7 @@
                 formData: {
                     account: "",
                     password: "",
-                    role: "1"
+                    roleId: "1"
                 }
             }
         },
@@ -116,5 +116,8 @@
 
     .btn_margin {
         margin-left: 20px;
+    }
+    .roleRadio{
+        margin: 2px 6px;
     }
 </style>
