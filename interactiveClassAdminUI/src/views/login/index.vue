@@ -6,15 +6,15 @@
         <h3 class="title">互动课堂</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="userAccount">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="userAccount"
+          v-model="loginForm.userAccount"
+          placeholder="输入用户账号"
+          name="userAccount"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -30,7 +30,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="输入用户密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -44,7 +44,7 @@
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
+        <span style="margin-right:20px;">userAccount: 用户编号</span>
         <span> password: any</span>
       </div>
 
@@ -60,25 +60,25 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('用户账号不能为空'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 4) {
-        callback(new Error('The password can not be less than 4 digits'))
+      if (value.length < 3) {
+        callback(new Error('用户密码不能少于三位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        userAccount: '222',
+        password: '222'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        // userAccount: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -106,6 +106,7 @@ export default {
       })
     },
     handleLogin() {
+        debugger
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true

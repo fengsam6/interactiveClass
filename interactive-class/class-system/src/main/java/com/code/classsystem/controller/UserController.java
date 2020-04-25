@@ -5,6 +5,7 @@ import com.code.classsystem.entity.User;
 import com.code.classsystem.service.UserService;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.vo.UserInfoVo;
+import com.code.classsystem.vo.UserLoginVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.util.ResponseResultUtil;
@@ -13,8 +14,8 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -69,17 +70,14 @@ public class UserController {
      * 用户登录接口，登录成功返回token
      *
      * @param userAccount
-     * @param password
      * @return
      */
     @PostMapping("/login")
     @ApiOperation(value = "用户登录接口", notes = "用户登录接口")
-    public ResponseResult login(String userAccount, String password) {
-        Assert.hasLength(userAccount,"用户学号不能为空！");
-        Assert.hasLength(userAccount,"账号密码不能为空！");
+    public ResponseResult login(@Valid UserLoginVo userAccount) {
         String token;
         try {
-            token = userService.login(userAccount, password);
+            token = userService.login(userAccount.getUserAccount(),userAccount.getPassword());
         } catch (Exception e) {
             if(e instanceof AuthenticationException){
                 e = (Exception) e.getCause();
