@@ -2,12 +2,14 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-
+import Qs from 'qs'
+const jsonDataType = 'json'
+const formDataHeader = 'application/x-www-form-urlencoded'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 7000 // request timeout
 })
 
 // request interceptor
@@ -20,6 +22,13 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['USER-TOKEN'] = getToken()
+    }
+    const contentType = config.headers['Content-type']
+    if (contentType === null || contentType === '') {
+      config.headers['Content-type'] = formDataHeader
+    }
+    if (config.headers['Content-type'] === formDataHeader) {
+      config.data = Qs.stringify(config.data)
     }
     return config
   },
@@ -45,8 +54,8 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
-    // if the custom code is not 20000, it is judged as an error.
+    debugger
+    // if the custom code is not 200, it is judged as an error.
     if (res.code !== OK) {
       Message({
         message: res.message || 'Error',
@@ -83,20 +92,47 @@ service.interceptors.response.use(
   }
 )
 
-export function get(url, params) {
+/**
+ * 默认请求参数是form data（包括值为undefined,null），如果只为json，则请求参数为json格式
+ * @param url
+ * @param params
+ * @param dataType
+ * @returns {AxiosPromise}
+ */
+export function get(url, params, dataType) {
+  const headers = {}
+  if (dataType === undefined || dataType === null || dataType !== jsonDataType) {
+    headers['Content-type'] = formDataHeader
+  }
   return service({
     url: url,
     method: 'get',
-    params
+    params,
+    headers
   })
 }
 
-export function post(url, data) {
+/**
+ * post请求
+ * @param url
+ * @param data
+ * @param dataType 默认请求参数是form data（包括值为undefined,null），如果只为json，则请求参数为json格式
+ * @returns {AxiosPromise}
+ */
+export function post(url, data, dataType) {
+  const headers = {}
+  if (dataType === undefined || dataType === null || dataType !== jsonDataType) {
+    headers['Content-type'] = formDataHeader
+  }
   return service({
     url: url,
     method: 'post',
-    data
+    data,
+    headers
   })
 }
 
+/**
+ * 对外暴露请求封装后的axios
+ */
 export default service

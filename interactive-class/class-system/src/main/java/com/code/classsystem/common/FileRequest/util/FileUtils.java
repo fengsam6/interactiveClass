@@ -115,4 +115,9 @@ public class FileUtils {
         }
         return fileName;
     }
+
+    public static String getRelativePath(String fileName) {
+        // 防止文件重命名，防止重复
+        return com.code.core.util.StringUtils.getFileSaveDirStr() + "/" + com.code.core.util.StringUtils.getTimeRandomCode(6) + "_" + fileName;
+    }
 }

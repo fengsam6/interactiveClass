@@ -36,15 +36,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    // before: require('./mock/mock-server.js'),
     proxy: {
-      '/dev-api/api': {
+      '/dev-api/': {
         target: 'http://localhost:8080/',
         changeOrigin: true, // 是否改变域名
         ws: true,
         pathRewrite: {
           // 路径重写
-          '^/dev-api/api': '' // 这个意思就是以api开头的，定向到哪里, 如果你的后边还有路径的话， 会自动拼接上
+          '^/dev-api/': '' // 这个意思就是以api开头的，定向到哪里, 如果你的后边还有路径的话， 会自动拼接上
         }
       }
     }

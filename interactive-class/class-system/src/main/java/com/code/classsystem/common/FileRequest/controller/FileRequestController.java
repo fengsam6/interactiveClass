@@ -31,8 +31,7 @@ public class FileRequestController {
         // 获取原始名字
         String fileName = file.getOriginalFilename();
 
-        // 文件重命名，防止重复
-        String relativePath = StringUtils.getFileSaveDirStr() + "/" + StringUtils.getTimeRandomCode(6) + "_" + fileName;
+        String relativePath = FileUtils.getRelativePath(fileName);
         // 文件保存路径
         String absolutePath = fileUploadDir + "/" + relativePath;
         // 文件对象
@@ -45,7 +44,7 @@ public class FileRequestController {
             e.printStackTrace();
             return ResponseResultUtil.renderError(ErrorEnum.FILE_UPLOAD_FAIL);
         }
-        return ResponseResultUtil.renderSuccess( relativePath,"上传文件");
+        return ResponseResultUtil.renderSuccess(relativePath, "上传文件");
     }
 
     @PostMapping("/uploadImg")
@@ -55,8 +54,7 @@ public class FileRequestController {
         String fileName = file.getOriginalFilename();
         fileName = FileUtils.getShortName(fileName);
         FileUtils.checkImgEtc(fileName);
-        // 文件重命名，防止重复
-        String relativePath = StringUtils.getFileSaveDirStr() + "/" + StringUtils.getTimeRandomCode(6) + "_" + fileName;
+        String relativePath = FileUtils.getRelativePath(fileName);
         // 文件保存路径
         String absolutePath = fileUploadDir + "/" + relativePath;
         // 文件对象
@@ -69,8 +67,9 @@ public class FileRequestController {
             e.printStackTrace();
             return ResponseResultUtil.renderError(ErrorEnum.FILE_UPLOAD_FAIL);
         }
-        return ResponseResultUtil.renderSuccess( relativePath,"上传图片成功");
+        return ResponseResultUtil.renderSuccess(relativePath, "上传图片成功");
     }
+
 
     @GetMapping("/download")
     public void download(String filePath, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -93,7 +92,4 @@ public class FileRequestController {
         OutputStream os = response.getOutputStream();
         FileUtils.fileWrite(fis, os);
     }
-
-
-
 }
