@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +37,17 @@ public class Course implements Serializable {
     private String courseScore;
     private String classId;
     private String className;
+    private String CreatedUserId;
+    private List<Class> courseClass;
+
+    public List<Class> getCourseClass() {
+        return courseClass;
+    }
+
+    public void setCourseClass(List<Class> courseClass) {
+        this.courseClass = courseClass;
+    }
+
     /**
      * 上课人数
      */
@@ -48,8 +60,6 @@ public class Course implements Serializable {
      * 下课时间
      */
     private String endTime;
-
-
     public String getId() {
         return id;
     }
@@ -62,6 +72,14 @@ public class Course implements Serializable {
         return courseName;
     }
 
+    public String getCreatedUserId() {
+        return CreatedUserId;
+    }
+
+    public void setCreatedUserId(String createdUserId) {
+        CreatedUserId = createdUserId;
+    }
+
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
@@ -69,6 +87,7 @@ public class Course implements Serializable {
     public String getCourseIntroduce() {
         return courseIntroduce;
     }
+
 
     public void setCourseIntroduce(String courseIntroduce) {
         this.courseIntroduce = courseIntroduce;

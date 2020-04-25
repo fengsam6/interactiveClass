@@ -8,12 +8,33 @@
                         课程
                     </view>
                     <van-field
-                            :value="courseName"
+                            :value="courseInfo.courseName"
                             placeholder="请输入课程名"
-                            @change="getCourseName"
+                            @change="getCourseValue($event,'courseName')"
                             input-align="left"
                     >
                     </van-field>
+                    <van-field
+                              :value="courseInfo.courseIntroduce"
+                              placeholder="请输入课程简介"
+                              @change="getCourseValue($event,'courseIntroduce')"
+                              input-align="left"
+                        >
+                    </van-field>
+                    <van-field
+                            :value="courseInfo.beginTime"
+                            placeholder="请输入上课时间(hh:mm:ss)"
+                            @change="getCourseValue($event,'beginTime')"
+                            input-align="left"
+                    >
+                    </van-field>
+                     <van-field
+                             :value="courseInfo.endTime"
+                             placeholder="请输入下课时间(hh:mm:ss)"
+                             @change="getCourseValue($event,'endTime')"
+                             input-align="left"
+                     >
+                     </van-field>
                     <view class="course_title" style="display: flex;justify-content:space-between;">
                         <view class="course_title">班级</view>
                         <view style="margin-top:4px;margin-right: 15px;"><van-button type="primary" size="small" @click="addClass">添加班级</van-button></view>
@@ -44,13 +65,25 @@
     </view>
 </template>
 <script>
-    import Toast from '../../../wxcomponents/vant/toast/toast';
+    import {createCourse} from "@/api/course"
+    import {getStorage, setStorage} from '@/utils/storage'
     export default {
         data() {
             return {
-                courseName: '',
-                classNum:[1]
+                courseInfo:{
+                    courseName: '',
+                    createdUserId:'',
+                    courseIntroduce:'',
+                    beginTime:'',
+                    endTime:'',
+                   className:''
+                },
+                classNum:[]
             }
+        },
+        mounted(){
+            var userInfo=getStorage('user');
+            this.courseInfo.createdUserId=userInfo.id;
         },
         methods:{
             addClass(){
@@ -65,8 +98,19 @@
             delClass(event){
                 this.classNum.splice(event,1);
             },
-            getCourseName(event){
-                this.courseName=event.detail;
+                getCourseValue(event,option){
+                if(option=='courseName'){
+                    this.courseInfo.courseName=event.detail;
+                }
+                if(option=='courseIntroduce'){
+                    this.courseInfo.courseIntroduce=event.detail;
+                }
+                if(option=='beginTime'){
+                    this.courseInfo.beginTime=event.detail;
+                }
+                if(option=='endTime'){
+                    this.courseInfo.endTime=event.detail;
+                }
             },
             getClassName(event,className){
                 this.classNum.map(function(item){
@@ -81,11 +125,21 @@
                     if(item.value.replace(/\s/ig,'')!='')
                     return item;
                 });
-                var resultJson={
-                    courseName:this.courseName,
-                    className:this.classNum
+                if(this.classNum.length<=0){
+                    this.errorAlert('请输入班级');
+                    return false;
                 }
-                Toast.success(resultJson);
+                var array=[];
+                for(var i=0;i<this.classNum.length;i++){
+                    array.push(this.classNum[i].value);
+                }
+                this.courseInfo.className=array.toString();
+                var resultJson=this.courseInfo;
+                createCourse(this.courseInfo).then(resp => {
+                    this.successAlert("创建课程成功")
+                })
+                this.successAlert(resultJson);
+                console.log(resultJson);
             }
         }
     }

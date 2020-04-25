@@ -23,4 +23,7 @@ public interface ClassService extends IService<Class> {
 
 
     Class getClassByClassCode(String classCode);
+
+    List<Class> getClassByClassName(String className[]);
+
 }

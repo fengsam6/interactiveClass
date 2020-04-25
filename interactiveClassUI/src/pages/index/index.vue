@@ -77,11 +77,45 @@
 		>
 			<van-cell-group>
 				<van-field
-						:value="ClassCode"
+						:value="classCode"
 						placeholder="请输入班级邀请码"
 						border=true
 						required
-						@change="onClassCodeChange"
+						@change="onClassCodeChange($event,'joinCls1')"
+				/>
+			</van-cell-group>
+		</van-dialog>
+		<van-dialog
+				use-slot
+				title="创建班级"
+				:show="createClassshow"
+				show-cancel-button
+				@close="createClassshow=false"
+				@confirm="subCreateClass"
+		>
+			<van-cell-group>
+				<van-field
+						:value="classInfo.className"
+						placeholder="请输入班级名称"
+						border=true
+						required
+						@change="onClassCodeChange($event,'createCls1')"
+				/>
+				<van-field
+						:value="classInfo.classNum"
+						placeholder="请输入班级人数"
+						border=true
+						required
+						@change="onClassCodeChange($event,'createCls2')"
+				/>
+				<van-field
+						:value="classInfo.classIntroduce"
+						type="textarea"
+						placeholder="请输入班级简介"
+						border=true
+						autosize="true"
+						required
+						@change="onClassCodeChange($event,'createCls3')"
 				/>
 			</van-cell-group>
 		</van-dialog>
@@ -90,24 +124,24 @@
 				<view>
 					<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 								 @scroll="scroll">
-						<view v-for="(item,i) in [1,2,3,4,5,6]" class="scroll-view-item">
+						<view v-for="(item,i) in mCourse" class="scroll-view-item">
 								<view class="cls_list">
 									<view class="cls_list_1">
 										<view class="cls_list_title cls_fontSize">
-											JAVA第一期
+											{{item.courseName}}
 										</view>
 										<view class="cls_list_icon cls_fontSize" @click="clsIsShow=true" style="font-size:20px;">
 											<van-icon name="bars" />
 										</view>
 									</view>
-									<view v-for="(item2,i1) in [1,2,3,4,5,6]" @click="managerCls">
+									<view @click="managerCls(item)">
 										<view class="cls_list_2">
 											<view>
 												<view style="height: 50%;line-height: 30px;">
-													1501班
+													{{item.className}}
 												</view>
 												<view style="color: #FF5722;height: 50%;line-height: 30px;">
-													32人
+													{{item.classNum}}人
 												</view>
 											</view>
 											<view class="cls_list2_icon" style="margin: auto 4px;font-size:20px;">
@@ -125,18 +159,36 @@
 	</view>
 </template>
 <script>
+	import {createClass} from "@/api/class"
+	import {joinClass} from "@/api/classUser"
+	import {queryMCourse} from "@/api/course"
+	import {getStoreUserInfo} from '@/api/user'
+	import {getStorage, setStorage} from '@/utils/storage'
 	export default {
 		data() {
 			return {
 				title: 'Hello',
 				IsTeacher:true,
+				userInfo:{},
+				mCourse:[],
+				classInfo:{
+					classId:'',
+					id:'',
+					className:'',
+					classNum:'',
+					classIntroduce:''
+				},
 				addKcShow:false,
+				createClassshow:false,
 				joinClassshow:false,
-				ClassCode:'',
+				classCode:'',
 				clsIsShow:false,
 				actions: [
 					{
 						name: '创建课程'
+					},
+					{
+						name: '创建班级'
 					},
 					{
 						name: '加入班级'
@@ -152,12 +204,21 @@
 				],
 			}
 		},
+		mounted(){
+			this.userInfo= getStorage('user');
+			this.classInfo.createUserId=this.userInfo.id;
+			this.queryMCourseInfo();
+		},
 		onLoad() {
 		},
 		methods: {
 			onSelect(event) {
 				if (event.detail.name == '创建课程') {
 					this.encourse();
+				}
+				if (event.detail.name == '创建班级') {
+					this.addKcShow = false;
+					this.createClassshow=true;
 				}
 				if (event.detail.name == '加入班级') {
 					this.joinClass();
@@ -178,18 +239,48 @@
 				console.log("加入班级")
 			},
 			enjoinClass() {
-				console.log(this.ClassCode);
-				this.ClassCode='';
-			},
-			onClassCodeChange(event) {
-				// event.detail 为当前输入的值
-				console.log(event.detail);
-				this.ClassCode = event.detail;
-			},
-			managerCls(){
-				uni.navigateTo({
-					url: '/pages/class/index'
+				joinClass({classCode:this.classCode}).then(resp => {
+					this.successAlert("加入班级成功");
 				});
+				this.classCode='';
+			},
+			onClassCodeChange(event,index) {
+				// event.detail 为当前输入的值
+				if(index=='joinCls1'){
+					this.classCode = event.detail;
+				}
+				if(index=='createCls1'){
+					this.classInfo.className = event.detail;
+				}
+				if(index=='createCls2'){
+					this.classInfo.classNum = event.detail;
+				}
+				if(index=='createCls3'){
+					this.classInfo.classIntroduce = event.detail;
+				}
+				console.log(event.detail);
+			},
+			subCreateClass(){
+				createClass(this.classInfo).then(resp => {
+					this.successAlert("创建班级成功")
+
+				})
+				console.log(this.classInfo);
+			},
+			managerCls(item){
+				uni.navigateTo({
+					url: '/pages/class/index?item='+encodeURIComponent(JSON.stringify(item))
+				});
+			},
+			queryMCourseInfo(){
+				console.log(this.userInfo.id);
+				var data={
+					userId:this.userInfo.id
+				};
+				queryMCourse(data).then(resp => {
+					this.mCourse=resp;
+					this.successAlert("创建数据成功")
+				})
 			}
 		}
 	}

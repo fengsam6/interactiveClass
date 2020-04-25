@@ -115,7 +115,7 @@ public class Generator {
      * @return StrategyConfig
      * @author Terry
      */
-    private StrategyConfig getStrategyConfig(String... tableNames) {
+    private StrategyConfig  getStrategyConfig(String... tableNames) {
         return new StrategyConfig()
                 // 全局大写命名 ORACLE 注意
                 .setCapitalMode(true)

@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `class_user`;
 CREATE TABLE `class_user` (
   `id` varchar(36) NOT NULL,
   `class_id` varchar(255) NOT NULL DEFAULT '',
-  `class_name` varchar(200) NOT NULL,
+  `class_name` varchar(200),
   `member_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级成员id',
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
   `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -67,6 +67,7 @@ CREATE TABLE `course` (
   `course_score` varchar(80) DEFAULT '' COMMENT '课程学分',
   `class_id` varchar(255) NOT NULL DEFAULT '',
   `class_name` varchar(120) DEFAULT NULL,
+  `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '课程创建者Id',
   `class_num` int(11) DEFAULT '0' COMMENT '上课人数',
   `begin_time` varchar(50) DEFAULT '' COMMENT '上课时间',
   `end_time` varchar(50) DEFAULT '' COMMENT '下课时间',

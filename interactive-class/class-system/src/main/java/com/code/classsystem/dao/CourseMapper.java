@@ -2,6 +2,9 @@ package com.code.classsystem.dao;
 
 import com.code.classsystem.entity.Course;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.code.classsystem.vo.CourseAndClass;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface CourseMapper extends BaseMapper<Course> {
 
+    List<CourseAndClass> mcourseInfo(String userId);
 }

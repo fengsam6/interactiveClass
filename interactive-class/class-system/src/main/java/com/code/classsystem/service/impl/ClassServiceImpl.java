@@ -1,5 +1,6 @@
 package com.code.classsystem.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.code.classsystem.entity.Class;
 import com.code.classsystem.dao.ClassMapper;
 import com.code.classsystem.service.ClassService;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Wrapper;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +49,15 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
     @Override
     public Class getClassByClassCode(String classCode) {
         return classMapper.getClassByClassCode(classCode);
+    }
+
+    @Override
+    public List<Class> getClassByClassName(String className[]) {
+        List<Class> classes=new ArrayList<>();
+        EntityWrapper<Class> wrapper=new EntityWrapper<>();
+        wrapper.in("class_name",className);
+        classes=this.selectList(wrapper);
+        return classes;
     }
 
 

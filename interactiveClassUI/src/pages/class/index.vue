@@ -1,7 +1,7 @@
 <template>
     <view style="margin-right: 8px;margin-left: 8px;">
         <view class="class_name" style="font-size: 18px; font-weight: bold;">
-            1501
+            {{className}}
         </view>
         <van-divider  custom-style="height:1px"/>
         <van-row>
@@ -181,6 +181,7 @@
     export default {
         data() {
             return {
+                className:'',
                 border:false,
                 maddress:'',
                 update:true,
@@ -191,7 +192,9 @@
                 fbshow:false
             }
         },
-        onLoad(){
+        onLoad(option) {
+            const item = JSON.parse(decodeURIComponent(option.item));
+            this.className=item.className;
             this.getLocal();
         },
         methods:{

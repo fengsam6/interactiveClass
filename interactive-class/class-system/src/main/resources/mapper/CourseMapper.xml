@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Course">
         <id column="id" property="id" />
+        <result column="created_user_id" property="createdUserId" />
         <result column="course_name" property="courseName" />
         <result column="course_introduce" property="courseIntroduce" />
         <result column="course_time" property="courseTime" />
@@ -18,7 +19,14 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, course_name, course_introduce, course_time, course_score, class_id, class_name, class_num, begin_time, end_time
+        id, created_user_id,course_name, course_introduce, course_time, course_score, class_id, class_name, class_num, begin_time, end_time
     </sql>
+
+    <select id="mcourseInfo" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
+        select c1.id as courseId,c2.id classId,c1.course_name as courseName,c2.class_name AS className,c2.class_num as classNum
+         from course c1 left join class c2 on c1.class_id=c2.id
+         left join class_user c3 on c3.class_id=c2.id
+          where c3.member_id=#{userId}
+    </select>
 
 </mapper>
