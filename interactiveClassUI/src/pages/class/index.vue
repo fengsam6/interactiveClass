@@ -82,17 +82,10 @@
     </view>
 </template>
 <script>
-    import notice from '@/pages/notice/index'
-    import sign from '@/pages/user/sign/index'
+    import notice from '@/pages/class/notice/index'
+    import sign from '@/pages/class/sign/index'
     import paper from '@/pages/class/paper/index'
     import courseware from '@/pages/class/courseware/index'
-    var moment = require('moment');
-    var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
-    var qqmapsdk;
-    qqmapsdk = new QQMapWX({
-        key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
-    });
-    var _self;
     export default {
         components:{
             notice,
@@ -104,36 +97,15 @@
             return {
                 className:'',
                 border:false,
-                maddress:'',
-                update:true,
-                dkflag1:true,
-                dkflag2:true,
-                nowTime1:'',
-                nowTime2:'',
                 fbshow:false
             }
         },
         onLoad(option) {
             const item = JSON.parse(decodeURIComponent(option.item));
             this.className=item.className;
-            this.getLocal();
         },
         methods:{
-            getLocal(){
-                _self=this;
-                uni.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        qqmapsdk.reverseGeocoder({
-                            success: function (addressRes) {
-                                var address = addressRes.result.formatted_addresses.recommend;
-                                // console.log(address);
-                                _self.maddress=address;
-                            }
-                        });
-                    }
-                });
-            },
+
             preview(){
                 wx.downloadFile({
                     url: 'http://video.317hu.com/917b3140-3da6-47d5-911c-a15462fcdeb2.pdf',
@@ -148,21 +120,6 @@
                     }
                 })
             },
-            mgetLocation(){
-                console.log("获取位置开始");
-                this.getLocal();
-            },
-            Dk(flag){
-                var now=moment();
-                if(flag==1){
-                    this.dkflag1=false;
-                    this.nowTime1=now.format('HH:mm:ss');
-                }
-                if(flag==2){
-                    this.dkflag2=false;
-                    this.nowTime2=now.format('HH:mm:ss');
-                }
-            }
         }
     }
 </script>
