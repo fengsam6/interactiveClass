@@ -61,7 +61,6 @@
             this.doGetStoreUserInfo()
         },
         mounted() {
-            this.doGetUserInfo()
         },
         computed:{
             avatarUrl() {
@@ -74,12 +73,6 @@
             }
         },
         methods: {
-            doGetUserInfo() {
-                getUserInfo().then(resp => {
-                    this.userInfo = resp
-                    saveUserInfoStore(resp)
-                })
-            },
             async doGetStoreUserInfo() {
                 this.userInfo = await getStoreUserInfo()
                 console.log(this.userInfo)

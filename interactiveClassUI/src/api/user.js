@@ -1,7 +1,5 @@
 import {get, post} from "@/utils/request"
-import {getStorage, setStorage} from '@/utils/storage'
-
-const userStoreKey = "user"
+import {getStoreUser, saveUserStore} from '@/utils/userStorage'
 
 /**
  * 登录接口
@@ -34,19 +32,30 @@ export function logout() {
     return get("user/logout")
 }
 
-export function saveUserInfoStore(userInfo) {
+export async function getAndSaveUserInfoStore() {
+   const userInfo = await getUserInfo()
+    saveUserStore(userInfo)
+    return userInfo
+}
+
+export async function saveUserInfoStore(userInfo) {
     if (userInfo == null) {
-        userInfo = getUserInfo()
+         userInfo = await getUserInfo()
     }
-    return setStorage(userStoreKey, userInfo)
+    saveUserStore(userInfo)
+    return userInfo
+}
+
+export function takeStoreUserInfo() {
+    return getStoreUser()
 }
 
 export async function getStoreUserInfo() {
-    let userInfo = getStorage(userStoreKey)
+    let userInfo = getStoreUser()
     if (userInfo == null || userInfo == '' || userInfo.name == '') {
         userInfo = await getUserInfo()
         console.log(userInfo)
-        saveUserInfoStore(userInfo)
+        saveUserStore(userInfo)
     }
     return userInfo
 }
