@@ -162,8 +162,8 @@
 	import {createClass} from "@/api/class"
 	import {joinClass} from "@/api/classUser"
 	import {queryMCourse} from "@/api/course"
-	import {getStoreUserInfo} from '@/api/user'
-	import {getStorage, setStorage} from '@/utils/storage'
+	import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
+	import {getStorage,setStorage} from '@/utils/storage'
 	export default {
 		data() {
 			return {
@@ -204,12 +204,16 @@
 				],
 			}
 		},
+		onShow() {
+			this.doGetStoreUserInfo()
+		},
 		mounted(){
-			this.userInfo= getStorage('user');
+			this.doGetUserInfo();
 			this.classInfo.createUserId=this.userInfo.id;
 			this.queryMCourseInfo();
 		},
 		onLoad() {
+			this.queryMCourseInfo();
 		},
 		methods: {
 			onSelect(event) {
@@ -271,6 +275,16 @@
 				uni.navigateTo({
 					url: '/pages/class/index?item='+encodeURIComponent(JSON.stringify(item))
 				});
+			},
+			doGetUserInfo() {
+				getUserInfo().then(resp => {
+					this.userInfo = resp
+					saveUserInfoStore(resp)
+				})
+			},
+			async doGetStoreUserInfo() {
+				this.userInfo = await getStoreUserInfo()
+				console.log(this.userInfo)
 			},
 			queryMCourseInfo(){
 				console.log(this.userInfo.id);
