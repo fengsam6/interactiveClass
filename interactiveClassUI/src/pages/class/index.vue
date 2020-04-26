@@ -48,106 +48,17 @@
             <view>
                 <van-tabs swipeable>
                     <van-tab title="公告">
-                        <view v-for="(item,i) in [1,2,3,4]" :key="i">
-                            <van-row>
-                                <view class="notice_title">
-                                    课堂纪律
-                                </view>
-                                <view class="notice_content">
-                                    我是一个好学生， 我是一个好学生， 我是一个好学生， 我是一个好学生。。。
-                                </view>
-                                <van-col span="10" offset="14">
-                                    <view class="notice_foot">
-                                        2020-04-10 23:21:51
-                                    </view>
-                                </van-col>
-                            </van-row>
-                            <van-divider  custom-style="height:1px"/>
-                        </view>
+                        <notice/>
                     </van-tab>
                     <van-tab title="课件">
-                        <view v-for="(item,i) in [1,2,3,4,5,6,7,8]" :key="i" class="kj_zlist">
-                            <view class="kj_list">
-                                <view class="kj_title">JAVA课程PPT</view>
-                                <view class="kj_yl">
-                                    <van-button type="primary" size="small" @click="preview">预览</van-button>
-                                </view>
-                                <view class="kj_download" style="margin-right: 24px;">
-                                    <van-button color="#1E9FFF"  size="small">下载</van-button>
-                                </view>
-                            </view>
-                            <view class="line"></view>
-                        </view>
+                       <courseware/>
                     </van-tab>
                     <van-tab title="试卷">
-                        <view v-for="(item,i) in [1,2,3,4,5]" :key="i">
-                            <view class="sj_st">{{i+1}}、在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是（ ）</view>
-                            <view class="sj_xx">
-                                <view>
-                                    <text>A、</text>
-                                    <text>java Test . class</text>
-                                </view>
-                                <view>
-                                    <text>B、</text>
-                                    <text>javac Test . class</text>
-                                </view>
-                                <view>
-                                    <text>C、</text>
-                                    <text>java Test</text>
-                                </view>
-                                <view>
-                                    <text>D、</text>
-                                    <text>javac Test</text>
-                                </view>
-                            </view>
-                        </view>
+                        <paper/>
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
-                            <view>
-                                <view v-if="update" class="signIn address">
-                                    <view class="signIn_left">
-                                        {{maddress}}
-                                    </view>
-                                    <view class="signIn_right">
-                                        <van-button icon="location-o" type="info" size="small" @click="mgetLocation">重新获取</van-button>
-                                    </view>
-                                </view>
-                                <view class="line"></view>
-                            </view>
-                            <view class="signIn">
-                                <view class="signIn_left">
-                                    <view>
-                                        <van-icon name="clock-o" />上课
-                                    </view>
-                                    <view class="signIn_time">
-                                        08:30
-                                    </view>
-                                </view>
-                                <view class="signIn_right">
-                                    <van-button icon="success" type="info" size="small" @click="Dk(1)">
-                                        <view v-if="dkflag1">打卡</view>
-                                        <view>{{nowTime1}}</view>
-                                    </van-button>
-                                </view>
-                            </view>
-                            <van-divider  custom-style="height:1px"/>
-                            <view class="signIn">
-                                <view class="signIn_left">
-                                    <view>
-                                        <van-icon name="clock-o" />下课
-                                    </view>
-                                    <view class="signIn_time">
-                                        11:30
-                                    </view>
-                                </view>
-                                <view class="signIn_right">
-                                    <van-button icon="success" type="info" size="small" @click="Dk(2)">
-                                        <view v-if="dkflag2">打卡</view>
-                                        <view>{{nowTime2}}</view>
-                                    </van-button>
-                                </view>
-                            </view>
+                           <user-sign/>
                             <van-divider  custom-style="height:1px"/>
                         </van-row>
                     </van-tab>
@@ -171,6 +82,10 @@
     </view>
 </template>
 <script>
+    import notice from '@/pages/notice/index'
+    import sign from '@/pages/user/sign/index'
+    import paper from '@/pages/class/paper/index'
+    import courseware from '@/pages/class/courseware/index'
     var moment = require('moment');
     var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
     var qqmapsdk;
@@ -179,6 +94,12 @@
     });
     var _self;
     export default {
+        components:{
+            notice,
+            paper,
+            courseware,
+            userSign: sign
+        },
         data() {
             return {
                 className:'',

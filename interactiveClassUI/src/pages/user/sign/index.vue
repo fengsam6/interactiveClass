@@ -1,32 +1,49 @@
 <template>
     <view>
-        <van-cell-group>
-            <view class="form">
-                <van-field
-                        :value="formData.account"
-                        placeholder="用户名"
-                        label="用户名"
-                        class="form_field"
-                        @change="onUserAccountChange"
-                />
-                <van-field
-                        :value="formData.password"
-                        placeholder="请输入密码"
-                        password="true"
-                        label="用户密码"
-                        class="form_field"
-                        @change="onUserAccountChange"
-                />
-                <van-radio-group :value="formData.role">
-                    <van-radio name="1" value="1">学生</van-radio>
-                    <van-radio name="2" value="2">老师</van-radio>
-                </van-radio-group>
-                <view class="btn_info">
-                    <van-button type="info" size="small" @click="update">更新</van-button>
-                    <van-button @click="login" type="info" class="btn_margin" size="small" plain >取消</van-button>
+        <view>
+            <view v-if="update" class="signIn address">
+                <view class="signIn_left">
+                    {{maddress}}
+                </view>
+                <view class="signIn_right">
+                    <van-button icon="location-o" type="info" size="small" @click="mgetLocation">重新获取</van-button>
                 </view>
             </view>
-        </van-cell-group>
+            <view class="line"></view>
+        </view>
+        <view class="signIn">
+            <view class="signIn_left">
+                <view>
+                    <van-icon name="clock-o" />上课
+                </view>
+                <view class="signIn_time">
+                    08:30
+                </view>
+            </view>
+            <view class="signIn_right">
+                <van-button icon="success" type="info" size="small" @click="Dk(1)">
+                    <view v-if="dkflag1">打卡</view>
+                    <view>{{nowTime1}}</view>
+                </van-button>
+            </view>
+        </view>
+        <van-divider  custom-style="height:1px"/>
+        <view class="signIn">
+            <view class="signIn_left">
+                <view>
+                    <van-icon name="clock-o" />下课
+                </view>
+                <view class="signIn_time">
+                    11:30
+                </view>
+            </view>
+            <view class="signIn_right">
+                <van-button icon="success" type="info" size="small" @click="Dk(2)">
+                    <view v-if="dkflag2">打卡</view>
+                    <view>{{nowTime2}}</view>
+                </van-button>
+            </view>
+        </view>
 
     </view>
 </template>

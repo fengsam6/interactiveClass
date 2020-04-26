@@ -1,6 +1,7 @@
 package com.code.classsystem.controller;
 
 
+import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.service.CourseService;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author coder
@@ -38,21 +39,21 @@ public class CourseController {
     @ApiOperation(value = "创建课程", notes = "创建课程")
     @PostMapping("/createCourse")
     public ResponseResult createCourse(Course course) {
-        List<String> list=new ArrayList<>();
+        List<String> list = new ArrayList<>();
         courseService.addCourse(course);
         return ResponseResultUtil.renderSuccessMsg("创建课程成功！");
     }
 
     /**
      * 我学的课程
-     * @param userId
+     *
      * @return
      */
     @ApiOperation(value = "查看当前用户参加的课程", notes = "查看当前用户参加的课程")
-    @PostMapping ("/queryCourseInfo")
-    public ResponseResult queryCourseInfo(String userId) {
-        List<CourseAndClass>list=new ArrayList<>();
-        list=courseService.queryCourseInfo(userId);
+    @PostMapping("/queryCourseInfo")
+    public ResponseResult queryCourseInfo() {
+        String userId = ShiroUtils.getUserId();
+        List list = courseService.queryCourseInfo(userId);
         return ResponseResultUtil.renderSuccess(list);
     }
 
