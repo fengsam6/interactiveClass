@@ -48,5 +48,12 @@ public class ClassController {
         classService.createClass(cla);
         return ResponseResultUtil.renderSuccessMsg("创建班级成功！");
     }
+
+    @ApiOperation(value = "创建班级接口", notes = "创建班级接口")
+    @PostMapping("/list")
+    public ResponseResult list(@Valid Class cla) {
+        classService.createClass(cla);
+        return ResponseResultUtil.renderSuccessMsg("创建班级成功！");
+    }
 }
 

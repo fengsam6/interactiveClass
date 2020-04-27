@@ -206,6 +206,7 @@
 		},
 		onShow() {
 			this.doGetStoreUserInfo()
+			this.queryMCourseInfo();
 		},
 		mounted(){
 			this.doGetUserInfo();
@@ -213,7 +214,7 @@
 			this.queryMCourseInfo();
 		},
 		onLoad() {
-			this.queryMCourseInfo();
+
 		},
 		methods: {
 			onSelect(event) {

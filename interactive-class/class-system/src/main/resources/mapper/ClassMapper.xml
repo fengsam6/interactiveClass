@@ -22,4 +22,11 @@
 <select id="getClassByClassCode" resultMap="BaseResultMap" parameterType="string">
     select * from  class where class_create_code = #{classCreateCode}
 </select>
+
+    <select id="getClassByClassNameAndCurId" resultMap="BaseResultMap" parameterType="string">
+    select * from  class cl
+    inner join class_user cu on  cl.id = cu.class_id
+    where cl.class_name = #{className} and cu.member_id = #{userId}
+</select>
+
 </mapper>
