@@ -43,12 +43,13 @@ DROP TABLE IF EXISTS `class_user`;
 CREATE TABLE `class_user` (
   `id` varchar(36) NOT NULL,
   `class_id` varchar(255) NOT NULL DEFAULT '',
-  `class_name` varchar(200),
+  `class_name` varchar(200)DEFAULT NULL,
   `member_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级成员id',
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
   `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_class_user_id` (`class_id`,`member_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -110,7 +111,6 @@ CREATE TABLE `notice` (
   `publish_time` varchar(50) DEFAULT NULL,
   `publish_user_id` varchar(36) DEFAULT NULL,
   `class_id` varchar(36) DEFAULT NULL,
-   `course_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

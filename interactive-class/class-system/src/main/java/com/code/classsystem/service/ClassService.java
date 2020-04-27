@@ -26,4 +26,11 @@ public interface ClassService extends IService<Class> {
 
     List<Class> getClassByClassName(String className[]);
 
+    /**
+     * 根据当前用户id，className 查找班级（创建班级时候会校验班级名称是否重复）
+     * @param className
+     * @return
+     */
+    Class getClassByClassNameAndCurId(String className);
+
 }
