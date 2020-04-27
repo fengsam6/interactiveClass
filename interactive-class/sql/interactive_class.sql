@@ -110,6 +110,7 @@ CREATE TABLE `notice` (
   `publish_time` varchar(50) DEFAULT NULL,
   `publish_user_id` varchar(36) DEFAULT NULL,
   `class_id` varchar(36) DEFAULT NULL,
+   `course_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -29,6 +29,7 @@ public class Notice implements Serializable {
     private String publishTime;
     private String publishUserId;
     private String classId;
+    private String courseId;
 
 
     public String getId() {
@@ -77,6 +78,14 @@ public class Notice implements Serializable {
 
     public void setClassId(String classId) {
         this.classId = classId;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     @Override

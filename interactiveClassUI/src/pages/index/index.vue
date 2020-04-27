@@ -213,7 +213,6 @@
 			this.queryMCourseInfo();
 		},
 		onLoad() {
-			this.queryMCourseInfo();
 		},
 		methods: {
 			onSelect(event) {
@@ -293,7 +292,7 @@
 				};
 				queryMCourse(data).then(resp => {
 					this.mCourse=resp;
-					this.successAlert("创建数据成功")
+					//this.successAlert("获取数据成功")
 				})
 			}
 		}

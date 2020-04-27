@@ -46,19 +46,19 @@
         <van-divider  custom-style="height:1px"/>
         <van-row>
             <view>
-                <van-tabs swipeable>
+                <van-tabs swipeable @change="onChange">
                     <van-tab title="公告">
-                        <view v-for="(item,i) in [1,2,3,4]" :key="i">
+                        <view v-for="(item,i) in noticeArr" :key="i">
                             <van-row>
                                 <view class="notice_title">
-                                    课堂纪律
+                                    {{item.noticeTitle}}
                                 </view>
                                 <view class="notice_content">
-                                    我是一个好学生， 我是一个好学生， 我是一个好学生， 我是一个好学生。。。
+                                    {{item.noticeContent}}
                                 </view>
                                 <van-col span="10" offset="14">
                                     <view class="notice_foot">
-                                        2020-04-10 23:21:51
+                                        {{item.publishTime}}
                                     </view>
                                 </van-col>
                             </van-row>
@@ -162,15 +162,42 @@
                             <van-button icon="star-o" type="primary" round="true" custom-style="width:100%;">发布试卷</van-button>
                         </view>
                         <view style="width:100%;margin-top: 12px;">
-                            <van-button icon="star-o" type="primary" round="true" custom-style="width:100%;">发布公告</van-button>
+                            <van-button icon="star-o" type="primary" round="true" @click="showfbgg=true" custom-style="width:100%;">发布公告</van-button>
                         </view>
                     </view>
                 </van-overlay>
             </view>
         </van-row>
+        <van-dialog
+                use-slot
+                title="发布公告"
+                :show="showfbgg"
+                show-cancel-button
+                @close="showfbgg=false"
+                @confirm="publishGg"
+        >
+            <van-cell-group>
+                <van-field
+                        :value="noticeTitle"
+                        placeholder="请输入公告标题"
+                        border=true
+                        required
+                        @change="noticeValueChange($event,'noticeTitle')"
+                />
+                <van-field
+                        :value="noticeContent"
+                        placeholder="请输入公告内容"
+                        border=true
+                        required
+                        @change="noticeValueChange($event,'noticeContent')"
+                />
+            </van-cell-group>
+        </van-dialog>
     </view>
 </template>
 <script>
+    import {addNotice,queryNotice} from "@/api/notice"
+    import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     var moment = require('moment');
     var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
     var qqmapsdk;
@@ -181,6 +208,16 @@
     export default {
         data() {
             return {
+                userInfo:null,
+                showfbgg:false,
+                noticeArr:[],
+                notice:{
+                    noticeTitle:'',
+                    noticeContent:'',
+                    publishUserId:'',
+                    classId:'',
+                    courseId:''
+                },
                 className:'',
                 border:false,
                 maddress:'',
@@ -192,12 +229,38 @@
                 fbshow:false
             }
         },
+        onShow() {
+            this.doGetStoreUserInfo();
+        },
+        mounted() {
+            this.doGetUserInfo();
+            this.notice.publishUserId = this.userInfo.id;
+            this.queryNotice();
+        },
         onLoad(option) {
             const item = JSON.parse(decodeURIComponent(option.item));
             this.className=item.className;
+            this.notice.classId=item.classId;
+            this.notice.courseId=item.courseId;
             this.getLocal();
         },
         methods:{
+            doGetUserInfo() {
+                getUserInfo().then(resp => {
+                    this.userInfo = resp
+                    saveUserInfoStore(resp)
+                })
+            },
+            async doGetStoreUserInfo() {
+                this.userInfo = await getStoreUserInfo()
+                console.log(this.userInfo)
+            },
+            onChange(event){
+               var index=event.detail.name;
+                if(index==0){
+                    this.queryNotice();
+                }
+            },
             getLocal(){
                 _self=this;
                 uni.getLocation({
@@ -211,6 +274,33 @@
                             }
                         });
                     }
+                });
+            },
+            noticeValueChange(event,index) {
+                // event.detail 为当前输入的值
+                if(index=='noticeTitle'){
+                    this.notice.noticeTitle = event.detail;
+                }
+                if(index=='noticeContent'){
+                    this.notice.noticeContent = event.detail;
+                }
+            },
+            queryNotice(){
+                var data={
+                    courseId:this.notice.courseId,
+                    classId:this.notice.classId,
+                    publishUserId:this.notice.publishUserId,
+                    page:1,
+                    limit:30
+                }
+                queryNotice(data).then(resp => {
+                    this.noticeArr=resp;
+                });
+            },
+            publishGg(){
+                addNotice(this.notice).then(resp => {
+                    this.successAlert("添加通知成功");
+                    this.queryNotice();
                 });
             },
             preview(){
