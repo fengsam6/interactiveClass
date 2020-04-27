@@ -10,6 +10,7 @@ import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.ClassUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class ClassUserServiceImpl extends ServiceImpl<ClassUserMapper, ClassUser
     @Override
     public void saveClassUser(String classId, String userId) {
         ClassUser classUser = new ClassUser();
+        classUser.setClassId(classId);
         classUser.setCreatedUserId(userId);
         this.insert(classUser);
     }
@@ -42,7 +44,9 @@ public class ClassUserServiceImpl extends ServiceImpl<ClassUserMapper, ClassUser
 
     @Override
     public void joinClass(String classCode) {
+        Assert.notNull(classCode,"班级邀请码不能为空");
         Class clazz = classService.getClassByClassCode(classCode);
+        Assert.notNull(clazz,"班级邀请码"+classCode+"无效");
         //获取当前登录用户id
         String userId = ShiroUtils.getUserId();
         ClassUser classUser = new ClassUser();

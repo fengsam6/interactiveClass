@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import {updateUserInfo, getStoreUserInfo, saveUserInfoStore} from "@/api/user"
+    import {updateUserInfo, getStoreUserInfo, getAndSaveUserInfoStore} from "@/api/user"
 
     export default {
         data() {
@@ -65,7 +65,7 @@
             update() {
                 updateUserInfo(this.formData)
                 this.successAlert("修改用户信息成功")
-                saveUserInfoStore(this.formData)
+                getAndSaveUserInfoStore()
 
                 setTimeout(() => {
                     uni.navigateBack({});

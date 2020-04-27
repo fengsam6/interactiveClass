@@ -7,6 +7,7 @@
       border
       stripe
       fit
+      size="mini"
       highlight-current-row
     >
       <el-table-column align="center" label="ID" width="95">
@@ -20,13 +21,27 @@
       <el-table-column label="角色名称" align="center" prop="roleId" />
       <el-table-column class-name="status-col" label="登录ip" align="center" prop="loginIp" />
       <el-table-column align="center" label="登录时间" prop="loginTime" />
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="editForm(scope.row.id)"
+          >编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.row.id)"
+          >删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
+    <form-dialog ref="formDialogCom" />
   </div>
 </template>
 
 <script>
 import { listPage } from '@/api/user'
-
+import formDialog from './formDialog'
 export default {
   filters: {
     statusFilter(status) {
@@ -37,6 +52,9 @@ export default {
       }
       return statusMap[status]
     }
+  },
+  components: {
+    formDialog
   },
   data() {
     return {
@@ -55,6 +73,12 @@ export default {
       debugger
       this.list = this.pageData.list
       this.listLoading = false
+    },
+    editForm(id) {
+      this.$refs.formDialogCom.showDialog(id)
+    },
+    handleDelete(id) {
+
     }
   }
 }

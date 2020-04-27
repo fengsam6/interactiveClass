@@ -4,6 +4,7 @@ import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.ClassUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.code.classsystem.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author coder
  * @since 2020-04-05
  */
+@Mapper
 public interface ClassUserMapper extends BaseMapper<ClassUser> {
 
     /**

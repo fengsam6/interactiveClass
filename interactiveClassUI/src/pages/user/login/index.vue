@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import {doLogin,getStoreUserInfo} from "@/api/user"
+    import {doLogin,getAndSaveUserInfoStore} from "@/api/user"
     import {setToken} from '@/utils/tokenUtil'
 
     export default {
@@ -54,7 +54,7 @@
                     if (token != null && token != '') {
                         this.successAlert("登录成功")
                         setToken(token)
-                        getStoreUserInfo();
+                        getAndSaveUserInfoStore();
                         setTimeout(() => {
                             uni.switchTab({
                                 url: '/pages/index/index'
