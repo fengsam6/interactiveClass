@@ -107,16 +107,19 @@
     </view>
 </template>
 <script>
+    import notice from '@/pages/class/notice/index'
+    import paper from '@/pages/class/paper/index'
+    import courseware from '@/pages/class/courseware/index'
+    import sign from '@/pages/class/sign/index'
     import {addNotice,queryNotice} from "@/api/notice"
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
-    var moment = require('moment');
-    var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
-    var qqmapsdk;
-    qqmapsdk = new QQMapWX({
-        key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
-    });
-    var _self;
     export default {
+        components:{
+            notice,
+            paper,
+            courseware,
+            userSign: sign
+        },
         data() {
             return {
                 userInfo:null,
@@ -153,7 +156,6 @@
             this.className=item.className;
             this.notice.classId=item.classId;
             this.notice.courseId=item.courseId;
-            this.getLocal();
         },
         methods:{
             doGetUserInfo() {
@@ -171,21 +173,6 @@
                 if(index==0){
                     this.queryNotice();
                 }
-            },
-            getLocal(){
-                _self=this;
-                uni.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        qqmapsdk.reverseGeocoder({
-                            success: function (addressRes) {
-                                var address = addressRes.result.formatted_addresses.recommend;
-                                // console.log(address);
-                                _self.maddress=address;
-                            }
-                        });
-                    }
-                });
             },
             noticeValueChange(event,index) {
                 // event.detail 为当前输入的值
