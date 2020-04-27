@@ -48,7 +48,25 @@
             <view>
                 <van-tabs swipeable @change="onChange">
                     <van-tab title="公告">
-                        <notice/>
+                       <!-- <notice :parentItem="this.parentItem"/>-->
+                        <view>
+                            <view v-for="(item,i) in noticeArr" :key="i">
+                                <van-row>
+                                    <view class="notice_title">
+                                        {{item.noticeTitle}}
+                                    </view>
+                                    <view class="notice_content">
+                                        {{item.noticeContent}}
+                                    </view>
+                                    <van-col span="10" offset="14">
+                                        <view class="notice_foot">
+                                            {{item.publishTime}}
+                                        </view>
+                                    </van-col>
+                                </van-row>
+                                <van-divider  custom-style="height:1px"/>
+                            </view>
+                        </view>
                     </van-tab>
                     <van-tab title="课件">
                         <courseware/>
@@ -107,7 +125,7 @@
     </view>
 </template>
 <script>
-    import notice from '@/pages/class/notice/index'
+   //import notice from '@/pages/class/notice/index'
     import paper from '@/pages/class/paper/index'
     import courseware from '@/pages/class/courseware/index'
     import sign from '@/pages/class/sign/index'
@@ -115,13 +133,13 @@
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         components:{
-            notice,
             paper,
             courseware,
             userSign: sign
         },
         data() {
             return {
+                parentItem:null,
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
@@ -156,6 +174,7 @@
             this.className=item.className;
             this.notice.classId=item.classId;
             this.notice.courseId=item.courseId;
+            this.parentItem=item;
         },
         methods:{
             doGetUserInfo() {

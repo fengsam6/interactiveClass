@@ -24,6 +24,7 @@
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         name: "index",
+        props: ['parentItem'],
         data() {
             return {
                 userInfo:null,
@@ -38,20 +39,11 @@
                 border:false
             }
         },
-        onShow() {
-            this.doGetStoreUserInfo();
-        },
         mounted() {
-            this.doGetUserInfo();
-            this.notice.publishUserId = this.userInfo.id;
-            this.queryNotice();
-        },
-        onLoad(option) {
+           // this.notice.publishUserId = this.userInfo.id;
             debugger
-            const item = JSON.parse(decodeURIComponent(option.item));
-            this.className=item.className;
-            this.notice.classId=item.classId;
-            this.notice.courseId=item.courseId;
+           console.log(this.parentItem);
+            this.queryNotice();
         },
         methods: {
             doGetUserInfo() {
