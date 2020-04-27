@@ -7,7 +7,7 @@
         <van-row>
             <van-grid :border="border">
                 <van-grid-item  use-slot>
-                    <view>
+                    <view @click="studentManager">
                         <image
                                 style="width: 100%; height: 40px;"
                                 src="/static/icon/cygl.png"
@@ -122,6 +122,31 @@
                 />
             </van-cell-group>
         </van-dialog>
+        <van-dialog
+                use-slot
+                title="添加试卷"
+                :show="showAddSj"
+                show-cancel-button
+                @close="showfbgg=false"
+                @confirm="publishGg"
+        >
+            <van-cell-group>
+                <van-field
+                        :value="paperName"
+                        placeholder="请输入试卷标题"
+                        border=true
+                        required
+                        @change="noticeValueChange($event,'paperName')"
+                />
+                <van-field
+                        :value="paperTime"
+                        placeholder="请输入考试时长"
+                        border=true
+                        required
+                        @change="noticeValueChange($event,'paperTime')"
+                />
+            </van-cell-group>
+        </van-dialog>
     </view>
 </template>
 <script>
@@ -143,6 +168,7 @@
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
+                showAddSj:false,
                 notice:{
                     noticeTitle:'',
                     noticeContent:'',
@@ -177,6 +203,12 @@
             this.parentItem=item;
         },
         methods:{
+            studentManager(){
+                console.log('成员管理');
+                uni.navigateTo({
+                    url: '/pages/class/student/index'
+                });
+            },
             doGetUserInfo() {
                 getUserInfo().then(resp => {
                     this.userInfo = resp

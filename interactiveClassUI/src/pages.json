@@ -8,6 +8,12 @@
       }
     },
     {
+      "path": "pages/class/student/index",
+      "style": {
+        "navigationBarTitleText": "成员管理"
+      }
+    },
+    {
       "path": "pages/index/encourse/index",
       "style": {
         "navigationBarTitleText": "创建课程"
