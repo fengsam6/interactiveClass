@@ -3,12 +3,15 @@ package com.code.classsystem.controller;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Notice;
 import com.code.classsystem.service.NoticeService;
+import com.code.classsystem.vo.NoticeVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +25,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author coder
@@ -37,24 +40,21 @@ public class NoticeController {
 
     @ApiOperation(value = "添加通知接口", notes = "添加通知接口")
     @PostMapping("/addNotice")
-    public ResponseResult addNotice(Notice notice){
+    public ResponseResult addNotice(Notice notice) {
+        notice.setPublishUserId(ShiroUtils.getUserId());
         noticeService.addNotice(notice);
         return ResponseResultUtil.renderSuccessMsg("创建通知成功！");
     }
 
     @ApiOperation(value = "查询通知接口", notes = "查询通知接口")
     @PostMapping("/queryNotice")
-    public ResponseResult queryNotice(@RequestBody JSONObject data){
-        int page= (int) data.get("page");
-        int limit= (int) data.get("limit");
-        String classId= (String) data.get("classId");
-        String createUserId= (String) data.get("publishUserId");
-        String courseId=(String) data.get("courseId");
-        Notice notice=new Notice();
-        notice.setClassId(classId);
-        notice.setCourseId(courseId);
-        notice.setPublishUserId(createUserId);
-        List<Notice>data2=noticeService.queryNotice(notice,page,limit);
+    public ResponseResult queryNotice(@RequestBody NoticeVo noticeVo) {
+        int page = noticeVo.getPage();
+        int limit = noticeVo.getLimit();
+
+        Notice notice = new Notice();
+        BeanUtils.copyProperties(noticeVo, notice);
+        List<Notice> data2 = noticeService.queryNotice(notice, page, limit);
         return ResponseResultUtil.renderSuccess(data2);
     }
 

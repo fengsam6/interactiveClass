@@ -24,65 +24,21 @@
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         name: "index",
-        props: ['parentItem'],
+        props:{
+            noticeArr:{
+                type:Array,
+                default:[]
+            }
+        },
         data() {
             return {
-                userInfo:null,
-                noticeArr:[],
-                notice:{
-                    noticeTitle:'',
-                    noticeContent:'',
-                    publishUserId:'',
-                    classId:'',
-                    courseId:''
-                },
-                border:false
+
             }
         },
         mounted() {
-           // this.notice.publishUserId = this.userInfo.id;
-            debugger
-           console.log(this.parentItem);
-            this.queryNotice();
+
         },
         methods: {
-            doGetUserInfo() {
-                getUserInfo().then(resp => {
-                    this.userInfo = resp
-                    saveUserInfoStore(resp)
-                })
-            },
-            async doGetStoreUserInfo() {
-                this.userInfo = await getStoreUserInfo()
-                console.log(this.userInfo)
-            },
-            onChange(event) {
-                var index = event.detail.name;
-                if (index == 0) {
-                    this.queryNotice();
-                }
-            },
-            noticeValueChange(event, index) {
-                // event.detail 为当前输入的值
-                if (index == 'noticeTitle') {
-                    this.notice.noticeTitle = event.detail;
-                }
-                if (index == 'noticeContent') {
-                    this.notice.noticeContent = event.detail;
-                }
-            },
-            queryNotice() {
-                var data = {
-                    courseId: this.notice.courseId,
-                    classId: this.notice.classId,
-                    publishUserId: this.notice.publishUserId,
-                    page: 1,
-                    limit: 30
-                }
-                queryNotice(data).then(resp => {
-                    this.noticeArr = resp;
-                });
-            },
             publishGg() {
                 addNotice(this.notice).then(resp => {
                     this.successAlert("添加通知成功");
