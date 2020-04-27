@@ -97,6 +97,7 @@
 				<van-field
 						:value="classInfo.className"
 						placeholder="请输入班级名称"
+						label="班级名称"
 						border=true
 						required
 						@change="onClassCodeChange($event,'createCls1')"
@@ -104,6 +105,7 @@
 				<van-field
 						:value="classInfo.classNum"
 						placeholder="请输入班级人数"
+						label="班级人数"
 						border=true
 						required
 						@change="onClassCodeChange($event,'createCls2')"
@@ -112,6 +114,7 @@
 						:value="classInfo.classIntroduce"
 						type="textarea"
 						placeholder="请输入班级简介"
+						label="班级简介"
 						border=true
 						autosize="true"
 						required
@@ -206,13 +209,15 @@
 		},
 		onShow() {
 			this.doGetStoreUserInfo()
+			this.queryMCourseInfo();
 		},
 		mounted(){
-			this.doGetUserInfo();
+			this.doGetStoreUserInfo();
 			this.classInfo.createUserId=this.userInfo.id;
 			this.queryMCourseInfo();
 		},
 		onLoad() {
+
 		},
 		methods: {
 			onSelect(event) {
@@ -275,12 +280,6 @@
 					url: '/pages/class/index?item='+encodeURIComponent(JSON.stringify(item))
 				});
 			},
-			doGetUserInfo() {
-				getUserInfo().then(resp => {
-					this.userInfo = resp
-					saveUserInfoStore(resp)
-				})
-			},
 			async doGetStoreUserInfo() {
 				this.userInfo = await getStoreUserInfo()
 				console.log(this.userInfo)
@@ -292,7 +291,7 @@
 				};
 				queryMCourse(data).then(resp => {
 					this.mCourse=resp;
-					//this.successAlert("获取数据成功")
+					// this.successAlert("创建数据成功")
 				})
 			}
 		}

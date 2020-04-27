@@ -3,7 +3,7 @@
         <view class="class_name" style="font-size: 18px; font-weight: bold;">
             {{className}}
         </view>
-        <van-divider  custom-style="height:1px"/>
+        <van-divider custom-style="height:1px"/>
         <van-row>
             <van-grid :border="border">
                 <van-grid-item  use-slot>
@@ -39,7 +39,9 @@
             <view class="class_center2">
                 <view style="font-size: 18px;font-weight: bold;">教学日志</view>
                 <view>
-                    <van-button icon="plus" type="info" size="small" @click="fbshow=true" @click-overlay="fbshow=false">发布</van-button>
+                    <van-button icon="plus" type="info" size="small" @click="pubNotice" @click-overlay="fbshow=false">
+                        发布
+                    </van-button>
                 </view>
             </view>
         </van-row>
@@ -48,25 +50,7 @@
             <view>
                 <van-tabs swipeable @change="onChange">
                     <van-tab title="公告">
-                       <!-- <notice :parentItem="this.parentItem"/>-->
-                        <view>
-                            <view v-for="(item,i) in noticeArr" :key="i">
-                                <van-row>
-                                    <view class="notice_title">
-                                        {{item.noticeTitle}}
-                                    </view>
-                                    <view class="notice_content">
-                                        {{item.noticeContent}}
-                                    </view>
-                                    <van-col span="10" offset="14">
-                                        <view class="notice_foot">
-                                            {{item.publishTime}}
-                                        </view>
-                                    </van-col>
-                                </van-row>
-                                <van-divider  custom-style="height:1px"/>
-                            </view>
-                        </view>
+                        <notice :noticeArr="noticeArr"/>
                     </van-tab>
                     <van-tab title="课件">
                         <courseware/>
@@ -97,31 +81,7 @@
                 </van-overlay>
             </view>
         </van-row>
-        <van-dialog
-                use-slot
-                title="发布公告"
-                :show="showfbgg"
-                show-cancel-button
-                @close="showfbgg=false"
-                @confirm="publishGg"
-        >
-            <van-cell-group>
-                <van-field
-                        :value="noticeTitle"
-                        placeholder="请输入公告标题"
-                        border=true
-                        required
-                        @change="noticeValueChange($event,'noticeTitle')"
-                />
-                <van-field
-                        :value="noticeContent"
-                        placeholder="请输入公告内容"
-                        border=true
-                        required
-                        @change="noticeValueChange($event,'noticeContent')"
-                />
-            </van-cell-group>
-        </van-dialog>
+        <noticeForm ref="noticeFormCom" @refreshNotice="queryNotice" :course="parentItem"/>
         <van-dialog
                 use-slot
                 title="添加试卷"
@@ -150,16 +110,19 @@
     </view>
 </template>
 <script>
-   //import notice from '@/pages/class/notice/index'
+    import notice from '@/pages/class/notice/index'
+    import noticeForm from '@/pages/class/notice/form'
     import paper from '@/pages/class/paper/index'
     import courseware from '@/pages/class/courseware/index'
     import sign from '@/pages/class/sign/index'
-    import {addNotice,queryNotice} from "@/api/notice"
+    import {queryNotice} from "@/api/notice"
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         components:{
             paper,
             courseware,
+            noticeForm,
+            notice,
             userSign: sign
         },
         data() {
@@ -219,19 +182,13 @@
                 this.userInfo = await getStoreUserInfo()
                 console.log(this.userInfo)
             },
+            pubNotice() {
+                this.$refs.noticeFormCom.showDialog()
+            },
             onChange(event){
                 var index=event.detail.name;
                 if(index==0){
                     this.queryNotice();
-                }
-            },
-            noticeValueChange(event,index) {
-                // event.detail 为当前输入的值
-                if(index=='noticeTitle'){
-                    this.notice.noticeTitle = event.detail;
-                }
-                if(index=='noticeContent'){
-                    this.notice.noticeContent = event.detail;
                 }
             },
             queryNotice(){
@@ -244,12 +201,6 @@
                 }
                 queryNotice(data).then(resp => {
                     this.noticeArr=resp;
-                });
-            },
-            publishGg(){
-                addNotice(this.notice).then(resp => {
-                    this.successAlert("添加通知成功");
-                    this.queryNotice();
                 });
             },
             preview(){

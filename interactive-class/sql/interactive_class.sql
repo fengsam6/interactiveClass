@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-04-18 23:54:56
+Date: 2020-04-27 23:41:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,6 +35,7 @@ CREATE TABLE `class` (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
+INSERT INTO `class` VALUES ('09ead815-d07b-47d5-a074-c421eea56e49', 'test', '11', 'test', '337060', '2020-04-27 22:55:37', '2020-04-27 22:55:37', '0');
 
 -- ----------------------------
 -- Table structure for class_user
@@ -43,7 +44,7 @@ DROP TABLE IF EXISTS `class_user`;
 CREATE TABLE `class_user` (
   `id` varchar(36) NOT NULL,
   `class_id` varchar(255) NOT NULL DEFAULT '',
-  `class_name` varchar(200)DEFAULT NULL,
+  `class_name` varchar(200) DEFAULT NULL,
   `member_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级成员id',
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
   `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -55,6 +56,7 @@ CREATE TABLE `class_user` (
 -- ----------------------------
 -- Records of class_user
 -- ----------------------------
+INSERT INTO `class_user` VALUES ('6b1e6c54f3c5458b83432d3e47b99c9f', '09ead815-d07b-47d5-a074-c421eea56e49', null, '547b89b94e0b4591a5cd72dd04fce14d', '547b89b94e0b4591a5cd72dd04fce14d', '2020-04-27 22:55:37', '2020-04-27 22:55:37');
 
 -- ----------------------------
 -- Table structure for course
@@ -78,6 +80,7 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
+INSERT INTO `course` VALUES ('8ec2a77b-38db-41dd-bfd0-1b1676dde237', 'test', 'test', '', '', '09ead815-d07b-47d5-a074-c421eea56e49', 'test', '547b89b94e0b4591a5cd72dd04fce14d', '0', '', '');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -111,12 +114,16 @@ CREATE TABLE `notice` (
   `publish_time` varchar(50) DEFAULT NULL,
   `publish_user_id` varchar(36) DEFAULT NULL,
   `class_id` varchar(36) DEFAULT NULL,
+  `course_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
+INSERT INTO `notice` VALUES ('0b27f5a0-7a84-4152-a7c6-243731026a19', 'test', 'test', '2020-04-27 22:59:26', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
+INSERT INTO `notice` VALUES ('5efa3360-cf7a-45f9-8184-9363a4513294', 'test3', 'test3', '2020-04-27 23:41:36', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
+INSERT INTO `notice` VALUES ('de50a009-cc6e-40ac-ba28-dc22f4b404ab', 'test2', 'test2', '2020-04-27 23:38:18', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
 
 -- ----------------------------
 -- Table structure for paper
