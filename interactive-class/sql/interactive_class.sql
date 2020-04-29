@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50645
+Source Server         : interactive_class
+Source Server Version : 50724
 Source Host           : localhost:3306
 Source Database       : interactive_class
 
 Target Server Type    : MYSQL
-Target Server Version : 50645
+Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-04-27 23:41:56
+Date: 2020-04-29 23:14:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,8 @@ CREATE TABLE `class` (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES ('09ead815-d07b-47d5-a074-c421eea56e49', 'test', '11', 'test', '337060', '2020-04-27 22:55:37', '2020-04-27 22:55:37', '0');
+INSERT INTO `class` VALUES ('18952731-e1db-4415-90ff-197ff048b6b4', '1502', '40', '1502班级简介。。。', '715596', '2020-04-25 23:48:35', '2020-04-25 23:48:35', '0');
+INSERT INTO `class` VALUES ('9c68ae80-a913-435b-a434-722c97ad804f', '1501', '34', '1501班级简介。。。', '697042', '2020-04-25 23:48:17', '2020-04-25 23:48:17', '0');
 
 -- ----------------------------
 -- Table structure for class_user
@@ -49,14 +50,13 @@ CREATE TABLE `class_user` (
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '班级创建者Id',
   `creat_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_class_user_id` (`class_id`,`member_id`) USING BTREE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class_user
 -- ----------------------------
-INSERT INTO `class_user` VALUES ('6b1e6c54f3c5458b83432d3e47b99c9f', '09ead815-d07b-47d5-a074-c421eea56e49', null, '547b89b94e0b4591a5cd72dd04fce14d', '547b89b94e0b4591a5cd72dd04fce14d', '2020-04-27 22:55:37', '2020-04-27 22:55:37');
+INSERT INTO `class_user` VALUES ('662530fcbfba4127a4cb93028f651fd5', '18952731-e1db-4415-90ff-197ff048b6b4', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-04-26 00:21:40', '2020-04-26 00:21:40');
 
 -- ----------------------------
 -- Table structure for course
@@ -80,7 +80,8 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('8ec2a77b-38db-41dd-bfd0-1b1676dde237', 'test', 'test', '', '', '09ead815-d07b-47d5-a074-c421eea56e49', 'test', '547b89b94e0b4591a5cd72dd04fce14d', '0', '', '');
+INSERT INTO `course` VALUES ('a672f307-5e9e-40ab-a66c-3f51d0927294', 'java', 'java课程简介', '', '', '9c68ae80-a913-435b-a434-722c97ad804f', '1501', '547b89b94e0b4591a5cd72dd04fce14d', '0', '08:30:00', '10:00:00');
+INSERT INTO `course` VALUES ('bbc7f50e-702a-4314-b70a-fd30e3d682eb', 'java', 'java课程简介', '', '', '18952731-e1db-4415-90ff-197ff048b6b4', '1502', '547b89b94e0b4591a5cd72dd04fce14d', '0', '08:30:00', '10:00:00');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -121,9 +122,14 @@ CREATE TABLE `notice` (
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
-INSERT INTO `notice` VALUES ('0b27f5a0-7a84-4152-a7c6-243731026a19', 'test', 'test', '2020-04-27 22:59:26', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
-INSERT INTO `notice` VALUES ('5efa3360-cf7a-45f9-8184-9363a4513294', 'test3', 'test3', '2020-04-27 23:41:36', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
-INSERT INTO `notice` VALUES ('de50a009-cc6e-40ac-ba28-dc22f4b404ab', 'test2', 'test2', '2020-04-27 23:38:18', '547b89b94e0b4591a5cd72dd04fce14d', '09ead815-d07b-47d5-a074-c421eea56e49', '8ec2a77b-38db-41dd-bfd0-1b1676dde237');
+INSERT INTO `notice` VALUES ('294771a1-a7c6-41c4-86f9-c4b88cde41a8', '公告标题1', '公告内容1', '2020-04-27 00:35:18', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('41dce5e6-a790-4d97-a0b6-18d449879c90', '12233', '444558', '2020-04-28 00:05:09', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('4e559b3f-806b-4e0e-af0a-669ff8ef9ea8', '12233', '444558', '2020-04-28 00:06:01', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('72daf96f-bd52-4afd-b1f5-87f44fe05e2b', '公告标题3', '公告内容3', '2020-04-27 00:35:38', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('af63d126-6359-46c8-8356-a532a1f725fb', '77777', '88888。。。。。。。。。。。。。。。。。。。。。。。。。。。', '2020-04-28 00:10:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('dea363de-e705-46b0-888c-8532f7c8d198', '公告标题2', '公告内容2', '2020-04-27 00:35:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('dfb9c3cf-4d1a-4e4f-86b8-7b978d63a4bc', '公告标题5', '公告内容5.。。。。', '2020-04-27 16:17:04', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('f1d5682d-64f0-4abd-81ba-5924d22ba03c', '44', '444444.。。。', '2020-04-27 00:37:05', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 
 -- ----------------------------
 -- Table structure for paper
@@ -140,6 +146,7 @@ CREATE TABLE `paper` (
   `publish_time` varchar(50) DEFAULT NULL,
   `answer_user_id` varchar(36) DEFAULT '' COMMENT '试卷答题用户id',
   `class_id` varchar(36) DEFAULT '' COMMENT '试卷答题班级班级',
+  `course_id` varchar(36) DEFAULT NULL,
   `student_num` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -147,6 +154,11 @@ CREATE TABLE `paper` (
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
+INSERT INTO `paper` VALUES ('21c77052323142f59a21d5926b157532', '3月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
+INSERT INTO `paper` VALUES ('4c0a4c72eb4c48f09eae24e36562690d', '试卷1标题', null, '90分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
+INSERT INTO `paper` VALUES ('c68ce995780c4c75a8019d2de9d26c99', '4月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
+INSERT INTO `paper` VALUES ('cf8cf6db247f44e4963d147652e87277', '试卷3标题', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
+INSERT INTO `paper` VALUES ('fb8e93ed66524df68c5b1dc5a4ce2adc', '试卷2标题', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
 
 -- ----------------------------
 -- Table structure for paper_question
@@ -214,9 +226,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('547b89b94e0b4591a5cd72dd04fce14d', 'test7', '0', '222', '222', '222', '', '1', '', '', '2020-04-12 17:41:03', '2020-04-12 17:41:03', '0', '1');
-INSERT INTO `user` VALUES ('547b89b94e0b4591a5cd72dd04fwe14d', 'test', '0', '111', 'test', '111', '', '1', '', '', '2020-04-05 14:44:22', '2020-04-18 23:36:52', '0', '1');
-INSERT INTO `user` VALUES ('5bb13a4b87144f2fbe7cc8def0fc7daa', 'test', '0', '333', '333', '333', '', '1', '', '', '2020-04-12 16:56:28', '2020-04-12 16:56:28', '0', '1');
+INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_sign

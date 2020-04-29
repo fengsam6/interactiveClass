@@ -39,7 +39,7 @@
             <view class="class_center2">
                 <view style="font-size: 18px;font-weight: bold;">教学日志</view>
                 <view>
-                    <van-button icon="plus" type="info" size="small" @click="pubNotice" @click-overlay="fbshow=false">
+                    <van-button icon="plus" type="info" size="small" @click="fbshow=true" @click-overlay="fbshow=false">
                         发布
                     </van-button>
                 </view>
@@ -56,7 +56,7 @@
                         <courseware/>
                     </van-tab>
                     <van-tab title="试卷">
-                        <paper/>
+                        <paper :arrPaper="arrPaper"/>
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
@@ -72,54 +72,33 @@
                 <van-overlay :show="fbshow" @click="fbshow=false">
                     <view class="wrapper" style="margin: 50% 20%;">
                         <view style="width:100%">
-                            <van-button icon="star-o" type="primary" round="true" custom-style="width:100%;">发布试卷</van-button>
+                            <van-button icon="star-o" type="primary" round="true" @click="addPaper" custom-style="width:100%;">发布试卷</van-button>
                         </view>
                         <view style="width:100%;margin-top: 12px;">
-                            <van-button icon="star-o" type="primary" round="true" @click="showfbgg=true" custom-style="width:100%;">发布公告</van-button>
+                            <van-button icon="star-o" type="primary" round="true" @click="pubNotice" custom-style="width:100%;">发布公告</van-button>
                         </view>
                     </view>
                 </van-overlay>
             </view>
         </van-row>
         <noticeForm ref="noticeFormCom" @refreshNotice="queryNotice" :course="parentItem"/>
-        <van-dialog
-                use-slot
-                title="添加试卷"
-                :show="showAddSj"
-                show-cancel-button
-                @close="showfbgg=false"
-                @confirm="publishGg"
-        >
-            <van-cell-group>
-                <van-field
-                        :value="paperName"
-                        placeholder="请输入试卷标题"
-                        border=true
-                        required
-                        @change="noticeValueChange($event,'paperName')"
-                />
-                <van-field
-                        :value="paperTime"
-                        placeholder="请输入考试时长"
-                        border=true
-                        required
-                        @change="noticeValueChange($event,'paperTime')"
-                />
-            </van-cell-group>
-        </van-dialog>
+        <addPaperForm ref="paperFormCom" @refreshPaper="queryPaper" :course="parentItem"/>
     </view>
 </template>
 <script>
     import notice from '@/pages/class/notice/index'
     import noticeForm from '@/pages/class/notice/form'
     import paper from '@/pages/class/paper/index'
+    import addPaperForm from '@/pages/class/paper/addPaperForm'
     import courseware from '@/pages/class/courseware/index'
     import sign from '@/pages/class/sign/index'
     import {queryNotice} from "@/api/notice"
+    import {queryPaper} from "@/api/paper"
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         components:{
             paper,
+            addPaperForm,
             courseware,
             noticeForm,
             notice,
@@ -131,7 +110,8 @@
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
-                showAddSj:false,
+                arrPaper:[],
+                addPaperBtn:false,
                 notice:{
                     noticeTitle:'',
                     noticeContent:'',
@@ -185,10 +165,21 @@
             pubNotice() {
                 this.$refs.noticeFormCom.showDialog()
             },
+            addPaper(){
+                this.$refs.paperFormCom.showDialog()
+            },
             onChange(event){
                 var index=event.detail.name;
                 if(index==0){
                     this.queryNotice();
+                }if(index==1){
+                  //  this.queryNotice();
+                }
+                if(index==2){
+                    this.queryPaper();
+                }
+                if(index==3){
+                  //  this.queryNotice();
                 }
             },
             queryNotice(){
@@ -201,6 +192,19 @@
                 }
                 queryNotice(data).then(resp => {
                     this.noticeArr=resp;
+                });
+            },
+            queryPaper(){
+                var data={
+                    courseId:this.notice.courseId,
+                    classId:this.notice.classId,
+                    publishUserId:this.notice.publishUserId,
+                    page:1,
+                    limit:30
+                }
+                queryPaper(data).then(resp => {
+                    this.arrPaper =resp;
+                    console.log(resp);
                 });
             },
             preview(){

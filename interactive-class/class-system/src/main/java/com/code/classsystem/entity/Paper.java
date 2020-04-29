@@ -39,8 +39,16 @@ public class Paper implements Serializable {
      * 试卷答题班级班级
      */
     private String classId;
+    private String courseId;
     private Integer studentNum;
 
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
     public String getId() {
         return id;
