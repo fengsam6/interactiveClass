@@ -8,6 +8,18 @@
       }
     },
     {
+      "path": "pages/class/index",
+      "style": {
+        "navigationBarTitleText": "班级管理"
+      }
+    },
+    {
+      "path": "pages/class/paper/paperList",
+      "style": {
+        "navigationBarTitleText": "试题列表"
+      }
+    },
+    {
       "path": "pages/class/student/index",
       "style": {
         "navigationBarTitleText": "成员管理"
@@ -48,12 +60,6 @@
       "path": "pages/index/paper/paper",
       "style": {
         "navigationBarTitleText": "试卷库"
-      }
-    },
-    {
-      "path": "pages/class/index",
-      "style": {
-        "navigationBarTitleText": "班级管理"
       }
     },
     {

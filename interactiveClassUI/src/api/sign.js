@@ -18,3 +18,12 @@ export function signIn(data) {
 export function signOut(data) {
     return post("userSign/signOut", data)
 }
+
+/**
+ * 查询个人签到情况
+ * @param data
+ * @returns {*}
+ */
+export function queryMySignInfo(data) {
+    return post("userSign/queryMySignInfo", data)
+}

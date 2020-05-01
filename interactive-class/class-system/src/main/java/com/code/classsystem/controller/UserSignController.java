@@ -4,6 +4,7 @@ package com.code.classsystem.controller;
 import com.code.classsystem.entity.UserSign;
 import com.code.classsystem.service.UserSignService;
 import com.code.classsystem.util.DateUtils;
+import com.code.classsystem.vo.SignVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import io.swagger.annotations.ApiOperation;
@@ -30,20 +31,28 @@ public class UserSignController {
     private UserSignService userSignService;
     @ApiOperation(value = "签到", notes = "签到")
     @PostMapping("/signIn")
-    public ResponseResult signIn(@Valid UserSign userSign) {
-        userSign.setSignTime(DateUtils.getCurTimeStr());
-        userSign.setSignIn(1);
-        userSignService.insert(userSign);
+    public ResponseResult signIn( UserSign userSign) {
+        userSignService.doSign(userSign);
+       // userSign.setSignTime(DateUtils.getCurTimeStr());
+       // userSign.setSignIn(1);
+     //   userSignService.insert(userSign);
         return ResponseResultUtil.renderSuccess("签到成功！");
     }
 
     @ApiOperation(value = "签退", notes = "签退")
     @PostMapping("/signOut")
-    public ResponseResult signOut(@Valid UserSign userSign) {
-        userSign.setSignTime(DateUtils.getCurTimeStr());
-        userSign.setSignIn(0);
-        userSignService.insert(userSign);
+    public ResponseResult signOut(UserSign userSign) {
+        userSignService.doSign(userSign);
+      //  userSign.setSignTime(DateUtils.getCurTimeStr());
+      //  userSign.setSignIn(0);
+      //  userSignService.insert(userSign);
         return ResponseResultUtil.renderSuccess("签退成功！");
+    }
+    @ApiOperation(value = "个人签到情况", notes = "个人签到情况")
+    @PostMapping("/queryMySignInfo")
+    public ResponseResult queryMySignInfo(UserSign userSign) {
+        SignVo signVo=userSignService.querySignInfo(userSign);
+        return ResponseResultUtil.renderSuccess(signVo);
     }
 }
 
