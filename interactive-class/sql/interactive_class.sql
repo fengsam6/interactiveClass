@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-04-29 23:14:22
+Date: 2020-05-01 20:07:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -235,16 +235,19 @@ INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222'
 DROP TABLE IF EXISTS `user_sign`;
 CREATE TABLE `user_sign` (
   `id` varchar(36) NOT NULL,
-  `class_id` int(11) DEFAULT NULL,
+  `class_id` varchar(36) DEFAULT NULL,
   `user_id` varchar(36) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `sign_time` varchar(50) NOT NULL DEFAULT '0000-00-00 00:00:00',
   `sign_place` varchar(255) NOT NULL,
   `sign_in` tinyint(1) NOT NULL DEFAULT '1' COMMENT '签到。1表示签到，0表示签退',
   `ip` varchar(255) DEFAULT NULL,
+  `course_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_sign
 -- ----------------------------
+INSERT INTO `user_sign` VALUES ('2d59b3f07fc248cea70ddf4458ce379c', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:42', '大悟县人民政府(府前街东)', '0', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `user_sign` VALUES ('67fc85cc07c546f0a707fd9110cd59f8', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:41', '大悟县人民政府(府前街东)', '1', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');

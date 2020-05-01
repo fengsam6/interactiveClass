@@ -32,7 +32,24 @@ public class UserSign implements Serializable {
      */
     private Integer signIn;
     private String ip;
+    private String courseId;
+    private String classId;
 
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
     public String getId() {
         return id;

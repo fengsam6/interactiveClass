@@ -60,7 +60,7 @@
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
-                            <user-sign/>
+                            <user-sign :signData="parentItem" :signQuery="signInfo"/>
                             <van-divider  custom-style="height:1px"/>
                         </van-row>
                     </van-tab>
@@ -94,6 +94,7 @@
     import sign from '@/pages/class/sign/index'
     import {queryNotice} from "@/api/notice"
     import {queryPaper} from "@/api/paper"
+    import {queryMySignInfo} from "@/api/sign"
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         components:{
@@ -107,6 +108,7 @@
         data() {
             return {
                 parentItem:null,
+                signInfo:null,
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
@@ -121,12 +123,6 @@
                 },
                 className:'',
                 border:false,
-                maddress:'',
-                update:true,
-                dkflag1:true,
-                dkflag2:true,
-                nowTime1:'',
-                nowTime2:'',
                 fbshow:false
             }
         },
@@ -184,8 +180,17 @@
                     this.queryPaper();
                 }
                 if(index==3){
-                  //  this.queryNotice();
+                    this.queryPersionSign();
                 }
+            },
+            queryPersionSign(){
+                var data={
+                    courseId:this.parentItem.courseId,
+                    classId:this.parentItem.classId
+                }
+                queryMySignInfo(data).then(resp => {
+                    this.signInfo=resp;
+                });
             },
             queryNotice(){
                 var data={
@@ -307,21 +312,4 @@
     width: 40px;
     margin: auto 10px;
 }
-    .sj_xx view{
-        min-height: 46px;
-        background: #fff;
-        box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
-        border-radius: 8px;
-        margin-bottom: 20px;
-        padding: 20px 12px;
-        box-sizing: border-box;
-    }
-    .sj_xx text,.sj_st{
-        font-family: PingFangSC-Regular;
-        font-size: 14px;
-        color: #1c1f21;
-        letter-spacing: 0;
-        line-height: 22px;
-        word-break: break-word;
-    }
 </style>

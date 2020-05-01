@@ -3,7 +3,7 @@
         <view>
             <view v-if="update" class="signIn address">
                 <view class="signIn_left">
-                    {{mapAddress}}
+                    {{signQuery.signPlace}}
                 </view>
                 <view class="signIn_right">
                     <van-button icon="location-o" type="info" size="small" @click="getMapLocation">重新获取</van-button>
@@ -23,8 +23,8 @@
             </view>
             <view class="signIn_right">
                 <van-button icon="success" type="info" size="small" @click="sign(1)">
-                    <view v-if="dkflag1">打卡</view>
-                    <view>{{nowTime1}}</view>
+                    <view v-if="signQuery.signPreTime==''&&signInBtn">打卡</view>
+                    <view>{{signQuery.signPreTime}}</view>
                 </van-button>
             </view>
         </view>
@@ -41,8 +41,8 @@
             </view>
             <view class="signIn_right">
                 <van-button icon="success" type="info" size="small" @click="sign(2)">
-                    <view v-if="dkflag2">打卡</view>
-                    <view>{{nowTime2}}</view>
+                    <view v-if="signQuery.signNextTime==''&&signOutBtn">打卡</view>
+                    <view>{{signQuery.signNextTime}}</view>
                 </van-button>
             </view>
         </view>
@@ -56,25 +56,52 @@
     var qqmapsdk = new QQMapWX({
         key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
     });
+    import {signIn,signOut,queryMySignInfo} from "@/api/sign"
     export default {
+        name:"sign",
+        props:{
+            signData:{
+                type:Object,
+                default:{}
+            },
+            signQuery:{
+                type:Object,
+                default:{}
+            }
+        },
         data() {
             return {
-                mapAddress: '',
                 update: true,
-                dkflag1: true,
-                dkflag2: true,
-                nowTime1: '',
-                nowTime2: '',
+                signInBtn: true,
+                signOutBtn: true,
+                signComData:{
+                    classId:'',
+                    courseId:'',
+                    signPlace:'',
+                    signIn:0,
+                    signTime:''
+                }
 
             }
         },
         onShow() {
+            if(this.signQuery.signPreTime!=""){
+                this.signInBtn=false;
+            }
+            if(this.signQuery.signNextTime!=""){
+                this.signOutBtn=false;
+            }
+        },
+        mounted(){
+            this.signComData.classId=this.signData.classId;
+            this.signComData.courseId=this.signData.courseId;
         },
         onLoad() {
             this.getLocal();
         },
         methods: {
             getLocal() {
+                var that=this;
                 uni.getLocation({
                     type: 'wgs84',
                     success: () => {
@@ -82,21 +109,43 @@
                             success: function (addressRes) {
                                 var address = addressRes.result.formatted_addresses.recommend;
                                 // console.log(address);
-                                this.mapAddress = address;
+                                that.signComData.signPlace = address;
                             }
                         });
                     }
                 });
             },
+
             sign(flag) {
                 var now = moment();
                 if (flag === 1) {
-                    this.dkflag1 = false;
-                    this.nowTime1 = now.format('HH:mm:ss');
+                    if(this.signQuery.signPreTime!=""){
+                        this.successAlert("您已经签过到了");
+                        return;
+                    }
+                    this.signInBtn = false;
+                    this.signQuery.signPreTime = now.format('HH:mm:ss');
+                    this.signComData.signIn=1;
+                    this.signComData.signPlace=this.signQuery.signPlace;
+                    this.signComData.signTime=this.signQuery.signPreTime;
+                    signIn(this.signComData).then(resp => {
+                        this.successAlert("上课签到成功");
+                      //  this.$emit("refreshNotice")
+                    });
                 }
                 if (flag === 2) {
-                    this.dkflag2 = false;
-                    this.nowTime2 = now.format('HH:mm:ss');
+                    if(this.signQuery.signNextTime!=""){
+                        this.successAlert("您已经签过到了");
+                        return;
+                    }
+                    this.signOutBtn = false;
+                    this.signQuery.signNextTime = now.format('HH:mm:ss');
+                    this.signComData.signIn=0;
+                    this.signComData.signTime=this.signQuery.signNextTime;
+                    signIn(this.signComData).then(resp => {
+                        this.successAlert("下课签到成功");
+                        //  this.$emit("refreshNotice")
+                    });
                 }
             },
             getMapLocation() {
