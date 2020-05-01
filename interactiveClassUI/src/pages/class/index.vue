@@ -16,7 +16,7 @@
                     </view>
                 </van-grid-item>
                 <van-grid-item  use-slot>
-                    <view>
+                    <view @click="userTalk">
                         <image
                                 style="width: 100%; height: 40px;"
                                 src="/static/icon/tlq.png"
@@ -150,6 +150,11 @@
                 console.log('成员管理');
                 uni.navigateTo({
                     url: '/pages/class/student/index'
+                });
+            },
+            userTalk(){
+                uni.navigateTo({
+                    url: '/pages/class/talk/index'
                 });
             },
             doGetUserInfo() {

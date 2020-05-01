@@ -67,6 +67,12 @@
       "style": {
         "navigationBarTitleText": "修改用户信息"
       }
+    },
+    {
+      "path": "pages/class/talk/index",
+      "style": {
+        "navigationBarTitleText": "课堂讨论"
+      }
     }
   ],
   "globalStyle": {
