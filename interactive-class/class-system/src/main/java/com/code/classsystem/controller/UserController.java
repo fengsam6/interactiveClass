@@ -94,6 +94,13 @@ public class UserController {
         return ResponseResultUtil.renderSuccess(userInfoVo);
     }
 
+    @GetMapping("/getUserInfoById/{id}")
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
+    public ResponseResult getUserInfoById(@PathVariable("id") String id) {
+        UserInfoVo userInfoVo =  userService.getUserInfoById(id);
+        return ResponseResultUtil.renderSuccess(userInfoVo);
+    }
+
     @GetMapping("/logout")
     @ApiOperation(value = "退出登录", notes = "退出登录")
     public ResponseResult logout() {

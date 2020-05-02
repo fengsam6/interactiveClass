@@ -7,7 +7,10 @@ import com.code.classsystem.vo.CourseAndClass;
 import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.CourseService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.code.classsystem.vo.CourseInfoVo;
 import com.code.core.util.UUIDUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +57,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public List<CourseAndClass> queryCourseInfo(String userId) {
         List<CourseAndClass> courseAndClassList=courseMapper.mcourseInfo(userId);
-
         return courseAndClassList;
+    }
+
+    @Override
+    public PageInfo<CourseInfoVo> listPage(Course course, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CourseInfoVo> userInfoVos = courseMapper.listPage(course);
+        return new PageInfo<>(userInfoVos);
     }
 }

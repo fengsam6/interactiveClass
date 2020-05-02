@@ -105,4 +105,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String userId = ShiroUtils.getUserId();
         return userMapper.getUserInfoByUserId(userId);
     }
+
+    @Override
+    public UserInfoVo getUserInfoById(String userId) {
+        return userMapper.getUserInfoByUserId(userId);
+    }
 }

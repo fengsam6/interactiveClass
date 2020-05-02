@@ -35,4 +35,6 @@ public interface UserService extends IService<User> {
     PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize);
 
     UserInfoVo getUserInfo();
+
+    UserInfoVo getUserInfoById(String userId);
 }

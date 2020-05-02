@@ -1,9 +1,8 @@
 import request from '@/utils/request'
 
-
-export function getList(params) {
+export function listPage(params) {
   return request({
-    url: '/course/list',
+    url: '/course/listPage',
     method: 'get',
     params
   })

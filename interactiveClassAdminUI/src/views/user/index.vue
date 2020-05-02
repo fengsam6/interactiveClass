@@ -1,5 +1,9 @@
 <template>
   <div class="app-container">
+    <div class="btn_group">
+      <el-button type="primary" size="small" @click="addForm">添加</el-button>
+      <el-button type="primary" size="small">批量删除</el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -75,7 +79,10 @@ export default {
       this.listLoading = false
     },
     editForm(id) {
-      this.$refs.formDialogCom.showDialog(id)
+      this.$refs.formDialogCom.getUserById(id)
+    },
+    addForm() {
+      this.$refs.formDialogCom.addForm(id)
     },
     handleDelete(id) {
 
@@ -83,3 +90,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .btn_group{
+    float: right;
+  }
+</style>

@@ -5,23 +5,37 @@
         <el-input v-model="form.name" class="formItem" />
       </el-form-item>
       <el-form-item label="用户编号">
-        <el-input v-model="form.num" :disabled="true" class="formItem" />
+        <el-input v-model="form.userNum" :disabled="true" class="formItem" />
       </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="form.region" placeholder="please select your zone" class="formItem">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
+      <el-form-item label="性别">
+        <el-select v-model="form.sex" placeholder="please select your zone" class="formItem">
+          <el-option label="男" value="0" />
+          <el-option label="女" value="1" />
         </el-select>
       </el-form-item>
-      <el-row>
-        <el-button type="primary" @click="onSubmit">修改</el-button>
-        <el-button @click="onCancel">关闭</el-button>
-      </el-row>
+      <el-form-item label="密码">
+        <el-input v-model="form.password" class="formItem" />
+      </el-form-item>
+      <el-form-item label="角色">
+        <el-select v-model="form.roleId" placeholder="please select your zone" class="formItem">
+          <el-option label="学生" value="1" />
+          <el-option label="老师" value="2" />
+        </el-select>
+      </el-form-item>
     </el-form>
+    <div slot="footer" class="dialog-footer">
+      <div class="btn_opt">
+        <el-button @click="onCancel">取 消</el-button>
+        <el-button type="primary" @click="doSave">确 定</el-button>
+      </div>
+
+    </div>
   </el-dialog>
 </template>
 
 <script>
+import { getUserInfoById } from '@/api/user'
+
 export default {
   data() {
     return {
@@ -47,8 +61,21 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
+    async getUserById(userId) {
+      const data = await getUserInfoById(userId)
+      this.form = data.data
+      debugger
+      this.dialogVisible = true
+    },
     onCancel() {
-        this.dialogVisible = false
+      this.dialogVisible = false
+    },
+    addForm(userId) {
+      this.formTitle = '添加用户'
+      this.dialogVisible = true
+    },
+    doSave() {
+
     }
   }
 }
@@ -57,6 +84,10 @@ export default {
 <style scoped>
   .formItem{
     width: 160px;
+  }
+  .btn_opt{
+    width: 260px;
+    margin: 0 auto;
   }
 .line{
   text-align: center;

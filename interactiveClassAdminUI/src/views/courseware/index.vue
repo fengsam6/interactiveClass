@@ -1,12 +1,17 @@
 <template>
   <div class="app-container">
+    <div class="btn_group">
+      <el-button type="primary" @click="addForm" size="small">添加</el-button>
+      <el-button type="primary" size="small">批量删除</el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
       border
-      fit
       stripe
+      fit
+      size="mini"
       highlight-current-row
     >
       <el-table-column align="center" label="ID" width="95">
@@ -14,39 +19,35 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+<!--      <el-table-column label="用户id" prop="id" width="280px" />-->
+      <el-table-column label="课程名称" prop="courseName" />
+      <el-table-column label="班级名称" align="center" prop="className" />
+      <el-table-column label="上课人数" align="center" prop="classNum" />
+      <el-table-column   label="上课时间" align="center" prop="beginTime" />
+      <el-table-column align="center" label="下课时间" prop="endTime" />
+      <el-table-column align="center" label="教学ppt" prop="endTime" />
+      <el-table-column align="center" label="教学视频" prop="endTime" />
+      <el-table-column label="操作" min-width="240px">
         <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <el-button
+            size="mini"
+            @click="editForm(scope.row.id)"
+          >编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.row.id)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <form-dialog ref="formDialogCom" />
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/course'
-
+import { listPage } from '@/api/course'
+import formDialog from './formDialog'
 export default {
   filters: {
     statusFilter(status) {
@@ -58,23 +59,42 @@ export default {
       return statusMap[status]
     }
   },
+  components: {
+    formDialog
+  },
   data() {
     return {
       list: null,
+      pageData: {},
       listLoading: true
     }
   },
   created() {
-    this.fetchData()
+    this.listPageData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    async listPageData() {
+      const data = await listPage()
+      this.pageData = data.data
+      debugger
+      this.list = this.pageData.list
+      this.listLoading = false
+    },
+    editForm(id) {
+        debugger
+      this.$refs.formDialogCom.editForm(id)
+    },
+      addForm(id) {
+          this.$refs.formDialogCom.addForm(id)
+      },
+    handleDelete(id) {
+
     }
   }
 }
 </script>
+<style scoped>
+  .btn_group{
+    float: right;
+  }
+</style>
