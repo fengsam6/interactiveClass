@@ -58,5 +58,12 @@ public class CourseController {
         return ResponseResultUtil.renderSuccess(userInfoVoPageInfo,"退分页查找用户成功");
     }
 
+    @ApiOperation(value = "添加课程", notes = "添加课程")
+    @PostMapping("/addCourse")
+    public ResponseResult addCourse(CourseInfoVo course) {
+        courseService.CourseInfoVo(course);
+        return ResponseResultUtil.renderSuccessMsg("添加课程成功！");
+    }
+
 }
 

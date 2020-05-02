@@ -1,9 +1,10 @@
-import request from '@/utils/request'
+import { get, post } from '@/utils/request'
 
 export function listPage(params) {
-  return request({
-    url: '/course/listPage',
-    method: 'get',
-    params
-  })
+  return get('/course/listPage', params)
 }
+
+export function addCourse(params) {
+  return post('/user/deleteUserById/',params)
+}
+

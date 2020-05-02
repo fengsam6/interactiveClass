@@ -22,4 +22,6 @@ public interface CourseService extends IService<Course> {
     List<CourseAndClass> queryCourseInfo(String userId);
 
     PageInfo<CourseInfoVo> listPage(Course course, int pageNum, int pageSize);
+
+    void CourseInfoVo(CourseInfoVo course);
 }

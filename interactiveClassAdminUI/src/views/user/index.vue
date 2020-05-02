@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <div class="btn_group">
-      <el-button type="primary" size="small" @click="addForm">添加</el-button>
-      <el-button type="primary" size="small">批量删除</el-button>
+      <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
+      <el-button type="danger" size="small">批量删除</el-button>
     </div>
     <el-table
       v-loading="listLoading"

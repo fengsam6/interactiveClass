@@ -36,38 +36,32 @@
           align="right"
         />
       </el-form-item>
-      <el-form-item label="附件一">
-        <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          multiple
-          :limit="3"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" type="primary">上传教学PPT</el-button>
-          <!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="附件二">
-        <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          multiple
-          :limit="3"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" type="primary">上传教学视频</el-button>
-          <!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-        </el-upload>
-      </el-form-item>
+      <div>
+        <el-form-item label="附件一">
+          <el-upload
+            class="upload-demo"
+            :action="uploadUrl"
+            multiple
+            :limit="3"
+            :file-list="fileList"
+          >
+            <el-button size="small" type="primary">上传教学PPT</el-button>
+            <!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="附件二">
+          <el-upload
+            class="upload-demo"
+            :action="uploadUrl"
+            multiple
+            :limit="3"
+            :file-list="fileList"
+          >
+            <el-button size="small" type="primary">上传教学视频</el-button>
+            <!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+          </el-upload>
+        </el-form-item>
+      </div>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <div class="btn_opt">
@@ -79,8 +73,8 @@
 </template>
 
 <script>
-import { getUserInfoById } from '@/api/user'
-
+// import { add } from '@/api/course'
+import fileRequest from '@/utils/fileRequest'
 export default {
   data() {
     return {
@@ -88,6 +82,7 @@ export default {
       dialogVisible: false,
       labelPosition: 'right',
       fileList: [],
+        uploadUrl: fileRequest.fileUploadUrl,
       dateFormat: 'yyyy-MM-dd hh:mm:ss',
       form: {
         name: '',

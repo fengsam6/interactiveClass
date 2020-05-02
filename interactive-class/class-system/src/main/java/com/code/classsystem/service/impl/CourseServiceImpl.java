@@ -11,6 +11,7 @@ import com.code.classsystem.vo.CourseInfoVo;
 import com.code.core.util.UUIDUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +66,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         PageHelper.startPage(pageNum, pageSize);
         List<CourseInfoVo> userInfoVos = courseMapper.listPage(course);
         return new PageInfo<>(userInfoVos);
+    }
+
+    @Override
+    public void CourseInfoVo(CourseInfoVo courseInfoVo) {
+        Course course = new Course();
+        BeanUtils.copyProperties(courseInfoVo,course);
+        addCourse(course);
     }
 }

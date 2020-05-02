@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <div class="btn_group">
-      <el-button type="primary" @click="addForm" size="small">添加</el-button>
-      <el-button type="primary" size="small">批量删除</el-button>
+      <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
+      <el-button size="small" type="danger">批量删除</el-button>
     </div>
     <el-table
       v-loading="listLoading"
@@ -19,15 +19,15 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-<!--      <el-table-column label="用户id" prop="id" width="280px" />-->
+      <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="课程名称" prop="courseName" />
       <el-table-column label="班级名称" align="center" prop="className" />
       <el-table-column label="上课人数" align="center" prop="classNum" />
-      <el-table-column   label="上课时间" align="center" prop="beginTime" />
+      <el-table-column label="上课时间" align="center" prop="beginTime" />
       <el-table-column align="center" label="下课时间" prop="endTime" />
       <el-table-column align="center" label="教学ppt" prop="endTime" />
       <el-table-column align="center" label="教学视频" prop="endTime" />
-      <el-table-column label="操作" min-width="240px">
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -49,16 +49,6 @@
 import { listPage } from '@/api/course'
 import formDialog from './formDialog'
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   components: {
     formDialog
   },
@@ -81,12 +71,12 @@ export default {
       this.listLoading = false
     },
     editForm(id) {
-        debugger
+      debugger
       this.$refs.formDialogCom.editForm(id)
     },
-      addForm(id) {
-          this.$refs.formDialogCom.addForm(id)
-      },
+    addForm(id) {
+      this.$refs.formDialogCom.addForm(id)
+    },
     handleDelete(id) {
 
     }
