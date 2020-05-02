@@ -2,8 +2,12 @@ package com.code.classsystem.common.websocket;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.code.classsystem.common.websocket.config.WebsocketConfiguration;
+import com.code.classsystem.entity.User;
+import com.code.classsystem.service.UserService;
 import com.code.classsystem.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -17,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ServerEndpoint("/imServer/{userId}")
+@ServerEndpoint(value = "/imServer/{userId}",configurator = WebsocketConfiguration.class)
 @Component
 @Slf4j
 public class WebSocketServer {
@@ -39,6 +43,10 @@ public class WebSocketServer {
      * 登录userId
      */
     private String userId = null;
+    private User curUser;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 连接建立成功调用的方法
@@ -46,6 +54,8 @@ public class WebSocketServer {
     @OnOpen
     public void onOpen(Session session, @PathParam("userId") String userId) {
         this.userId = userId;
+        //设置用户
+        this.curUser =  (User) session.getUserProperties().get("user");
         this.session = session;
         if (clientsMap.containsKey(userId)) {
             clientsMap.remove(userId);
@@ -88,7 +98,11 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("来自用户id" + userId + ",消息报文:" + message);
+        if(JsonUtils.isJsonStr(message)){
+            log.info("来自用户id" + userId + ",消息报文:" + JSON.parseObject(message).toJSONString());
+        }else{
+            log.info("来自用户id" + userId + ",消息报文:" +message);
+        }
         //可以群发消息
         //消息保存到数据库、redis
         if (!StringUtils.isEmpty(message)) {
@@ -129,18 +143,20 @@ public class WebSocketServer {
     }
 
     public  void sendJsonMessage(Session session,String toUserId, String message) throws IOException {
-        if(JsonUtils.isJsonStr(message)){
-            sendMessage(session,message);
-            return ;
-        }
         //解析发送的报文
         JSONObject jsonObject = new JSONObject();
+        if(JsonUtils.isJsonStr(message)){
+            jsonObject = JSON.parseObject(message,JSONObject.class);
+        }
+
+        //重写设置用户信息
         jsonObject.put("userId", this.userId);
         jsonObject.put("content",message);
+        jsonObject.put("userName",this.curUser.getName());
         jsonObject.put("toUserId",toUserId);
         String msg = jsonObject.toJSONString();
         log.info("发送消息到:" + userId + "，报文:" + msg);
-        session.getBasicRemote().sendText(msg);
+        sendMessage(session,message);
     }
 
 
@@ -182,10 +198,11 @@ public class WebSocketServer {
 
     public void sendToUsers(String message, Set<String> sendUserIds) throws IOException {
         String userId = this.userId;
+//        遍历所有在线用户id
         for (String to : sendUserIds) {
             if (!userId.equals(to) && clientsMap.get(to) != null) {
                 Session session = clientsMap.get(userId);
-                sendJsonMessage(session,message, message);
+                sendJsonMessage(session,to, message);
             }
         }
     }
@@ -200,7 +217,7 @@ public class WebSocketServer {
         for (String key : clientsMap.keySet()) {
             try {
                 Session session = clientsMap.get(key);
-                sendMessage(session, message);
+                sendJsonMessage(session,key, message);
             } catch (IOException e) {
                 e.printStackTrace();
             }

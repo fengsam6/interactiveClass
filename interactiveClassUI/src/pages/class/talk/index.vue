@@ -1,14 +1,26 @@
 <template>
     <view>
-        <view  class="msgList">
-            <van-row v-for="msg in messages">
-                <van-col span="8">
-                    <text class="userName">{{msg.userName}}</text>
-                    <text>:</text>
-                </van-col>
-                <van-col span="16">
-                    <view>{{msg.content}}</view>
-                </van-col>
+        <view class="msgList">
+            <van-row v-for="(msg,index) in messages" :key="index">
+                <view v-if="msg.userId === userInfo.id" class="selfMsg">
+                    <van-col span="16" offset="2">
+                        <view>{{msg.content}}</view>
+                    </van-col>
+                    <van-col span="6" >
+                        <text>:</text>
+                        <text class="userName">{{msg.userName}}</text>
+                    </van-col>
+                </view>
+
+                <view v-else>
+                    <van-col span="6">
+                        <text class="userName">{{msg.userName}}</text>
+                        <text>:</text>
+                    </van-col>
+                    <van-col span="18">
+                        <view>{{msg.content}}</view>
+                    </van-col>
+                </view>
             </van-row>
         </view>
         <van-row>
@@ -37,7 +49,7 @@
     import {takeStoreUserInfo} from "@/api/user"
 
     const websocketUrl = config.websocketUrl
-    const token = getToken()
+
     export default {
         name: "talk",
         data() {
@@ -55,6 +67,7 @@
         methods: {
             // 进入这个页面的时候创建websocket连接【整个页面随时使用】
             connectSocketInit() {
+                const token = getToken()
                 this.userInfo = takeStoreUserInfo()
                 const userId = this.userInfo.id
                 const userName = this.userInfo.name || 'test'
@@ -98,12 +111,13 @@
                     console.log("已经被关闭了")
                 })
             },
-            send(msg) {
+            send(message) {
                 // 注：只有连接正常打开中 ，才能正常成功发送消息
+                const msgStr = JSON.stringify(message)
                 this.socketTask.send({
-                    data: msg,
+                    data: msgStr,
                     async success() {
-                        console.log(msg + "消息发送成功");
+                        console.log(msgStr + "消息发送成功");
                     },
                 });
             },
@@ -139,10 +153,10 @@
                 this.content = event.detail
             },
             sendMsg() {
-             const msg =  this.contentToJsonMsg(this.content)
+                const msg = this.contentToJsonMsg(this.content)
                 this.send(msg)
                 this.appendJsonMsg(msg)
-                this.content=''
+                this.content = ''
             },
 
             appendMsg(userId, userName, content) {
@@ -152,7 +166,7 @@
             appendJsonMsg(msg) {
                 this.messages.push(msg)
             },
-            contentToJsonMsg(content){
+            contentToJsonMsg(content) {
                 const userId = this.userInfo.id
                 const userName = this.userInfo.name || 'test'
                 const msg = {userId, userName, content}
@@ -175,7 +189,14 @@
         margin: 1px 4px;
         height: 540px;
     }
-    .userName{
+
+    .userName {
         font-size: 16px;
+    }
+
+    .selfMsg {
+        display: block;
+        /*float: right;*/
+        background-color: #0A98D5;
     }
 </style>
