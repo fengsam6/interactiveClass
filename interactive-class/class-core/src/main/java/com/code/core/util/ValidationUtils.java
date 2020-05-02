@@ -2,10 +2,8 @@ package com.code.core.util;
 
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.ParamInvalidException;
-import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
@@ -14,7 +12,7 @@ public class ValidationUtils {
     /**
      * 使用hibernate的注解来进行验证
      */
-    private static Validator validator = SpringUtil.getBean("validator",Validator.class);
+    private static Validator validator = SpringApplicationUtil.getBean("validator",Validator.class);
 
     /**
      * 功能描述: <br>

@@ -20,12 +20,12 @@
 
     <select id="showClassUsers" resultType="com.code.classsystem.entity.User" parameterType="string">
         select * from user u
-        where u.id in (select memberId where class_id = #{classId} )
+        where u.id in (select member_id from class_user where class_id = #{classId} )
     </select>
 
     <select id="listClassByUserId" resultType="com.code.classsystem.entity.Class" parameterType="string">
         select * from class c
-        where c.id in (select class_id where memberId = #{userId} )
+        where c.id in (select class_id from class_user where memberId = #{userId} )
     </select>
 
 

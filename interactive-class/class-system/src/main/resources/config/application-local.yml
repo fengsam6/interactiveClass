@@ -100,5 +100,5 @@ system:
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl
-    loginOutUrl: /logout
-    whiteUrl:  /druid
+    loginOutUrl: /user/logout
+    whiteUrl:  /druid, /
