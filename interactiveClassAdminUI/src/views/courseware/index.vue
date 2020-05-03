@@ -14,11 +14,7 @@
       size="mini"
       highlight-current-row
     >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
+      <el-table-column type="index" width="80" align="center" />
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="课程名称" prop="courseName" />
       <el-table-column label="班级名称" align="center" prop="className" />
@@ -30,6 +26,8 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
+            type="primary"
+            plain
             size="mini"
             @click="editForm(scope.row.id)"
           >编辑</el-button>
@@ -41,7 +39,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <form-dialog ref="formDialogCom" />
+    <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
   </div>
 </template>
 
@@ -69,6 +67,9 @@ export default {
       debugger
       this.list = this.pageData.list
       this.listLoading = false
+    },
+    refreshDataList() {
+      this.listPageData()
     },
     editForm(id) {
       debugger

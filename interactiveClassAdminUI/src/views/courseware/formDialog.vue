@@ -5,14 +5,15 @@
         <el-input v-model="form.courseName" class="formItem" />
       </el-form-item>
       <el-form-item label="班级名称">
-        <el-select v-model="form.className" placeholder="please select your zone" class="formItem">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
+        <el-select v-model="form.classNameList" multiple placeholder="请选择班级" class="formItem">
+          <el-option v-for="(className,index) in classNames" :label="className" :value="className" :key="index"/>
         </el-select>
-
       </el-form-item>
       <el-form-item label="课程学分">
         <el-input v-model="form.courseScore" class="formItem" />
+      </el-form-item>
+      <el-form-item label="上课人数">
+        <el-input v-model="form.classNum" class="formItem" />
       </el-form-item>
       <el-form-item label="上课时间">
         <el-date-picker
@@ -42,6 +43,7 @@
             class="upload-demo"
             :action="uploadUrl"
             multiple
+            on-success="uploadPPTSuccess"
             :limit="3"
             :file-list="fileList"
           >
@@ -54,6 +56,7 @@
             class="upload-demo"
             :action="uploadUrl"
             multiple
+            on-success="uploadVideoSuccess"
             :limit="3"
             :file-list="fileList"
           >
@@ -73,7 +76,9 @@
 </template>
 
 <script>
-// import { add } from '@/api/course'
+import { addCourse } from '@/api/course'
+import { listClassByUserId } from '@/api/class'
+
 import fileRequest from '@/utils/fileRequest'
 export default {
   data() {
@@ -81,8 +86,11 @@ export default {
       formTitle: '编辑用户',
       dialogVisible: false,
       labelPosition: 'right',
+      isAddOPt: true,
+      classNames: [],
+      resourceNum: 0,
       fileList: [],
-        uploadUrl: fileRequest.fileUploadUrl,
+      uploadUrl: fileRequest.fileUploadUrl,
       dateFormat: 'yyyy-MM-dd hh:mm:ss',
       form: {
         name: '',
@@ -91,6 +99,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.listClassesByUserId()
+  },
   methods: {
     onSubmit() {
       this.$message('submit!')
@@ -98,19 +109,41 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
+    async  listClassesByUserId() {
+      const data = await listClassByUserId()
+      const classes = data.data
+      for (let i = 0; i < classes.length; i++) {
+        this.classNames.push(classes[i].className)
+      }
+    },
+    uploadPPTSuccess(response, file, fileList) {
+      const data = response.data
+      this.form.resourcePath[this.resourceNum] = data
+      this.resourceNum++
+    },
+    uploadVideoSuccess(response, file, fileList) {
+      const data = response.data
+      this.form.resourcePath[this.resourceNum] = data
+      this.resourceNum++
+    },
     async editForm(userId) {
       this.formTitle = '修改课程'
       // const data = await getUserInfoById(userId)
       // this.form = data.data
-      debugger
+      this.isAddOPt = false
       this.dialogVisible = true
     },
-    addForm(userId) {
+    addForm() {
       this.formTitle = '添加课程'
+      this.isAddOPt = true
       this.dialogVisible = true
     },
-    doSave() {
-
+    async doSave() {
+      if (this.isAddOPt) {
+        const data = await addCourse(this.form)
+      }
+      this.dialogVisible = false
+      this.$emit('refreshDataList')
     },
     onCancel() {
       this.dialogVisible = false

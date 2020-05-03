@@ -4,51 +4,60 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.User">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="sex" property="sex" />
-        <result column="account" property="account" />
-        <result column="password" property="password" />
-        <result column="user_num" property="userNum" />
-        <result column="user_avater" property="userAvatar" />
-        <result column="role_id" property="roleId" />
-        <result column="login_ip" property="loginIp" />
-        <result column="login_time" property="loginTime" />
-        <result column="create_date" property="createDate" />
-        <result column="update_date" property="updateDate" />
-        <result column="is_delete" property="isDelete" />
-        <result column="is_used" property="isUsed" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="user_num" property="userNum"/>
+        <result column="user_avater" property="userAvatar"/>
+        <result column="role_id" property="roleId"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="is_used" property="isUsed"/>
     </resultMap>
 
     <resultMap id="UserInfoResultMap" type="com.code.classsystem.vo.UserInfoVo">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="sex" property="sex" />
-        <result column="account" property="account" />
-        <result column="password" property="password" />
-        <result column="user_num" property="userNum" />
-        <result column="user_avatar" property="userAvatar" />
-        <result column="role_id" property="roleId" />
-        <result column="login_ip" property="loginIp" />
-        <result column="login_time" property="loginTime" />
-        <result column="create_date" property="createDate" />
-        <result column="update_date" property="updateDate" />
-        <result column="is_delete" property="isDelete" />
-        <result column="is_used" property="isUsed" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="user_num" property="userNum"/>
+        <result column="user_avatar" property="userAvatar"/>
+        <result column="role_id" property="roleId"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="is_used" property="isUsed"/>
 
-        <result column="roleName" property="roleName" />
+        <result column="roleType" property="roleType"/>
+        <result column="sexType" property="sexType"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, name, sex, account, password, user_num, user_avater, role_id, login_ip, login_time, create_date, update_date, is_delete, is_used
     </sql>
-<select id="listPage" resultMap="UserInfoResultMap" parameterType="com.code.classsystem.entity.User" >
-  select t.*,r.role_name from user t
+    <select id="listPage" resultMap="UserInfoResultMap" parameterType="com.code.classsystem.entity.User">
+  select t.*,r.role_name as roleType,
+   (CASE WHEN t.sex = 0 THEN '男'
+     WHEN t.sex = 1 THEN '女'
+    ELSE '男' END) as sexType
+     from user t
     inner join role  r on t.role_id = r.id
 </select>
-    <select id="getUserInfoByUserId" resultMap="UserInfoResultMap" parameterType="string" >
-  select t.*,r.role_name from user t
+    <select id="getUserInfoByUserId" resultMap="UserInfoResultMap" parameterType="string">
+  select t.*,r.role_name as roleType,
+  (CASE WHEN t.sex = 0 THEN '男'
+     WHEN t.sex = 1 THEN '女'
+    ELSE '男' END) as sexType
+   from user t
     inner join role  r on t.role_id = r.id
     where t.id = #{userId}
 </select>

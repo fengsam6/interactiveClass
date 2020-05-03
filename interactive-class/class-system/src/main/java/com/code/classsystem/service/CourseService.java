@@ -23,5 +23,7 @@ public interface CourseService extends IService<Course> {
 
     PageInfo<CourseInfoVo> listPage(Course course, int pageNum, int pageSize);
 
-    void CourseInfoVo(CourseInfoVo course);
+    void addCourseInfoVo(CourseInfoVo course);
+
+    void deleteCourse(List<String> ids);
 }

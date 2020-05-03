@@ -5,6 +5,6 @@ export function listPage(params) {
 }
 
 export function addCourse(params) {
-  return post('/user/deleteUserById/',params)
+  return post('/course/addCourse/',params,'json')
 }
 

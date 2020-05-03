@@ -9,8 +9,8 @@
       </el-form-item>
       <el-form-item label="性别">
         <el-select v-model="form.sex" placeholder="please select your zone" class="formItem">
-          <el-option label="男" value="0" />
-          <el-option label="女" value="1" />
+          <el-option label="男" :value="0" />
+          <el-option label="女" :value="1" />
         </el-select>
       </el-form-item>
       <el-form-item label="密码">
@@ -18,8 +18,8 @@
       </el-form-item>
       <el-form-item label="角色">
         <el-select v-model="form.roleId" placeholder="please select your zone" class="formItem">
-          <el-option label="学生" value="1" />
-          <el-option label="老师" value="2" />
+          <el-option label="学生" :value="1" />
+          <el-option label="老师" :value="2" />
         </el-select>
       </el-form-item>
     </el-form>

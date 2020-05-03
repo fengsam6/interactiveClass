@@ -69,15 +69,16 @@ public class UserController {
     /**
      * 用户登录接口，登录成功返回token
      *
-     * @param userAccount
+     * @param userLoginVo
      * @return
      */
     @PostMapping("/login")
     @ApiOperation(value = "用户登录接口", notes = "用户登录接口")
-    public ResponseResult login(@Valid UserLoginVo userAccount) {
+    public ResponseResult login(@Valid UserLoginVo userLoginVo) {
         String token;
         try {
-            token = userService.login(userAccount.getUserAccount(),userAccount.getPassword());
+            String userAccount = userLoginVo.getUserAccount();
+            token = userService.login(userAccount,userLoginVo.getPassword());
         } catch (Exception e) {
             if(e instanceof AuthenticationException){
                 e = (Exception) e.getCause();
@@ -86,6 +87,7 @@ public class UserController {
         }
         return ResponseResultUtil.renderSuccess(token);
     }
+
 
     @GetMapping("/getUserInfo")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")

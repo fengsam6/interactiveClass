@@ -60,9 +60,16 @@ public class CourseController {
 
     @ApiOperation(value = "添加课程", notes = "添加课程")
     @PostMapping("/addCourse")
-    public ResponseResult addCourse(CourseInfoVo course) {
-        courseService.CourseInfoVo(course);
-        return ResponseResultUtil.renderSuccessMsg("添加课程成功！");
+    public ResponseResult addCourse(@RequestBody CourseInfoVo course) {
+        courseService.addCourseInfoVo(course);
+        return ResponseResultUtil.renderSuccess("添加课程成功！");
+    }
+
+    @ApiOperation(value = "删除课程", notes = "删除课程")
+    @PostMapping("/deleteCourse")
+    public ResponseResult deleteCourse(List<String> ids)  {
+        courseService.deleteCourse( ids);
+        return ResponseResultUtil.renderSuccess("删除课程成功！");
     }
 
 }
