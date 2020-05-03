@@ -7,8 +7,12 @@ import com.code.classsystem.entity.Paper;
 import com.code.classsystem.dao.PaperMapper;
 import com.code.classsystem.service.PaperService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.code.classsystem.vo.PaperInfoVo;
 import com.code.core.util.DateUtils;
 import com.code.core.util.UUIDUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +28,8 @@ import java.util.List;
 @Service
 public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements PaperService {
 
+    @Autowired
+    private PaperMapper paperMapper;
     @Override
     public boolean createPaper(Paper paper) {
         String id= UUIDUtil.getUUid();
@@ -45,5 +51,13 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
         wrapper.orderBy("publish_time",false);
         List<Paper>list=this.selectPage(paperPage,wrapper).getRecords();
         return list;
+    }
+
+    @Override
+    public PageInfo<PaperInfoVo> listPage(Paper paper,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+       paper.setPublishUserId(ShiroUtils.getUserId());
+        List<PaperInfoVo> paperInfoVoList=paperMapper.listPage(paper);
+        return new PageInfo<>(paperInfoVoList);
     }
 }

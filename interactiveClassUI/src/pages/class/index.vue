@@ -53,7 +53,7 @@
                         <notice :noticeArr="noticeArr"/>
                     </van-tab>
                     <van-tab title="课件">
-                        <courseware/>
+                        <courseware :coursewareArr="coursewareArr"/>
                     </van-tab>
                     <van-tab title="试卷">
                         <paper :arrPaper="arrPaper"/>
@@ -95,6 +95,7 @@
     import {queryNotice} from "@/api/notice"
     import {queryPaper} from "@/api/paper"
     import {queryMySignInfo} from "@/api/sign"
+    import {listPage} from "@/api/courseware"
     import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
     export default {
         components:{
@@ -112,6 +113,7 @@
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
+                coursewareArr:[],
                 arrPaper:[],
                 addPaperBtn:false,
                 notice:{
@@ -179,7 +181,7 @@
                 if(index==0){
                     this.queryNotice();
                 }if(index==1){
-                  //  this.queryNotice();
+                    this.queryCourseware();
                 }
                 if(index==2){
                     this.queryPaper();
@@ -209,6 +211,17 @@
                     this.noticeArr=resp;
                 });
             },
+            queryCourseware(){
+                var data={
+                    id:this.notice.courseId,
+                    classId:this.notice.classId,
+                    page:1,
+                    limit:30
+                }
+                listPage(data).then(resp => {
+                    this.coursewareArr=resp;
+                });
+            },
             queryPaper(){
                 var data={
                     courseId:this.notice.courseId,
@@ -221,20 +234,6 @@
                     this.arrPaper =resp;
                     console.log(resp);
                 });
-            },
-            preview(){
-                wx.downloadFile({
-                    url: 'http://video.317hu.com/917b3140-3da6-47d5-911c-a15462fcdeb2.pdf',
-                    success: function (res) {
-                        var filePath = res.tempFilePath
-                        wx.openDocument({
-                            filePath: filePath,
-                            success: function (res) {
-                                console.log('打开文档成功')
-                            }
-                        })
-                    }
-                })
             },
             mgetLocation(){
                 console.log("获取位置开始");

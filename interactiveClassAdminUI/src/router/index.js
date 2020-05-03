@@ -79,6 +79,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/paper',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '试卷管理',
+        component: () => import('@/views/paper/index'),
+        meta: { title: '试卷管理', icon: 'form' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

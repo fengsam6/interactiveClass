@@ -1,7 +1,10 @@
 package com.code.classsystem.service;
 
+import com.code.classsystem.entity.Course;
 import com.code.classsystem.entity.CourseResource;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface CourseResourceService extends IService<CourseResource> {
 
     void deleteByCourseId(String id);
+
+    List<CourseResource> getResources(Course course, int pageNum, int pageSize);
 }

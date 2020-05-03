@@ -1,13 +1,16 @@
 <template>
     <view>
-        <view v-for="(item,i) in [1,2,3,4,5,6,7,8]" :key="i" class="kj_zlist">
+        <view v-for="(item,i) in coursewareArr" :key="i" class="kj_zlist">
             <view class="kj_list">
-                <view class="kj_title">JAVA课程PPT</view>
+                <view class="kj_title">{{item.courseResourceName}}</view>
                 <view class="kj_yl">
-                    <van-button type="primary" size="small" @click="preview">预览</van-button>
+                    <van-button type="primary" size="small" @click="preview(item.id)">预览</van-button>
                 </view>
                 <view class="kj_download" style="margin-right: 24px;">
                     <van-button color="#1E9FFF"  size="small">下载</van-button>
+                </view>
+                <view style="height: 50px;line-height: 50px;" class="collection" @click.prevent="collection(item.id)">
+                    <van-icon name="star-o" custom-class="collection"/>
                 </view>
             </view>
             <view class="line"></view>
@@ -17,10 +20,41 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        props:{
+            coursewareArr:{
+                type:Array,
+                default:[]
+            }
+        },
+        methods:{
+            preview(id){
+                wx.downloadFile({
+                    url: 'http://video.317hu.com/917b3140-3da6-47d5-911c-a15462fcdeb2.pdf',
+                    success: function (res) {
+                        var filePath = res.tempFilePath
+                        wx.openDocument({
+                            filePath: filePath,
+                            success: function (res) {
+                                console.log('打开文档成功')
+                            }
+                        })
+                    }
+                })
+            },
+            collection(id){
+                this.successAlert("收藏课件成功");
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+.collection{
+    color: red;
+    font-size: 20px;
+    line-height: 50px;
+    width: 50px;
+    text-align: center;
+}
 </style>

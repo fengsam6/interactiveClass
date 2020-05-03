@@ -2,18 +2,16 @@ package com.code.classsystem.controller;
 
 import com.code.classsystem.entity.Paper;
 import com.code.classsystem.service.PaperService;
+import com.code.classsystem.vo.PaperInfoVo;
 import com.code.classsystem.vo.PaperVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,6 +46,12 @@ public class PaperController {
         BeanUtils.copyProperties(paperVo, paper);
         List<Paper> data = paperService.queryPaper(paper, page, limit);
         return ResponseResultUtil.renderSuccess(data);
+    }
+
+    @RequestMapping("/listPage")
+    public ResponseResult listPage(Paper paper,@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        PageInfo<PaperInfoVo> paperInfoVoList=paperService.listPage(paper,pageNum,pageSize);
+        return ResponseResultUtil.renderSuccess(paperInfoVoList, "退分页查找试卷成功");
     }
 
 }

@@ -23,7 +23,7 @@
             </view>
             <view class="signIn_right">
                 <van-button icon="success" type="info" size="small" @click="sign(1)">
-                    <view v-if="signQuery.signPreTime==''&&signInBtn">打卡</view>
+                    <view v-if="signInBtn">打卡</view>
                     <view>{{signQuery.signPreTime}}</view>
                 </van-button>
             </view>
@@ -41,7 +41,7 @@
             </view>
             <view class="signIn_right">
                 <van-button icon="success" type="info" size="small" @click="sign(2)">
-                    <view v-if="signQuery.signNextTime==''&&signOutBtn">打卡</view>
+                    <view v-if="signOutBtn">打卡</view>
                     <view>{{signQuery.signNextTime}}</view>
                 </van-button>
             </view>
@@ -56,6 +56,7 @@
     var qqmapsdk = new QQMapWX({
         key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
     });
+    var that;
     import {signIn,signOut,queryMySignInfo} from "@/api/sign"
     export default {
         name:"sign",
@@ -85,31 +86,26 @@
             }
         },
         onShow() {
-            if(this.signQuery.signPreTime!=""){
-                this.signInBtn=false;
-            }
-            if(this.signQuery.signNextTime!=""){
-                this.signOutBtn=false;
-            }
         },
         mounted(){
             this.signComData.classId=this.signData.classId;
             this.signComData.courseId=this.signData.courseId;
+           // this.getLocal();
         },
         onLoad() {
-            this.getLocal();
+            //this.getLocal();
         },
         methods: {
             getLocal() {
-                var that=this;
                 uni.getLocation({
                     type: 'wgs84',
                     success: () => {
                         qqmapsdk.reverseGeocoder({
-                            success: function (addressRes) {
+                            success: (addressRes)=> {
                                 var address = addressRes.result.formatted_addresses.recommend;
                                 // console.log(address);
-                                that.signComData.signPlace = address;
+                                this.signComData.signPlace = address;
+                                this.signQuery.signPlace = address;
                             }
                         });
                     }
@@ -119,7 +115,7 @@
             sign(flag) {
                 var now = moment();
                 if (flag === 1) {
-                    if(this.signQuery.signPreTime!=""){
+                    if(this.signQuery.signPreTime){
                         this.successAlert("您已经签过到了");
                         return;
                     }
@@ -134,7 +130,7 @@
                     });
                 }
                 if (flag === 2) {
-                    if(this.signQuery.signNextTime!=""){
+                    if(this.signQuery.signNextTime){
                         this.successAlert("您已经签过到了");
                         return;
                     }

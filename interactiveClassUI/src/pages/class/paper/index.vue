@@ -1,10 +1,11 @@
 <template>
     <view>
-        <view v-for="(item,i) in arrPaper2" :key="i">
-            <view class="sj_xx" @click="paperListPage">
+        <view v-for="(item,i) in arrPaper" :key="i">
+            <view class="sj_xx">
                 <view class="m_row">
-                    <text>{{item.paperName}}</text>
-                    <text style="font-size: 12px;color: #666666;">{{item.paperTime}}</text>
+                    <view @click="paperListPage">{{item.paperName}}</view>
+                    <view style="font-size: 12px;color: #666666;">{{item.paperTime}}</view>
+                    <view style="font-size: 12px;" @click.prevent="collection(item.id)">收藏<van-icon name="star-o" /></view>
                 </view>
             </view>
         </view>
@@ -16,12 +17,6 @@
         name: "index",
         data(){
             return {
-                arrPaper2:[
-                    {
-                        paperName:'122222',
-                        paperTime:'120分钟'
-                    }
-                ]
             }
         },
         props:{
@@ -35,6 +30,9 @@
                 uni.navigateTo({
                     url: '/pages/class/paper/paperList'
                 });
+            },
+            collection(id){
+                this.successAlert("收藏试卷成功");
             }
         }
 
@@ -42,7 +40,7 @@
 </script>
 
 <style scoped>
-.sj_xx view{
+.sj_xx{
     min-height: 46px;
     background: #fff;
     box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);

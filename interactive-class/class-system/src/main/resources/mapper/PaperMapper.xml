@@ -22,4 +22,12 @@
         id, paper_name, paper_score, paper_time, answer_begin_time, answer_end_time, publish_user_id, publish_time, answer_user_id, class_id, student_num
     </sql>
 
+    <select id="listPage" resultType="com.code.classsystem.vo.PaperInfoVo" parameterType="com.code.classsystem.entity.Paper">
+          SELECT course.course_name,class.class_name,paper.paper_name,paper.paper_time,paper.paper_score
+            from paper
+            left join course on course.id=paper.course_id
+            LEFT join class on class.id=paper.class_id
+          WHERE paper.publish_user_id=#{publishUserId}
+    </select>
+
 </mapper>
