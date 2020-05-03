@@ -60,7 +60,7 @@
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
-                            <user-sign :signData="parentItem" :signQuery="signInfo"/>
+                            <user-sign :signData="course" :signQuery="signInfo"/>
                             <van-divider  custom-style="height:1px"/>
                         </van-row>
                     </van-tab>
@@ -81,8 +81,8 @@
                 </van-overlay>
             </view>
         </van-row>
-        <noticeForm ref="noticeFormCom" @refreshNotice="queryNotice" :course="parentItem"/>
-        <addPaperForm ref="paperFormCom" @refreshPaper="queryPaper" :course="parentItem"/>
+        <noticeForm ref="noticeFormCom" @refreshNotice="queryNotice" :course="course"/>
+        <addPaperForm ref="paperFormCom" @refreshPaper="queryPaper" :course="course"/>
     </view>
 </template>
 <script>
@@ -107,7 +107,7 @@
         },
         data() {
             return {
-                parentItem:null,
+                course:null,
                 signInfo:null,
                 userInfo:null,
                 showfbgg:false,
@@ -139,7 +139,7 @@
             this.className=item.className;
             this.notice.classId=item.classId;
             this.notice.courseId=item.courseId;
-            this.parentItem=item;
+            this.course=item;
         },
         methods:{
             studentManager(){
@@ -150,7 +150,7 @@
             },
             userTalk(){
                 uni.navigateTo({
-                    url: '/pages/class/talk/index'
+                    url: '/pages/class/talk/index?classId='+ this.course.classId
                 });
             },
             checkAnalysis(){
@@ -190,8 +190,8 @@
             },
             queryPersionSign(){
                 var data={
-                    courseId:this.parentItem.courseId,
-                    classId:this.parentItem.classId
+                    courseId:this.course.courseId,
+                    classId:this.course.classId
                 }
                 queryMySignInfo(data).then(resp => {
                     this.signInfo=resp;

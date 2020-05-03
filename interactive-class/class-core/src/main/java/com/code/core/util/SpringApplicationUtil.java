@@ -6,16 +6,16 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringUtil implements ApplicationContextAware {
+public class SpringApplicationUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if(SpringUtil.applicationContext == null) {
-            SpringUtil.applicationContext = applicationContext;
+        if(SpringApplicationUtil.applicationContext == null) {
+            SpringApplicationUtil.applicationContext = applicationContext;
         }
-        System.out.println("========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="+SpringUtil.applicationContext+"========");
+        System.out.println("========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="+ SpringApplicationUtil.applicationContext+"========");
 
         System.out.println("---------------------------------------------------------------------");
     }

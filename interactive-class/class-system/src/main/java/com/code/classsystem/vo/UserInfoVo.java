@@ -3,13 +3,22 @@ package com.code.classsystem.vo;
 import com.code.classsystem.entity.User;
 
 public class UserInfoVo extends User {
-    private String roleName;
+    private String roleType;
+    private String sexType;
 
-    public String getRoleName() {
-        return roleName;
+    public String getRoleType() {
+        return roleType;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
+    }
+
+    public String getSexType() {
+        return sexType;
+    }
+
+    public void setSexType(String sexType) {
+        this.sexType = sexType;
     }
 }

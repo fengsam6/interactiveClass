@@ -17,6 +17,21 @@
         <result column="end_time" property="endTime" />
     </resultMap>
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="CourseInfoMap" type="com.code.classsystem.entity.Course">
+        <id column="id" property="id" />
+        <result column="created_user_id" property="createdUserId" />
+        <result column="course_name" property="courseName" />
+        <result column="course_introduce" property="courseIntroduce" />
+        <result column="course_time" property="courseTime" />
+        <result column="course_score" property="courseScore" />
+        <result column="class_id" property="classId" />
+        <result column="class_name" property="className" />
+        <result column="class_num" property="classNum" />
+        <result column="begin_time" property="beginTime" />
+        <result column="end_time" property="endTime" />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, created_user_id,course_name, course_introduce, course_time, course_score, class_id, class_name, class_num, begin_time, end_time
@@ -28,5 +43,14 @@
          left join class_user c3 on c3.class_id=c2.id
           where c3.member_id=#{userId}
     </select>
+
+    <select id="listPage" parameterType="com.code.classsystem.entity.Course" resultMap="CourseInfoMap">
+        select c1.*,
+        cls.class_name ,cls.class_num
+         from course c1 left join class cls on c1.class_id = cls.id
+         left join class_user cu on cu.class_id = cls.id
+
+    </select>
+
 
 </mapper>

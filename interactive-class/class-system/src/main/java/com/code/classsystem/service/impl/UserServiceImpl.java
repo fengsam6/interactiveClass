@@ -45,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //调用shiro userRealm登录，登录失败会抛出异常，由spring 拦截器拦截返回json数据
         ShiroUtils.getSubject().login(token);
 
-        // 登录成功，将token 存储session中
+        // 登录成功，将token 返回前端
         Session session = ShiroUtils.getSession();
 
         String loginToken = (String) session.getId();
@@ -105,4 +105,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String userId = ShiroUtils.getUserId();
         return userMapper.getUserInfoByUserId(userId);
     }
+
+    @Override
+    public UserInfoVo getUserInfoById(String userId) {
+        return userMapper.getUserInfoByUserId(userId);
+    }
+
+
 }

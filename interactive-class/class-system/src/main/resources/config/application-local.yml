@@ -87,7 +87,7 @@ logging:
 
 #  openTestEnv 为true，开启开发环境，不校验token有效性
 system:
-  openTestEnv: true
+  openTestEnv: false
 #  文件下载位置
   fileUpload:
     path: ./upload/file/
@@ -100,5 +100,5 @@ system:
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl
-    loginOutUrl: /logout
-    whiteUrl:  /druid
+    loginOutUrl: /user/logout
+    whiteUrl:  /druid, /

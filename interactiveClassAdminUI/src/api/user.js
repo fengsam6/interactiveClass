@@ -33,3 +33,10 @@ export function listPage(data) {
   return get('/user/listPage', data)
 }
 
+export function getUserInfoById(userId) {
+  return get('/user/getUserInfoById/' + userId)
+}
+
+export function deleteUserById(userId) {
+  return get('/user/deleteUserById/' + userId)
+}

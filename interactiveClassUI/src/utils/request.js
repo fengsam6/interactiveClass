@@ -5,6 +5,7 @@ import {errorAlert} from './alert'
 //后端请求根路径url
 const url_base = config.url_base
 const OK = 200
+const NO_AUTH = 401
 //定义json格式
 const jsonDataType = 'json'
 const formContentType = 'application/x-www-form-urlencoded'
@@ -24,6 +25,32 @@ function isHttpUrl(url) {
         return true
     }
     return false;
+}
+
+function handleResponse(res, resolve, reject) {
+    const data = res.data
+    let code = data.code
+    //控制台打印数据
+    console.debug(data)
+
+    if (code == OK) {
+        //code==200，成功，直接返回data.data
+        resolve(data.data);
+    } else if (code == NO_AUTH) {
+        const msg = 'token无效请重新登录'
+        errorAlert(msg)
+        //跳到登录页面
+        setTimeout(() => {
+            uni.navigateTo({
+                url: '/pages/user/login/index'
+            });
+        }, 1500)
+    } else {
+        //code!=200 提示错误信息
+        const msg = data.message
+        errorAlert(msg)
+        reject(data);
+    }
 }
 
 export default function request(params) {
@@ -56,20 +83,7 @@ export default function request(params) {
         uni.request({
             ...params,
             success(res) {
-                const data = res.data
-                let code = data.code
-                //控制台打印数据
-                console.debug(data)
-
-                if (code == OK) {
-                    //code==200，成功，直接返回data.data
-                    resolve(data.data);
-                } else {
-                    //code!=200 提示错误信息
-                    const msg = data.message
-                    errorAlert(msg)
-                    reject(data);
-                }
+                handleResponse(res, resolve, reject)
             },
             fail(err) {
                 const msg = err || "服务器繁忙，请稍后访问"

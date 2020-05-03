@@ -2,23 +2,18 @@ package com.code.classsystem.controller;
 
 
 import com.code.classsystem.common.shiro.util.ShiroUtils;
-import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.service.CourseService;
-import com.code.classsystem.vo.CourseAndClass;
+import com.code.classsystem.vo.CourseInfoVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -39,7 +34,6 @@ public class CourseController {
     @ApiOperation(value = "创建课程", notes = "创建课程")
     @PostMapping("/createCourse")
     public ResponseResult createCourse(Course course) {
-        List<String> list = new ArrayList<>();
         courseService.addCourse(course);
         return ResponseResultUtil.renderSuccessMsg("创建课程成功！");
     }
@@ -55,6 +49,27 @@ public class CourseController {
         String userId = ShiroUtils.getUserId();
         List list = courseService.queryCourseInfo(userId);
         return ResponseResultUtil.renderSuccess(list);
+    }
+
+    @GetMapping("/listPage")
+    @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
+    public ResponseResult listPage(Course course, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        PageInfo<CourseInfoVo> userInfoVoPageInfo = courseService.listPage(course, pageNum, pageSize);
+        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo, "退分页查找用户成功");
+    }
+
+    @ApiOperation(value = "添加课程", notes = "添加课程")
+    @PostMapping("/addCourse")
+    public ResponseResult addCourse(@RequestBody CourseInfoVo course) {
+        courseService.addCourseInfoVo(course);
+        return ResponseResultUtil.renderSuccess("添加课程成功！");
+    }
+
+    @ApiOperation(value = "删除课程", notes = "删除课程")
+    @PostMapping("/deleteCourse")
+    public ResponseResult deleteCourse(@RequestParam("ids") String[] ids) {
+        courseService.deleteCourse(ids);
+        return ResponseResultUtil.renderSuccess("删除课程成功！");
     }
 
 }

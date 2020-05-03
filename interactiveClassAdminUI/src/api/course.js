@@ -1,10 +1,14 @@
-import request from '@/utils/request'
+import { get, post } from '@/utils/request'
 
-
-export function getList(params) {
-  return request({
-    url: '/course/list',
-    method: 'get',
-    params
-  })
+export function listPage(params) {
+  return get('/course/listPage', params)
 }
+
+export function addCourse(params) {
+  return post('/course/addCourse/', params, 'json')
+}
+
+export function deleteCourseByIds(params) {
+  return post('/course/deleteCourse/', params)
+}
+

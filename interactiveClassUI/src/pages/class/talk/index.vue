@@ -1,14 +1,26 @@
 <template>
     <view>
-        <view  class="msgList">
-            <van-row v-for="(msg,i) in messages" :key="i">
-                <van-col span="8">
-                    <text class="userName">{{msg.userName}}</text>
-                    <text>:</text>
-                </van-col>
-                <van-col span="16">
-                    <view>{{msg.content}}</view>
-                </van-col>
+        <view class="msgList">
+            <van-row v-for="(msg,index) in messages" :key="index">
+                <view v-if="msg.userId === userInfo.id" class="selfMsg">
+                    <van-col span="16" offset="2">
+                        <view>{{msg.content}}</view>
+                    </van-col>
+                    <van-col span="6" >
+                        <text>:</text>
+                        <text class="userName">{{msg.userName}}</text>
+                    </van-col>
+                </view>
+
+                <view v-else>
+                    <van-col span="6">
+                        <text class="userName">{{msg.userName}}</text>
+                        <text>:</text>
+                    </van-col>
+                    <van-col span="18">
+                        <view>{{msg.content}}</view>
+                    </van-col>
+                </view>
             </van-row>
         </view>
         <van-row>
@@ -24,7 +36,7 @@
                 </van-cell-group>
             </van-col>
             <van-col span="6">
-                <van-button type="info" @click="sendMsg()" size="small">发送</van-button>
+                <van-button type="info" @click="sendClassGroupMsg()" >发送</van-button>
             </van-col>
         </van-row>
 
@@ -37,7 +49,7 @@
     import {takeStoreUserInfo} from "@/api/user"
 
     const websocketUrl = config.websocketUrl
-    const token = getToken()
+
     export default {
         name: "talk",
         data() {
@@ -45,8 +57,13 @@
                 content: '',
                 userInfo: {},
                 messages: [],
+                classId:'',
                 socketTask: null
             }
+        },
+        onLoad(options) {
+           this.classId = options.classId
+            console.log(this.classId)
         },
         mounted() {
             console.log(websocketUrl)
@@ -55,12 +72,13 @@
         methods: {
             // 进入这个页面的时候创建websocket连接【整个页面随时使用】
             connectSocketInit() {
+                const token = getToken()
                 this.userInfo = takeStoreUserInfo()
                 const userId = this.userInfo.id
                 const userName = this.userInfo.name || 'test'
                 // 创建一个this.socketTask对象【发送、接收、关闭socket都由这个对象操作】
                 this.socketTask = uni.connectSocket({
-                    // 【非常重要】必须确保你的服务器是成功的,如果是手机测试千万别使用ws://127.0.0.1:9099【特别容易犯的错误】
+                    // 【非常重要】必须确保你的服务器是成功的
                     url: websocketUrl + userId,
                     //认证token
                     header: {
@@ -83,8 +101,8 @@
                     console.log("WebSocket连接正常打开中...！");
                     this.is_open_socket = true;
                     // 注：只有连接正常打开中 ，才能正常收到消息
-                    this.socketTask.onMessage((res) => {
-                        const msgObj = JSON.parse(res.data)
+                    this.socketTask.onMessage((resp) => {
+                      let msgObj = JSON.parse(resp.data)
                         const userId = msgObj.userId
                         const content = msgObj.content
                         const userName = msgObj.userName || 'test'
@@ -98,12 +116,13 @@
                     console.log("已经被关闭了")
                 })
             },
-            send(msg) {
+            send(message) {
                 // 注：只有连接正常打开中 ，才能正常成功发送消息
+                const msgStr = JSON.stringify(message)
                 this.socketTask.send({
-                    data: msg,
+                    data: msgStr,
                     async success() {
-                        console.log(msg + "消息发送成功");
+                        console.log(msgStr + "消息发送成功");
                     },
                 });
             },
@@ -139,12 +158,17 @@
                 this.content = event.detail
             },
             sendMsg() {
-             const msg =  this.contentToJsonMsg(this.content)
+                const msg = this.contentToJsonMsg(this.content)
                 this.send(msg)
                 this.appendJsonMsg(msg)
-                this.content=''
+                this.content = ''
             },
-
+            sendClassGroupMsg() {
+                const msg = this.contentToGroupJsonMsg(this.content)
+                this.send(msg)
+                this.appendJsonMsg(msg)
+                this.content = ''
+            },
             appendMsg(userId, userName, content) {
                 const msg = {userId, userName, content}
                 this.messages.push(msg)
@@ -152,10 +176,17 @@
             appendJsonMsg(msg) {
                 this.messages.push(msg)
             },
-            contentToJsonMsg(content){
+            contentToJsonMsg(content) {
                 const userId = this.userInfo.id
                 const userName = this.userInfo.name || 'test'
                 const msg = {userId, userName, content}
+                return msg;
+            },
+            contentToGroupJsonMsg(content) {
+                const userId = this.userInfo.id
+                const userName = this.userInfo.name || 'test'
+                const classId = this.classId
+                const msg = {userId,classId,msgType:'classGroup', userName, content}
                 return msg;
             },
             appendSelfMsg(content) {
@@ -175,7 +206,14 @@
         margin: 1px 4px;
         height: 540px;
     }
-    .userName{
+
+    .userName {
         font-size: 16px;
+    }
+
+    .selfMsg {
+        display: block;
+        /*float: right;*/
+        background-color: #0A98D5;
     }
 </style>

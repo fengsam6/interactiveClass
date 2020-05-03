@@ -3,7 +3,6 @@ package com.code.classsystem.service;
 import com.code.classsystem.entity.User;
 import com.baomidou.mybatisplus.service.IService;
 import com.code.classsystem.vo.UserInfoVo;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -35,4 +34,7 @@ public interface UserService extends IService<User> {
     PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize);
 
     UserInfoVo getUserInfo();
+
+    UserInfoVo getUserInfoById(String userId);
+
 }

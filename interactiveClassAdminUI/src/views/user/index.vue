@@ -1,5 +1,9 @@
 <template>
   <div class="app-container">
+    <div class="btn_group">
+      <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
+      <el-button type="danger" size="small">批量删除</el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -10,20 +14,19 @@
       size="mini"
       highlight-current-row
     >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="用户id" prop="id" width="280px" />
+      <el-table-column type="index" width="80" align="center" />
+<!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="用户名称" prop="name" />
       <el-table-column label="学号" align="center" prop="userNum" />
-      <el-table-column label="角色名称" align="center" prop="roleId" />
+      <el-table-column label="性别" prop="sexType" min-width="100px" />
+      <el-table-column label="角色名称" align="center" prop="roleType" />
       <el-table-column class-name="status-col" label="登录ip" align="center" prop="loginIp" />
       <el-table-column align="center" label="登录时间" prop="loginTime" />
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
+            type="primary"
+            plain
             size="mini"
             @click="editForm(scope.row.id)"
           >编辑</el-button>
@@ -75,7 +78,10 @@ export default {
       this.listLoading = false
     },
     editForm(id) {
-      this.$refs.formDialogCom.showDialog(id)
+      this.$refs.formDialogCom.getUserById(id)
+    },
+    addForm() {
+      this.$refs.formDialogCom.addForm()
     },
     handleDelete(id) {
 
@@ -83,3 +89,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .btn_group{
+    float: right;
+  }
+</style>
