@@ -2,9 +2,10 @@
   <div class="app-container">
     <div class="btn_group">
       <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
-      <el-button size="small" type="danger">批量删除</el-button>
+      <el-button size="small" type="danger" @click="delCourseByIds">批量删除</el-button>
     </div>
     <el-table
+      ref="multipleTable"
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
@@ -13,7 +14,12 @@
       fit
       size="mini"
       highlight-current-row
+      @row-click="rowClick"
     >
+      <el-table-column
+        type="selection"
+        width="55"
+      />
       <el-table-column type="index" width="80" align="center" />
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="课程名称" prop="courseName" />
@@ -23,7 +29,7 @@
       <el-table-column align="center" label="下课时间" prop="endTime" />
       <el-table-column align="center" label="教学ppt" prop="endTime" />
       <el-table-column align="center" label="教学视频" prop="endTime" />
-      <el-table-column label="操作">
+      <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button
             type="primary"
@@ -34,7 +40,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.row.id)"
+            @click="handleDeleteRow(scope.row.id)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -44,7 +50,7 @@
 </template>
 
 <script>
-import { listPage } from '@/api/course'
+import { listPage, deleteCourseByIds } from '@/api/course'
 import formDialog from './formDialog'
 export default {
   components: {
@@ -68,6 +74,47 @@ export default {
       this.list = this.pageData.list
       this.listLoading = false
     },
+    rowClick(row, column, event) {
+      const refsElTable = this.$refs.multipleTable // 获取表格对象
+      refsElTable.toggleRowSelection(row) // 调用选中行方法
+    },
+    getRecordId(records) {
+      const recordIds = []
+      for (let i = 0; i < records.length; i++) {
+        recordIds.push(records[i].id)
+      }
+      return recordIds
+    },
+    delCourseByIds() {
+      const records = this.$refs.multipleTable.selection
+      if (records.length === 0) {
+        this.$message.error('请选择要删除的课程!')
+        return
+      }
+      this.$confirm('此操作将删除课程, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const recordIds = this.getRecordId(records)
+        deleteCourseByIds({ ids: recordIds.join(',') }).then((resp) => {
+          this.$message.success(resp.data)
+          this.refreshDataList()
+        })
+      })
+    },
+    handleDeleteRow(recordIds) {
+      this.$confirm('此操作将删除课程, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteCourseByIds({ ids: recordIds }).then((resp) => {
+          this.$message.success(resp.data)
+          this.refreshDataList()
+        })
+      })
+    },
     refreshDataList() {
       this.listPageData()
     },
@@ -77,10 +124,8 @@ export default {
     },
     addForm(id) {
       this.$refs.formDialogCom.addForm(id)
-    },
-    handleDelete(id) {
-
     }
+
   }
 }
 </script>

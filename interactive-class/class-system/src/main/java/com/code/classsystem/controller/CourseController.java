@@ -55,7 +55,7 @@ public class CourseController {
     @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
     public ResponseResult listPage(Course course, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<CourseInfoVo> userInfoVoPageInfo = courseService.listPage(course, pageNum, pageSize);
-        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo,"退分页查找用户成功");
+        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo, "退分页查找用户成功");
     }
 
     @ApiOperation(value = "添加课程", notes = "添加课程")
@@ -67,8 +67,8 @@ public class CourseController {
 
     @ApiOperation(value = "删除课程", notes = "删除课程")
     @PostMapping("/deleteCourse")
-    public ResponseResult deleteCourse(List<String> ids)  {
-        courseService.deleteCourse( ids);
+    public ResponseResult deleteCourse(@RequestParam("ids") String[] ids) {
+        courseService.deleteCourse(ids);
         return ResponseResultUtil.renderSuccess("删除课程成功！");
     }
 

@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface CourseResourceService extends IService<CourseResource> {
 
+    void deleteByCourseId(String id);
 }

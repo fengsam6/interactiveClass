@@ -5,6 +5,10 @@ export function listPage(params) {
 }
 
 export function addCourse(params) {
-  return post('/course/addCourse/',params,'json')
+  return post('/course/addCourse/', params, 'json')
+}
+
+export function deleteCourseByIds(params) {
+  return post('/course/deleteCourse/', params)
 }
 

@@ -1,6 +1,5 @@
 package com.code.classsystem.vo;
 
-import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.entity.CourseResource;
 
@@ -9,7 +8,9 @@ import java.util.List;
 public class CourseInfoVo extends Course {
     private String courseId;
     private List<String> classNameList;
-    private List<CourseResource> courseResourceList;
+    private List<String> resourcePathList;
+    private List<CourseResource> courseResources;
+
 
     public List<String> getClassNameList() {
         return classNameList;
@@ -27,11 +28,19 @@ public class CourseInfoVo extends Course {
         this.courseId = courseId;
     }
 
-    public List<CourseResource> getCourseResourceList() {
-        return courseResourceList;
+    public List<String> getResourcePathList() {
+        return resourcePathList;
     }
 
-    public void setCourseResourceList(List<CourseResource> courseResourceList) {
-        this.courseResourceList = courseResourceList;
+    public List<CourseResource> getCourseResources() {
+        return courseResources;
+    }
+
+    public void setCourseResources(List<CourseResource> courseResources) {
+        this.courseResources = courseResources;
+    }
+
+    public void setResourcePathList(List<String> resourcePathList) {
+        this.resourcePathList = resourcePathList;
     }
 }

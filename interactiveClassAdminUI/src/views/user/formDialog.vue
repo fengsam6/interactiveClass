@@ -42,16 +42,8 @@ export default {
       formTitle: '编辑用户',
       dialogVisible: false,
       labelPosition: 'right',
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
+      isAddOPt: true,
+      form: {}
     }
   },
   methods: {
@@ -72,10 +64,19 @@ export default {
     },
     addForm(userId) {
       this.formTitle = '添加用户'
+      this.isAddOPt = true
+      this.reset()
       this.dialogVisible = true
     },
-    doSave() {
-
+    reset() {
+      this.$refs.form.reset()
+    },
+    async doSave() {
+      if (this.isAddOPt) {
+        // const data = await addCourse(this.form)
+      }
+      this.dialogVisible = false
+      this.$emit('refreshDataList')
     }
   }
 }
