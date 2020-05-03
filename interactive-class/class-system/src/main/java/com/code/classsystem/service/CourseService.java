@@ -26,4 +26,8 @@ public interface CourseService extends IService<Course> {
     void addCourseInfoVo(CourseInfoVo course);
 
     void deleteCourse(String[] ids);
+
+    CourseInfoVo getDetailById(String id);
+
+    void updateCourse(CourseInfoVo course);
 }

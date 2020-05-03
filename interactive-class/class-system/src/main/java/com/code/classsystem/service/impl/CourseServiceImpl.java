@@ -87,7 +87,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Assert.notNull(classNameList, "班级名称不能为空");
         String[] array = classNameList.toArray(new String[classNameList.size()]);
         List<Class> classes = classService.getClassByClassName(array);
-        List<CourseResource> courseResources = courseInfoVo.getCourseResources();
+        List<CourseResource> courseResources =new ArrayList<>() ;
+
         Assert.notNull(classes, "班级名称无效");
         for (Class clazz : classes) {
             Course course = new Course();
@@ -101,6 +102,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             lists.add(course);
 
             //存储课程资源
+            List<CourseResource> pptResources = courseInfoVo.getPptResources();
+            if(pptResources!=null){
+                courseResources.addAll(pptResources);
+            }
+            List<CourseResource> videoResources = courseInfoVo.getVideoResources();
+            if(videoResources!=null){
+                courseResources.addAll(videoResources);
+            }
 
             if (!CollectionUtils.isEmpty(courseResources)) {
                 for (CourseResource courseResource : courseResources) {
@@ -138,5 +147,60 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             this.deleteById(id);
             courseResourceService.deleteByCourseId(id);
         });
+    }
+
+    @Override
+    public CourseInfoVo getDetailById(String id) {
+        return courseMapper.getDetailById(id);
+    }
+
+    @Override
+    public void updateCourse(CourseInfoVo courseInfoVo) {
+        List<String> classNameList = courseInfoVo.getClassNameList();
+        Assert.notNull(classNameList, "班级名称不能为空");
+        String[] array = classNameList.toArray(new String[classNameList.size()]);
+        List<Class> classes = classService.getClassByClassName(array);
+        List<CourseResource> courseResources =new ArrayList<>() ;
+        Assert.notNull(classes, "班级名称无效");
+        for (Class clazz : classes) {
+            Course course = new Course();
+            BeanUtils.copyProperties(courseInfoVo, course);
+            String userId = ShiroUtils.getUserId();
+            course.setCreatedUserId(userId);
+            course.setClassId(clazz.getId());
+            course.setClassName(clazz.getClassName());
+            updateById(course);
+
+            //存储课程资源
+            List<CourseResource> pptResources = courseInfoVo.getPptResources();
+            if(pptResources!=null){
+                courseResources.addAll(pptResources);
+            }
+            List<CourseResource> videoResources = courseInfoVo.getVideoResources();
+            if(videoResources!=null){
+                courseResources.addAll(videoResources);
+            }
+            if (!CollectionUtils.isEmpty(courseResources)) {
+                for (CourseResource courseResource : courseResources) {
+                    if (courseResource==null ||courseResource.getResourcePath()==null ) {
+                        continue;
+                    }
+                    String resourceName = getResourceName(courseResource.getResourcePath());
+                    courseResource.setCourseResourceName(resourceName);
+                    String courseId = course.getId();
+                    courseResource.setCourseId(courseId);
+                    courseResource.setClassId(course.getClassId());
+                    courseResource.setUserId(userId);
+                    courseResource.setCreateTime(DateUtils.getCurTimeStr());
+                    String courseResourceId = courseResource.getId();
+                    if(StringUtils.isNull(courseResourceId)){
+                        courseResourceService.insert(courseResource);
+                    }else{
+                        courseResourceService.updateById(courseResource);
+                    }
+
+                }
+            }
+        }
     }
 }

@@ -27,8 +27,22 @@
       <el-table-column label="上课人数" align="center" prop="classNum" />
       <el-table-column label="上课时间" align="center" prop="beginTime" />
       <el-table-column align="center" label="下课时间" prop="endTime" />
-      <el-table-column align="center" label="教学ppt" prop="endTime" />
-      <el-table-column align="center" label="教学视频" prop="endTime" />
+      <el-table-column
+        align="center"
+        label="教学ppt"
+      >
+        <template slot-scope="scope">
+          <span v-if="scope.row.pptResources.length>0">{{ scope.row.pptResources[0].courseResourceName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="教学视频"
+      >
+        <template slot-scope="scope">
+          <span v-if="scope.row.videoResources.length>0">{{ scope.row.videoResources[0].courseResourceName }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button

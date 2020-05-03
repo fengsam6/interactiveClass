@@ -65,12 +65,27 @@ public class CourseController {
         return ResponseResultUtil.renderSuccess("添加课程成功！");
     }
 
+    @ApiOperation(value = "更新课程", notes = "更新课程")
+    @PostMapping("/updateCourse")
+    public ResponseResult updateCourse(@RequestBody CourseInfoVo course) {
+        courseService.updateCourse(course);
+        return ResponseResultUtil.renderSuccess("更新课程成功！");
+    }
+
     @ApiOperation(value = "删除课程", notes = "删除课程")
     @PostMapping("/deleteCourse")
     public ResponseResult deleteCourse(@RequestParam("ids") String[] ids) {
         courseService.deleteCourse(ids);
         return ResponseResultUtil.renderSuccess("删除课程成功！");
     }
+
+    @ApiOperation(value = "根据id查看课程详细信息", notes = "根据id查看课程详细信息")
+    @GetMapping("/getDetailById/{id}")
+    public ResponseResult getDetailById(@PathVariable("id") String id) {
+        CourseInfoVo courseInfoVo = courseService.getDetailById(id);
+        return ResponseResultUtil.renderSuccess(courseInfoVo);
+    }
+
 
 }
 

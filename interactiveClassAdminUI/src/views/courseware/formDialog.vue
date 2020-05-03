@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import { addCourse } from '@/api/course'
+import { addCourse, updateCourse, getDetailById } from '@/api/course'
 import { listClassByUserId } from '@/api/class'
 
 import fileRequest from '@/utils/fileRequest'
 export default {
   data() {
     return {
-      formTitle: '编辑用户',
+      formTitle: '',
       dialogVisible: false,
       labelPosition: 'right',
       isAddOPt: true,
@@ -93,10 +93,12 @@ export default {
       uploadUrl: fileRequest.fileUploadUrl,
       dateFormat: 'yyyy-MM-dd hh:mm:ss',
       form: {
-        courseResources: [{}]
+        pptResources: [{}],
+        videoResources: [{}]
       },
       defaultForm: {
-        courseResources: [{}]
+        pptResources: [{}],
+        videoResources: [{}]
       }
     }
   },
@@ -121,38 +123,43 @@ export default {
       const data = response.data
       //   resourceType=1, ppt、word资源
       const resource = { resourcePath: data, resourceType: 1, resourceDes: 'ppt、word资源' }
-      this.form.courseResources.push(resource)
+      this.form.pptResources.push(resource)
     },
     uploadVideoSuccess(response, file, fileList) {
       const data = response.data
       //   resourceType=2, 视频资源
       const resource = { resourcePath: data, resourceType: 2, resourceDes: '视频资源' }
-      this.form.courseResources.push(resource)
+      this.form.videoResources.push(resource)
     },
-    async editForm(userId) {
+    async editForm(courseId) {
       this.formTitle = '修改课程'
-      // const data = await getUserInfoById(userId)
-      // this.form = data.data
+      const data = await getDetailById(courseId)
+      this.form = data.data
       this.isAddOPt = false
       this.dialogVisible = true
     },
     addForm() {
       this.formTitle = '添加课程'
-      this.reset()
       this.isAddOPt = true
       this.dialogVisible = true
+      this.reset()
     },
     async doSave() {
       let data = ''
       if (this.isAddOPt) {
         data = await addCourse(this.form)
+        this.$message.success(data.data)
+      } else {
+        data = await updateCourse(this.form)
+        this.$message.success(data.data)
       }
-      this.$message.success(data.data)
+
       this.dialogVisible = false
       this.$emit('refreshDataList')
     },
     reset() {
       this.form = this.defaultForm
+      this.$refs.formCom.resetFields()
     },
     onCancel() {
       this.dialogVisible = false

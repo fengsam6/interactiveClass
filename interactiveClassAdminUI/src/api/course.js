@@ -12,3 +12,11 @@ export function deleteCourseByIds(params) {
   return post('/course/deleteCourse/', params)
 }
 
+export function updateCourse(params) {
+  return post('/course/updateCourse/', params, 'json')
+}
+
+export function getDetailById(id) {
+  return get('/course/getDetailById/' + id)
+}
+

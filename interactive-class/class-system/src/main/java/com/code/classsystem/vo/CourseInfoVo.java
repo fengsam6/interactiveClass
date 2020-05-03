@@ -8,9 +8,8 @@ import java.util.List;
 public class CourseInfoVo extends Course {
     private String courseId;
     private List<String> classNameList;
-    private List<String> resourcePathList;
-    private List<CourseResource> courseResources;
-
+    private List<CourseResource> pptResources;
+    private List<CourseResource> videoResources;
 
     public List<String> getClassNameList() {
         return classNameList;
@@ -28,19 +27,19 @@ public class CourseInfoVo extends Course {
         this.courseId = courseId;
     }
 
-    public List<String> getResourcePathList() {
-        return resourcePathList;
+    public List<CourseResource> getPptResources() {
+        return pptResources;
     }
 
-    public List<CourseResource> getCourseResources() {
-        return courseResources;
+    public void setPptResources(List<CourseResource> pptResources) {
+        this.pptResources = pptResources;
     }
 
-    public void setCourseResources(List<CourseResource> courseResources) {
-        this.courseResources = courseResources;
+    public List<CourseResource> getVideoResources() {
+        return videoResources;
     }
 
-    public void setResourcePathList(List<String> resourcePathList) {
-        this.resourcePathList = resourcePathList;
+    public void setVideoResources(List<CourseResource> videoResources) {
+        this.videoResources = videoResources;
     }
 }
