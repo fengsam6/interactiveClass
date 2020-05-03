@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.dao.ClassUserMapper;
 import com.code.classsystem.entity.Class;
+import com.code.classsystem.entity.ClassStudent;
 import com.code.classsystem.entity.ClassUser;
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.ClassUserService;
+import com.code.classsystem.vo.ClassStudentVo;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +77,12 @@ public class ClassUserServiceImpl extends ServiceImpl<ClassUserMapper, ClassUser
     @Override
     public List<User> showClassUsers(String classId) {
         return classUserMapper.showClassUsers(classId);
+    }
+
+    @Override
+    public List<ClassStudent> queryStuStatus(ClassStudentVo classStudentVo) {
+        List<ClassStudent> list=null;
+        list=classUserMapper.queryStuStatus(classStudentVo);
+        return list;
     }
 }

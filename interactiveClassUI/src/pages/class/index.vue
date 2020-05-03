@@ -25,7 +25,7 @@
                     </view>
             </van-grid-item>
             <van-grid-item  use-slot>
-                <view>
+                <view @click="checkAnalysis">
                     <image
                             style="width: 100%; height: 40px;"
                             src="/static/icon/sz.png"
@@ -145,12 +145,17 @@
             studentManager(){
                 console.log('成员管理');
                 uni.navigateTo({
-                    url: '/pages/class/student/index'
+                    url: '/pages/class/student/index?item='+encodeURIComponent(JSON.stringify(this.parentItem))
                 });
             },
             userTalk(){
                 uni.navigateTo({
                     url: '/pages/class/talk/index'
+                });
+            },
+            checkAnalysis(){
+                uni.navigateTo({
+                    url: '/pages/class/Analysis/index'
                 });
             },
             doGetUserInfo() {

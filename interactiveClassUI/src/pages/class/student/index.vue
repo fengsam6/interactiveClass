@@ -1,22 +1,65 @@
 <template>
     <view>
-        <view v-for="(item,i) in [1,2,3,4,5,6,7,8]" :key="i" class="kj_zlist">
+        <view v-for="(item,i) in studentList" :key="i" class="kj_zlist">
             <view class="kj_list">
-                <view class="kj_title">张三</view>
+                <view class="kj_title">{{item.stuName}}</view>
                 <view style="line-height: 50px">签到状态：</view>
-                <view style="line-height: 50px">已签到</view>
+                <view style="line-height: 50px">{{item.signStatus}}</view>
                 <view class="kj_download" style="margin-left: 10px;line-height: 50px;  ">
-                    <van-button color="#1E9FFF"  size="small">删除</van-button>
+                    <van-button color="#1E9FFF"  size="small" @click="selefAnalysis(item.stuId)">分析</van-button>
                 </view>
             </view>
             <view class="line"></view>
         </view>
+        <van-dialog
+                use-slot
+                title="张三的平时分析"
+                :show="analysisBtn"
+                @close="analysisBtn=false"
+        >
+           <view>
+               <view>考试得分：</view>
+               <view>发言次数</view>
+               <view>连续签到天数</view>
+           </view>
+        </van-dialog>
     </view>
 </template>
 
 <script>
+    import {showClassUsers} from "@/api/classUser"
     export default {
-        name: "index.vue"
+        name: "index.vue",
+        data(){
+           return {
+               analysisBtn:false,
+               studentCom:{
+                   classId:'',
+                   courseId:''
+               },
+               studentList:[]
+           }
+        },
+        mounted(){
+            this.queryStuList();
+        },
+        onLoad(option) {
+            const item = JSON.parse(decodeURIComponent(option.item));
+            this.studentCom.classId=item.classId;
+            this.studentCom.courseId=item.courseId;
+        },
+        methods:{
+            queryStuList(){
+                showClassUsers(this.studentCom).then(resp => {
+                    this.studentList=resp;
+                });
+            },
+            selefAnalysis(stuId){
+              //  this.successAlert("尽情期待...");
+                this.analysisBtn=true;
+                console.log("移除人员:  "+stuId);
+            }
+        }
     }
 </script>
 

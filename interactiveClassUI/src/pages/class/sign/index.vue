@@ -18,7 +18,7 @@
                     上课
                 </view>
                 <view class="signIn_time">
-                    08:30
+                    {{signQuery.beginTime}}
                 </view>
             </view>
             <view class="signIn_right">
@@ -36,7 +36,7 @@
                     下课
                 </view>
                 <view class="signIn_time">
-                    11:30
+                    {{signQuery.endTime}}
                 </view>
             </view>
             <view class="signIn_right">

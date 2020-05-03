@@ -1,7 +1,7 @@
 <template>
     <view>
         <view  class="msgList">
-            <van-row v-for="msg in messages">
+            <van-row v-for="(msg,i) in messages" :key="i">
                 <van-col span="8">
                     <text class="userName">{{msg.userName}}</text>
                     <text>:</text>

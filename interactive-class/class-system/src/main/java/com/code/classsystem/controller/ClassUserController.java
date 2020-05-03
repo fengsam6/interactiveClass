@@ -3,9 +3,9 @@ package com.code.classsystem.controller;
 
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Class;
-import com.code.classsystem.entity.ClassUser;
-import com.code.classsystem.entity.User;
+import com.code.classsystem.entity.ClassStudent;
 import com.code.classsystem.service.ClassUserService;
+import com.code.classsystem.vo.ClassStudentVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import io.swagger.annotations.ApiOperation;
@@ -46,11 +46,18 @@ public class ClassUserController {
         return ResponseResultUtil.renderSuccess("加入班级成功！");
     }
 
-    @ApiOperation(value = "查看班级成员", notes = "查看班级成员")
+   /* @ApiOperation(value = "查看班级成员", notes = "查看班级成员")
     @GetMapping("/showClassUsers")
     public ResponseResult showClassUsers(String classId) {
         List<User> users = classUserService.showClassUsers(classId);
         return ResponseResultUtil.renderSuccess(users,"创建班级成功！");
+    }*/
+
+    @ApiOperation(value = "查看班级成员", notes = "查看班级成员")
+    @PostMapping("/showClassUsers")
+    public ResponseResult showClassUsers(ClassStudentVo classStudentVo) {
+       List<ClassStudent> data=classUserService.queryStuStatus(classStudentVo);
+        return ResponseResultUtil.renderSuccess(data);
     }
 }
 

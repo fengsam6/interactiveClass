@@ -20,9 +20,10 @@
     </sql>
 
     <select id="querySignInfo" resultType="com.code.classsystem.vo.SignVo">
-         select user_id,class_id,course_id,sign_place, MAX(case sign_in when 1 then sign_time else  null end )signPreTime,
-              MAX(case sign_in when 0 then sign_time else  null end )signNextTime from user_sign
-        where user_id=#{userId} and class_id=#{classId} and course_id=#{courseId} group by user_id,class_id,course_id,sign_place
+         select user_sign.user_id,user_sign.class_id,user_sign.course_id,sign_place, MAX(case sign_in when 1 then sign_time else  null end )signPreTime,
+              MAX(case sign_in when 0 then sign_time else  null end )signNextTime ,course.begin_time,course.end_time
+              from user_sign left join course on course.id=user_sign.course_id and course.class_id=user_sign.class_id
+         where user_sign.user_id=#{userId} and user_sign.class_id=#{classId} and user_sign.course_id=#{courseId} group by user_id,class_id,course_id,sign_place
     </select>
 
 </mapper>

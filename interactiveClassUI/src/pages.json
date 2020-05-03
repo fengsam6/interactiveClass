@@ -79,6 +79,12 @@
       "style": {
         "navigationBarTitleText": "课堂讨论"
       }
+    },
+    {
+      "path": "pages/class/Analysis/index",
+      "style": {
+        "navigationBarTitleText": "分析"
+      }
     }
   ],
   "globalStyle": {

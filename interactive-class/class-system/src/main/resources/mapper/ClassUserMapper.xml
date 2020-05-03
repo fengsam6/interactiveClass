@@ -28,5 +28,14 @@
         where c.id in (select class_id where memberId = #{userId} )
     </select>
 
+    <select id="queryStuStatus" resultType="com.code.classsystem.entity.ClassStudent" parameterType="com.code.classsystem.vo.ClassStudentVo">
+        select c1.id courseId,c1.class_id classId,u1.member_id stuId,u2.name stuName,(case when u3.sign_in=1 and u3.sign_time &lt;=c1.begin_time and u3.sign_time is not null then '正常签到'
+        when u3.sign_in=1 and u3.sign_time &gt;c1.begin_time and u3.sign_time is not null then '迟到' when u3.sign_in=1 and u3.sign_time is null THEN '未签到' END) signStatus
+        from class_user u1 LEFT JOIN user u2 ON u1.member_id=u2.id
+        left join course c1 on c1.class_id=u1.class_id
+        LEFT JOIN user_sign u3 on u3.class_id=u1.class_id and u3.course_id=c1.id
+        where u3.sign_in=1 and c1.id=#{courseId} and c1.class_id=#{classId}
+    </select>
+
 
 </mapper>
