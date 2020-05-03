@@ -111,5 +111,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.getUserInfoByUserId(userId);
     }
 
+    @Override
+    public void add(User user) {
+        if (StringUtils.isNull(user.getAccount())) {
+            user.setAccount(user.getUserNum());
+        }
+        Integer roleId = user.getRoleId();
+        if (roleId == null || roleId == 0) {
+            roleId = 1;
+            user.setRoleId(roleId);
+        }
+        this.insert(user);
+    }
+
 
 }

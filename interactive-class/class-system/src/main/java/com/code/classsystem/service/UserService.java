@@ -37,4 +37,5 @@ public interface UserService extends IService<User> {
 
     UserInfoVo getUserInfoById(String userId);
 
+    void add(User user);
 }

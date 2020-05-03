@@ -1,4 +1,5 @@
-import { get, post } from '@/utils/request'
+import {get, post} from '@/utils/request'
+
 /**
  * 登录接口
  * @param data
@@ -9,12 +10,16 @@ export function doLogin(data) {
 }
 
 /**
- * 注册接口
+ * 添加用户
  * @param data
  * @returns {*}
  */
-export function doRegister(data) {
-  return post('/user/register', data)
+export function add(data) {
+  return post('/user/add', data)
+}
+
+export function update(data) {
+  return post('/user/update', data)
 }
 
 export function getUserInfo() {
@@ -37,6 +42,6 @@ export function getUserInfoById(userId) {
   return get('/user/getUserInfoById/' + userId)
 }
 
-export function deleteUserById(userId) {
-  return get('/user/deleteUserById/' + userId)
+export function deleteUserById(params) {
+  return post('/user/deleteByIds', params)
 }

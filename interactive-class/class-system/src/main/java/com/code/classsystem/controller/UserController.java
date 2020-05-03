@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -48,6 +49,14 @@ public class UserController {
         return ResponseResultUtil.renderSuccess("用户注册成功");
     }
 
+    @PostMapping("/add")
+    @ApiOperation(value = "添加用户接口", notes = "添加用户接口")
+    public ResponseResult add(@Valid User user) {
+        ValidationUtils.validate(user);
+        userService.add(user);
+        return ResponseResultUtil.renderSuccess("添加用户成功");
+    }
+
     @PostMapping("/update")
     @ApiOperation(value = "更新用户信息接口", notes = "更新用户信息接口")
     public ResponseResult update(@Valid User user) {
@@ -58,10 +67,10 @@ public class UserController {
 
     @PostMapping("/updateUserAvatar")
     @ApiOperation(value = "更新用户信息接口", notes = "更新用户信息接口")
-    public ResponseResult updateUserAvatar(String userId,String avatarPath) {
-        Assert.hasLength(userId,"userId不能为空");
-        Assert.hasLength(avatarPath,"avatarPath不能为空");
-        userService.updateUserAvatar(userId,avatarPath);
+    public ResponseResult updateUserAvatar(String userId, String avatarPath) {
+        Assert.hasLength(userId, "userId不能为空");
+        Assert.hasLength(avatarPath, "avatarPath不能为空");
+        userService.updateUserAvatar(userId, avatarPath);
         return ResponseResultUtil.renderSuccess("更新用户信息成功");
     }
 
@@ -78,9 +87,9 @@ public class UserController {
         String token;
         try {
             String userAccount = userLoginVo.getUserAccount();
-            token = userService.login(userAccount,userLoginVo.getPassword());
+            token = userService.login(userAccount, userLoginVo.getPassword());
         } catch (Exception e) {
-            if(e instanceof AuthenticationException){
+            if (e instanceof AuthenticationException) {
                 e = (Exception) e.getCause();
             }
             return ResponseResultUtil.renderError(ErrorEnum.USER_PASSWORD_ERROR.setMsg(e.getMessage()));
@@ -92,15 +101,22 @@ public class UserController {
     @GetMapping("/getUserInfo")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     public ResponseResult getUserInfo() {
-      UserInfoVo userInfoVo =  userService.getUserInfo();
+        UserInfoVo userInfoVo = userService.getUserInfo();
         return ResponseResultUtil.renderSuccess(userInfoVo);
     }
 
     @GetMapping("/getUserInfoById/{id}")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     public ResponseResult getUserInfoById(@PathVariable("id") String id) {
-        UserInfoVo userInfoVo =  userService.getUserInfoById(id);
+        UserInfoVo userInfoVo = userService.getUserInfoById(id);
         return ResponseResultUtil.renderSuccess(userInfoVo);
+    }
+
+    @PostMapping("/deleteByIds")
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    public ResponseResult deleteById(@RequestParam("ids") List<String> ids) {
+        userService.deleteBatchIds(ids);
+        return ResponseResultUtil.renderSuccess("删除用户成功");
     }
 
     @GetMapping("/logout")
@@ -112,9 +128,9 @@ public class UserController {
 
     @GetMapping("/listPage")
     @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
-    public ResponseResult listPage(User user, @RequestParam(defaultValue = "1") int pageNum,@RequestParam(defaultValue = "20") int pageSize) {
+    public ResponseResult listPage(User user, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<UserInfoVo> userInfoVoPageInfo = userService.listPage(user, pageNum, pageSize);
-        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo,"退分页查找用户成功");
+        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo, "退分页查找用户成功");
     }
 }
 

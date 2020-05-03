@@ -1,23 +1,23 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" class="app-container" :title="formTitle">
-    <el-form ref="form" :model="form" label-width="120px" :inline="true" :label-position="labelPosition">
-      <el-form-item label="用户姓名">
+    <el-form ref="formCom" :model="form" :rules="rules" label-width="120px" :inline="true" :label-position="labelPosition">
+      <el-form-item label="用户姓名" prop="name">
         <el-input v-model="form.name" class="formItem" />
       </el-form-item>
-      <el-form-item label="用户编号">
-        <el-input v-model="form.userNum" :disabled="true" class="formItem" />
+      <el-form-item label="用户编号" prop="userNum">
+        <el-input v-model="form.userNum" :disabled="!isAddOPt" class="formItem" />
       </el-form-item>
       <el-form-item label="性别">
-        <el-select v-model="form.sex" placeholder="please select your zone" class="formItem">
+        <el-select v-model="form.sex" placeholder="选择用户性别" class="formItem">
           <el-option label="男" :value="0" />
           <el-option label="女" :value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item label="密码">
+      <el-form-item label="密码" prop="password" >
         <el-input v-model="form.password" class="formItem" />
       </el-form-item>
-      <el-form-item label="角色">
-        <el-select v-model="form.roleId" placeholder="please select your zone" class="formItem">
+      <el-form-item label="角色" prop="roleId">
+        <el-select v-model="form.roleId" placeholder="选择用户角色" class="formItem">
           <el-option label="学生" :value="1" />
           <el-option label="老师" :value="2" />
         </el-select>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getUserInfoById } from '@/api/user'
+import { getUserInfoById, add, updateUserInfo } from '@/api/user'
 
 export default {
   data() {
@@ -43,37 +43,67 @@ export default {
       dialogVisible: false,
       labelPosition: 'right',
       isAddOPt: true,
-      form: {}
+      form: {},
+      rules: {
+        name: [
+          { required: true, message: '用户名称不能为空', trigger: 'blur,change' }
+        ],
+        userNum: [
+          { required: true, message: '用户编号不能为空', trigger: 'change' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'change' }
+        ]
+      }
     }
   },
   methods: {
-    onSubmit() {
-      this.$message('submit!')
-    },
     showDialog() {
       this.dialogVisible = true
     },
     async getUserById(userId) {
       const data = await getUserInfoById(userId)
       this.form = data.data
-      debugger
+      this.isAddOPt = false
       this.dialogVisible = true
+    },
+    checkParam(formName) {
+      let pass = true
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          pass = true
+        } else {
+          console.log('请先填写完表单必填选!!')
+          this.$message.error('请先填写完表单必填选!!')
+          pass = false
+        }
+      })
+      return pass
     },
     onCancel() {
       this.dialogVisible = false
     },
-    addForm(userId) {
+    addForm() {
       this.formTitle = '添加用户'
       this.isAddOPt = true
-      this.reset()
       this.dialogVisible = true
+      this.reset()
     },
     reset() {
-      this.$refs.form.reset()
+      this.form = {}
+      this.$refs.formCom.resetFields()
     },
     async doSave() {
+      const pass = this.checkParam('formCom')
+      if (!pass) {
+        return
+      }
       if (this.isAddOPt) {
-        // const data = await addCourse(this.form)
+        const data = await add(this.form)
+        this.$message.success(data.data)
+      } else {
+        const data = await updateUserInfo(this.form)
+        this.$message.success(data.data)
       }
       this.dialogVisible = false
       this.$emit('refreshDataList')

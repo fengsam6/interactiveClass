@@ -1,15 +1,15 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" class="app-container" :title="formTitle" width="60%">
-    <el-form ref="formCom" :model="form" label-width="120px" :inline="true" :label-position="labelPosition">
-      <el-form-item label="课程名称">
+    <el-form ref="formCom" :model="form" :rules="rules" label-width="120px" :inline="true" :label-position="labelPosition">
+      <el-form-item label="课程名称" prop="courseName">
         <el-input v-model="form.courseName" class="formItem" />
       </el-form-item>
-      <el-form-item label="班级名称">
+      <el-form-item label="班级名称" prop="classNames">
         <el-select v-model="form.classNameList" multiple placeholder="请选择班级" class="formItem">
           <el-option v-for="(className,index) in classNames" :key="index" :label="className" :value="className" />
         </el-select>
       </el-form-item>
-      <el-form-item label="课程学分">
+      <el-form-item label="课程学分" prop="courseScore">
         <el-input v-model="form.courseScore" class="formItem" />
       </el-form-item>
       <el-form-item label="上课人数">
@@ -99,6 +99,17 @@ export default {
       defaultForm: {
         pptResources: [{}],
         videoResources: [{}]
+      },
+      rules: {
+        courseName: [
+          { required: true, message: '课程名称不能为空', trigger: 'blur,change' }
+        ],
+        classNames: [
+          { required: false, message: '班级名称不能为空', trigger: 'change' }
+        ],
+        courseScore: [
+          { required: true, message: '课程学分不能为空', trigger: 'change' }
+        ]
       }
     }
   },
@@ -106,9 +117,6 @@ export default {
     this.listClassesByUserId()
   },
   methods: {
-    onSubmit() {
-      this.$message('submit!')
-    },
     showDialog() {
       this.dialogVisible = true
     },
@@ -144,7 +152,24 @@ export default {
       this.dialogVisible = true
       this.reset()
     },
+    checkParam(formName) {
+      let pass = true
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          pass = true
+        } else {
+          console.log('请先填写完表单必填选!!')
+          this.$message.error('请先填写完表单必填选!!')
+          pass = false
+        }
+      })
+      return pass
+    },
     async doSave() {
+      const pass = this.checkParam('formCom')
+      if (!pass) {
+        return
+      }
       let data = ''
       if (this.isAddOPt) {
         data = await addCourse(this.form)

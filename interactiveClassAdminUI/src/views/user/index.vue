@@ -2,9 +2,10 @@
   <div class="app-container">
     <div class="btn_group">
       <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
-      <el-button type="danger" size="small">批量删除</el-button>
+      <el-button type="danger" size="small" @click="delUsesByIds">批量删除</el-button>
     </div>
     <el-table
+      ref="multipleTable"
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
@@ -13,9 +14,14 @@
       fit
       size="mini"
       highlight-current-row
+      @row-click="rowClick"
     >
+      <el-table-column
+        type="selection"
+        width="55"
+      />
       <el-table-column type="index" width="80" align="center" />
-<!--      <el-table-column label="用户id" prop="id" width="280px" />-->
+      <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="用户名称" prop="name" />
       <el-table-column label="学号" align="center" prop="userNum" />
       <el-table-column label="性别" prop="sexType" min-width="100px" />
@@ -33,17 +39,17 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.row.id)"
+            @click="handleDeleteRow(scope.row.id)"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <form-dialog ref="formDialogCom" />
+    <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
-import { listPage } from '@/api/user'
+import { listPage, deleteUserById } from '@/api/user'
 import formDialog from './formDialog'
 export default {
   filters: {
@@ -77,14 +83,48 @@ export default {
       this.list = this.pageData.list
       this.listLoading = false
     },
+    rowClick(row, column, event) {
+      const refsElTable = this.$refs.multipleTable // 获取表格对象
+      refsElTable.toggleRowSelection(row) // 调用选中行方法
+    },
+    refreshDataList() {
+      this.listPageData()
+    },
     editForm(id) {
       this.$refs.formDialogCom.getUserById(id)
     },
     addForm() {
       this.$refs.formDialogCom.addForm()
     },
-    handleDelete(id) {
-
+    delUsesByIds() {
+      const records = this.$refs.multipleTable.selection
+      if (records.length === 0) {
+        this.$message.error('请选择要删除的用户!')
+        return
+      }
+      this.$confirm('此操作将删除用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const recordIds = this.getRecordId(records)
+        deleteUserById({ ids: recordIds.join(',') }).then((resp) => {
+          this.$message.success(resp.data)
+          this.refreshDataList()
+        })
+      })
+    },
+    handleDeleteRow(recordIds) {
+      this.$confirm('此操作将删除用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteUserById({ ids: recordIds }).then((resp) => {
+          this.$message.success(resp.data)
+          this.refreshDataList()
+        })
+      })
     }
   }
 }
