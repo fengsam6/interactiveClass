@@ -7,9 +7,10 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <span class="userName">{{name}}</span>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-<!--          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
+          <!--          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
           <img src="@/assets/user/cat.jpeg" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
@@ -19,12 +20,12 @@
               首页
             </el-dropdown-item>
           </router-link>
-<!--          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">-->
-<!--            <el-dropdown-item>Github</el-dropdown-item>-->
-<!--          </a>-->
-<!--          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">-->
-<!--            <el-dropdown-item>Docs</el-dropdown-item>-->
-<!--          </a>-->
+          <!--          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">-->
+          <!--            <el-dropdown-item>Github</el-dropdown-item>-->
+          <!--          </a>-->
+          <!--          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">-->
+          <!--            <el-dropdown-item>Docs</el-dropdown-item>-->
+          <!--          </a>-->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>
@@ -47,7 +48,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+        'name'
     ])
   },
   methods: {
@@ -63,6 +65,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .userName{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+  }
   .sysTitle{
     margin: 0 8px;
     height: 50px;

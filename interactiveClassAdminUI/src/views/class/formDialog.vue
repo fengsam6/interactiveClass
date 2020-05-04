@@ -1,28 +1,26 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" class="app-container" :title="formTitle">
     <el-form ref="formCom" :model="form" :rules="rules" label-width="120px" :inline="true" :label-position="labelPosition">
-      <el-form-item label="用户姓名" prop="name">
-        <el-input v-model="form.name" class="formItem" />
+      <el-form-item label="班级名称" prop="className">
+        <el-input v-model="form.className" class="formItem" />
       </el-form-item>
-      <el-form-item label="用户编号" prop="userNum">
-        <el-input v-model="form.userNum" :disabled="!isAddOPt" class="formItem" />
+      <el-form-item label="班级人数" prop="classNum">
+        <el-input v-model="form.classNum" class="formItem" />
       </el-form-item>
-      <el-form-item label="性别">
-        <el-select v-model="form.sex" placeholder="选择用户性别" class="formItem">
-          <el-option label="男" :value="0" />
-          <el-option label="女" :value="1" />
-        </el-select>
+      <el-form-item v-if="!isAddOPt" label="班级邀请码" prop="classCreateCode">
+        <el-input v-model="form.classCreateCode" :disabled="!isAddOPt" class="formItem" />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" class="formItem" />
-      </el-form-item>
-      <el-form-item label="角色" prop="roleId">
-        <el-select v-model="form.roleId" placeholder="选择用户角色" class="formItem">
-          <el-option label="学生" :value="1" />
-          <el-option label="老师" :value="2" />
-        </el-select>
+      <el-form-item label="班级简介" prop="classIntroduce">
+        <el-input
+          v-model="form.classIntroduce"
+          type="textarea"
+          :rows="3"
+          class="textareaItem"
+          placeholder="请输入班级简介"
+        />
       </el-form-item>
     </el-form>
+
     <div slot="footer" class="dialog-footer">
       <div class="btn_opt">
         <el-button @click="onCancel">取 消</el-button>
@@ -34,12 +32,12 @@
 </template>
 
 <script>
-import { getUserInfoById, add, updateUserInfo } from '@/api/user'
+import { getClassById, add, update } from '@/api/class'
 
 export default {
   data() {
     return {
-      formTitle: '编辑用户',
+      formTitle: '',
       dialogVisible: false,
       labelPosition: 'right',
       isAddOPt: true,
@@ -62,8 +60,8 @@ export default {
       this.dialogVisible = true
     },
     async editForm(userId) {
-      this.formTitle = '修改用户'
-      const data = await getUserInfoById(userId)
+      this.formTitle = '编辑班级'
+      const data = await getClassById(userId)
       this.form = data.data
       this.isAddOPt = false
       this.dialogVisible = true
@@ -85,7 +83,7 @@ export default {
       this.dialogVisible = false
     },
     addForm() {
-      this.formTitle = '添加用户'
+      this.formTitle = '添加班级'
       this.isAddOPt = true
       this.dialogVisible = true
       this.reset()
@@ -103,7 +101,7 @@ export default {
         const data = await add(this.form)
         this.$message.success(data.data)
       } else {
-        const data = await updateUserInfo(this.form)
+        const data = await update(this.form)
         this.$message.success(data.data)
       }
       this.dialogVisible = false
@@ -116,6 +114,11 @@ export default {
 <style scoped>
   .formItem{
     width: 180px;
+  }
+  .textareaItem{
+    display: inline-block;
+    width: 490px;
+    margin: 0 auto;
   }
   .btn_opt{
     width: 260px;

@@ -67,7 +67,7 @@ service.interceptors.response.use(
       })
 
       // 401: Token expired;
-      if (res.code === 401 || res.code === 50012 || res.code === 50014) {
+      if (res.code === 401) {
         // to re-login
         MessageBox.confirm('你已经退出系统, 请重新登录或取消', '已经退出系统', {
           confirmButtonText: '重新登录',

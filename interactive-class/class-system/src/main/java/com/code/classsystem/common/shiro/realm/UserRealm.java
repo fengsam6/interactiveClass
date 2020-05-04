@@ -5,6 +5,7 @@ import com.code.classsystem.service.UserService;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.util.DateUtils;
 import com.code.classsystem.util.IPUtil;
+import com.code.classsystem.vo.UserInfoVo;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.AuthenticationFailException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -37,15 +38,11 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user = (User) principalCollection.getPrimaryPrincipal();
-        String userName = user.getName();
+        String userId = ShiroUtils.getUserId();
+        UserInfoVo userInfoVo = userService.getUserInfoById(userId);
+        String roleType = userInfoVo.getRoleType();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-//        List<SAuRole> roleList = isAuRoleUserService.getRolesByUserName(userName);
-//        for (SAuRole role : roleList) {
-//            authorizationInfo.addRole(role.getRoleName());
-//            List<String> funcs = isAuRoleFunctionService.getRoleFunctionUrlsByRoleID(role.getId());
-//            authorizationInfo.addStringPermissions(funcs);
-//        }
+        authorizationInfo.addRole(roleType);
         return authorizationInfo;
     }
 

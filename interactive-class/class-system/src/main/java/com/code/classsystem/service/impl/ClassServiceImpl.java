@@ -7,10 +7,13 @@ import com.code.classsystem.service.ClassService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.service.ClassUserService;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
+import com.code.classsystem.vo.ClassVo;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.BusinessException;
 import com.code.core.util.StringUtils;
 import com.code.core.util.UUIDUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +72,13 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
     public Class getClassByClassNameAndCurId(String className) {
         String userId = ShiroUtils.getUserId();
         return classMapper.getClassByClassNameAndCurId(className, userId);
+    }
+
+    @Override
+    public PageInfo<ClassVo> listPage(Class cla, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ClassVo> userInfoVos = classMapper.listPage(cla);
+        return new PageInfo<>(userInfoVos);
     }
 
 

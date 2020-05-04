@@ -68,6 +68,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/class',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '班级管理',
+        component: () => import('@/views/class/index'),
+        meta: { title: '班级管理', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/courseware',
     component: Layout,
     children: [

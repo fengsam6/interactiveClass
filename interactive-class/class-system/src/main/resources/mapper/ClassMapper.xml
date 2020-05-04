@@ -4,14 +4,26 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Class">
-        <id column="id" property="id" />
-        <result column="class_name" property="className" />
-        <result column="class_num" property="classNum" />
-        <result column="class_introduce" property="classIntroduce" />
-        <result column="class_create_code" property="classCreateCode" />
-        <result column="create_date" property="createDate" />
-        <result column="update_date" property="updateDate" />
-        <result column="is_delete" property="isDelete" />
+        <id column="id" property="id"/>
+        <result column="class_name" property="className"/>
+        <result column="class_num" property="classNum"/>
+        <result column="class_introduce" property="classIntroduce"/>
+        <result column="class_create_code" property="classCreateCode"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <resultMap id="classVoResultMap" type="com.code.classsystem.vo.ClassVo">
+        <id column="id" property="id"/>
+        <result column="class_name" property="className"/>
+        <result column="class_num" property="classNum"/>
+        <result column="class_introduce" property="classIntroduce"/>
+        <result column="class_create_code" property="classCreateCode"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="createUserName" property="createUserName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -19,7 +31,7 @@
         id, class_name, class_num, class_introduce, class_create_code, create_date, update_date, is_delete
     </sql>
 
-<select id="getClassByClassCode" resultMap="BaseResultMap" parameterType="string">
+    <select id="getClassByClassCode" resultMap="BaseResultMap" parameterType="string">
     select * from  class where class_create_code = #{classCreateCode}
 </select>
 
@@ -28,5 +40,13 @@
     inner join class_user cu on  cl.id = cu.class_id
     where cl.class_name = #{className} and cu.member_id = #{userId}
 </select>
+
+    <select id="listPage" resultMap="BaseResultMap" parameterType="com.code.classsystem.entity.Class">
+    select cl.*,u.name as createUserName
+      from  class cl
+    left join class_user cu on  cl.id = cu.class_id
+     left join user u on  u.id = cu.created_user_id
+</select>
+
 
 </mapper>
