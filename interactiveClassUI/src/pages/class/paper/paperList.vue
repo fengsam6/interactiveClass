@@ -1,32 +1,60 @@
 <template>
     <view>
-        <view v-for="(item,i) in [1,2,3,4,5]" :key="i">
-            <view class="sj_st">{{i+1}}、在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是（ ）</view>
-            <view class="sj_xx">
-                <view>
-                    <text>A、</text>
-                    <text>java Test . class</text>
+        <view v-for="(item,i) in questionArr" :key="i">
+            <view v-if="item.questionType==1">
+                <view class="sj_st">{{i+1}}、{{item.questionName}}（ ）</view>
+                <view class="sj_xx">
+                    <view>
+                        <text>A、</text>
+                        <text>{{item.questionA}}</text>
+                    </view>
+                    <view>
+                        <text>B、</text>
+                        <text>{{item.questionB}}</text>
+                    </view>
+                    <view>
+                        <text>C、</text>
+                        <text>{{item.questionC}}</text>
+                    </view>
+                    <view>
+                        <text>D、</text>
+                        <text>{{item.questionD}}</text>
+                    </view>
                 </view>
-                <view>
-                    <text>B、</text>
-                    <text>javac Test . class</text>
-                </view>
-                <view>
-                    <text>C、</text>
-                    <text>java Test</text>
-                </view>
-                <view>
-                    <text>D、</text>
-                    <text>javac Test</text>
-                </view>
+            </view>
+            <view v-else>
+                <view class="sj_st">{{i+1}}、{{item.questionName}}</view>
             </view>
         </view>
     </view>
 </template>
 
 <script>
+    import {queryPaperQuestionById} from "@/api/paper"
     export default {
-        name: "paperList.vue"
+        name: "paperList.vue",
+        data(){
+            return{
+                questionArr:[],
+                paperId:''
+            }
+        },
+        mounted(){
+            this.queryPaperQuestion(this.paperId);
+        },
+        onLoad(option){
+            this.paperId=option.paperId;
+        },
+        methods:{
+            queryPaperQuestion(paperId){
+                var params={
+                    paperId:paperId
+                }
+                queryPaperQuestionById(params).then(resp=>{
+                    this.questionArr=resp;
+                })
+            }
+        }
     }
 </script>
 

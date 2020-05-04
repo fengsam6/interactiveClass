@@ -30,9 +30,18 @@
                             style="width: 100%; height: 40px;"
                             src="/static/icon/sz.png"
                     />
-                    <view>设置</view>
+                    <view>分析</view>
                 </view>
             </van-grid-item>
+                <van-grid-item  use-slot>
+                    <view @click="codeImg">
+                        <image
+                                style="width: 100%; height: 40px;"
+                                src="/static/icon/sz.png"
+                        />
+                        <view>班级二维码</view>
+                    </view>
+                </van-grid-item>
             </van-grid>
         </van-row>
         <van-row>
@@ -144,6 +153,11 @@
             this.course=item;
         },
         methods:{
+            codeImg(){
+                uni.navigateTo({
+                    url: '/pages/class/codeImg/index?item='+encodeURIComponent(JSON.stringify(this.parentItem))
+                });
+            },
             studentManager(){
                 console.log('成员管理');
                 uni.navigateTo({

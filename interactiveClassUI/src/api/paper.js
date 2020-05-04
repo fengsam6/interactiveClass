@@ -6,3 +6,6 @@ export function createPaper(data) {
 export function queryPaper(data) {
     return post("paper/queryPaper", data,'json')
 }
+export function queryPaperQuestionById(params) {
+    return get('/paperQuestion/queryPaperQuestionById', params)
+}

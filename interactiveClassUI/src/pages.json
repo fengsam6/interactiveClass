@@ -26,6 +26,12 @@
       }
     },
     {
+      "path": "pages/class/codeImg/index",
+      "style": {
+        "navigationBarTitleText": "班级二维码"
+      }
+    },
+    {
       "path": "pages/index/encourse/index",
       "style": {
         "navigationBarTitleText": "创建课程"

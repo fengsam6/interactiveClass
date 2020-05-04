@@ -3,7 +3,7 @@
         <view v-for="(item,i) in arrPaper" :key="i">
             <view class="sj_xx">
                 <view class="m_row">
-                    <view @click="paperListPage">{{item.paperName}}</view>
+                    <view @click="paperListPage(item.id)">{{item.paperName}}</view>
                     <view style="font-size: 12px;color: #666666;">{{item.paperTime}}</view>
                     <view style="font-size: 12px;" @click.prevent="collection(item.id)">收藏<van-icon name="star-o" /></view>
                 </view>
@@ -26,9 +26,9 @@
             }
         },
         methods:{
-            paperListPage(){
+            paperListPage(paperId){
                 uni.navigateTo({
-                    url: '/pages/class/paper/paperList'
+                    url: '/pages/class/paper/paperList?paperId='+paperId
                 });
             },
             collection(id){
