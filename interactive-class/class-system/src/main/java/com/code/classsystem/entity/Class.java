@@ -34,8 +34,8 @@ public class Class implements Serializable {
      * 班级创建j标识,可以根据班级code 搜索
      */
     private String classCreateCode;
-    private Date createDate;
-    private Date updateDate;
+    private String createDate;
+    private String updateDate;
     /**
      * 逻辑删除。1标识被删除
      */
@@ -82,19 +82,19 @@ public class Class implements Serializable {
         this.classCreateCode = classCreateCode;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

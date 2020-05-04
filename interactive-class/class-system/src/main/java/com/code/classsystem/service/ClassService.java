@@ -2,6 +2,8 @@ package com.code.classsystem.service;
 
 import com.code.classsystem.entity.Class;
 import com.baomidou.mybatisplus.service.IService;
+import com.code.classsystem.vo.ClassVo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -33,4 +35,5 @@ public interface ClassService extends IService<Class> {
      */
     Class getClassByClassNameAndCurId(String className);
 
+    PageInfo<ClassVo> listPage(Class cla, int pageNum, int pageSize);
 }

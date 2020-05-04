@@ -14,6 +14,31 @@
       >
         <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
+
+      <!--拓展左侧导航-->
+      <el-menu
+        :default-active="activeMenu"
+        :collapse="isCollapse"
+        :background-color="variables.menuBg"
+        :text-color="variables.menuText"
+        :unique-opened="false"
+        :active-text-color="variables.menuActiveText"
+        :collapse-transition="false"
+        mode="vertical"
+      >
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-menu" />
+            <span>系统管理</span>
+          </template>
+          <el-menu-item index="1-1">
+            <el-link href="/dev-api/swagger-ui.html" target="_blank">接口文档浏览</el-link>
+          </el-menu-item>
+          <el-menu-item index="1-2">
+            <el-link href="/dev-api/druid" target="_blank">数据访问监控</el-link>
+          </el-menu-item>
+        </el-submenu>
+      </el-menu>
     </el-scrollbar>
   </div>
 </template>
@@ -32,6 +57,9 @@ export default {
     ]),
     routes() {
       return this.$router.options.routes
+    },
+    baseUrl() {
+      return process.env.VUE_APP_BASE_API || '/dev-api'
     },
     activeMenu() {
       const route = this.$route

@@ -77,11 +77,14 @@ export default {
   },
   methods: {
     async listPageData() {
-      const data = await listPage()
-      this.pageData = data.data
-      debugger
-      this.list = this.pageData.list
-      this.listLoading = false
+      try {
+        const data = await listPage()
+        this.pageData = data.data
+        this.list = this.pageData.list
+        this.listLoading = false
+      } catch (e) {
+        this.listLoading = false
+      }
     },
     rowClick(row, column, event) {
       const refsElTable = this.$refs.multipleTable // 获取表格对象
@@ -91,10 +94,17 @@ export default {
       this.listPageData()
     },
     editForm(id) {
-      this.$refs.formDialogCom.getUserById(id)
+      this.$refs.formDialogCom.editForm(id)
     },
     addForm() {
       this.$refs.formDialogCom.addForm()
+    },
+    getRecordId(records) {
+      const recordIds = []
+      for (let i = 0; i < records.length; i++) {
+        recordIds.push(records[i].id)
+      }
+      return recordIds
     },
     delUsesByIds() {
       const records = this.$refs.multipleTable.selection
