@@ -54,5 +54,16 @@ public class PaperController {
         return ResponseResultUtil.renderSuccess(paperInfoVoList, "退分页查找试卷成功");
     }
 
+    @RequestMapping("/queryMyPaper")
+    public ResponseResult queryMyPaper(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        List<Paper>papers=paperService.queryMyPaper(pageNum,pageSize);
+        return ResponseResultUtil.renderSuccess(papers);
+    }
+
+    @RequestMapping("/queryAllPaper")
+    public ResponseResult queryAllPaper(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        List<Paper>papers=paperService.queryAllPaper(pageNum,pageSize);
+        return ResponseResultUtil.renderSuccess(papers);
+    }
 }
 

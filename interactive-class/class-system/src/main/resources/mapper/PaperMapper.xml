@@ -30,4 +30,11 @@
           WHERE paper.publish_user_id=#{publishUserId}
     </select>
 
+    <select id="queryMyPaper" resultType="com.code.classsystem.entity.Paper" parameterType="String">
+        SELECT paper.*
+            from paper LEFT JOIN class on paper.class_id=class.id
+            LEFT join class_user on class_user.class_id=class.id
+        WHERE class_user.member_id=#{userId}
+    </select>
+
 </mapper>

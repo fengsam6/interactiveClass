@@ -39,7 +39,11 @@ public class ClassController {
         return ResponseResultUtil.renderSuccess(clazz,"查看班级信息！");
     }
 
-
+    @GetMapping("/getClassById")
+    public ResponseResult getClassById2(String id) {
+        Class clazz = classService.selectById(id);
+        return ResponseResultUtil.renderSuccess(clazz,"查看班级信息！");
+    }
 
     @ApiOperation(value = "创建班级接口", notes = "创建班级接口")
     @PostMapping("/createClass")

@@ -16,5 +16,6 @@ import java.util.List;
  */
 public interface PaperMapper extends BaseMapper<Paper> {
     List<PaperInfoVo> listPage(Paper paper);
+    List<Paper> queryMyPaper(String userId);
 
 }

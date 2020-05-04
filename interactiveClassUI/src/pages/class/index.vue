@@ -155,7 +155,7 @@
         methods:{
             codeImg(){
                 uni.navigateTo({
-                    url: '/pages/class/codeImg/index?item='+encodeURIComponent(JSON.stringify(this.parentItem))
+                    url: '/pages/class/codeImg/index?item='+this.course.classId
                 });
             },
             studentManager(){

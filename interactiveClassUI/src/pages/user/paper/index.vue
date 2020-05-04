@@ -1,8 +1,8 @@
 <template>
     <view>
         <view v-for="(item,i) in arrPaper" :key="i">
-            <view class="sj_xx">
-                <view class="m_row" @click="paperListPage">
+            <view class="sj_xx" @click="paperListPage(item.id)">
+                <view class="m_row">
                     <view>{{item.paperName}}</view>
                     <view style="font-size: 12px;color: #666666;">{{item.paperTime}}</view>
                 </view>
@@ -12,22 +12,30 @@
 </template>
 
 <script>
+    import {queryMyPaper} from "@/api/paper"
     export default {
         name: "index",
         data(){
             return {
+                arrPaper:[]
             }
         },
-        props:{
-            arrPaper:{
-                type:Array,
-                default:[]
-            }
+        beforeMount(){
+            this.queryPaper();
         },
         methods:{
-            paperListPage(){
+            paperListPage(paperId){
                 uni.navigateTo({
-                    url: '/pages/class/paper/paperList'
+                    url: '/pages/user/paper/paperList?paperId='+paperId
+                });
+            },
+            queryPaper(){
+                var data={
+                    pageNum:1,
+                    pageSize:30
+                }
+                queryMyPaper(data).then(resp=>{
+                    this.arrPaper=resp;
                 });
             }
         }

@@ -18,7 +18,10 @@ export function createClass(data) {
  * @returns {*}
  */
 export function getClassById(classId) {
-    return post("class/getClassById?id", classId)
+    return get("class/getClassById?id", classId)
+}
+export function getClassById2(classId) {
+    return get("class/getClassById2", classId)
 }
 
 /**

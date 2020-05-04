@@ -57,6 +57,12 @@
       }
     },
     {
+      "path": "pages/user/paper/paperList",
+      "style": {
+        "navigationBarTitleText": "试题列表"
+      }
+    },
+    {
       "path": "pages/index/courseware/courseware",
       "style": {
         "navigationBarTitleText": "课件库"

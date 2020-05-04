@@ -55,4 +55,11 @@ public class CourseResourceServiceImpl extends ServiceImpl<CourseResourceMapper,
         List<CourseResource>courseResources= courseResourceMapper.queryMyCourse(userId);
         return new PageInfo<>(courseResources).getList();
     }
+
+    @Override
+    public List<CourseResource> queryCourseRes(int pageNum, int pageSize) {
+        Page<CourseResource>page=new Page(pageNum,pageSize);
+        page= this.selectPage(page,null);
+        return page.getRecords();
+    }
 }

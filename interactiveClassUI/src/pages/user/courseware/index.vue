@@ -4,7 +4,7 @@
             <view class="kj_list">
                 <view class="kj_title">{{item.courseResourceName}}</view>
                 <view class="kj_yl">
-                    <van-button type="primary" size="small" @click="preview(item.id)">预览</van-button>
+                    <van-button type="primary" size="small" @click="preview(item.resourcePath)">预览</van-button>
                 </view>
                 <view class="kj_download" style="margin-right: 24px;">
                     <van-button color="#1E9FFF"  size="small">下载</van-button>
@@ -28,9 +28,9 @@
             this.queryMyCourse();
         },
         methods:{
-            preview(id){
+            preview(resourcePath){
                 wx.downloadFile({
-                    url: 'http://video.317hu.com/917b3140-3da6-47d5-911c-a15462fcdeb2.pdf',
+                    url: 'http://localhost:8080/file/'+resourcePath,
                     success: function (res) {
                         var filePath = res.tempFilePath
                         wx.openDocument({

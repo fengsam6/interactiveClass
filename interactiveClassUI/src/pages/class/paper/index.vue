@@ -33,6 +33,9 @@
             },
             collection(id){
                 this.successAlert("收藏试卷成功");
+            },
+            queryPaper(){
+
             }
         }
 

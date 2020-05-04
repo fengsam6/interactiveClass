@@ -41,5 +41,12 @@ public class CourseResourceController {
         return ResponseResultUtil.renderSuccess(resources);
     }
 
+    @GetMapping("/queryCourseRes")
+    @ApiOperation(value = "查找所有课件", notes = "查找所有课件")
+    public ResponseResult queryCourseRes(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        List<CourseResource> resources=courseResourceService.queryCourseRes(pageNum,pageSize);
+        return ResponseResultUtil.renderSuccess(resources);
+    }
+
 }
 

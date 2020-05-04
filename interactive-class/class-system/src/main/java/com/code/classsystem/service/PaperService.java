@@ -20,4 +20,8 @@ public interface PaperService extends IService<Paper> {
 
     List<Paper> queryPaper(Paper paper, int page, int limit);
     PageInfo<PaperInfoVo> listPage(Paper paper, int pageNum, int pageSize);
+
+    List<Paper> queryAllPaper(int pageNum, int pageSize);
+
+    List<Paper> queryMyPaper(int pageNum, int pageSize);
 }

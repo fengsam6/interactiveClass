@@ -28,7 +28,7 @@
         <view class="me_main">
             <van-cell-group>
                 <van-cell title="我的课件库" is-link size="large" @click="myCourseware"/>
-                <van-cell title="我的试卷库" is-link size="large"/>
+                <van-cell title="我的试卷库" is-link size="large" @click="myPaper"/>
                 <van-cell title="签到" is-link size="large"/>
                 <van-cell title="帮助" is-link size="large"/>
                 <van-cell title="退出" is-link size="large" @click="doLogout"/>
@@ -99,6 +99,11 @@
             myCourseware(){
                 uni.navigateTo({
                     url: '/pages/user/courseware/index'
+                });
+            },
+            myPaper(){
+                uni.navigateTo({
+                    url: '/pages/user/paper/index'
                 });
             }
 

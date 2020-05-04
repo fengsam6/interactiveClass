@@ -56,8 +56,23 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
     @Override
     public PageInfo<PaperInfoVo> listPage(Paper paper,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-       paper.setPublishUserId(ShiroUtils.getUserId());
+        paper.setPublishUserId(ShiroUtils.getUserId());
         List<PaperInfoVo> paperInfoVoList=paperMapper.listPage(paper);
         return new PageInfo<>(paperInfoVoList);
+    }
+
+    @Override
+    public List<Paper> queryAllPaper(int pageNum, int pageSize) {
+        Page<Paper> paperPage=new Page<>(pageNum,pageSize);
+        List<Paper>list=this.selectPage(paperPage,null).getRecords();
+        return list;
+    }
+
+    @Override
+    public List<Paper> queryMyPaper(int pageNum, int pageSize) {
+        String userId=ShiroUtils.getUserId();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Paper>papers=paperMapper.queryMyPaper(userId);
+        return new PageInfo<Paper>(papers).getList();
     }
 }

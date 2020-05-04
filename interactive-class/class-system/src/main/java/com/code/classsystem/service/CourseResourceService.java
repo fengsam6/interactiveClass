@@ -22,4 +22,5 @@ public interface CourseResourceService extends IService<CourseResource> {
 
     List<CourseResource> getMyResources(int pageNum, int pageSize);
 
+    List<CourseResource> queryCourseRes(int pageNum, int pageSize);
 }
