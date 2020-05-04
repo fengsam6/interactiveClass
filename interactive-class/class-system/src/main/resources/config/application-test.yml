@@ -83,11 +83,12 @@ mybatis-plus:
 logging:
   level:
     com.code: info
-#  openTestEnv 为false，关闭开发环境，token有效性及用户权限
+#  openTestEnv 为true，开启开发环境，不校验token有效性
 system:
-  openTestEnv: true
+  openTestEnv: false
   #  文件下载位置
   fileUpload:
+    requestUrl: /file/**
     path: ./upload/file/
     # 图片请求配置(springboot虚拟路径)
   img:
@@ -98,6 +99,7 @@ system:
   shiro:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl
-    loginOutUrl: /logout
-    whiteUrl:  /druid
+    loginOutUrl: /user/logout
+    #    配置shiro请求白名单
+    whiteUrl:  /druid, /, /file, /img
 

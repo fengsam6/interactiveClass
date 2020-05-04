@@ -87,6 +87,7 @@ public class ShiroConfig {
         //白名单
         String[] whitelist = authorUrlConfig.getWhiteUrlArray();
         for (String url : whitelist) {
+            url = url.trim();
             filterChainDefinitionMap.put(url, "anon");
         }
         //拦截其他所有

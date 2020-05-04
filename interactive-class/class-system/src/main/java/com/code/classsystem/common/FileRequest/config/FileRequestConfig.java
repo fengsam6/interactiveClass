@@ -10,6 +10,8 @@ import java.io.File;
 @Slf4j
 @Configuration
 public class FileRequestConfig {
+    @Value("${system.fileUpload.requestUrl}")
+    private String fileRequestUrl;
     @Value("${system.fileUpload.path}")
     private String fileUploadPath;
     @Value("${system.img.requestUrl}")
@@ -25,7 +27,10 @@ public class FileRequestConfig {
     public String getFileUploadPath() {
         if (FileUtils.isRelativePath(fileUploadPath)) {
             File file = new File(fileUploadPath);
-            fileUploadPath = file.getAbsolutePath();
+            fileUploadPath = file.getAbsolutePath()+ "\\";
+        }
+        if(!fileUploadPath.endsWith("\\")){
+            fileUploadPath +="\\";
         }
         log.debug("文件上传位置：{}" , fileUploadPath);
         return fileUploadPath;
@@ -45,5 +50,9 @@ public class FileRequestConfig {
 
     public String getImgRequestUrl() {
         return imgRequestUrl;
+    }
+
+    public String getFileRequestUrl() {
+        return fileRequestUrl;
     }
 }

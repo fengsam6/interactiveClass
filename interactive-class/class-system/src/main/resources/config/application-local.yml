@@ -90,6 +90,7 @@ system:
   openTestEnv: false
 #  文件下载位置
   fileUpload:
+    requestUrl: /file/**
     path: ./upload/file/
     # 图片请求配置(springboot虚拟路径)
   img:
@@ -101,4 +102,5 @@ system:
     loginUrl: /user/login
     doLoginUrl: /user/doLoginUrl
     loginOutUrl: /user/logout
-    whiteUrl:  /druid, /
+#    配置shiro请求白名单
+    whiteUrl:  /druid, /druid/**, /file/**, /img/**

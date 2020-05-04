@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 @Component
-public class    LoginFilter extends FormAuthenticationFilter {
+public class LoginFilter extends FormAuthenticationFilter {
     private Logger logger = LoggerFactory.getLogger(LoginFilter.class);
     @Autowired
     private TokenUtil tokenUtil;
