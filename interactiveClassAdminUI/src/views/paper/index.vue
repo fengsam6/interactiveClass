@@ -39,13 +39,13 @@
             type="primary"
             plain
             size="mini"
-            @click="editForm(scope.row.id)"
+            @click="questionList(scope.row.id)"
           >预览</el-button>
           <el-button
             type="primary"
             plain
             size="mini"
-            @click="editForm(scope.row.id)"
+            @click="questionList(scope.row.id)"
           >编辑</el-button>
           <el-button
             size="mini"
@@ -56,18 +56,21 @@
       </el-table-column>
     </el-table>
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
-    <form-dialog ref="addFormDialogCom" @refreshDataList="refreshDataList" />
+    <add-form-dialog ref="addFormDialogCom" @refreshDataList="refreshDataList" />
+    <question-list ref="questionListDialogCom" @refreshDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
 import { listPage} from '@/api/paper'
 import addFormDialog from './addFormDialog'
+import questionList from './questionList'
 import formDialog from './formDialog'
 export default {
   components: {
     formDialog,
-    addFormDialog
+    addFormDialog,
+    questionList
   },
   data() {
     return {
@@ -140,8 +143,10 @@ export default {
     },
     addRequestForm(id) {
       this.$refs.addFormDialogCom.addRequestForm(id)
+    },
+    questionList(id){
+      this.$refs.questionListDialogCom.questionList(id)
     }
-
   }
 }
 </script>

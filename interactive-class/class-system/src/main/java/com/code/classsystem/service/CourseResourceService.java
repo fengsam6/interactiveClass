@@ -19,4 +19,7 @@ public interface CourseResourceService extends IService<CourseResource> {
     void deleteByCourseId(String id);
 
     List<CourseResource> getResources(Course course, int pageNum, int pageSize);
+
+    List<CourseResource> getMyResources(int pageNum, int pageSize);
+
 }

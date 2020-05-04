@@ -34,5 +34,12 @@ public class CourseResourceController {
        return ResponseResultUtil.renderSuccess(resources);
     }
 
+    @PostMapping("/myCourses")
+    @ApiOperation(value = "查找我所学课程的课件", notes = "查找我所学课程的课件")
+    public ResponseResult mylistPage(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        List<CourseResource> resources=courseResourceService.getMyResources(pageNum,pageSize);
+        return ResponseResultUtil.renderSuccess(resources);
+    }
+
 }
 

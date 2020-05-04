@@ -17,7 +17,7 @@ public class PaperQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableId(value = "id", type = IdType.UUID)
-    private Integer id;
+    private String id;
     /**
      * 问题名称
      */
@@ -40,13 +40,57 @@ public class PaperQuestion implements Serializable {
      * 试题排序顺序
      */
     private Integer order;
+    private String questionA;
+    private String questionB;
+    private String questionC;
+    private String questionD;
+    private String questionSelfAnswer;
 
+    public String getQuestionA() {
+        return questionA;
+    }
 
-    public Integer getId() {
+    public void setQuestionA(String questionA) {
+        this.questionA = questionA;
+    }
+
+    public String getQuestionB() {
+        return questionB;
+    }
+
+    public void setQuestionB(String questionB) {
+        this.questionB = questionB;
+    }
+
+    public String getQuestionC() {
+        return questionC;
+    }
+
+    public void setQuestionC(String questionC) {
+        this.questionC = questionC;
+    }
+
+    public String getQuestionD() {
+        return questionD;
+    }
+
+    public void setQuestionD(String questionD) {
+        this.questionD = questionD;
+    }
+
+    public String getQuestionSelfAnswer() {
+        return questionSelfAnswer;
+    }
+
+    public void setQuestionSelfAnswer(String questionSelfAnswer) {
+        this.questionSelfAnswer = questionSelfAnswer;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

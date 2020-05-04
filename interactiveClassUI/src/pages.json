@@ -75,6 +75,18 @@
       }
     },
     {
+      "path": "pages/user/courseware/index",
+      "style": {
+        "navigationBarTitleText": "我的课件库"
+      }
+    },
+    {
+      "path": "pages/user/paper/index",
+      "style": {
+        "navigationBarTitleText": "我的试卷库"
+      }
+    },
+    {
       "path": "pages/class/talk/index",
       "style": {
         "navigationBarTitleText": "课堂讨论"

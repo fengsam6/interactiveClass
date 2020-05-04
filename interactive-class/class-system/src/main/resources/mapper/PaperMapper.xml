@@ -23,7 +23,7 @@
     </sql>
 
     <select id="listPage" resultType="com.code.classsystem.vo.PaperInfoVo" parameterType="com.code.classsystem.entity.Paper">
-          SELECT course.course_name,class.class_name,paper.paper_name,paper.paper_time,paper.paper_score
+          SELECT paper.id ,course.course_name,class.class_name,paper.paper_name,paper.paper_time,paper.paper_score
             from paper
             left join course on course.id=paper.course_id
             LEFT join class on class.id=paper.class_id

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-05-01 20:07:04
+Date: 2020-05-04 16:47:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -80,8 +80,8 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('a672f307-5e9e-40ab-a66c-3f51d0927294', 'java', 'java课程简介', '', '', '9c68ae80-a913-435b-a434-722c97ad804f', '1501', '547b89b94e0b4591a5cd72dd04fce14d', '0', '08:30:00', '10:00:00');
-INSERT INTO `course` VALUES ('bbc7f50e-702a-4314-b70a-fd30e3d682eb', 'java', 'java课程简介', '', '', '18952731-e1db-4415-90ff-197ff048b6b4', '1502', '547b89b94e0b4591a5cd72dd04fce14d', '0', '08:30:00', '10:00:00');
+INSERT INTO `course` VALUES ('0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', 'java课程', 'java课程简介', '', '20', '9c68ae80-a913-435b-a434-722c97ad804f', '1501', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
+INSERT INTO `course` VALUES ('799c8d7e-bc3a-41f5-9d49-d256f075058d', 'java课程', 'java课程简介', '', '8', '18952731-e1db-4415-90ff-197ff048b6b4', '1502', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -103,6 +103,8 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 -- Records of course_resource
 -- ----------------------------
+INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
+INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
 
 -- ----------------------------
 -- Table structure for notice
@@ -123,6 +125,7 @@ CREATE TABLE `notice` (
 -- Records of notice
 -- ----------------------------
 INSERT INTO `notice` VALUES ('294771a1-a7c6-41c4-86f9-c4b88cde41a8', '公告标题1', '公告内容1', '2020-04-27 00:35:18', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('2a4111d4-f809-4526-b569-068deef1d453', '公告1标题', '公告1内容。。。。', '2020-05-03 21:35:25', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
 INSERT INTO `notice` VALUES ('41dce5e6-a790-4d97-a0b6-18d449879c90', '12233', '444558', '2020-04-28 00:05:09', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 INSERT INTO `notice` VALUES ('4e559b3f-806b-4e0e-af0a-669ff8ef9ea8', '12233', '444558', '2020-04-28 00:06:01', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 INSERT INTO `notice` VALUES ('72daf96f-bd52-4afd-b1f5-87f44fe05e2b', '公告标题3', '公告内容3', '2020-04-27 00:35:38', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
@@ -154,18 +157,14 @@ CREATE TABLE `paper` (
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
-INSERT INTO `paper` VALUES ('21c77052323142f59a21d5926b157532', '3月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
-INSERT INTO `paper` VALUES ('4c0a4c72eb4c48f09eae24e36562690d', '试卷1标题', null, '90分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
-INSERT INTO `paper` VALUES ('c68ce995780c4c75a8019d2de9d26c99', '4月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
-INSERT INTO `paper` VALUES ('cf8cf6db247f44e4963d147652e87277', '试卷3标题', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
-INSERT INTO `paper` VALUES ('fb8e93ed66524df68c5b1dc5a4ce2adc', '试卷2标题', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', null, '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb', null);
+INSERT INTO `paper` VALUES ('7ec8dac0c545473a92373ed31a24922a', '2019年3月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', '2020-58-03 10:58:45', '', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null);
 
 -- ----------------------------
 -- Table structure for paper_question
 -- ----------------------------
 DROP TABLE IF EXISTS `paper_question`;
 CREATE TABLE `paper_question` (
-  `id` int(36) NOT NULL,
+  `id` varchar(36) NOT NULL,
   `question_name` varchar(255) DEFAULT '' COMMENT '问题名称',
   `question_type` tinyint(2) DEFAULT '1' COMMENT '试卷题目类型。1：选择题；2：填空题',
   `question_answer` varchar(255) DEFAULT '' COMMENT '问题答案',
@@ -173,12 +172,26 @@ CREATE TABLE `paper_question` (
   `score` varchar(20) DEFAULT NULL,
   `paper_id` varchar(36) DEFAULT NULL,
   `order` smallint(6) DEFAULT '1' COMMENT '试题排序顺序',
+  `question_a` varchar(255) DEFAULT NULL,
+  `question_b` varchar(255) DEFAULT NULL,
+  `question_c` varchar(255) DEFAULT NULL,
+  `question_d` varchar(255) DEFAULT NULL,
+  `question_self_answer` varchar(255) DEFAULT NULL COMMENT '填空题',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of paper_question
 -- ----------------------------
+INSERT INTO `paper_question` VALUES ('378c50da29b54cb8bcbde9638f2c4727', 'char类型用来表示在Unicode编码表中的字符，长度是_____个字节。', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
+INSERT INTO `paper_question` VALUES ('4512d4dc70684364bd853edf0855a2e2', '安装JDK后，为了告诉计算机javac.exe和java.exe等执行文件的位置，需要配置的环境变量是：____', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
+INSERT INTO `paper_question` VALUES ('4584b94932db4d59a5a21bf29f430a19', '哪一个对象可以用于获得浏览器发送的请求', '1', 'B', '', '5', '7ec8dac0c545473a92373ed31a24922a', '1', 'HttpServletResponse', 'HttpServletRequest', 'HttpServlet', 'Http', null);
+INSERT INTO `paper_question` VALUES ('4c4804ba91a44e9cad69b22510beeb15', '假设web应用的文档根目录为MyApp，那么可以从哪里找到database.jar文件', '1', 'D', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'MyApp目录下', 'MyApp\\images目录下', 'MyApp\\WEB-INF目录下', 'MyApp\\WEB-INF\\lib目录下', null);
+INSERT INTO `paper_question` VALUES ('89e5aa9b10cd487f8257a453ee8573e4', '以下哪些接口能够实现对Web访问者的身份认证？(选择1项)', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'Http Servlet Request', 'Http Servlet Response', 'Http Session', 'Http Servlet', null);
+INSERT INTO `paper_question` VALUES ('89ffb4cd68ef4f58b4882da21c380eec', '无状态会话Bean、有状态会话Bean、CMP与BMP中，哪一种Bean不需要自己书写连接数据库的代码？', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', '无状态会话Bean', '有状态会话Bean', 'CMP', 'BMP', null);
+INSERT INTO `paper_question` VALUES ('8ba062d3fa9a4fae9e8092c0d844f17d', 'char c =\'a\';System.out.println(c+1);运行结果为：____', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
+INSERT INTO `paper_question` VALUES ('8e9e14d4d4994508b726207427a6df04', '一个Java源程序是由若干个类组成。如果源文件中有多个类时，则只能有一个类是____类，并且这个类必须与源文件名同名', '2', '', '', '5', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
+INSERT INTO `paper_question` VALUES ('dc0b59719c464da383ee902d7ed33a9c', '从以下哪一个选项中可以获得Servlet的初始化参数', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'Servlet', 'ServletContext', 'ServletConfig', 'GenericServlet', null);
 
 -- ----------------------------
 -- Table structure for role
@@ -227,7 +240,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '127.0.0.1', '2020-05-04 16:02:17', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_sign
@@ -250,4 +263,6 @@ CREATE TABLE `user_sign` (
 -- Records of user_sign
 -- ----------------------------
 INSERT INTO `user_sign` VALUES ('2d59b3f07fc248cea70ddf4458ce379c', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:42', '大悟县人民政府(府前街东)', '0', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `user_sign` VALUES ('50816f497d97483483d7170b04b93ea6', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:04', 'undefined', '1', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
 INSERT INTO `user_sign` VALUES ('67fc85cc07c546f0a707fd9110cd59f8', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:41', '大悟县人民政府(府前街东)', '1', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `user_sign` VALUES ('8b975fc74925400ea7aac6099c19d62e', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:11', 'undefined', '0', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');

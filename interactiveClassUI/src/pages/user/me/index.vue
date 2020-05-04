@@ -27,7 +27,7 @@
 
         <view class="me_main">
             <van-cell-group>
-                <van-cell title="我的课件库" is-link size="large"/>
+                <van-cell title="我的课件库" is-link size="large" @click="myCourseware"/>
                 <van-cell title="我的试卷库" is-link size="large"/>
                 <van-cell title="签到" is-link size="large"/>
                 <van-cell title="帮助" is-link size="large"/>
@@ -96,7 +96,11 @@
                     saveUserInfoStore(this.userInfo)
                 })
             },
-
+            myCourseware(){
+                uni.navigateTo({
+                    url: '/pages/user/courseware/index'
+                });
+            }
 
         }
     }

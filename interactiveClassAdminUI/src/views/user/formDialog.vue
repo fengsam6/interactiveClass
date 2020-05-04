@@ -117,8 +117,7 @@ export default {
     width: 160px;
   }
   .btn_opt{
-    width: 260px;
-    margin: 0 auto;
+    text-align: center;
   }
 .line{
   text-align: center;

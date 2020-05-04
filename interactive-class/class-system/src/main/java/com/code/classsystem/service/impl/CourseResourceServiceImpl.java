@@ -9,6 +9,9 @@ import com.code.classsystem.entity.CourseResource;
 import com.code.classsystem.dao.CourseResourceMapper;
 import com.code.classsystem.service.CourseResourceService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,8 @@ import java.util.List;
 @Service
 public class CourseResourceServiceImpl extends ServiceImpl<CourseResourceMapper, CourseResource> implements CourseResourceService {
 
+    @Autowired
+    private CourseResourceMapper courseResourceMapper;
     @Override
     public void deleteByCourseId(String courseId) {
         Wrapper<CourseResource> courseResourceWrapper = new EntityWrapper<>();
@@ -41,5 +46,13 @@ public class CourseResourceServiceImpl extends ServiceImpl<CourseResourceMapper,
         Page<CourseResource>page=new Page(pageNum,pageSize);
         page= this.selectPage(page,wrapper);
         return page.getRecords();
+    }
+
+    @Override
+    public List<CourseResource> getMyResources(int pageNum, int pageSize) {
+        String userId=ShiroUtils.getUserId();
+        PageHelper.startPage(pageNum, pageSize);
+        List<CourseResource>courseResources= courseResourceMapper.queryMyCourse(userId);
+        return new PageInfo<>(courseResources).getList();
     }
 }
