@@ -5,7 +5,7 @@
                 <van-count-down :time="countDown" />
             </view>
             <view style="margin-top: 10px;">
-                <van-button type="info" size="small" @click="subAnswer">提交</van-button>
+                <van-button type="info" size="small" @click="subAnswer">{{message}}</van-button>
             </view>
         </view>
         <van-divider />
@@ -51,15 +51,17 @@
 
 <script>
     import {queryPaperQuestionById} from "@/api/paper"
-    import {subAnswer} from "@/api/userQuestion"
+    import {subAnswer,queryMyResult} from "@/api/userQuestion"
     export default {
         name: "paperList.vue",
         data(){
             return{
                 countDown:120*60*60*1000,
                 questionArr:[],
+                message:'提交',
                 paperId:'',
-                answerArr:[]
+                answerArr:[],
+                answerResult:[]
             }
         },
         mounted(){
@@ -69,10 +71,30 @@
             this.paperId=option.paperId;
         },
         methods:{
+            queryMyResult(){
+                var data={
+                    paperId:this.paperId
+                }
+                queryMyResult(data).then(resp=>{
+                    this.answerResult=resp;
+                    if(this.answerResult.length>0){
+                        this.message='已提交';
+                    }
+                    for(var i=0;i<this.answerResult.length;i++){
+                        this.answerArr[i]. myAnswer=this.answerResult[i].myAnswer;
+                    }
+                })
+
+            },
             selectAnswer(id,option){
                 for(var i=0;i<this.questionArr.length;i++){
                     if(this.questionArr[i].id==id){
                         this.answerArr[i].myAnswer=option;
+                        if(option==this.questionArr[i].questionAnswer){
+                            this.answerArr[i].score=this.questionArr[i].score;
+                        }else{
+                            this.answerArr[i].score='0';
+                        }
                     }
                 }
             },
@@ -80,6 +102,11 @@
                 for(var i=0;i<this.questionArr.length;i++){
                     if(this.questionArr[i].id==id){
                         this.answerArr[i].myAnswer=event.detail;
+                        if(event.detail==this.questionArr[i].questionAnswer){
+                            this.answerArr[i].score=this.questionArr[i].score;
+                        }else{
+                            this.answerArr[i].score='0';
+                        }
                     }
                 }
             },
@@ -92,13 +119,20 @@
                     for(var i=0;i<this.questionArr.length;i++){
                         var arr={
                             questionId:this.questionArr[i].id,
-                            myAnswer:''
+                            myAnswer:'',
+                            score:'0'
                         }
                         this.answerArr.push(arr);
                     }
+                }).then(resp=>{
+                    this.queryMyResult();
                 })
             },
             subAnswer(){
+                if(this.message=='已提交'){
+                    this.successAlert("不可重复答题");
+                    return false;
+                }
                 var data=JSON.stringify(this.answerArr);
                 console.log(this.answerArr);
                 subAnswer(data).then(resp=>{

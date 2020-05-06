@@ -2,8 +2,7 @@
     <view>
         <view>
             <view v-if="update" class="signIn address">
-                <view class="signIn_left">
-                    {{signQuery.signPlace}}
+                <view class="signIn_left" v-text="signQuery.signPlace">
                 </view>
                 <view class="signIn_right">
                     <van-button icon="location-o" type="info" size="small" @click="getMapLocation">重新获取</van-button>
@@ -52,7 +51,7 @@
 
 <script>
     var moment = require('moment');
-    var QQMapWX = require('@/lib/qqmap-wx-jssdk.min.js');
+    var QQMapWX = require('@/lib/qqmap-wx-jssdk.js');
     var qqmapsdk = new QQMapWX({
         key: 'KYVBZ-Y7UWW-PWVRO-R4IK5-5BIT2-RBFVX'
     });
@@ -64,17 +63,12 @@
             signData:{
                 type:Object,
                 default:{}
-            },
-            signQuery:{
-                type:Object,
-                default:{}
             }
         },
         data() {
             return {
                 update: true,
-                signInBtn: true,
-                signOutBtn: true,
+                signQuery:null,
                 signComData:{
                     classId:'',
                     courseId:'',
@@ -87,25 +81,54 @@
         },
         onShow() {
         },
+        computed:{
+            signInBtn:function () {
+                if(this.signQuery) {
+                    if (this.signQuery.signPreTime && this.signQuery.signPreTime != "") {
+                        return false;
+                    }
+                    return true;
+                }
+                return true;
+            },
+            signOutBtn:function () {
+                if(this.signQuery) {
+                    if (this.signQuery.signNextTime && this.signQuery.signNextTime != "") {
+                        return false;
+                    }
+                    return true;
+                }
+                return true;
+            }
+        },
         mounted(){
             this.signComData.classId=this.signData.classId;
             this.signComData.courseId=this.signData.courseId;
-           // this.getLocal();
+            this.querySignInfo();
         },
         onLoad() {
-            //this.getLocal();
+            this.getLocal();
         },
         methods: {
+            querySignInfo(){
+                var data={
+                    courseId:this.signData.courseId,
+                    classId:this.signData.classId
+                }
+                queryMySignInfo(data).then(resp => {
+                    this.signQuery=resp;
+                });
+            },
             getLocal() {
+                that=this;
                 uni.getLocation({
                     type: 'wgs84',
-                    success: () => {
+                    success:function (res) {
                         qqmapsdk.reverseGeocoder({
                             success: (addressRes)=> {
                                 var address = addressRes.result.formatted_addresses.recommend;
-                                // console.log(address);
-                                this.signComData.signPlace = address;
-                                this.signQuery.signPlace = address;
+                                that.signComData.signPlace = address;
+                                that.signQuery.signPlace = address;
                             }
                         });
                     }

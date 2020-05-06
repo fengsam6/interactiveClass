@@ -4,6 +4,9 @@
       <el-form-item label="选择题">
         <el-switch v-model="form.select" @change="switchStatus"></el-switch>
       </el-form-item>
+      <el-form-item label="试题编号">
+        <el-input v-model="form.questionNum" />
+      </el-form-item>
       <el-form-item label="试题名称">
         <el-input v-model="form.questionName" :placeholder="mplaceholder" type="textarea" :rows="4"class="formItem" />
       </el-form-item>
@@ -26,6 +29,9 @@
           <el-option label="C" value="C"></el-option>
           <el-option label="D" value="D"></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="正确答案" :style="space_style">
+        <el-input v-model="form.questionAnswer" class="formItem" placeholder="多个答案用中文、分隔开来" />
       </el-form-item>
       <el-form-item label="分值">
         <el-select v-model="form.score" placeholder="请选择该题分值">
@@ -55,6 +61,9 @@
         dialogVisible: false,
         mstyle:{
         },
+        space_style:{
+          display:'none'
+        },
         mplaceholder:"请输入你的问题",
         labelPosition: 'right',
         isAddOPt: true,
@@ -80,12 +89,16 @@
       switchStatus(){
         if(this.form.select){
           this.mstyle={};
+          this.space_style={
+            display:'none'
+          };
           this.form.questionType=1;
           this.mplaceholder="请输入你的问题";
         }else{
           this.mstyle={
             display:'none'
           };
+          this.space_style={};
           this.mplaceholder="请输入你的问题";
           this.form.questionType=2;
         }
@@ -109,14 +122,12 @@
         this.dialogVisible = true
       },
       addRequestForm(paperId) {
-        debugger
         this.formTitle = '添加试题'
         this.form.paperId=paperId;
         this.dialogVisible = true
       },
       async doSave() {
         let data = ''
-        debugger
         if (this.isAddOPt) {
           data = await addQuestion(this.form)
         }

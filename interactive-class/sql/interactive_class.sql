@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-05-05 23:47:14
+Date: 2020-05-06 23:26:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -186,15 +186,15 @@ CREATE TABLE `paper_question` (
 -- ----------------------------
 -- Records of paper_question
 -- ----------------------------
-INSERT INTO `paper_question` VALUES ('378c50da29b54cb8bcbde9638f2c4727', 'char类型用来表示在Unicode编码表中的字符，长度是_____个字节。', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
-INSERT INTO `paper_question` VALUES ('4512d4dc70684364bd853edf0855a2e2', '安装JDK后，为了告诉计算机javac.exe和java.exe等执行文件的位置，需要配置的环境变量是：____', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
-INSERT INTO `paper_question` VALUES ('4584b94932db4d59a5a21bf29f430a19', '哪一个对象可以用于获得浏览器发送的请求', '1', 'B', '', '5', '7ec8dac0c545473a92373ed31a24922a', '1', 'HttpServletResponse', 'HttpServletRequest', 'HttpServlet', 'Http', null);
-INSERT INTO `paper_question` VALUES ('4c4804ba91a44e9cad69b22510beeb15', '假设web应用的文档根目录为MyApp，那么可以从哪里找到database.jar文件', '1', 'D', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'MyApp目录下', 'MyApp\\images目录下', 'MyApp\\WEB-INF目录下', 'MyApp\\WEB-INF\\lib目录下', null);
-INSERT INTO `paper_question` VALUES ('89e5aa9b10cd487f8257a453ee8573e4', '以下哪些接口能够实现对Web访问者的身份认证？(选择1项)', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'Http Servlet Request', 'Http Servlet Response', 'Http Session', 'Http Servlet', null);
-INSERT INTO `paper_question` VALUES ('89ffb4cd68ef4f58b4882da21c380eec', '无状态会话Bean、有状态会话Bean、CMP与BMP中，哪一种Bean不需要自己书写连接数据库的代码？', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', '无状态会话Bean', '有状态会话Bean', 'CMP', 'BMP', null);
-INSERT INTO `paper_question` VALUES ('8ba062d3fa9a4fae9e8092c0d844f17d', 'char c =\'a\';System.out.println(c+1);运行结果为：____', '2', '', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
-INSERT INTO `paper_question` VALUES ('8e9e14d4d4994508b726207427a6df04', '一个Java源程序是由若干个类组成。如果源文件中有多个类时，则只能有一个类是____类，并且这个类必须与源文件名同名', '2', '', '', '5', '7ec8dac0c545473a92373ed31a24922a', '1', null, null, null, null, null);
-INSERT INTO `paper_question` VALUES ('dc0b59719c464da383ee902d7ed33a9c', '从以下哪一个选项中可以获得Servlet的初始化参数', '1', 'C', '', '4', '7ec8dac0c545473a92373ed31a24922a', '1', 'Servlet', 'ServletContext', 'ServletConfig', 'GenericServlet', null);
+INSERT INTO `paper_question` VALUES ('33fb5dcd2d5f435d845f22dd0ee39aed', '下列javaDoc注释正确的是', '1', 'C', '4', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', '/*我爱北京天安门*/', '//我爱北京天安门*/', '/**我爱北京天安门*/', '/*我爱北京天安门**/', null);
+INSERT INTO `paper_question` VALUES ('3910895a15db4f94a09ad8be71ac2c95', '一个Java源程序是由若干个类组成。如果源文件中有多个类时，则只能有一个类是____类，并且这个类必须与源文件名同名。', '2', 'public', '6', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
+INSERT INTO `paper_question` VALUES ('6a457f5b04594476b52d523490ca6fb5', '变量命名规范说法正确的是', '1', 'B', '3', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', '变量由字母、下划线、数字、$符号随意组成', '变量不能以数字作为开头', 'A和a在java中是同一个变量', '不同类型的变量，可以起相同的名字', null);
+INSERT INTO `paper_question` VALUES ('7c3126e1b2e549f6902a7275c37283a6', '下列说法正确的是', '1', 'A', '2', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', 'JAVA程序的main方法必须写在类里面', 'JAVA程序中可以有多个main方法', 'JAVA程序中类名必须与文件名一样', 'JAVA程序的main方法中如果只有一条语句，可以不用{}(大括号)括起来', null);
+INSERT INTO `paper_question` VALUES ('8c91c81a5266470db11e8df1ccb0f8d9', 'JAVA所定义的版本中不包括', '1', 'C', '1', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', 'JAVA2 EE', 'JAVA2 Card', 'JAVA2 HE', 'JAVA2 ME', null);
+INSERT INTO `paper_question` VALUES ('a8c4f337ecff48f7afe3ec20f51fe847', '如果希望将自定义类Student的多个对象放入集合TreeSet，实现所有元素按照某个属性的自然顺序排列，则需要Student类实现____接口', '2', 'Comparable', '9', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
+INSERT INTO `paper_question` VALUES ('d0ada3512b534f9487607437608f0268', '为一个boolean类型变量赋值时，可以使用()方式', '1', 'B', '4', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
+INSERT INTO `paper_question` VALUES ('e8cbd6430a724c4a9c55b02fa0900cb6', 'char c =\'a\';System.out.println(c+1);运行结果为', '2', '98', '7', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
+INSERT INTO `paper_question` VALUES ('f523fec27fe447b19c88bf01279377de', 'char类型用来表示在Unicode编码表中的字符，长度是____个字节', '2', '2', '8', '2', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
 
 -- ----------------------------
 -- Table structure for role
@@ -243,7 +243,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '2020-05-05 23:31:37', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '2020-05-06 23:21:32', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -263,6 +263,15 @@ CREATE TABLE `user_question` (
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
+INSERT INTO `user_question` VALUES ('4753be2e8a884cee80f875d55e5b858b', '8c91c81a5266470db11e8df1ccb0f8d9', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('dd80fb8feacd45b699b3a768f7c3b4c2', '7c3126e1b2e549f6902a7275c37283a6', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('fc12b4eda25440c1bdcfe8c33f3a7e3c', '6a457f5b04594476b52d523490ca6fb5', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('c559a768be0a4209ba5d056041456b6e', '33fb5dcd2d5f435d845f22dd0ee39aed', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('a6bbee24b92440be8d1aa8cdec0d81de', 'd0ada3512b534f9487607437608f0268', '99b9a2f574d94a3491f8bec131d1c502', 'C', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('19e4ceafff604dc0b437ea031166debe', '3910895a15db4f94a09ad8be71ac2c95', '99b9a2f574d94a3491f8bec131d1c502', '23', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('834f05cfbf99438b9fcb33f20a7167a5', 'e8cbd6430a724c4a9c55b02fa0900cb6', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('3bf7c208e16841a9bdaa5b33638090fe', 'f523fec27fe447b19c88bf01279377de', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('75da4645223545959ce12728e049a193', 'a8c4f337ecff48f7afe3ec20f51fe847', '99b9a2f574d94a3491f8bec131d1c502', '33', null, '0', '2020-05-06 21:00:57', null);
 
 -- ----------------------------
 -- Table structure for user_sign

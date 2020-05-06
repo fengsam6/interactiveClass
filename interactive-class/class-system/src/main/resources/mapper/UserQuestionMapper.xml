@@ -19,4 +19,10 @@
         id, question_id, user_id, my_answer, correct_answer, score, create_time, update_time
     </sql>
 
+    <select id="queryMyResult"  resultType="com.code.classsystem.vo.PaperResultVo" parameterType="map">
+        select p1.paper_id,p1.id,p1.question_answer ,p2.user_id,p2.my_answer,p1.score,p2.score get_score,p1.question_type,p1.question_num
+            from paper_question p1 left join user_question p2 on p2.question_id=p1.id where p2.user_id=#{userId} and p1.paper_id=#{paperId}
+        ORDER BY p1.question_type asc, p1.question_num asc
+    </select>
+
 </mapper>

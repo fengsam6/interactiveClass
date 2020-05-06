@@ -16,7 +16,6 @@ export function chooseAndUploadImage(){
                         const resp = uploadFileRes.data
                         const respObj = JSON.parse(resp)
                         let imgUrl = respObj.data
-                        debugger
                         console.log(imgUrl);
                         let imgHttpUrl = imgAccessUrl+imgUrl
                         console.log(imgHttpUrl)

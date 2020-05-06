@@ -37,9 +37,9 @@
                     <view @click="codeImg">
                         <image
                                 style="width: 100%; height: 40px;"
-                                src="/static/icon/sz.png"
+                                src="/static/icon/code.png"
                         />
-                        <view>班级二维码</view>
+                        <view>二维码</view>
                     </view>
                 </van-grid-item>
             </van-grid>
@@ -69,7 +69,7 @@
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
-                            <user-sign :signData="course" :signQuery="signInfo"/>
+                            <user-sign :signData="course"/>
                             <van-divider  custom-style="height:1px"/>
                         </van-row>
                     </van-tab>
@@ -118,7 +118,6 @@
         data() {
             return {
                 course:null,
-                signInfo:null,
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
@@ -161,7 +160,7 @@
             studentManager(){
                 console.log('成员管理');
                 uni.navigateTo({
-                    url: '/pages/class/student/index?item='+encodeURIComponent(JSON.stringify(this.parentItem))
+                    url: '/pages/class/student/index?item='+encodeURIComponent(JSON.stringify(this.course))
                 });
             },
             userTalk(){
@@ -203,15 +202,6 @@
                 if(index==3){
                     this.queryPersionSign();
                 }
-            },
-            queryPersionSign(){
-                var data={
-                    courseId:this.course.courseId,
-                    classId:this.course.classId
-                }
-                queryMySignInfo(data).then(resp => {
-                    this.signInfo=resp;
-                });
             },
             queryNotice(){
                 var data={

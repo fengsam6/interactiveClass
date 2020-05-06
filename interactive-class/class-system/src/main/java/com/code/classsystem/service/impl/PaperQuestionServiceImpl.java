@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.core.util.UUIDUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,7 +32,10 @@ public class PaperQuestionServiceImpl extends ServiceImpl<PaperQuestionMapper, P
     public List<PaperQuestion> queryPaperQuestionById(String paperId) {
         EntityWrapper<PaperQuestion> wrapper=new EntityWrapper<>();
         wrapper.eq("paper_id",paperId);
-        wrapper.orderBy("question_type",true);
+        List<String> list=new LinkedList<>();
+        list.add("question_type");
+        list.add("question_num");
+        wrapper.orderAsc(list);
         return this.selectList(wrapper);
     }
 }

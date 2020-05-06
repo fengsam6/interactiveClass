@@ -86,7 +86,6 @@ export default {
     async listPageData() {
       const data = await listPage()
       this.pageData = data.data
-      debugger
       this.list = this.pageData.list
       this.listLoading = false
     },
@@ -135,7 +134,6 @@ export default {
       this.listPageData()
     },
     editForm(id) {
-      debugger
       this.$refs.formDialogCom.editForm(id)
     },
     addForm(id) {

@@ -136,7 +136,6 @@ export default {
       this.listPageData()
     },
     editForm(id) {
-      debugger
       this.$refs.formDialogCom.editForm(id)
     },
     addForm(id) {
