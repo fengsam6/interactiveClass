@@ -139,7 +139,8 @@
       "van-overlay": "/wxcomponents/vant/overlay/index",
       "van-uploader": "/wxcomponents/vant/uploader/index",
       "van-dropdown-menu": "wxcomponents/vant/dropdown-menu/index",
-      "van-dropdown-item": "wxcomponents/vant/dropdown-item/index"
+      "van-dropdown-item": "wxcomponents/vant/dropdown-item/index",
+      "van-count-down": "wxcomponents/vant/count-down/index"
     }
   },
   "tabBar": {
