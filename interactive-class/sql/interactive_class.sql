@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50645
+Source Server         : interactive_class
+Source Server Version : 50724
 Source Host           : localhost:3306
 Source Database       : interactive_class
 
 Target Server Type    : MYSQL
-Target Server Version : 50645
+Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-05-07 22:13:01
+Date: 2020-05-08 00:35:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,8 +36,11 @@ CREATE TABLE `class` (
 -- Records of class
 -- ----------------------------
 INSERT INTO `class` VALUES ('18952731-e1db-4415-90ff-197ff048b6b4', '1502', '40', '1502班级简介。。。', '715596', '2020-04-25 23:48:35', '2020-04-25 23:48:35', '0');
+INSERT INTO `class` VALUES ('25b929ef-1134-4333-b747-30b34a9c78a8', '1401', '32', '这是1401班', '399343', '2020-05-07 23:46:39', '2020-05-07 23:46:39', '0');
+INSERT INTO `class` VALUES ('504bf968-0735-4892-ac3b-aa0d1a3257aa', '1403', '24', '这是1403班', '440325', '2020-05-07 23:47:20', '2020-05-07 23:47:20', '0');
 INSERT INTO `class` VALUES ('64f5fa91-8c22-43e6-a63c-6184d84711ad', '1506', '34', '777777', '940221', '2020-05-04 20:22:20', '2020-05-04 20:22:20', '0');
 INSERT INTO `class` VALUES ('9c68ae80-a913-435b-a434-722c97ad804f', '1501', '34', '1501班级简介。。。', '697042', '2020-04-25 23:48:17', '2020-04-25 23:48:17', '0');
+INSERT INTO `class` VALUES ('c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '20', '这是1402班', '420185', '2020-05-07 23:47:00', '2020-05-07 23:47:00', '0');
 
 -- ----------------------------
 -- Table structure for class_user
@@ -58,7 +61,11 @@ CREATE TABLE `class_user` (
 -- Records of class_user
 -- ----------------------------
 INSERT INTO `class_user` VALUES ('47fdedb98e5c4a4aaee08689983c7176', '64f5fa91-8c22-43e6-a63c-6184d84711ad', null, '99b9a2f574d94a3491f8bec131d1c502', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-04 20:22:20', '2020-05-04 20:22:20');
+INSERT INTO `class_user` VALUES ('661500a06b57439c96335d06d1e91b5e', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:47:00', '2020-05-07 23:47:00');
 INSERT INTO `class_user` VALUES ('662530fcbfba4127a4cb93028f651fd5', '18952731-e1db-4415-90ff-197ff048b6b4', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-04-26 00:21:40', '2020-04-26 00:21:40');
+INSERT INTO `class_user` VALUES ('70185e59b1b7484194ba18aa442d9ca4', '504bf968-0735-4892-ac3b-aa0d1a3257aa', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:47:20', '2020-05-07 23:47:20');
+INSERT INTO `class_user` VALUES ('8e89456304d14163bd479ffee94944fb', '25b929ef-1134-4333-b747-30b34a9c78a8', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:46:39', '2020-05-07 23:46:39');
+INSERT INTO `class_user` VALUES ('a6cace5927814ffa93fcd7f8d38db83d', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-05-07 23:50:59', '2020-05-07 23:50:59');
 
 -- ----------------------------
 -- Table structure for course
@@ -83,7 +90,9 @@ CREATE TABLE `course` (
 -- Records of course
 -- ----------------------------
 INSERT INTO `course` VALUES ('0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', 'java课程', 'java课程简介', '', '20', '9c68ae80-a913-435b-a434-722c97ad804f', '1501', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
+INSERT INTO `course` VALUES ('6bae0c16-84d8-4b23-9693-6621c08cd522', 'C++', '这是一门C++课程', '', '', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '68b9a2f57443803491f8bec131d1c254', '0', '08:30:00', '09:30:00');
 INSERT INTO `course` VALUES ('799c8d7e-bc3a-41f5-9d49-d256f075058d', 'java课程', 'java课程简介', '', '8', '18952731-e1db-4415-90ff-197ff048b6b4', '1502', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
+INSERT INTO `course` VALUES ('d5ec1a87-aa24-4e33-94cd-5187df846799', 'C++', '这是一门C++课程', '', '', '25b929ef-1134-4333-b747-30b34a9c78a8', '1401', '68b9a2f57443803491f8bec131d1c254', '0', '08:30:00', '09:30:00');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -107,30 +116,6 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
 INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
-
--- ----------------------------
--- Table structure for home_work
--- ----------------------------
-DROP TABLE IF EXISTS `home_work`;
-CREATE TABLE `home_work` (
-  `id` varchar(36) NOT NULL,
-  `work_title` varchar(100) DEFAULT NULL COMMENT '作业标题',
-  `work_des` varchar(255) DEFAULT NULL COMMENT '作业描述',
-  `attach_path` varchar(100) NOT NULL COMMENT '附件路径',
-  `student_id` varchar(36) NOT NULL COMMENT '作业提交者id',
-  `submit_time` varchar(60) DEFAULT NULL,
-  `teacher_id` varchar(32) DEFAULT NULL,
-  `course_id` varchar(36) DEFAULT NULL COMMENT '课程id',
-  `class_id` varchar(36) DEFAULT NULL,
-  `download_num` int(3) DEFAULT '0' COMMENT '下载次数',
-  `last_down_time` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of home_work
--- ----------------------------
-INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '33', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null, '0', null);
 
 -- ----------------------------
 -- Table structure for notice
@@ -158,6 +143,7 @@ INSERT INTO `notice` VALUES ('72daf96f-bd52-4afd-b1f5-87f44fe05e2b', '公告标�
 INSERT INTO `notice` VALUES ('af63d126-6359-46c8-8356-a532a1f725fb', '77777', '88888。。。。。。。。。。。。。。。。。。。。。。。。。。。', '2020-04-28 00:10:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 INSERT INTO `notice` VALUES ('dea363de-e705-46b0-888c-8532f7c8d198', '公告标题2', '公告内容2', '2020-04-27 00:35:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 INSERT INTO `notice` VALUES ('dfb9c3cf-4d1a-4e4f-86b8-7b978d63a4bc', '公告标题5', '公告内容5.。。。。', '2020-04-27 16:17:04', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('e58ac89c-c25f-4935-a491-fabbc653497f', '1401班第一条公告', '大家好好学习，天天向上。。。', '2020-05-07 23:57:04', '68b9a2f57443803491f8bec131d1c254', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '6bae0c16-84d8-4b23-9693-6621c08cd522');
 INSERT INTO `notice` VALUES ('f1d5682d-64f0-4abd-81ba-5924d22ba03c', '44', '444444.。。。', '2020-04-27 00:37:05', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 
 -- ----------------------------
@@ -183,6 +169,7 @@ CREATE TABLE `paper` (
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
+INSERT INTO `paper` VALUES ('11e81f9206d94dfbb135773d5db42613', '2019年12月份摸底考试', null, '120分钟', null, null, '68b9a2f57443803491f8bec131d1c254', '2020-57-07 11:57:56', '', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '6bae0c16-84d8-4b23-9693-6621c08cd522', null);
 INSERT INTO `paper` VALUES ('4ee2dddfa0a7483a8d573595cd903ea8', '2020年1月测试', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', '2020-31-04 08:31:52', '', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null);
 INSERT INTO `paper` VALUES ('7ec8dac0c545473a92373ed31a24922a', '2019年3月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', '2020-58-03 10:58:45', '', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null);
 
@@ -267,7 +254,8 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '127.0.0.1', '2020-05-07 22:10:35', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('68b9a2f57443803491f8bec131d1c254', '8888', '0', '8888', '8888', '8888', '', '2', '192.168.0.104', '2020-05-08 00:26:32', '2020-05-07 23:44:28', '2020-05-07 23:44:42', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '2020-05-08 00:26:37', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -287,15 +275,34 @@ CREATE TABLE `user_question` (
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
-INSERT INTO `user_question` VALUES ('4753be2e8a884cee80f875d55e5b858b', '8c91c81a5266470db11e8df1ccb0f8d9', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('dd80fb8feacd45b699b3a768f7c3b4c2', '7c3126e1b2e549f6902a7275c37283a6', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('fc12b4eda25440c1bdcfe8c33f3a7e3c', '6a457f5b04594476b52d523490ca6fb5', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('c559a768be0a4209ba5d056041456b6e', '33fb5dcd2d5f435d845f22dd0ee39aed', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('a6bbee24b92440be8d1aa8cdec0d81de', 'd0ada3512b534f9487607437608f0268', '99b9a2f574d94a3491f8bec131d1c502', 'C', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('19e4ceafff604dc0b437ea031166debe', '3910895a15db4f94a09ad8be71ac2c95', '99b9a2f574d94a3491f8bec131d1c502', '23', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('834f05cfbf99438b9fcb33f20a7167a5', 'e8cbd6430a724c4a9c55b02fa0900cb6', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('3bf7c208e16841a9bdaa5b33638090fe', 'f523fec27fe447b19c88bf01279377de', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-06 21:00:57', null);
-INSERT INTO `user_question` VALUES ('75da4645223545959ce12728e049a193', 'a8c4f337ecff48f7afe3ec20f51fe847', '99b9a2f574d94a3491f8bec131d1c502', '33', null, '0', '2020-05-06 21:00:57', null);
+INSERT INTO `user_question` VALUES ('6484192c8e5c4685b594bd58c4fe9bcf', '8c91c81a5266470db11e8df1ccb0f8d9', '99b9a2f574d94a3491f8bec131d1c502', 'C', null, '4', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('6206545c755e4ce7b2d404cdbb58b11b', '7c3126e1b2e549f6902a7275c37283a6', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '4', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('ce65765085384a2581448c843cfaeea5', '6a457f5b04594476b52d523490ca6fb5', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '5', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('f40322fb39884b5180b701c92a696064', '33fb5dcd2d5f435d845f22dd0ee39aed', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('5d8220b47bbf4bf69ef553cdfb9ad1b9', 'd0ada3512b534f9487607437608f0268', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '4', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('b9123df32ab148df85f5cf2b5f6dec63', '3910895a15db4f94a09ad8be71ac2c95', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('9887537988dc4d9d95ce8a681ecea038', 'e8cbd6430a724c4a9c55b02fa0900cb6', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('5a9be2b88021427e8c3bde3e49953da8', 'f523fec27fe447b19c88bf01279377de', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '2', '2020-05-07 22:14:37', null);
+INSERT INTO `user_question` VALUES ('0d5464b809e34dd1b28912e509d3921a', 'a8c4f337ecff48f7afe3ec20f51fe847', '99b9a2f574d94a3491f8bec131d1c502', 'class', null, '0', '2020-05-07 22:14:37', null);
+
+-- ----------------------------
+-- Table structure for user_score
+-- ----------------------------
+DROP TABLE IF EXISTS `user_score`;
+CREATE TABLE `user_score` (
+  `id` varchar(32) NOT NULL,
+  `user_id` varchar(32) DEFAULT NULL,
+  `paper_id` varchar(32) DEFAULT NULL,
+  `course_id` varchar(32) DEFAULT NULL,
+  `total_score` varchar(255) DEFAULT '0' COMMENT '总分',
+  `create_time` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_score
+-- ----------------------------
+INSERT INTO `user_score` VALUES ('239c04b6ce9945819119658f19b46822', '99b9a2f574d94a3491f8bec131d1c502', '4ee2dddfa0a7483a8d573595cd903ea8', null, '19', '2020-05-07 22:14:37');
 
 -- ----------------------------
 -- Table structure for user_sign
@@ -318,6 +325,8 @@ CREATE TABLE `user_sign` (
 -- Records of user_sign
 -- ----------------------------
 INSERT INTO `user_sign` VALUES ('2d59b3f07fc248cea70ddf4458ce379c', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:42', '大悟县人民政府(府前街东)', '0', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `user_sign` VALUES ('3ec9527eb789407c8c4bcac2240f926b', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '68b9a2f57443803491f8bec131d1c254', '8888', '23:59:56', '大悟县人民政府(府前街东)', '0', '192.168.0.104', '6bae0c16-84d8-4b23-9693-6621c08cd522');
 INSERT INTO `user_sign` VALUES ('50816f497d97483483d7170b04b93ea6', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:04', 'undefined', '1', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
 INSERT INTO `user_sign` VALUES ('67fc85cc07c546f0a707fd9110cd59f8', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:41', '大悟县人民政府(府前街东)', '1', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
 INSERT INTO `user_sign` VALUES ('8b975fc74925400ea7aac6099c19d62e', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:11', 'undefined', '0', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
+INSERT INTO `user_sign` VALUES ('c038872929af42a0b73f91f3257df895', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '68b9a2f57443803491f8bec131d1c254', '8888', '23:59:53', '大悟县人民政府(府前街东)', '1', '192.168.0.104', '6bae0c16-84d8-4b23-9693-6621c08cd522');
