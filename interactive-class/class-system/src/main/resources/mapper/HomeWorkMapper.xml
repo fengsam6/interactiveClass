@@ -17,17 +17,52 @@
         <result column="last_down_time" property="lastDownTime" />
     </resultMap>
 
+    <resultMap id="HomeWorkVoResultMap" type="com.code.classsystem.vo.HomeWorkVo">
+        <id column="id" property="id" />
+        <result column="work_title" property="workTitle" />
+        <result column="work_des" property="workDes" />
+        <result column="attach_path" property="attachPath" />
+        <result column="student_id" property="studentId" />
+        <result column="submit_time" property="submitTime" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="course_id" property="courseId" />
+        <result column="class_id" property="classId" />
+        <result column="download_num" property="downloadNum" />
+        <result column="last_down_time" property="lastDownTime" />
+
+        <result column="studentName" property="studentName" />
+        <result column="teacherName" property="teacherName" />
+        <result column="courseName" property="courseName" />
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, work_title, work_des, attach_path, student_id, submit_time, teacher_id, course_id, class_id, download_num, last_down_time
     </sql>
 
-    <select id="listPage" resultMap="BaseResultMap" parameterType="com.code.classsystem.entity.HomeWork">
-        select * from home_work
+    <select id="listPage" resultMap="HomeWorkVoResultMap" parameterType="com.code.classsystem.entity.HomeWork">
+         select h.* ,
+        u1.name as studentName,
+        u2.name as teacherName,
+        cs.course_name as courseName
+        from home_work h
+        left join user u1 on u1.id = h.student_id
+        left join user u2 on u2.id = h.teacher_id
+        left join course cs on cs.id = h.course_id
+        <where>
+            <if test="studentId != null">
+                h.student_id = #{studentId}
+            </if>
+            <if test="teacherId != null">
+               and h.teacher_id = #{teacherId}
+            </if>
+        </where>
+
     </select>
 
     <select id="getDetailById" resultMap="BaseResultMap" parameterType="string">
-        select * from home_work
+        select h.*
+        from home_work h
+        where id  = #{id}
     </select>
 
 </mapper>

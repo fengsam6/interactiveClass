@@ -20,27 +20,41 @@
         type="selection"
         width="55"
       />
-      <el-table-column type="index" width="80" align="center" />
+      <el-table-column type="index" width="80" align="center" label="序号" />
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="作业名称" prop="workTitle" />
+      <el-table-column label="学生名称" prop="studentName" />
       <el-table-column label="作业简介" align="center" prop="workDes" />
-      <el-table-column label="课程名称" align="center" prop="beginTime" />
-      <el-table-column label="附件名称" align="center" prop="beginTime" />
-      <el-table-column label="上传时间" align="center" prop="submitTime" />
-      <el-table-column align="center" label="老师名称" prop="endTime" />
-      <el-table-column label="操作" min-width="100px" align="center">
+      <el-table-column label="课后作业名称" align="center" prop="courseName" />
+      <el-table-column label="教师名称" prop="teacherName" />
+      <el-table-column label="附件名称" align="center" min-width="120px">
+        <template slot-scope="scope">
+          {{ scope.row.attachPath | attachName }}
+        </template>
+      </el-table-column>
+      <el-table-column label="上传时间" align="center" prop="submitTime" min-width="130px" />
+      <el-table-column label="操作" min-width="190px" align="center">
         <template slot-scope="scope">
           <el-button
             type="primary"
             plain
             size="mini"
             @click="editForm(scope.row.id)"
-          >编辑</el-button>
+          >编辑
+          </el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDeleteRow(scope.row.id)"
-          >删除</el-button>
+          >撤回作业
+          </el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="downLoadFile(scope.row.attachPath)"
+          >下载
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -49,11 +63,25 @@
 </template>
 
 <script>
-import { listPage, deleteCourseByIds } from '@/api/homework'
+import { listPage, deleteHomeworkByIds } from '@/api/homework'
 import formDialog from './formDialog'
+import { downFile } from '@/utils/fileRequest'
+
 export default {
   components: {
     formDialog
+  },
+  filters: {
+    attachName(filePath) {
+      if (filePath != null) {
+        const index = filePath.indexOf('_')
+        if (index > -1) {
+          return filePath.substr(index + 1)
+        }
+      } else {
+        return ''
+      }
+    }
   },
   data() {
     return {
@@ -71,7 +99,6 @@ export default {
         const data = await listPage()
         this.pageData = data.data
         this.list = this.pageData.list
-          debugger
         this.listLoading = false
       } catch (e) {
         this.listLoading = false
@@ -91,28 +118,28 @@ export default {
     delCourseByIds() {
       const records = this.$refs.multipleTable.selection
       if (records.length === 0) {
-        this.$message.error('请选择要删除的课程!')
+        this.$message.error('请选择要删除的课后作业!')
         return
       }
-      this.$confirm('此操作将删除课程, 是否继续?', '提示', {
+      this.$confirm('此操作将删除课后作业, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         const recordIds = this.getRecordId(records)
-        deleteCourseByIds({ ids: recordIds.join(',') }).then((resp) => {
+        deleteHomeworkByIds({ ids: recordIds.join(',') }).then((resp) => {
           this.$message.success(resp.data)
           this.refreshDataList()
         })
       })
     },
     handleDeleteRow(recordIds) {
-      this.$confirm('此操作将删除课程, 是否继续?', '提示', {
+      this.$confirm('此操作将删除课后作业, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteCourseByIds({ ids: recordIds }).then((resp) => {
+        deleteHomeworkByIds({ ids: recordIds }).then((resp) => {
           this.$message.success(resp.data)
           this.refreshDataList()
         })
@@ -120,6 +147,9 @@ export default {
     },
     refreshDataList() {
       this.listPageData()
+    },
+    downLoadFile(filePath) {
+      downFile(filePath)
     },
     editForm(id) {
       this.$refs.formDialogCom.editForm(id)
@@ -132,7 +162,7 @@ export default {
 }
 </script>
 <style scoped>
-  .btn_group{
+  .btn_group {
     float: right;
   }
 </style>

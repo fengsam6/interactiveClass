@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" class="app-container" :title="formTitle">
+  <el-dialog :visible.sync="dialogVisible" class="app-container" :close-on-click-modal="false" :title="formTitle">
     <el-form ref="formCom" :model="form" :rules="rules" label-width="120px" :inline="true" :label-position="labelPosition">
       <el-form-item label="用户姓名" prop="name">
         <el-input v-model="form.name" class="formItem" />

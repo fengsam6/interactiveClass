@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author coder
@@ -27,33 +27,34 @@ import java.util.List;
 @RequestMapping("/homework")
 public class HomeWorkController {
     @Autowired
-private HomeWorkService homeWorkService;
+    private HomeWorkService homeWorkService;
+
     @ApiOperation(value = "创建作业接口", notes = "创建作业接口")
     @PostMapping("/createHomeWork")
-    public ResponseResult createHomeWork(@Valid @RequestBody HomeWork homeWork, BindingResult bindingResult) {
+    public ResponseResult createHomeWork(@RequestBody @Valid HomeWork homeWork, BindingResult bindingResult) {
         homeWorkService.addHomeWork(homeWork);
         return ResponseResultUtil.renderSuccess("创建作业成功！");
     }
 
     @ApiOperation(value = "更新作业接口", notes = "更新作业接口")
-    @PostMapping("/updateHomeWork")
-    public ResponseResult updateHomeWork(@Valid HomeWork homeWork) {
+    @PostMapping("/updateHomework")
+    public ResponseResult updateHomework(@RequestBody @Valid HomeWork homeWork) {
         homeWorkService.updateById(homeWork);
         return ResponseResultUtil.renderSuccess("更新作业成功！");
     }
 
     @ApiOperation(value = "删除作业接口", notes = "删除作业接口")
-    @PostMapping("/deleteHomeWork")
-    public ResponseResult deleteHomeWork(@RequestParam("ids") List<String> ids) {
+    @PostMapping("/deleteHomework")
+    public ResponseResult deleteHomework(@RequestParam("ids") List<String> ids) {
         homeWorkService.deleteBatchIds(ids);
         return ResponseResultUtil.renderSuccess("删除作业成功！");
     }
 
 
     @ApiOperation(value = "根据id查看作业", notes = "根据id查看作业")
-    @GetMapping("/getDetailById")
-    public ResponseResult getDetailById(String id) {
-        HomeWorkVo homeWork = homeWorkService.getDetailById(id);
+    @GetMapping("/getDetailById/{id}")
+    public ResponseResult getDetailById(@PathVariable("id") String id) {
+        HomeWork homeWork = homeWorkService.selectById(id);
         return ResponseResultUtil.renderSuccess(homeWork);
     }
 

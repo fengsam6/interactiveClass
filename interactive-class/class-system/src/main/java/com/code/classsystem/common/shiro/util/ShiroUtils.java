@@ -33,6 +33,14 @@ public static Session getSession() {
         return userEntity.getId();
     }
 
+    public static Integer getRoleId() {
+        User userEntity = getUserEntity();
+        if(userEntity==null){
+            throw new AuthenticationFailException(ErrorEnum.INVALIDATE_PARAM_EXCEPTION.setMsg("获取用户信息失败"));
+        }
+        return userEntity.getRoleId();
+    }
+
     public static void setSessionAttribute(Object key, Object value) {
         getSession().setAttribute(key, value);
     }

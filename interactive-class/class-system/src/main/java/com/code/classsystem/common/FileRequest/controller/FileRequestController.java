@@ -85,11 +85,22 @@ public class FileRequestController {
         String userAgent = request.getHeader("User-Agent");
         fileName = FileUtils.getFileDownName(fileName, userAgent);
         response.reset();
-        response.setContentType("application/force-download");
         response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+        response.addHeader("Content-Length", "" + file.length());
+        response.setContentType("application/octet-stream");
 
         // 创建输出对象
         OutputStream os = response.getOutputStream();
-        FileUtils.fileWrite(fis, os);
+        try {
+            FileUtils.fileWrite(fis, os);
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+            if (os != null) {
+                os.flush();
+                os.close();
+            }
+        }
     }
 }
