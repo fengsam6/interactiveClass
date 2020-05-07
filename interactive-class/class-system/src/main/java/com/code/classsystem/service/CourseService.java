@@ -30,4 +30,6 @@ public interface CourseService extends IService<Course> {
     CourseInfoVo getDetailById(String id);
 
     void updateCourse(CourseInfoVo course);
+
+    List queryTeachCourse(String userId);
 }

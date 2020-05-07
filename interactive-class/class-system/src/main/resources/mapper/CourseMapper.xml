@@ -72,6 +72,12 @@
           where c3.member_id=#{userId}
     </select>
 
+    <select id="queryTeachCourse" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
+        select c1.id as courseId,c2.id classId,c1.course_name as courseName,c2.class_name AS className,c2.class_num as classNum
+         from course c1 left join class c2 on c1.class_id=c2.id
+		WHERE created_user_id=#{userId}
+    </select>
+
     <select id="listPage" parameterType="com.code.classsystem.entity.Course" resultMap="CourseInfoMap">
         select c1.*,
         cls.class_name ,cls.class_num,

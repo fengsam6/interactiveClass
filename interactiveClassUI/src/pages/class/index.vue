@@ -6,7 +6,7 @@
         <van-divider custom-style="height:1px"/>
         <van-row>
             <van-grid :border="border">
-                <van-grid-item  use-slot>
+                <van-grid-item  use-slot v-if="teacher">
                     <view @click="studentManager">
                         <image
                                 style="width: 100%; height: 40px;"
@@ -47,7 +47,7 @@
         <van-row>
             <view class="class_center2">
                 <view style="font-size: 18px;font-weight: bold;">教学日志</view>
-                <view>
+                <view v-if="teacher">
                     <van-button icon="plus" type="info" size="small" @click="fbshow=true" @click-overlay="fbshow=false">
                         发布
                     </van-button>
@@ -117,6 +117,7 @@
         },
         data() {
             return {
+                teacher:true,
                 course:null,
                 userInfo:null,
                 showfbgg:false,
@@ -145,6 +146,7 @@
             this.queryNotice();
         },
         onLoad(option) {
+            this.teacher=option.roleId=='2';
             const item = JSON.parse(decodeURIComponent(option.item));
             this.className=item.className;
             this.notice.classId=item.classId;

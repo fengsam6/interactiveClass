@@ -145,6 +145,10 @@
                     this.signInBtn = false;
                     this.signQuery.signPreTime = now.format('HH:mm:ss');
                     this.signComData.signIn=1;
+                    if(this.signQuery.signPlace==""){
+                        this.successAlert("请先获取位置");
+                        return false;
+                    }
                     this.signComData.signPlace=this.signQuery.signPlace;
                     this.signComData.signTime=this.signQuery.signPreTime;
                     signIn(this.signComData).then(resp => {
@@ -161,6 +165,10 @@
                     this.signQuery.signNextTime = now.format('HH:mm:ss');
                     this.signComData.signIn=0;
                     this.signComData.signTime=this.signQuery.signNextTime;
+                    if(this.signQuery.signPlace==""){
+                        this.successAlert("请先获取位置");
+                        return false;
+                    }
                     signIn(this.signComData).then(resp => {
                         this.successAlert("下课签到成功");
                         //  this.$emit("refreshNotice")

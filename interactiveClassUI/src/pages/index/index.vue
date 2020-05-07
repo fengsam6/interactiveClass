@@ -40,8 +40,7 @@
 		<van-row>
 				<van-col span="10" offset="4">
 					<view style="line-height: 46px;height: 46px">
-						<text v-if="IsTeacher" class="m_label">我教的课</text>
-						<text v-else class="m_label">我听的课</text>
+						<text class="m_label">{{message}}</text>
 					</view>
 				</van-col>
 				<van-col span="6" offset="4">
@@ -164,7 +163,7 @@
 <script>
 	import {createClass} from "@/api/class"
 	import {joinClass} from "@/api/classUser"
-	import {queryMCourse} from "@/api/course"
+	import {queryMCourse,queryTeachCourse} from "@/api/course"
 	import {getStoreUserInfo, saveUserInfoStore,getUserInfo} from '@/api/user'
 	import {getStorage,setStorage} from '@/utils/storage'
 	export default {
@@ -186,17 +185,7 @@
 				joinClassshow:false,
 				classCode:'',
 				clsIsShow:false,
-				actions: [
-					{
-						name: '创建课程'
-					},
-					{
-						name: '创建班级'
-					},
-					{
-						name: '加入班级'
-					}
-				],
+				actions:[],
 				actionsCls:[
 					{
 						name: '管理'
@@ -207,6 +196,16 @@
 				],
 			}
 		},
+		computed:{
+			message:function () {
+				if(this.userInfo.roleId==1){
+					return "我所学的课";
+				}
+				if(this.userInfo.roleId==2){
+					return "我所教的课";
+				}
+			}
+		},
 		onShow() {
 			this.doGetStoreUserInfo()
 			this.queryMCourseInfo();
@@ -215,6 +214,23 @@
 			this.doGetStoreUserInfo();
 			this.classInfo.createUserId=this.userInfo.id;
 			this.queryMCourseInfo();
+			if(this.userInfo.roleId=='1'){
+				this.actions=[
+					{
+						name: '加入班级'
+					}
+				];
+			}
+			if(this.userInfo.roleId=='2'){
+				this.actions=[
+					{
+						name: '创建班级'
+					},
+					{
+						name: '创建课程'
+					}
+				];
+			}
 		},
 		onLoad() {
 
@@ -277,7 +293,7 @@
 			},
 			managerCls(item){
 				uni.navigateTo({
-					url: '/pages/class/index?item='+encodeURIComponent(JSON.stringify(item))
+					url: '/pages/class/index?roleId='+this.userInfo.roleId+'&item='+encodeURIComponent(JSON.stringify(item))
 				});
 			},
 			async doGetStoreUserInfo() {
@@ -289,10 +305,16 @@
 				var data={
 					userId:this.userInfo.id
 				};
-				queryMCourse(data).then(resp => {
-					this.mCourse=resp;
-					// this.successAlert("创建数据成功")
-				})
+				if(this.userInfo.roleId==1){
+					queryMCourse(data).then(resp => {
+						this.mCourse=resp;
+					})
+				}
+				if(this.userInfo.roleId==2){
+					queryTeachCourse(data).then(resp => {
+						this.mCourse=resp;
+					})
+				}
 			}
 		}
 	}

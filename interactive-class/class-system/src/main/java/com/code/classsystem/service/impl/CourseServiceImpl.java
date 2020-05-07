@@ -203,4 +203,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             }
         }
     }
+
+    @Override
+    public List queryTeachCourse(String userId) {
+        List<CourseAndClass> courseAndClassList = courseMapper.queryTeachCourse(userId);
+        return courseAndClassList;
+    }
 }

@@ -19,6 +19,8 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseAndClass> mcourseInfo(String userId);
 
+    List<CourseAndClass>queryTeachCourse(String userId);
+
     List<CourseInfoVo> listPage(Course course);
 
     CourseInfoVo getDetailById(String id);

@@ -18,3 +18,12 @@ export function createCourse(data) {
 export function queryMCourse(data) {
     return post("course/queryCourseInfo", data)
 }
+
+/**
+ * 查询老师教的课程
+ * @param data
+ * @returns {*}
+ */
+export function queryTeachCourse(data) {
+    return post("course/queryTeachCourse", data)
+}

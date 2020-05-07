@@ -51,6 +51,20 @@ public class CourseController {
         return ResponseResultUtil.renderSuccess(list);
     }
 
+    /**
+     * 我所教的课程
+     *
+     * @return
+     */
+    @ApiOperation(value = "查看当前老师参加的课程", notes = "查看当前老师参加的课程")
+    @PostMapping("/queryTeachCourse")
+    public ResponseResult queryTeachCourse() {
+        String userId = ShiroUtils.getUserId();
+        List list = courseService.queryTeachCourse(userId);
+        return ResponseResultUtil.renderSuccess(list);
+    }
+
+
     @GetMapping("/listPage")
     @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
     public ResponseResult listPage(Course course, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
