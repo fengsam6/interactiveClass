@@ -29,28 +29,26 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  async login({ commit }, userInfo) {
     // const { userAccount, password } = userInfo
-    doLogin(userInfo).then(resp => {
-      const token = resp.data
-      commit('SET_TOKEN', token)
-      setToken(token)
-      commit('getInfo')
-    })
+    const { data } = await doLogin(userInfo)
+    const token = data
+    commit('SET_TOKEN', token)
+    setToken(token)
+    return token
   },
 
   // get user info
-  getInfo({ commit }) {
-    getUserInfo().then(response => {
-      const { data } = response
-      const { name, avatar } = data
-      commit('SET_NAME', name)
-      commit('SET_AVATAR', avatar)
-    })
+  async getInfo({ commit }) {
+    const { data } = await getUserInfo()
+    const { name, avatar } = data
+    commit('SET_NAME', name)
+    commit('SET_AVATAR', avatar)
+    return data
   },
 
   // user logout
-  async logout({ commit}) {
+  async logout({ commit }) {
     await logout()
     removeToken() // must remove  token  first
     resetRouter()

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" class="app-container" :title="formTitle" width="60%">
+  <el-dialog :visible.sync="dialogVisible" class="app-container" :close-on-click-modal="false" :title="formTitle" width="60%">
     <el-form ref="formCom" :model="form" :rules="rules" label-width="120px" :inline="true" :label-position="labelPosition">
       <el-form-item label="作业名称" prop="workTitle">
         <el-input v-model="form.workTitle" class="formItem" />
@@ -73,7 +73,7 @@ export default {
           { required: true, message: '作业名称不能为空', trigger: 'blur,change' }
         ],
         courseId: [
-          { required: false, message: '课程名称不能为空', trigger: 'change' }
+          { required: true, message: '课程名称不能为空', trigger: 'change' }
         ]
       }
     }
@@ -129,6 +129,10 @@ export default {
     async doSave() {
       const pass = this.checkParam('formCom')
       if (!pass) {
+        return
+      }
+      if (!this.form.attachPath) {
+        this.$message.error('请选择要上传的课后作业!!')
         return
       }
       let data = ''

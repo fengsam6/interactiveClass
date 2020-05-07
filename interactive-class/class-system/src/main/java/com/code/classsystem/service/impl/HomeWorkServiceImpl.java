@@ -4,6 +4,7 @@ import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.entity.HomeWork;
 import com.code.classsystem.dao.HomeWorkMapper;
+import com.code.classsystem.entity.User;
 import com.code.classsystem.service.CourseService;
 import com.code.classsystem.service.HomeWorkService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -49,6 +50,24 @@ public class HomeWorkServiceImpl extends ServiceImpl<HomeWorkMapper, HomeWork> i
 
     @Override
     public PageInfo<HomeWorkVo> listPage(HomeWork homeWork, int pageNum, int pageSize) {
+        User userEntity = ShiroUtils.getUserEntity();
+        Integer roleId =  userEntity.getRoleId();
+        String userEntityId = userEntity.getId();
+        switch (roleId){
+            case 1:{
+                homeWork.setStudentId(userEntityId);
+                break;
+            }
+            case 2:{
+                homeWork.setTeacherId(userEntityId);
+                break;
+            } case 3 :{
+                break;
+            } default:{
+                homeWork.setStudentId(userEntityId);
+            }
+        }
+
         PageHelper.startPage(pageNum, pageSize);
         List<HomeWorkVo> userInfoVos = homeWorkMapper.listPage(homeWork);
         return new PageInfo<>(userInfoVos);

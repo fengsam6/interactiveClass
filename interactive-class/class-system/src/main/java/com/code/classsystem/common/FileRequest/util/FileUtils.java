@@ -17,13 +17,8 @@ public class FileUtils {
             while ((len = fis.read(buf)) != -1) {
                 os.write(buf, 0, len);
             }
-        } finally {
-            if (fis != null) {
-                fis.close();
-            }
-            if (os != null) {
-                os.close();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
