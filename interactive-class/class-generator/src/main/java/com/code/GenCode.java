@@ -9,7 +9,7 @@ public class GenCode {
         //user -> UserService, 设置成true: user -> IUserService
         boolean serviceNameStartWithI = false;
         //指定生成的表名
-        String[] tableNames = new String[]{"user_score"};
+        String[] tableNames = new String[]{"home_work"};
         Generator generator = new Generator();
         generator.generateByTables(serviceNameStartWithI, packageName, tableNames);
     }

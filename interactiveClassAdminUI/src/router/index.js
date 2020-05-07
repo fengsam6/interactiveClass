@@ -103,7 +103,18 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/homework',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '作业管理',
+        component: () => import('@/views/homework/index'),
+        meta: { title: '作业管理', icon: 'form' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

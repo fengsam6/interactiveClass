@@ -20,3 +20,7 @@ export function getDetailById(id) {
   return get('/course/getDetailById/' + id)
 }
 
+export function queryCourseInfoByCurUser() {
+  return post('/course/queryCourseInfo')
+}
+

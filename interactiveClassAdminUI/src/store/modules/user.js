@@ -35,6 +35,7 @@ const actions = {
       const token = resp.data
       commit('SET_TOKEN', token)
       setToken(token)
+      commit('getInfo')
     })
   },
 

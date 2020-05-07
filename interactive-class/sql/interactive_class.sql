@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : interactive_class
-Source Server Version : 50724
+Source Server         : localhost
+Source Server Version : 50645
 Source Host           : localhost:3306
 Source Database       : interactive_class
 
 Target Server Type    : MYSQL
-Target Server Version : 50724
+Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-05-06 23:26:34
+Date: 2020-05-07 22:13:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,6 +107,30 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
 INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
+
+-- ----------------------------
+-- Table structure for home_work
+-- ----------------------------
+DROP TABLE IF EXISTS `home_work`;
+CREATE TABLE `home_work` (
+  `id` varchar(36) NOT NULL,
+  `work_title` varchar(100) DEFAULT NULL COMMENT '作业标题',
+  `work_des` varchar(255) DEFAULT NULL COMMENT '作业描述',
+  `attach_path` varchar(100) NOT NULL COMMENT '附件路径',
+  `student_id` varchar(36) NOT NULL COMMENT '作业提交者id',
+  `submit_time` varchar(60) DEFAULT NULL,
+  `teacher_id` varchar(32) DEFAULT NULL,
+  `course_id` varchar(36) DEFAULT NULL COMMENT '课程id',
+  `class_id` varchar(36) DEFAULT NULL,
+  `download_num` int(3) DEFAULT '0' COMMENT '下载次数',
+  `last_down_time` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of home_work
+-- ----------------------------
+INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '33', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null, '0', null);
 
 -- ----------------------------
 -- Table structure for notice
@@ -243,7 +267,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '2020-05-06 23:21:32', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '127.0.0.1', '2020-05-07 22:10:35', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question
