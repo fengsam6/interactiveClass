@@ -44,6 +44,7 @@
     <sql id="Base_Column_List">
         id, name, sex, account, password, user_num, user_avater, role_id, login_ip, login_time, create_date, update_date, is_delete, is_used
     </sql>
+
     <select id="listPage" resultMap="UserInfoResultMap" parameterType="com.code.classsystem.entity.User">
   select t.*,r.role_name as roleType,
    (CASE WHEN t.sex = 0 THEN '男'

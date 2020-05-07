@@ -1,5 +1,6 @@
 package com.code.classsystem.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
@@ -38,6 +39,7 @@ public class Course implements Serializable {
     private String classId;
     private String className;
     private String CreatedUserId;
+    @TableField(exist = false)
     private List<Class> courseClass;
 
     public List<Class> getCourseClass() {

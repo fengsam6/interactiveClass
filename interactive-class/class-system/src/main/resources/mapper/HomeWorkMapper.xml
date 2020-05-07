@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.HomeWorkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.HomeWork">
+        <id column="id" property="id" />
+        <result column="work_title" property="workTitle" />
+        <result column="work_des" property="workDes" />
+        <result column="attach_path" property="attachPath" />
+        <result column="student_id" property="studentId" />
+        <result column="submit_time" property="submitTime" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="course_id" property="courseId" />
+        <result column="class_id" property="classId" />
+        <result column="download_num" property="downloadNum" />
+        <result column="last_down_time" property="lastDownTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, work_title, work_des, attach_path, student_id, submit_time, teacher_id, course_id, class_id, download_num, last_down_time
+    </sql>
+
+    <select id="listPage" resultMap="BaseResultMap" parameterType="com.code.classsystem.entity.HomeWork">
+        select * from home_work
+    </select>
+
+    <select id="getDetailById" resultMap="BaseResultMap" parameterType="string">
+        select * from home_work
+    </select>
+
+</mapper>
