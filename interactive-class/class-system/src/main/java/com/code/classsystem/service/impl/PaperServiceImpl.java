@@ -8,6 +8,7 @@ import com.code.classsystem.dao.PaperMapper;
 import com.code.classsystem.service.PaperService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.vo.PaperInfoVo;
+import com.code.classsystem.vo.PaperResultBinVo;
 import com.code.core.util.DateUtils;
 import com.code.core.util.UUIDUtil;
 import com.github.pagehelper.PageHelper;
@@ -15,6 +16,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -74,5 +76,22 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
         PageHelper.startPage(pageNum, pageSize);
         List<Paper>papers=paperMapper.queryMyPaper(userId);
         return new PageInfo<Paper>(papers).getList();
+    }
+
+    @Override
+    public List<PaperResultBinVo> queryPaperResult(String courseId) {
+        List<PaperResultBinVo> paperResultBinVos= paperMapper.queryPaperResult(courseId);
+        double total_rate=0.0;
+        DecimalFormat df = new DecimalFormat("#.00");
+        for(int i=0;i<paperResultBinVos.size();i++){
+            double rate=Double.parseDouble(paperResultBinVos.get(i).getGoodRate());
+            total_rate+=rate;
+        }
+        for(int i=0;i<paperResultBinVos.size();i++){
+            double rate2=Double.parseDouble(paperResultBinVos.get(i).getGoodRate());
+            String result=df.format(rate2/total_rate);
+            paperResultBinVos.get(i).setGoodRate(result);
+        }
+        return paperResultBinVos;
     }
 }

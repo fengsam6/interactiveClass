@@ -1,7 +1,7 @@
 <template>
     <view class="qiun-columns">
         <view class="qiun-bg-white qiun-title-bar qiun-common-mt" >
-            <view class="qiun-title-dot-light">环形图</view>
+            <view class="qiun-title-dot-light">优秀占比</view>
         </view>
         <view class="qiun-charts" >
             <canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas>
@@ -10,7 +10,8 @@
 </template>
 
 <script>
-    import uCharts from '@/utils/u-charts.js';
+    import uCharts from '@/utils/u-charts.js'
+    import {queryPaperResult} from "@/api/paper"
     var _self;
     var canvaRing=null;
 
@@ -21,21 +22,43 @@
                 cHeight:'',
                 pixelRatio:1,
                 serverData:'',
+                courseId:''
             }
         },
-        onLoad() {
+        onLoad(option) {
+            this.courseId=option.item;
             _self = this;
             this.cWidth=uni.upx2px(750);
             this.cHeight=uni.upx2px(500);
-            this.getServerData();
+            this.getPaperData();
         },
         methods: {
-            getServerData(){
+            getPaperData(){
+                var data={
+                    courseId:this.courseId
+                }
+                queryPaperResult(data).then(resp=>{
+                    var newArr=resp;
+                    var newData=[];
+                    let Ring={series:[]};
+                    for(var i=0;i<newArr.length;i++){
+                        var value={
+                            name:newArr[i].className,
+                            data:newArr[i].goodRate
+                        }
+                        newData.push(value);
+                    }
+                    Ring.series=newData;
+                    this.showRing("canvasRing",Ring);
+                })
+            },
+           /* getServerData(){
                 uni.request({
                     url: 'https://www.ucharts.cn/data.json',
                     data:{
                     },
                     success: function(res) {
+                        debugger
                         console.log(res.data.data)
                         let Ring={series:[]};
                         //这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
@@ -46,7 +69,7 @@
                         _self.tips="网络错误，小程序端请检查合法域名";
                     },
                 });
-            },
+            },*/
             showRing(canvasId,chartData){
                 canvaRing=new uCharts({
                     $this:_self,
@@ -54,18 +77,6 @@
                     type: 'ring',
                     fontSize:11,
                     legend:true,
-                    title: {
-                        name: '70%',
-                        color: '#7cb5ec',
-                        fontSize: 25*_self.pixelRatio,
-                        offsetY:-20*_self.pixelRatio,
-                    },
-                    subtitle: {
-                        name: '收益率',
-                        color: '#666666',
-                        fontSize: 15*_self.pixelRatio,
-                        offsetY:30*_self.pixelRatio,
-                    },
                     extra: {
                         pie: {
                             offsetAngle: -45,
@@ -86,7 +97,7 @@
             touchRing(e){
                 canvaRing.showToolTip(e, {
                     format: function (item) {
-                        return item.name + ':' + item.data
+                        return item.name + ':' + item.goodRate
                     }
                 });
             },
