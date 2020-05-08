@@ -37,6 +37,7 @@
         <result column="is_used" property="isUsed"/>
 
         <result column="roleType" property="roleType"/>
+        <result column="roleCode" property="roleCode" />
         <result column="sexType" property="sexType"/>
     </resultMap>
 
@@ -54,7 +55,9 @@
     inner join role  r on t.role_id = r.id
 </select>
     <select id="getUserInfoByUserId" resultMap="UserInfoResultMap" parameterType="string">
-  select t.*,r.role_name as roleType,
+  select t.*,
+  r.role_name as roleType,
+  r.role_code as roleCode,
   (CASE WHEN t.sex = 0 THEN '男'
      WHEN t.sex = 1 THEN '女'
     ELSE '男' END) as sexType

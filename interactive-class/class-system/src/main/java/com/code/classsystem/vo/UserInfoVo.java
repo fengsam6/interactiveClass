@@ -5,6 +5,7 @@ import com.code.classsystem.entity.User;
 public class UserInfoVo extends User {
     private String roleType;
     private String sexType;
+    private String roleCode;
 
     public String getRoleType() {
         return roleType;
@@ -20,5 +21,13 @@ public class UserInfoVo extends User {
 
     public void setSexType(String sexType) {
         this.sexType = sexType;
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 }

@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Role">
         <id column="id" property="id" />
         <result column="role_name" property="roleName" />
+        <result column="role_code" property="roleCode" />
         <result column="desc" property="desc" />
         <result column="is_delete" property="isDelete" />
         <result column="is_used" property="isUsed" />
@@ -13,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, role_name, desc, is_delete, is_used
+        id, role_name,role_code, desc, is_delete, is_used
     </sql>
 
 </mapper>

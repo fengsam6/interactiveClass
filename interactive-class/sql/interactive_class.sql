@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : interactive_class
-Source Server Version : 50724
+Source Server         : localhost
+Source Server Version : 50645
 Source Host           : localhost:3306
 Source Database       : interactive_class
 
 Target Server Type    : MYSQL
-Target Server Version : 50724
+Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-05-08 00:35:06
+Date: 2020-05-08 10:18:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,6 +41,7 @@ INSERT INTO `class` VALUES ('504bf968-0735-4892-ac3b-aa0d1a3257aa', '1403', '24'
 INSERT INTO `class` VALUES ('64f5fa91-8c22-43e6-a63c-6184d84711ad', '1506', '34', '777777', '940221', '2020-05-04 20:22:20', '2020-05-04 20:22:20', '0');
 INSERT INTO `class` VALUES ('9c68ae80-a913-435b-a434-722c97ad804f', '1501', '34', '1501班级简介。。。', '697042', '2020-04-25 23:48:17', '2020-04-25 23:48:17', '0');
 INSERT INTO `class` VALUES ('c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '20', '这是1402班', '420185', '2020-05-07 23:47:00', '2020-05-07 23:47:00', '0');
+INSERT INTO `class` VALUES ('fc343902-b4ca-4e21-a238-c38539e587b2', 'test', '22', '22', '914360', '2020-05-08 09:55:14', '2020-05-08 09:55:14', '0');
 
 -- ----------------------------
 -- Table structure for class_user
@@ -66,6 +67,7 @@ INSERT INTO `class_user` VALUES ('662530fcbfba4127a4cb93028f651fd5', '18952731-e
 INSERT INTO `class_user` VALUES ('70185e59b1b7484194ba18aa442d9ca4', '504bf968-0735-4892-ac3b-aa0d1a3257aa', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:47:20', '2020-05-07 23:47:20');
 INSERT INTO `class_user` VALUES ('8e89456304d14163bd479ffee94944fb', '25b929ef-1134-4333-b747-30b34a9c78a8', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:46:39', '2020-05-07 23:46:39');
 INSERT INTO `class_user` VALUES ('a6cace5927814ffa93fcd7f8d38db83d', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-05-07 23:50:59', '2020-05-07 23:50:59');
+INSERT INTO `class_user` VALUES ('f088e10eae4444fd91ec25ce6922aec8', 'fc343902-b4ca-4e21-a238-c38539e587b2', null, '80dbfc1af25e49b7b8e38df7a66e3b91', '80dbfc1af25e49b7b8e38df7a66e3b91', '2020-05-08 09:55:14', '2020-05-08 09:55:14');
 
 -- ----------------------------
 -- Table structure for course
@@ -214,6 +216,7 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(255) DEFAULT '' COMMENT '角色名称',
+  `role_code` varchar(50) NOT NULL DEFAULT '' COMMENT '角色权限标识（要求输入英文）',
   `desc` varchar(255) DEFAULT '' COMMENT '角色描述',
   `is_delete` tinyint(4) DEFAULT '0' COMMENT '用于逻辑删除，1标识数据被删除',
   `is_used` tinyint(255) DEFAULT '1' COMMENT '是否使用。1正在使用，0禁止使用',
@@ -223,9 +226,9 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '学生', '学生', '0', '1');
-INSERT INTO `role` VALUES ('2', '老师', '拥有老师权限', '0', '1');
-INSERT INTO `role` VALUES ('3', '管理员', 'admin', '0', '1');
+INSERT INTO `role` VALUES ('1', '学生', 'student', '学生', '0', '1');
+INSERT INTO `role` VALUES ('2', '老师', 'teacher', '拥有老师权限', '0', '1');
+INSERT INTO `role` VALUES ('3', '管理员', 'admin', 'admin', '0', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -255,7 +258,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
 INSERT INTO `user` VALUES ('68b9a2f57443803491f8bec131d1c254', '8888', '0', '8888', '8888', '8888', '', '2', '192.168.0.104', '2020-05-08 00:26:32', '2020-05-07 23:44:28', '2020-05-07 23:44:42', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.104', '2020-05-08 00:26:37', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('80dbfc1af25e49b7b8e38df7a66e3b91', 'tesT2', '0', '999', '999', '999', '', '2', '192.168.0.101', '2020-05-08 09:52:28', '2020-05-08 09:43:08', '2020-05-08 09:43:08', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.101', '2020-05-08 10:03:49', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question

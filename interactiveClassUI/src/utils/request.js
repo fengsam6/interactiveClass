@@ -37,14 +37,14 @@ function handleResponse(res, resolve, reject) {
         //code==200，成功，直接返回data.data
         resolve(data.data);
     } else if (code == NO_AUTH) {
-        const msg = 'token无效请重新登录'
+        const msg = 'token无效请,请重新登录'
         errorAlert(msg)
-        //跳到登录页面
+        //关闭所有页面，跳到登录页面
         setTimeout(() => {
-            uni.navigateTo({
+            uni.reLaunch({
                 url: '/pages/user/login/index'
             });
-        }, 1500)
+        }, 100)
     } else {
         //code!=200 提示错误信息
         const msg = data.message

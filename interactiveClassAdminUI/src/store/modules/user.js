@@ -6,6 +6,7 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
+    roles: [],
     avatar: ''
   }
 }
@@ -21,6 +22,12 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
+  SET_ROLE: (state, role) => {
+    state.roles.push(role)
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -41,9 +48,10 @@ const actions = {
   // get user info
   async getInfo({ commit }) {
     const { data } = await getUserInfo()
-    const { name, avatar } = data
+    const { name, avatar,roleCode } = data
     commit('SET_NAME', name)
     commit('SET_AVATAR', avatar)
+    commit('SET_ROLE', roleCode)
     return data
   },
 

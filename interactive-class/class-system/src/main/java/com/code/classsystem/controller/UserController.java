@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUserAvatar")
-    @ApiOperation(value = "更新用户信息接口", notes = "更新用户信息接口")
+    @ApiOperation(value = "更新用户图像接口", notes = "更新用户图像接口")
     public ResponseResult updateUserAvatar(String userId, String avatarPath) {
         Assert.hasLength(userId, "userId不能为空");
         Assert.hasLength(avatarPath, "avatarPath不能为空");

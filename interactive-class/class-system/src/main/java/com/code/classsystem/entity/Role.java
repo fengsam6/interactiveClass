@@ -26,6 +26,11 @@ public class Role implements Serializable {
      * 角色描述
      */
     private String desc;
+
+    /**
+     * 角色权限标识
+     */
+    private String roleCode;
     /**
      * 用于逻辑删除，1标识数据被删除
      */
@@ -34,6 +39,8 @@ public class Role implements Serializable {
      * 是否使用。1正在使用，0禁止使用
      */
     private Integer isUsed;
+
+
 
 
     public Integer getId() {
@@ -76,14 +83,23 @@ public class Role implements Serializable {
         this.isUsed = isUsed;
     }
 
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
     @Override
     public String toString() {
         return "Role{" +
-        "id=" + id +
-        ", roleName=" + roleName +
-        ", desc=" + desc +
-        ", isDelete=" + isDelete +
-        ", isUsed=" + isUsed +
-        "}";
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                ", desc='" + desc + '\'' +
+                ", roleCode='" + roleCode + '\'' +
+                ", isDelete=" + isDelete +
+                ", isUsed=" + isUsed +
+                '}';
     }
 }
