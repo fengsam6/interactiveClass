@@ -38,4 +38,10 @@ public class PaperQuestionServiceImpl extends ServiceImpl<PaperQuestionMapper, P
         wrapper.orderAsc(list);
         return this.selectList(wrapper);
     }
+
+    @Override
+    public boolean delPaper(String paperId) {
+
+        return this.deleteById(paperId);
+    }
 }

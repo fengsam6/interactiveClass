@@ -94,4 +94,10 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
         }
         return paperResultBinVos;
     }
+
+    @Override
+    public boolean delPaper(String paperId) {
+
+        return false;
+    }
 }

@@ -73,5 +73,13 @@ public class PaperController {
         return ResponseResultUtil.renderSuccess(paperResult);
     }
 
+    @RequestMapping("/delPaper")
+    public ResponseResult delPaper(String paperId) {
+        paperService.delPaper(paperId);
+        return ResponseResultUtil.renderSuccess("");
+    }
+
+
+
 }
 

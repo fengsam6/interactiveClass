@@ -9,3 +9,6 @@ export function addQuestion(params) {
 export function queryPaperQuestionById(params) {
   return get('/paperQuestion/queryPaperQuestionById', params)
 }
+export function delPaper(params) {
+  return get('/paperQuestion/delPaper', params)
+}
