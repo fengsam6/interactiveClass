@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.classsystem.dao.MsgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.classsystem.entity.Msg">
+        <id column="id" property="id" />
+        <result column="content" property="content" />
+        <result column="send_id" property="sendId" />
+        <result column="send_name" property="sendName" />
+        <result column="msg_type" property="msgType" />
+        <result column="class_id" property="classId" />
+        <result column="send_time" property="sendTime" />
+        <result column="to_id" property="toId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, content, send_id, send_name, msg_type, class_id, send_time, to_id
+    </sql>
+
+</mapper>

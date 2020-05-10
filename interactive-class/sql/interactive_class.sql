@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-05-08 10:18:58
+Date: 2020-05-10 19:38:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -118,6 +118,52 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
 INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
+
+
+-- ----------------------------
+-- Table structure for home_work
+-- ----------------------------
+DROP TABLE IF EXISTS `home_work`;
+CREATE TABLE `home_work` (
+  `id` varchar(36) NOT NULL,
+  `work_title` varchar(100) DEFAULT NULL COMMENT '作业标题',
+  `work_des` varchar(255) DEFAULT NULL COMMENT '作业描述',
+  `attach_path` varchar(100) NOT NULL COMMENT '附件路径',
+  `student_id` varchar(36) NOT NULL COMMENT '作业提交者id',
+  `submit_time` varchar(60) DEFAULT NULL,
+  `teacher_id` varchar(32) DEFAULT NULL,
+  `course_id` varchar(36) DEFAULT NULL COMMENT '课程id',
+  `class_id` varchar(36) DEFAULT NULL,
+  `download_num` int(3) DEFAULT '0' COMMENT '下载次数',
+  `last_down_time` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of home_work
+-- ----------------------------
+INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '33', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null, '0', null);
+
+
+-- ----------------------------
+-- Table structure for msg
+-- ----------------------------
+DROP TABLE IF EXISTS `msg`;
+CREATE TABLE `msg` (
+  `id` varchar(36) NOT NULL COMMENT '消息id',
+  `content` varchar(100) DEFAULT NULL,
+  `send_id` varchar(36) DEFAULT NULL COMMENT '消息发送id',
+  `send_name` varchar(80) DEFAULT '' COMMENT '发送者名字',
+  `msg_type` varchar(50) DEFAULT NULL,
+  `class_id` varchar(36) DEFAULT NULL,
+  `send_time` varchar(80) DEFAULT '' COMMENT '发送日期',
+  `to_id` varchar(36) DEFAULT '' COMMENT '消息接收者id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of msg
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for notice
@@ -259,7 +305,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
 INSERT INTO `user` VALUES ('68b9a2f57443803491f8bec131d1c254', '8888', '0', '8888', '8888', '8888', '', '2', '192.168.0.104', '2020-05-08 00:26:32', '2020-05-07 23:44:28', '2020-05-07 23:44:42', '0', '1');
 INSERT INTO `user` VALUES ('80dbfc1af25e49b7b8e38df7a66e3b91', 'tesT2', '0', '999', '999', '999', '', '2', '192.168.0.101', '2020-05-08 09:52:28', '2020-05-08 09:43:08', '2020-05-08 09:43:08', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.0.101', '2020-05-08 10:03:49', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '1', '192.168.3.12', '2020-05-10 19:25:08', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question
