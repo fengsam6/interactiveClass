@@ -47,6 +47,7 @@
     import config from "@/utils/config";
     import {getToken} from '@/utils/tokenUtil'
     import {takeStoreUserInfo} from "@/api/user"
+    import {listLastN} from "@/api/msg"
 
     const websocketUrl = config.websocketUrl
 
@@ -61,12 +62,18 @@
                 socketTask: null
             }
         },
+        onShow() {
+            // this.listLastNMsg()
+        },
         onLoad(options) {
+            debugger
            this.classId = options.classId
             console.log(this.classId)
+            // this.listLastNMsg()
         },
         mounted() {
             console.log(websocketUrl)
+
             this.connectSocketInit()
         },
         methods: {
@@ -162,6 +169,12 @@
                 this.send(msg)
                 this.appendJsonMsg(msg)
                 this.content = ''
+            },
+          async  listLastNMsg(){
+          debugger
+             const {data}  = await listLastN({classId:this.classId})
+              this.messages = data
+              debugger
             },
             sendClassGroupMsg() {
                 const msg = this.contentToGroupJsonMsg(this.content)

@@ -6,6 +6,7 @@ import com.code.classsystem.entity.CourseResource;
 import com.code.classsystem.service.CourseResourceService;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/courseResource")
+@Api(value = "课堂文件资源接口", tags = "课堂文件资源接口")
 public class CourseResourceController {
 
     @Autowired

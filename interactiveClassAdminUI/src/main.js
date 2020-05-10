@@ -12,7 +12,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-import '@/directive/permission/index' // vue 自定义permission指令
+import permission from '@/directive/permission/index' // vue 自定义permission指令
+Vue.use(permission)
 import '@/icons' // icon
 import '@/permission' // permission control
 

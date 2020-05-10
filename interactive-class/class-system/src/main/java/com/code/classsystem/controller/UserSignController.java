@@ -7,6 +7,7 @@ import com.code.classsystem.util.DateUtils;
 import com.code.classsystem.vo.SignVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/userSign")
+@Api(value = "用户签到接口", tags = "用户签到接口")
 public class UserSignController {
     @Autowired
     private UserSignService userSignService;

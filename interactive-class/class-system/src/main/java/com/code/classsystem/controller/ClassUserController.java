@@ -8,6 +8,7 @@ import com.code.classsystem.service.ClassUserService;
 import com.code.classsystem.vo.ClassStudentVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/classUser")
+@Api(value = "班级用户接口", tags = "班级用户接口")
 public class ClassUserController {
     @Autowired
     private ClassUserService classUserService;

@@ -7,11 +7,12 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <span class="userName">{{name}}</span>
+      <span class="roleName">{{ roles[0] }}</span>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!--          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
           <img src="@/assets/user/cat.jpeg" class="user-avatar">
+          <span class="userName">{{ name }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -27,6 +28,7 @@
           <!--            <el-dropdown-item>Docs</el-dropdown-item>-->
           <!--          </a>-->
           <el-dropdown-item divided @click.native="logout">
+
             <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -49,7 +51,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-        'name'
+      'name',
+      'roles'
     ])
   },
   methods: {
@@ -65,6 +68,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .roleName{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+  }
   .userName{
     display: inline-block;
     height: 30px;

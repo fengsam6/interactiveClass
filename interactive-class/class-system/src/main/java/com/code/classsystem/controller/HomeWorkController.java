@@ -7,6 +7,7 @@ import com.code.classsystem.vo.HomeWorkVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/homework")
+@Api(value = "课后作业接口", tags = "课后作业接口")
 public class HomeWorkController {
     @Autowired
     private HomeWorkService homeWorkService;

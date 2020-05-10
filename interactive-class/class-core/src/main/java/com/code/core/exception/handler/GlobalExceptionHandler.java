@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
         return ResponseResultUtil.renderError(ErrorEnum.INVALIDATE_PARAM_EXCEPTION.setMsg(msg));
     }
 
+
     @ExceptionHandler(AuthenticationFailException.class)
     public ResponseResult handleAuthenticationFailException(AuthenticationFailException e) {
         log.error("--------{}错误提示: {}---- ----", e.getClass().getName(), e.getMessage());
