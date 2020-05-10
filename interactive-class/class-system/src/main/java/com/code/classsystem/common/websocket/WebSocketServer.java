@@ -4,11 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.code.classsystem.common.websocket.config.WebsocketConfiguration;
 import com.code.classsystem.common.websocket.userCache.ClassUserCacheService;
+import com.code.classsystem.entity.Msg;
 import com.code.classsystem.entity.User;
+import com.code.classsystem.service.MsgService;
+import com.code.classsystem.util.DateUtils;
 import com.code.classsystem.util.JsonUtils;
 import com.code.core.util.SpringApplicationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
@@ -42,7 +46,9 @@ public class WebSocketServer {
      */
     private String userId = null;
     private User curUser;
-  private  static   ClassUserCacheService classUserCacheService = null;
+    private static ClassUserCacheService classUserCacheService = null;
+//    @Autowired
+    private MsgService msgService;
 
 
     /**
@@ -99,7 +105,12 @@ public class WebSocketServer {
         log.info("来自用户id" + userId + ",消息报文:" + message);
         if (!StringUtils.isEmpty(message) && JsonUtils.isJsonStr(message)) {
             JSONObject jsonObject = JSON.parseObject(message);
-            String msgType = jsonObject.get("msgType") + "";
+
+//            消息保存数据库中
+            Msg msg = convertJsonToMsg(jsonObject);
+            msgService = SpringApplicationUtil.getBean(MsgService.class);
+            msgService.insert(msg);
+            String msgType = jsonObject.getString("msgType") ;
             switch (msgType) {
 //                消息发送到当前班级
                 case "classGroup": {
@@ -112,6 +123,17 @@ public class WebSocketServer {
                 }
             }
         }
+    }
+
+    private Msg convertJsonToMsg(JSONObject jsonObject) {
+        Msg msg = new Msg();
+        msg.setSendTime(DateUtils.getCurTimeStr());
+        msg.setSendId(jsonObject.getString("userId"));
+        msg.setClassId(jsonObject.getString("classId"));
+        msg.setMsgType(jsonObject.getString("msgType"));
+        msg.setSendName(jsonObject.getString("userName"));
+        msg.setContent(jsonObject.getString("content"));
+        return msg;
     }
 
     /**
@@ -146,7 +168,7 @@ public class WebSocketServer {
         JSONObject jsonObject = new JSONObject();
         if (JsonUtils.isJsonStr(message)) {
             jsonObject = JSON.parseObject(message, JSONObject.class);
-        }else{
+        } else {
 //            处理普通字符串
             jsonObject.put("content", message);
         }
@@ -165,7 +187,8 @@ public class WebSocketServer {
         JSONObject jsonObject = new JSONObject();
         if (JsonUtils.isJsonStr(message)) {
             jsonObject = JSON.parseObject(message, JSONObject.class);
-        }{
+        }
+        {
 //            处理普通字符串
             jsonObject.put("content", message);
         }
@@ -250,12 +273,12 @@ public class WebSocketServer {
     }
 
     public void sendToClassUsers(String message, String classId) throws IOException {
-        List<User> userList =  classUserCacheService.getUserList(classId);
+        List<User> userList = classUserCacheService.getUserList(classId);
         userList.forEach(user -> {
             String userId = user.getId();
             Session session = clientsMap.get(userId);
 //            用户在线,排除当前用户
-            if (session != null && session!=this.session) {
+            if (session != null && session != this.session) {
                 try {
                     sendJsonMessage(session, user, message);
                 } catch (IOException e) {
