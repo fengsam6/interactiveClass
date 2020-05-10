@@ -1,8 +1,7 @@
 <template>
   <div class="app-container">
     <div class="btn_group">
-      <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
-      <el-button size="small" type="danger" @click="delCourseByIds">批量删除</el-button>
+
     </div>
     <el-table
       ref="multipleTable"
@@ -41,12 +40,7 @@
             size="mini"
             @click="questionList(scope.row.id)"
           >预览</el-button>
-          <el-button
-            type="primary"
-            plain
-            size="mini"
-            @click="questionList(scope.row.id)"
-          >编辑</el-button>
+
           <el-button
             size="mini"
             type="danger"
@@ -119,12 +113,12 @@ export default {
       })
     },
     handleDeleteRow(recordIds) {
-      this.$confirm('此操作将删除课程, 是否继续?', '提示', {
+      this.$confirm('此操作将删除试题, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteCourseByIds({ ids: recordIds }).then((resp) => {
+        delPaper({ paperId: recordIds }).then((resp) => {
           this.$message.success(resp.data)
           this.refreshDataList()
         })

@@ -27,4 +27,6 @@ public interface PaperService extends IService<Paper> {
     List<Paper> queryMyPaper(int pageNum, int pageSize);
 
     List<PaperResultBinVo> queryPaperResult(String courseId);
+
+    boolean delPaper(String paperId);
 }

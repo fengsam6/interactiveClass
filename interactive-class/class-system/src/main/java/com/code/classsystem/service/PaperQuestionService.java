@@ -18,4 +18,6 @@ public interface PaperQuestionService extends IService<PaperQuestion> {
     Boolean addPaperQuestion(PaperQuestion paper);
 
     List<PaperQuestion> queryPaperQuestionById(String paperId);
+
+    boolean delPaper(String paperId);
 }

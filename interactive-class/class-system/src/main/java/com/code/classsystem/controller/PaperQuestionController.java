@@ -42,5 +42,10 @@ public class PaperQuestionController {
         List<PaperQuestion>paperQuestions= paperQuestionService.queryPaperQuestionById(paperId);
         return ResponseResultUtil.renderSuccess(paperQuestions);
     }
+    @RequestMapping("/delPaper")
+    public ResponseResult delPaper(String paperId) {
+        paperQuestionService.delPaper(paperId);
+        return ResponseResultUtil.renderSuccess("");
+    }
 }
 
