@@ -37,4 +37,16 @@
         WHERE class_user.member_id=#{userId}
     </select>
 
+    <select id="queryPaperResult" resultType="com.code.classsystem.vo.PaperResultBinVo" parameterType="String">
+        select paper_id,class_id,class_name,(get_score/total_score) good_rate from (
+                    select p1.paper_id,c2.id,c2.class_name,sum(p1.score) total_score,sum(p2.score) get_score,p3.class_id
+                                from user_question p2 left join paper_question p1 on p1.id=p2.question_id
+                                left join class_user c1 on c1.member_id=p2.user_id
+                                left JOIN class c2 on c2.id=c1.class_id
+                                left join paper p3 on p3.id=p1.paper_id and p3.class_id=c2.id
+                                LEFT join course c3 on c3.class_id=c2.id
+                    WHERE  p2.user_id is not null and p3.class_id is not NULL and c3.id=#{courseId}
+				GROUP BY c2.id,c2.class_name,p1.paper_id,p3.class_id)a
+    </select>
+
 </mapper>

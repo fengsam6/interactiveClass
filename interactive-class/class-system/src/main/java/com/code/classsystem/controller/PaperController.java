@@ -3,6 +3,7 @@ package com.code.classsystem.controller;
 import com.code.classsystem.entity.Paper;
 import com.code.classsystem.service.PaperService;
 import com.code.classsystem.vo.PaperInfoVo;
+import com.code.classsystem.vo.PaperResultBinVo;
 import com.code.classsystem.vo.PaperVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
@@ -65,5 +66,12 @@ public class PaperController {
         List<Paper>papers=paperService.queryAllPaper(pageNum,pageSize);
         return ResponseResultUtil.renderSuccess(papers);
     }
+
+    @RequestMapping("/queryPaperResult")
+    public ResponseResult queryPaperResult(String courseId) {
+        List<PaperResultBinVo>paperResult=paperService.queryPaperResult(courseId);
+        return ResponseResultUtil.renderSuccess(paperResult);
+    }
+
 }
 

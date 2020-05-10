@@ -15,3 +15,6 @@ export function queryMyPaper(params) {
 export function queryAllPaper(params) {
     return get('/paper/queryAllPaper', params)
 }
+export function queryPaperResult(params) {
+    return get('/paper/queryPaperResult', params)
+}

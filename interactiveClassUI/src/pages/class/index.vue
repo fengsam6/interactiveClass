@@ -172,7 +172,7 @@
             },
             checkAnalysis(){
                 uni.navigateTo({
-                    url: '/pages/class/Analysis/index'
+                    url: '/pages/class/Analysis/index?item='+this.course.courseId
                 });
             },
             doGetUserInfo() {
