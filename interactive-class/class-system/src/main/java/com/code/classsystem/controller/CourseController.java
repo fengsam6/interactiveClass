@@ -68,10 +68,10 @@ public class CourseController {
 
 
     @GetMapping("/listPage")
-    @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
+    @ApiOperation(value = "分页查找课程列表", notes = "分页查找课程列表")
     public ResponseResult listPage(Course course, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<CourseInfoVo> userInfoVoPageInfo = courseService.listPage(course, pageNum, pageSize);
-        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo, "退分页查找用户成功");
+        return ResponseResultUtil.renderSuccess(userInfoVoPageInfo, "分页查找课程列表");
     }
 
     @ApiOperation(value = "添加课程", notes = "添加课程")

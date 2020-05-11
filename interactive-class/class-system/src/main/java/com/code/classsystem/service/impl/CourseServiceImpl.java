@@ -64,10 +64,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setCourseIntroduce(courseVo.getCourseIntroduce());
         String courseId = UUIDUtil.getRandomUUID();
         course.setId(courseId);
-        this.insert(course);
+
+        int studentNum = 0;
         for (Class clazz : classes) {
             classCourseService.save(clazz.getId(), courseId);
+            studentNum += clazz.getClassNum();
         }
+        course.setStudentNum(studentNum);
+        //添加课程
+        this.insert(course);
 
     }
 
@@ -86,8 +91,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public void addCourseInfoVo(CourseInfoVo courseInfoVo) {
-
-        List<Course> lists = new ArrayList<>();
         List<String> classNameList = courseInfoVo.getClassNameList();
         Assert.notNull(classNameList, "班级名称不能为空");
         String[] array = classNameList.toArray(new String[classNameList.size()]);
@@ -102,10 +105,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setCreatedUserId(userId);
         String courseId = UUIDUtil.getRandomUUID();
         course.setId(courseId);
-        this.insert(course);
+        int studentNum = 0;
         for (Class clazz : classes) {
             classCourseService.save(clazz.getId(), courseId);
+            studentNum += clazz.getClassNum();
         }
+        course.setStudentNum(studentNum);
+        //添加课程
+        this.insert(course);
+
         //存储课程资源
         List<CourseResource> pptResources = courseInfoVo.getPptResources();
         if (pptResources != null) {
@@ -124,7 +132,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 String resourceName = getResourceName(courseResource.getResourcePath());
                 courseResource.setCourseResourceName(resourceName);
                 courseResource.setCourseId(courseId);
-//                    courseResource.setClassId(course.getClassId());
                 courseResource.setUserId(userId);
                 courseResource.setCreateTime(DateUtils.getCurTimeStr());
                 courseResourceService.insert(courseResource);

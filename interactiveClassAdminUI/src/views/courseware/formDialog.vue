@@ -13,9 +13,9 @@
         <el-input v-model="form.courseScore" class="formItem" />
       </el-form-item>
       <el-form-item label="上课人数">
-        <el-input v-model="form.classNum" class="formItem" />
+        <el-input v-model="form.studentNum" class="formItem" />
       </el-form-item>
-      <el-form-item label="上课时间">
+      <el-form-item label="上课时间" prop="beginTime">
         <el-date-picker
           v-model="form.beginTime"
           class="formItem"
@@ -26,7 +26,7 @@
           align="right"
         />
       </el-form-item>
-      <el-form-item label="下课时间">
+      <el-form-item label="下课时间" prop="endTime">
         <el-date-picker
           v-model="form.endTime"
           class="formItem"
@@ -109,6 +109,12 @@ export default {
         ],
         courseScore: [
           { required: true, message: '课程学分不能为空', trigger: 'change' }
+        ],
+        beginTime: [
+          { required: false, message: '上课时间不能为空', trigger: 'change' }
+        ],
+        endTime: [
+          { required: true, message: '下课时间不能为空', trigger: 'change' }
         ]
       }
     }

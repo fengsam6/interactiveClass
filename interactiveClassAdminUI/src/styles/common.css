@@ -1,5 +1,6 @@
 .btn_group{
   float: right;
+  margin-bottom: 4px;
 }
 .formItem{
   width: 200px;

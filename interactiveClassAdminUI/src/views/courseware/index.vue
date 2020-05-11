@@ -8,6 +8,7 @@
       ref="multipleTable"
       v-loading="listLoading"
       :data="list"
+      height="calc(100vh - 150px)"
       element-loading-text="Loading"
       border
       stripe
@@ -20,10 +21,14 @@
         type="selection"
         width="55"
       />
-      <el-table-column type="index" width="80" align="center" />
+      <el-table-column type="index" width="80" align="center" label="序号" />
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="课程名称" prop="courseName" />
-      <el-table-column label="班级名称" align="center" prop="classNameList" />
+      <el-table-column label="班级名称" align="center" prop="classNameList">
+        <template slot-scope="scope">
+          <span> {{ scope.row.classNameList | arrayToString }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="上课人数" align="center" prop="studentNum" />
       <el-table-column label="上课时间" align="center" prop="beginTime" />
       <el-table-column align="center" label="下课时间" prop="endTime" />
@@ -60,20 +65,29 @@
       </el-table-column>
     </el-table>
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
+    <pagination :total-size="totalSize" @updateDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
 import { listPage, deleteCourseByIds } from '@/api/course'
 import formDialog from './formDialog'
+import Pagination from '@/components/Pagnation/Pagination'
 export default {
   components: {
-    formDialog
+    formDialog,
+    Pagination
+  },
+  filters: {
+    arrayToString(array) {
+      return array.join(',')
+    }
   },
   data() {
     return {
       list: null,
       pageData: {},
+      totalSize: 0,
       listLoading: true
     }
   },
@@ -85,6 +99,7 @@ export default {
       try {
         const data = await listPage()
         this.pageData = data.data
+        this.totalSize = this.pageData.total
         this.list = this.pageData.list
         this.listLoading = false
       } catch (e) {

@@ -10,6 +10,7 @@
       :data="list"
       element-loading-text="Loading"
       border
+      height="calc(100vh - 150px)"
       stripe
       fit
       size="mini"
@@ -59,6 +60,7 @@
       </el-table-column>
     </el-table>
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
+    <pagination :total-size="totalSize" @updateDataList="refreshDataList" />
   </div>
 </template>
 
@@ -66,10 +68,12 @@
 import { listPage, deleteHomeworkByIds } from '@/api/homework'
 import formDialog from './formDialog'
 import { downFile } from '@/utils/fileRequest'
+import Pagination from '@/components/Pagnation/Pagination'
 
 export default {
   components: {
-    formDialog
+    formDialog,
+    Pagination
   },
   filters: {
     attachName(filePath) {
@@ -87,6 +91,7 @@ export default {
     return {
       list: null,
       pageData: {},
+      totalSize: 0,
       listLoading: true
     }
   },
@@ -98,6 +103,7 @@ export default {
       try {
         const data = await listPage()
         this.pageData = data.data
+        this.totalSize = this.pageData.total
         this.list = this.pageData.list
         this.listLoading = false
       } catch (e) {

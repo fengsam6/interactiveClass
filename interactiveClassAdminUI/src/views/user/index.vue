@@ -12,6 +12,7 @@
       border
       stripe
       fit
+      height="calc(100vh - 150px)"
       size="mini"
       highlight-current-row
       @row-click="rowClick"
@@ -20,7 +21,7 @@
         type="selection"
         width="55"
       />
-      <el-table-column type="index" width="80" align="center" />
+      <el-table-column type="index" width="80" align="center" label="序号"/>
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="用户名称" prop="name" />
       <el-table-column label="学号" align="center" prop="userNum" />
@@ -45,12 +46,14 @@
       </el-table-column>
     </el-table>
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
+    <pagination :total-size="totalSize" @updateDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
 import { listPage, deleteUserById } from '@/api/user'
 import formDialog from './formDialog'
+import Pagination from '@/components/Pagnation/Pagination'
 export default {
   filters: {
     statusFilter(status) {
@@ -63,12 +66,14 @@ export default {
     }
   },
   components: {
-    formDialog
+    formDialog,
+    Pagination
   },
   data() {
     return {
       list: null,
       pageData: {},
+      totalSize: 0,
       listLoading: true
     }
   },
@@ -80,6 +85,7 @@ export default {
       try {
         const data = await listPage()
         this.pageData = data.data
+        this.totalSize = this.pageData.total
         this.list = this.pageData.list
         this.listLoading = false
       } catch (e) {

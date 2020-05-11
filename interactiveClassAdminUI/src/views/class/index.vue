@@ -10,6 +10,7 @@
       :data="list"
       element-loading-text="Loading"
       border
+      height="calc(100vh - 150px)"
       stripe
       fit
       size="mini"
@@ -43,12 +44,14 @@
       </el-table-column>
     </el-table>
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
+    <pagination :total-size="totalSize" @updateDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
 import { listPage, deleteById } from '@/api/class'
 import formDialog from './formDialog'
+import Pagination from '@/components/Pagnation/Pagination'
 export default {
   filters: {
     statusFilter(status) {
@@ -61,12 +64,14 @@ export default {
     }
   },
   components: {
-    formDialog
+    formDialog,
+    Pagination
   },
   data() {
     return {
       list: null,
       pageData: {},
+      totalSize: 0,
       listLoading: true
     }
   },
@@ -78,6 +83,7 @@ export default {
       try {
         const data = await listPage()
         this.pageData = data.data
+        this.totalSize = this.pageData.total
         this.list = this.pageData.list
         this.listLoading = false
       } catch (e) {

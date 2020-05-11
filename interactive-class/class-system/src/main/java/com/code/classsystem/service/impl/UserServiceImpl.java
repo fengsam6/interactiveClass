@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.util.IPUtil;
 import com.code.classsystem.vo.UserInfoVo;
+import com.code.core.enums.ErrorEnum;
+import com.code.core.exception.BusinessException;
 import com.code.core.util.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -96,6 +98,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public PageInfo<UserInfoVo> listPage(User user, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
+        if(user==null){
+            user=new User();
+        }
+        User userEntity = ShiroUtils.getUserEntity();
+
+        Integer roleId = userEntity.getRoleId();
+        if(roleId==1){
+            throw new BusinessException(ErrorEnum.BUSINESS_EXCEPTION.setMsg("权限不够，禁止访问"));
+        }else if(roleId==2){
+            String userId = user.getId();
+            user.setId(userId);
+        }
         List<UserInfoVo> userInfoVos = userMapper.listPage(user);
         return new PageInfo<>(userInfoVos);
     }

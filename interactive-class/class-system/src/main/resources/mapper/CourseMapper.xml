@@ -16,18 +16,18 @@
     </resultMap>
 
     <resultMap id="TeacherCourseInfoMap" type="com.code.classsystem.vo.TeacherCourseVo">
-            <id column="course_id" property="courseId" />
-            <result column="course_name" property="courseName"/>
-            <collection property="classList" javaType="list" ofType="com.code.classsystem.entity.Class">
-                <id column="id" property="id"/>
-                <result column="class_name" property="className"/>
-                <result column="class_num" property="classNum"/>
-                <result column="class_introduce" property="classIntroduce"/>
-                <result column="class_create_code" property="classCreateCode"/>
-                <result column="create_date" property="createDate"/>
-                <result column="update_date" property="updateDate"/>
-                <result column="is_delete" property="isDelete"/>
-            </collection>
+        <id column="course_id" property="courseId"/>
+        <result column="course_name" property="courseName"/>
+        <collection property="classList" javaType="list" ofType="com.code.classsystem.entity.Class">
+            <id column="id" property="id"/>
+            <result column="class_name" property="className"/>
+            <result column="class_num" property="classNum"/>
+            <result column="class_introduce" property="classIntroduce"/>
+            <result column="class_create_code" property="classCreateCode"/>
+            <result column="create_date" property="createDate"/>
+            <result column="update_date" property="updateDate"/>
+            <result column="is_delete" property="isDelete"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询映射结果 -->
@@ -42,11 +42,11 @@
 
             <result column="pptR_resource_path" property="resourcePath"/>
             <result column="pptR_resource_type" property="resourceType"/>
-<!--            <result column="resource_des" property="resourceDes"/>-->
-<!--            <result column="user_id" property="userId"/>-->
-<!--            <result column="course_id" property="courseId"/>-->
-<!--            <result column="class_id" property="classId"/>-->
-<!--            <result column="create_time" property="createTime"/>-->
+            <!--            <result column="resource_des" property="resourceDes"/>-->
+            <!--            <result column="user_id" property="userId"/>-->
+            <!--            <result column="course_id" property="courseId"/>-->
+            <!--            <result column="class_id" property="classId"/>-->
+            <!--            <result column="create_time" property="createTime"/>-->
         </collection>
         <collection property="videoResources" javaType="list" ofType="com.code.classsystem.entity.CourseResource">
             <id column="vr_id" property="id"/>
@@ -54,11 +54,11 @@
 
             <result column="vr_resource_type" property="resourceType"/>
             <result column="vr_resource_path" property="resourcePath"/>
-<!--            <result column="user_id" property="userId"/>-->
-<!--            <result column="resource_des" property="resourceDes"/>-->
-<!--            <result column="course_id" property="courseId"/>-->
-<!--            <result column="class_id" property="classId"/>-->
-<!--            <result column="create_time" property="createTime"/>-->
+            <!--            <result column="user_id" property="userId"/>-->
+            <!--            <result column="resource_des" property="resourceDes"/>-->
+            <!--            <result column="course_id" property="courseId"/>-->
+            <!--            <result column="class_id" property="classId"/>-->
+            <!--            <result column="create_time" property="createTime"/>-->
         </collection>
     </resultMap>
 
@@ -68,16 +68,21 @@
     </sql>
 
     <select id="mcourseInfo" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
-        select c1.id as courseId,c2.id classId,c1.course_name as courseName,c2.class_name AS className,c2.class_num as classNum
-         from course c1 left join class c2 on c1.class_id=c2.id
-         left join class_user c3 on c3.class_id=c2.id
-          where c3.member_id=#{userId}
+        select c1.id as courseId,cls.id classId,c1.course_name as courseName,
+        cls.class_name AS className,cls.class_num as classNum
+         from course c1
+         left join class_course cc on c1.id = cc.course_id
+         left join class cls on c1.id = cc.class_id
+         left join class_user c3 on c3.class_id = cls.id
+          where c3.member_id = #{userId}
     </select>
 
     <select id="queryTeachCourse" parameterType="String" resultMap="TeacherCourseInfoMap">
-        select c1.id as course_id,c1.course_name ,c2.*
-         from course c1 left join class c2 on c1.class_id=c2.id
-		WHERE created_user_id=#{userId}
+        select c1.id as course_id,c1.course_name ,cls.*
+         from course c1
+        left join class_course cc on c1.id = cc.course_id
+         left join class cls on c1.id = cc.class_id
+		WHERE created_user_id = #{userId}
     </select>
 
     <select id="listPage" parameterType="com.code.classsystem.entity.Course" resultMap="CourseInfoMap">

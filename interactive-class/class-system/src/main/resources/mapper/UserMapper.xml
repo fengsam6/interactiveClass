@@ -32,12 +32,19 @@
     </sql>
 
     <select id="listPage" resultMap="UserInfoResultMap" parameterType="com.code.classsystem.entity.User">
-  select t.*,r.role_name as roleType,
+  select DISTINCT t.*,r.role_name as roleType,
    (CASE WHEN t.sex = 0 THEN '男'
      WHEN t.sex = 1 THEN '女'
     ELSE '男' END) as sexType
      from user t
     inner join role  r on t.role_id = r.id
+    inner join class_user  cu
+    on t.id = cu.member_id
+    <where>
+    <if test=" id != null ">
+        cu.class_id = (select class_id from class_user  cu2 cu2.id = #{id} )
+    </if>
+    </where>
 </select>
     <select id="getUserInfoByUserId" resultMap="UserInfoResultMap" parameterType="string">
   select t.*,

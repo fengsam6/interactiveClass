@@ -1,14 +1,13 @@
 <template>
   <div class="app-container">
-    <div class="btn_group">
-
-    </div>
+    <div class="btn_group" />
     <el-table
       ref="multipleTable"
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
       border
+      height="calc(100vh - 115px)"
       stripe
       fit
       size="mini"
@@ -52,24 +51,28 @@
     <form-dialog ref="formDialogCom" @refreshDataList="refreshDataList" />
     <add-form-dialog ref="addFormDialogCom" @refreshDataList="refreshDataList" />
     <question-list ref="questionListDialogCom" @refreshDataList="refreshDataList" />
+    <pagination :total-size="totalSize" @updateDataList="refreshDataList" />
   </div>
 </template>
 
 <script>
-import { listPage,delPaper} from '@/api/paper'
+import { listPage, delPaper } from '@/api/paper'
 import addFormDialog from './addFormDialog'
 import questionList from './questionList'
 import formDialog from './formDialog'
+import Pagination from '@/components/Pagnation/Pagination'
 export default {
   components: {
     formDialog,
     addFormDialog,
-    questionList
+    questionList,
+    Pagination
   },
   data() {
     return {
       list: null,
       pageData: {},
+      totalSize: 0,
       listLoading: true
     }
   },
@@ -80,6 +83,7 @@ export default {
     async listPageData() {
       const data = await listPage()
       this.pageData = data.data
+      this.totalSize = this.pageData.total
       this.list = this.pageData.list
       this.listLoading = false
     },
@@ -136,7 +140,7 @@ export default {
     addRequestForm(id) {
       this.$refs.addFormDialogCom.addRequestForm(id)
     },
-    questionList(id){
+    questionList(id) {
       this.$refs.questionListDialogCom.questionList(id)
     }
   }
