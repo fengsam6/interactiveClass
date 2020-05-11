@@ -133,7 +133,7 @@
                 for(var i=0;i<this.classNum.length;i++){
                     array.push(this.classNum[i].value);
                 }
-                this.courseInfo.className=array.toString();
+                this.courseInfo.classNameList=array.toString();
                 var resultJson=this.courseInfo;
                 createCourse(this.courseInfo).then(resp => {
                     this.successAlert("创建课程成功")

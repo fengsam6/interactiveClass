@@ -88,9 +88,10 @@
     </select>
 
     <select id="queryTeachCourse" parameterType="String" resultMap="TeacherCourseInfoMap">
-        select c1.id as course_id,c1.course_name ,c2.*
-         from course c1 left join class c2 on c1.class_id=c2.id
-		WHERE created_user_id=#{userId}
+       SELECT c1.id course_id,c1.course_name,c3.*
+            from  class_course c2 LEFT join course c1 on c1.id=c2.course_id
+            left join class c3 on c3.id=c2.class_id
+        WHERE c1.created_user_id=#{userId}
     </select>
 
     <select id="listPage" parameterType="com.code.classsystem.entity.Course" resultMap="CourseInfoMap">
