@@ -20,22 +20,7 @@
         <result column="is_used" property="isUsed"/>
     </resultMap>
 
-    <resultMap id="UserInfoResultMap" type="com.code.classsystem.vo.UserInfoVo">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="sex" property="sex"/>
-        <result column="account" property="account"/>
-        <result column="password" property="password"/>
-        <result column="user_num" property="userNum"/>
-        <result column="user_avatar" property="userAvatar"/>
-        <result column="role_id" property="roleId"/>
-        <result column="login_ip" property="loginIp"/>
-        <result column="login_time" property="loginTime"/>
-        <result column="create_date" property="createDate"/>
-        <result column="update_date" property="updateDate"/>
-        <result column="is_delete" property="isDelete"/>
-        <result column="is_used" property="isUsed"/>
-
+    <resultMap id="UserInfoResultMap" type="com.code.classsystem.vo.UserInfoVo" extends="BaseResultMap">
         <result column="roleType" property="roleType"/>
         <result column="roleCode" property="roleCode" />
         <result column="sexType" property="sexType"/>

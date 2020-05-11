@@ -18,18 +18,18 @@
     </resultMap>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="CourseInfoMap" type="com.code.classsystem.vo.CourseInfoVo">
-        <id column="id" property="id"/>
-        <result column="created_user_id" property="createdUserId"/>
-        <result column="course_name" property="courseName"/>
-        <result column="course_introduce" property="courseIntroduce"/>
-        <result column="course_time" property="courseTime"/>
-        <result column="course_score" property="courseScore"/>
-        <result column="class_id" property="classId"/>
-        <result column="class_name" property="className"/>
-        <result column="class_num" property="classNum"/>
-        <result column="begin_time" property="beginTime"/>
-        <result column="end_time" property="endTime"/>
+    <resultMap id="CourseInfoMap" type="com.code.classsystem.vo.CourseInfoVo" extends="BaseResultMap">
+<!--        <id column="id" property="id"/>-->
+<!--        <result column="created_user_id" property="createdUserId"/>-->
+<!--        <result column="course_name" property="courseName"/>-->
+<!--        <result column="course_introduce" property="courseIntroduce"/>-->
+<!--        <result column="course_time" property="courseTime"/>-->
+<!--        <result column="course_score" property="courseScore"/>-->
+<!--        <result column="class_id" property="classId"/>-->
+<!--        <result column="class_name" property="className"/>-->
+<!--        <result column="class_num" property="classNum"/>-->
+<!--        <result column="begin_time" property="beginTime"/>-->
+<!--        <result column="end_time" property="endTime"/>-->
 
         <collection property="classNameList" javaType="list" ofType="string">
             <result column="class_name"/>

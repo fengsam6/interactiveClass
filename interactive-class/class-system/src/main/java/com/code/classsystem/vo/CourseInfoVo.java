@@ -7,9 +7,19 @@ import java.util.List;
 
 public class CourseInfoVo extends Course {
     private String courseId;
+//    上课总人数
+    private  int classSumNum;
     private List<String> classNameList;
     private List<CourseResource> pptResources;
     private List<CourseResource> videoResources;
+
+    public int getClassSumNum() {
+        return classSumNum;
+    }
+
+    public void setClassSumNum(int classSumNum) {
+        this.classSumNum = classSumNum;
+    }
 
     public List<String> getClassNameList() {
         return classNameList;
