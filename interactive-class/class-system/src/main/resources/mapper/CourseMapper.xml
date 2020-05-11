@@ -10,9 +10,7 @@
         <result column="course_introduce" property="courseIntroduce"/>
         <result column="course_time" property="courseTime"/>
         <result column="course_score" property="courseScore"/>
-        <result column="class_id" property="classId"/>
-        <result column="class_name" property="className"/>
-        <result column="class_num" property="classNum"/>
+        <result column="student_num" property="studentNum"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>
@@ -34,17 +32,6 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="CourseInfoMap" type="com.code.classsystem.vo.CourseInfoVo" extends="BaseResultMap">
-<!--        <id column="id" property="id"/>-->
-<!--        <result column="created_user_id" property="createdUserId"/>-->
-<!--        <result column="course_name" property="courseName"/>-->
-<!--        <result column="course_introduce" property="courseIntroduce"/>-->
-<!--        <result column="course_time" property="courseTime"/>-->
-<!--        <result column="course_score" property="courseScore"/>-->
-<!--        <result column="class_id" property="classId"/>-->
-<!--        <result column="class_name" property="className"/>-->
-<!--        <result column="class_num" property="classNum"/>-->
-<!--        <result column="begin_time" property="beginTime"/>-->
-<!--        <result column="end_time" property="endTime"/>-->
 
         <collection property="classNameList" javaType="list" ofType="string">
             <result column="class_name"/>
@@ -103,11 +90,12 @@
         vr.id as vr_id,  vr.course_resource_name as vr_course_resource_name,
         vr.resource_path as vr_resource_path, vr.resource_type as vr_resource_type
          from course c1
-         left join class_course cc on c1.id = cc.id
-         left join class_user cu on cu.class_id = cls.id
+          left join class_course cc on c1.id = cc.course_id
+		  left join class cls on cls.id = cc.class_id
+         left join class_user cu on cu.class_id =cc.class_id
          left join course_resource pptr on c1.id = pptr.course_id and pptr.resource_type = 1
           left join course_resource vr on c1.id = vr.course_id and vr.resource_type = 2
-       order by c1.course_name, cls.class_name
+          order by c1.course_name, cls.class_name
     </select>
 
     <select id="getDetailById" parameterType="string" resultMap="CourseInfoMap">
@@ -118,11 +106,13 @@
 
         vr.id as vr_id,  vr.course_resource_name as vr_course_resource_name,
         vr.resource_path as vr_resource_path, vr.resource_type as vr_resource_type
-         from course c1 left join class cls on c1.class_id = cls.id
-         left join class_user cu on cu.class_id = cls.id
+        from course c1
+          left join class_course cc on c1.id = cc.course_id
+		  left join class cls on cls.id = cc.class_id
+         left join class_user cu on cu.class_id =cc.class_id
          left join course_resource pptr on c1.id = pptr.course_id and pptr.resource_type = 1
           left join course_resource vr on c1.id = vr.course_id and vr.resource_type = 2
-         where c1.id = #{id}
+          where c1.id = #{id}
     </select>
 
 </mapper>
