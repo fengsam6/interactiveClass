@@ -10,7 +10,7 @@
         <result column="sign_time" property="signTime" />
         <result column="sign_place" property="signPlace" />
         <result column="sign_in" property="signIn" />
-        <result column="sign_out" property="signOut" />
+<!--        <result column="sign_out" property="signOut" />-->
         <result column="ip" property="ip" />
     </resultMap>
 

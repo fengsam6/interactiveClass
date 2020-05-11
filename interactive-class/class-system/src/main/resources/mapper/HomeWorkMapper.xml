@@ -17,19 +17,8 @@
         <result column="last_down_time" property="lastDownTime" />
     </resultMap>
 
-    <resultMap id="HomeWorkVoResultMap" type="com.code.classsystem.vo.HomeWorkVo">
-        <id column="id" property="id" />
-        <result column="work_title" property="workTitle" />
-        <result column="work_des" property="workDes" />
-        <result column="attach_path" property="attachPath" />
-        <result column="student_id" property="studentId" />
-        <result column="submit_time" property="submitTime" />
-        <result column="teacher_id" property="teacherId" />
-        <result column="course_id" property="courseId" />
-        <result column="class_id" property="classId" />
-        <result column="download_num" property="downloadNum" />
-        <result column="last_down_time" property="lastDownTime" />
-
+    <!-- extends="BaseResultMap"， HomeWorkVoResultMap 继承 BaseResultMap   -->
+    <resultMap id="HomeWorkVoResultMap" type="com.code.classsystem.vo.HomeWorkVo" extends="BaseResultMap">
         <result column="studentName" property="studentName" />
         <result column="teacherName" property="teacherName" />
         <result column="courseName" property="courseName" />

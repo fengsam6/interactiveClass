@@ -45,7 +45,7 @@
 
       <div class="tips">
         <span style="margin-right:20px;">userAccount: 用户编号</span>
-        <span> password: any</span>
+        <span> password: 登录密码</span>
       </div>
 
     </el-form>
@@ -108,7 +108,6 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-            debugger
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })

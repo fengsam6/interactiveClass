@@ -14,15 +14,8 @@
         <result column="is_delete" property="isDelete"/>
     </resultMap>
 
-    <resultMap id="classVoResultMap" type="com.code.classsystem.vo.ClassVo">
-        <id column="id" property="id"/>
-        <result column="class_name" property="className"/>
-        <result column="class_num" property="classNum"/>
-        <result column="class_introduce" property="classIntroduce"/>
-        <result column="class_create_code" property="classCreateCode"/>
-        <result column="create_date" property="createDate"/>
-        <result column="update_date" property="updateDate"/>
-        <result column="is_delete" property="isDelete"/>
+<!-- extends="BaseResultMap"， classVoResultMap继承 BaseResultMap   -->
+    <resultMap id="classVoResultMap" type="com.code.classsystem.vo.ClassVo" extends="BaseResultMap">
         <result column="createUserName" property="createUserName"/>
     </resultMap>
 
