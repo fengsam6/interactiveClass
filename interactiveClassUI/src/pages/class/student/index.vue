@@ -44,9 +44,9 @@
             this.queryStuList();
         },
         onLoad(option) {
-            const item = JSON.parse(decodeURIComponent(option.item));
-            this.studentCom.classId=item.classId;
-            this.studentCom.courseId=item.courseId;
+            const dataItem = JSON.parse(decodeURIComponent(option.item));
+            this.studentCom.classId=dataItem.item.id;
+            this.studentCom.courseId=dataItem.courseId;
         },
         methods:{
             queryStuList(){

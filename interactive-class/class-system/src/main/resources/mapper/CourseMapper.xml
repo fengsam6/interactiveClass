@@ -68,10 +68,11 @@
     </sql>
 
     <select id="mcourseInfo" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
-        select c1.id as courseId,c2.id classId,c1.course_name as courseName,c2.class_name AS className,c2.class_num as classNum
-         from course c1 left join class c2 on c1.class_id=c2.id
-         left join class_user c3 on c3.class_id=c2.id
-          where c3.member_id=#{userId}
+      select c2.id as courseId,c3.id classId,c2.course_name as courseName,c3.class_name AS className,c3.class_num as classNum
+             from class_course c1 left join course c2 on c1.course_id=c2.id
+             LEFT JOIN class c3 on c3.id=c1.class_id
+             left join class_user c4 on c4.class_id=c3.id
+      where c4.member_id=#{userId}
     </select>
 
     <select id="queryTeachCourse" parameterType="String" resultMap="TeacherCourseInfoMap">

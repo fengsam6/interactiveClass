@@ -146,17 +146,17 @@
             this.queryNotice();
         },
         onLoad(option) {
-            this.teacher=option.roleId=='2';
-            const item = JSON.parse(decodeURIComponent(option.item));
-            this.className=item.className;
-            this.notice.classId=item.classId;
-            this.notice.courseId=item.courseId;
-            this.course=item;
+            const dataItem = JSON.parse(decodeURIComponent(option.item));
+            this.teacher=dataItem.roleId=='2';
+            this.className=dataItem.item.className;
+            this.notice.classId=dataItem.item.id;
+            this.notice.courseId=dataItem.courseId;
+            this.course=dataItem;
         },
         methods:{
             codeImg(){
                 uni.navigateTo({
-                    url: '/pages/class/codeImg/index?item='+this.course.classId
+                    url: '/pages/class/codeImg/index?item='+this.course.item.id
                 });
             },
             studentManager(){
@@ -167,7 +167,7 @@
             },
             userTalk(){
                 uni.navigateTo({
-                    url: '/pages/class/talk/index?classId='+ this.course.classId
+                    url: '/pages/class/talk/index?classId='+ this.course.item.id
                 });
             },
             checkAnalysis(){

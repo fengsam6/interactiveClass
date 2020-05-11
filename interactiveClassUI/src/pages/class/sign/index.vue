@@ -102,7 +102,7 @@
             }
         },
         mounted(){
-            this.signComData.classId=this.signData.classId;
+            this.signComData.classId=this.signData.item.id;
             this.signComData.courseId=this.signData.courseId;
             this.querySignInfo();
         },
@@ -113,7 +113,7 @@
             querySignInfo(){
                 var data={
                     courseId:this.signData.courseId,
-                    classId:this.signData.classId
+                    classId:this.signData.item.id
                 }
                 queryMySignInfo(data).then(resp => {
                     this.signQuery=resp;
@@ -151,6 +151,7 @@
                     }
                     this.signComData.signPlace=this.signQuery.signPlace;
                     this.signComData.signTime=this.signQuery.signPreTime;
+                    debugger
                     signIn(this.signComData).then(resp => {
                         this.successAlert("上课签到成功");
                       //  this.$emit("refreshNotice")
