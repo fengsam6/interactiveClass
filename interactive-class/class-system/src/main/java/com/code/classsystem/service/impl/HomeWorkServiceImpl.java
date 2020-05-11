@@ -44,7 +44,6 @@ public class HomeWorkServiceImpl extends ServiceImpl<HomeWorkMapper, HomeWork> i
         Assert.notNull(course, "课程不存在！");
         String createdUserId = course.getCreatedUserId();
         homeWork.setTeacherId(createdUserId);
-        homeWork.setClassId(course.getClassId());
         this.insert(homeWork);
     }
 

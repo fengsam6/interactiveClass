@@ -13,7 +13,7 @@ import java.util.List;
  * </p>
  *
  * @author coder
- * @since 2020-04-18
+ * @since 2020-05-11
  */
 public class Course implements Serializable {
 
@@ -36,24 +36,14 @@ public class Course implements Serializable {
      * 课程学分
      */
     private String courseScore;
-    private String classId;
-    private String className;
-    private String CreatedUserId;
-    @TableField(exist = false)
-    private List<Class> courseClass;
-
-    public List<Class> getCourseClass() {
-        return courseClass;
-    }
-
-    public void setCourseClass(List<Class> courseClass) {
-        this.courseClass = courseClass;
-    }
-
+    /**
+     * 课程创建者Id
+     */
+    private String createdUserId;
     /**
      * 上课人数
      */
-    private Integer classNum;
+    private Integer studentNum;
     /**
      * 上课时间
      */
@@ -62,6 +52,11 @@ public class Course implements Serializable {
      * 下课时间
      */
     private String endTime;
+
+    @TableField(exist = false)
+    private List<Class> courseClass;
+
+
     public String getId() {
         return id;
     }
@@ -74,14 +69,6 @@ public class Course implements Serializable {
         return courseName;
     }
 
-    public String getCreatedUserId() {
-        return CreatedUserId;
-    }
-
-    public void setCreatedUserId(String createdUserId) {
-        CreatedUserId = createdUserId;
-    }
-
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
@@ -89,7 +76,6 @@ public class Course implements Serializable {
     public String getCourseIntroduce() {
         return courseIntroduce;
     }
-
 
     public void setCourseIntroduce(String courseIntroduce) {
         this.courseIntroduce = courseIntroduce;
@@ -111,28 +97,20 @@ public class Course implements Serializable {
         this.courseScore = courseScore;
     }
 
-    public String getClassId() {
-        return classId;
+    public String getCreatedUserId() {
+        return createdUserId;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setCreatedUserId(String createdUserId) {
+        this.createdUserId = createdUserId;
     }
 
-    public String getClassName() {
-        return className;
+    public Integer getStudentNum() {
+        return studentNum;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public Integer getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(Integer classNum) {
-        this.classNum = classNum;
+    public void setStudentNum(Integer studentNum) {
+        this.studentNum = studentNum;
     }
 
     public String getBeginTime() {
@@ -151,6 +129,14 @@ public class Course implements Serializable {
         this.endTime = endTime;
     }
 
+    public List<Class> getCourseClass() {
+        return courseClass;
+    }
+
+    public void setCourseClass(List<Class> courseClass) {
+        this.courseClass = courseClass;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -159,9 +145,8 @@ public class Course implements Serializable {
         ", courseIntroduce=" + courseIntroduce +
         ", courseTime=" + courseTime +
         ", courseScore=" + courseScore +
-        ", classId=" + classId +
-        ", className=" + className +
-        ", classNum=" + classNum +
+        ", createdUserId=" + createdUserId +
+        ", studentNum=" + studentNum +
         ", beginTime=" + beginTime +
         ", endTime=" + endTime +
         "}";

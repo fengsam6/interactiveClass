@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50645
 File Encoding         : 65001
 
-Date: 2020-05-10 19:38:22
+Date: 2020-05-11 21:24:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,6 +42,23 @@ INSERT INTO `class` VALUES ('64f5fa91-8c22-43e6-a63c-6184d84711ad', '1506', '34'
 INSERT INTO `class` VALUES ('9c68ae80-a913-435b-a434-722c97ad804f', '1501', '34', '1501班级简介。。。', '697042', '2020-04-25 23:48:17', '2020-04-25 23:48:17', '0');
 INSERT INTO `class` VALUES ('c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '20', '这是1402班', '420185', '2020-05-07 23:47:00', '2020-05-07 23:47:00', '0');
 INSERT INTO `class` VALUES ('fc343902-b4ca-4e21-a238-c38539e587b2', 'test', '22', '22', '914360', '2020-05-08 09:55:14', '2020-05-08 09:55:14', '0');
+
+-- ----------------------------
+-- Table structure for class_course
+-- ----------------------------
+DROP TABLE IF EXISTS `class_course`;
+CREATE TABLE `class_course` (
+  `id` varchar(36) NOT NULL,
+  `class_id` varchar(36) NOT NULL,
+  `course_id` varchar(36) NOT NULL,
+  `select_course_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_class_course` (`class_id`,`course_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class_course
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for class_user
@@ -79,10 +96,8 @@ CREATE TABLE `course` (
   `course_introduce` varchar(255) DEFAULT '' COMMENT '课程介绍',
   `course_time` varchar(50) DEFAULT '' COMMENT '课程时长',
   `course_score` varchar(80) DEFAULT '' COMMENT '课程学分',
-  `class_id` varchar(255) NOT NULL DEFAULT '',
-  `class_name` varchar(120) DEFAULT NULL,
   `created_user_id` varchar(36) NOT NULL DEFAULT '' COMMENT '课程创建者Id',
-  `class_num` int(11) DEFAULT '0' COMMENT '上课人数',
+  `student_num` int(11) DEFAULT '0' COMMENT '上课人数',
   `begin_time` varchar(50) DEFAULT '' COMMENT '上课时间',
   `end_time` varchar(50) DEFAULT '' COMMENT '下课时间',
   PRIMARY KEY (`id`)
@@ -91,10 +106,10 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', 'java课程', 'java课程简介', '', '20', '9c68ae80-a913-435b-a434-722c97ad804f', '1501', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
-INSERT INTO `course` VALUES ('6bae0c16-84d8-4b23-9693-6621c08cd522', 'C++', '这是一门C++课程', '', '', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '68b9a2f57443803491f8bec131d1c254', '0', '08:30:00', '09:30:00');
-INSERT INTO `course` VALUES ('799c8d7e-bc3a-41f5-9d49-d256f075058d', 'java课程', 'java课程简介', '', '8', '18952731-e1db-4415-90ff-197ff048b6b4', '1502', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
-INSERT INTO `course` VALUES ('d5ec1a87-aa24-4e33-94cd-5187df846799', 'C++', '这是一门C++课程', '', '', '25b929ef-1134-4333-b747-30b34a9c78a8', '1401', '68b9a2f57443803491f8bec131d1c254', '0', '08:30:00', '09:30:00');
+INSERT INTO `course` VALUES ('0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', 'java课程', 'java课程简介', '', '20', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
+INSERT INTO `course` VALUES ('6bae0c16-84d8-4b23-9693-6621c08cd522', 'C++2', '这是一门C++课程', '', '4', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:30:00', '09:30:00');
+INSERT INTO `course` VALUES ('799c8d7e-bc3a-41f5-9d49-d256f075058d', 'java课程', 'java课程简介', '', '8', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
+INSERT INTO `course` VALUES ('d5ec1a87-aa24-4e33-94cd-5187df846799', 'C++', '这是一门C++课程', '', '5', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:30:00', '09:30:00');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -116,9 +131,9 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 -- Records of course_resource
 -- ----------------------------
+INSERT INTO `course_resource` VALUES ('458a957cdfe14e6ca66f983f22e12d58', '20200508184203.zip', 'ppt、word资源', '1', '202005/150847_刘博包1单位_20200508184203.zip', '99b9a2f574d94a3491f8bec131d1c502', 'd5ec1a87-aa24-4e33-94cd-5187df846799', '25b929ef-1134-4333-b747-30b34a9c78a8', '2020-05-11 20:29:11');
 INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
 INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
-
 
 -- ----------------------------
 -- Table structure for home_work
@@ -142,8 +157,7 @@ CREATE TABLE `home_work` (
 -- ----------------------------
 -- Records of home_work
 -- ----------------------------
-INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '33', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null, '0', null);
-
+INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '337', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '6bae0c16-84d8-4b23-9693-6621c08cd522', null, '0', null);
 
 -- ----------------------------
 -- Table structure for msg
@@ -164,6 +178,9 @@ CREATE TABLE `msg` (
 -- ----------------------------
 -- Records of msg
 -- ----------------------------
+INSERT INTO `msg` VALUES ('335ba64edf40473a9189381d2d37b34c', '2222', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-10 23:40:57', '');
+INSERT INTO `msg` VALUES ('484803487ee04b70b208010322b75a24', '222', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-10 21:02:11', '');
+INSERT INTO `msg` VALUES ('641388508a634908b5bb605b51d98f1b', '566', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-10 22:20:27', '');
 
 -- ----------------------------
 -- Table structure for notice
@@ -302,10 +319,10 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '192.168.0.104', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
+INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '127.0.0.1', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
 INSERT INTO `user` VALUES ('68b9a2f57443803491f8bec131d1c254', '8888', '0', '8888', '8888', '8888', '', '2', '192.168.0.104', '2020-05-08 00:26:32', '2020-05-07 23:44:28', '2020-05-07 23:44:42', '0', '1');
 INSERT INTO `user` VALUES ('80dbfc1af25e49b7b8e38df7a66e3b91', 'tesT2', '0', '999', '999', '999', '', '2', '192.168.0.101', '2020-05-08 09:52:28', '2020-05-08 09:43:08', '2020-05-08 09:43:08', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '3', '192.168.3.12', '2020-05-10 19:25:08', '2020-04-25 23:46:52', '2020-04-25 23:46:52', '0', '1');
+INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '2', '127.0.0.1', '2020-05-11 21:23:30', '2020-04-25 23:46:52', '2020-05-10 23:05:55', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question

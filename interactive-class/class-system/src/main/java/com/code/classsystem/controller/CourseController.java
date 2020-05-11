@@ -5,6 +5,7 @@ import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.service.CourseService;
 import com.code.classsystem.vo.CourseInfoVo;
+import com.code.classsystem.vo.CourseVo;
 import com.code.classsystem.vo.TeacherCourseVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
@@ -34,7 +35,7 @@ public class CourseController {
 
     @ApiOperation(value = "创建课程", notes = "创建课程")
     @PostMapping("/createCourse")
-    public ResponseResult createCourse(Course course) {
+    public ResponseResult createCourse(CourseVo course) {
         courseService.addCourse(course);
         return ResponseResultUtil.renderSuccessMsg("创建课程成功！");
     }

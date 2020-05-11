@@ -5,6 +5,7 @@ import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.dao.CourseMapper;
 import com.code.classsystem.entity.CourseResource;
+import com.code.classsystem.service.ClassCourseService;
 import com.code.classsystem.service.CourseResourceService;
 import com.code.classsystem.util.DateUtils;
 import com.code.classsystem.vo.CourseAndClass;
@@ -12,6 +13,7 @@ import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.CourseService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.vo.CourseInfoVo;
+import com.code.classsystem.vo.CourseVo;
 import com.code.classsystem.vo.TeacherCourseVo;
 import com.code.core.util.StringUtils;
 import com.code.core.util.UUIDUtil;
@@ -39,32 +41,32 @@ import java.util.List;
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
     @Autowired
-    private CourseService courseService;
-    @Autowired
     private ClassService classService;
     @Autowired
     private CourseMapper courseMapper;
     @Autowired
     private CourseResourceService courseResourceService;
+    @Autowired
+    private ClassCourseService classCourseService;
 
     @Override
-    public void addCourse(Course course) {
-        List<Course> lists = new ArrayList<>();
-        List<Class> classes = classService.getClassByClassName(course.getClassName().split(","));
-        for (int i = 0; i < classes.size(); i++) {
+    public void addCourse(CourseVo courseVo) {
+        List<String> classNameList = courseVo.getClassNameList();
+        String[] classNames = classNameList.toArray(new String[classNameList.size()]);
+        List<Class> classes = classService.getClassByClassName(classNames);
+        Assert.notNull(classes,"班级名称无效");
+        for (Class clazz : classes) {
             Course course1 = new Course();
-            course1.setCreatedUserId(course.getCreatedUserId());
-            course1.setCourseName(course.getCourseName());
-            course1.setBeginTime(course.getBeginTime());
-            course1.setEndTime(course.getEndTime());
-            course1.setCourseIntroduce(course.getCourseIntroduce());
+            course1.setCreatedUserId(courseVo.getCreatedUserId());
+            course1.setCourseName(courseVo.getCourseName());
+            course1.setBeginTime(courseVo.getBeginTime());
+            course1.setEndTime(courseVo.getEndTime());
+            course1.setCourseIntroduce(courseVo.getCourseIntroduce());
             String courseId = UUIDUtil.getRandomUUID();
             course1.setId(courseId);
-            course1.setClassId(classes.get(i).getId());
-            course1.setClassName(classes.get(i).getClassName());
-            lists.add(course1);
+           classCourseService.save(clazz.getId(),courseId);
+            this.insert(course1);
         }
-        courseService.insertBatch(lists);
     }
 
     @Override
@@ -91,17 +93,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<CourseResource> courseResources =new ArrayList<>() ;
 
         Assert.notNull(classes, "班级名称无效");
-        for (Class clazz : classes) {
-            Course course = new Course();
-            BeanUtils.copyProperties(courseInfoVo, course);
-            String userId = ShiroUtils.getUserId();
-            course.setCreatedUserId(userId);
-            String courseId = UUIDUtil.getRandomUUID();
-            course.setId(courseId);
-            course.setClassId(clazz.getId());
-            course.setClassName(clazz.getClassName());
-            lists.add(course);
 
+        Course course = new Course();
+        BeanUtils.copyProperties(courseInfoVo, course);
+        String userId = ShiroUtils.getUserId();
+        course.setCreatedUserId(userId);
+        String courseId = UUIDUtil.getRandomUUID();
+        course.setId(courseId);
+        this.insert(course);
+        for (Class clazz : classes) {
+            classCourseService.save(clazz.getId(),courseId);
+        }
             //存储课程资源
             List<CourseResource> pptResources = courseInfoVo.getPptResources();
             if(pptResources!=null){
@@ -120,14 +122,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     String resourceName = getResourceName(courseResource.getResourcePath());
                     courseResource.setCourseResourceName(resourceName);
                     courseResource.setCourseId(courseId);
-                    courseResource.setClassId(course.getClassId());
+//                    courseResource.setClassId(course.getClassId());
                     courseResource.setUserId(userId);
                     courseResource.setCreateTime(DateUtils.getCurTimeStr());
                     courseResourceService.insert(courseResource);
                 }
             }
-        }
-        courseService.insertBatch(lists);
+
 
 
     }
@@ -163,15 +164,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<Class> classes = classService.getClassByClassName(array);
         List<CourseResource> courseResources =new ArrayList<>() ;
         Assert.notNull(classes, "班级名称无效");
+        Course course = new Course();
+        BeanUtils.copyProperties(courseInfoVo, course);
+        String userId = ShiroUtils.getUserId();
+        course.setCreatedUserId(userId);
+        this.updateById(course);
         for (Class clazz : classes) {
-            Course course = new Course();
-            BeanUtils.copyProperties(courseInfoVo, course);
-            String userId = ShiroUtils.getUserId();
-            course.setCreatedUserId(userId);
-            course.setClassId(clazz.getId());
-            course.setClassName(clazz.getClassName());
-            updateById(course);
-
+            classCourseService.save(clazz.getId(), course.getId());
+        }
             //存储课程资源
             List<CourseResource> pptResources = courseInfoVo.getPptResources();
             if(pptResources!=null){
@@ -190,7 +190,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     courseResource.setCourseResourceName(resourceName);
                     String courseId = course.getId();
                     courseResource.setCourseId(courseId);
-                    courseResource.setClassId(course.getClassId());
                     courseResource.setUserId(userId);
                     courseResource.setCreateTime(DateUtils.getCurTimeStr());
                     String courseResourceId = courseResource.getId();
@@ -203,7 +202,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
             }
         }
-    }
 
     @Override
     public List queryTeachCourse(String userId) {

@@ -40,7 +40,7 @@ public class CourseResourceServiceImpl extends ServiceImpl<CourseResourceMapper,
     public List<CourseResource> getResources(Course course, int pageNum, int pageSize) {
         String userId= ShiroUtils.getUserId();
         EntityWrapper<CourseResource> wrapper=new EntityWrapper<>();
-        wrapper.eq("class_id",course.getClassId());
+//        wrapper.eq("class_id",course.getClassId());
         wrapper.eq("course_id",course.getId());
         wrapper.eq("user_id",userId);
         Page<CourseResource>page=new Page(pageNum,pageSize);
