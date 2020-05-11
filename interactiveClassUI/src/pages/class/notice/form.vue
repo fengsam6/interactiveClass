@@ -66,7 +66,7 @@
                 this.showfbgg = true
             },
             publishGg(){
-                this.notice.classId=this.course.classId;
+                this.notice.classId=this.course.item.id;
                 this.notice.courseId=this.course.courseId;
                 addNotice(this.notice).then(resp => {
                     this.successAlert("添加通知成功");

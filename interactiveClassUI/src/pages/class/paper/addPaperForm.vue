@@ -64,7 +64,7 @@
                 this.addPaperBtn = true
             },
             addPaper(){
-                this.paper.classId=this.course.classId;
+                this.paper.classId=this.course.item.id;
                 this.paper.courseId=this.course.courseId;
                 createPaper(this.paper).then(resp => {
                     this.successAlert("添加试卷成功");

@@ -136,20 +136,30 @@
 											<van-icon name="bars" />
 										</view>
 									</view>
-									<view @click="managerCls(item)">
+									<view @click="managerCls(item)" v-if="!roleId">
 										<view class="cls_list_2">
 											<view>
-												<view style="height: 50%;line-height: 30px;" v-if="roleId">
-													{{item.classList[0].className}}
-												</view>
-												<view style="height: 50%;line-height: 30px;" v-if="!roleId">
+												<view style="height: 50%;line-height: 30px;">
 													{{item.className}}
 												</view>
-												<view style="color: #FF5722;height: 50%;line-height: 30px;" v-if="roleId">
-													{{item.classList[0].classNum}}人
-												</view>
-												<view style="color: #FF5722;height: 50%;line-height: 30px;" v-if="!roleId">
+												<view style="color: #FF5722;height: 50%;line-height: 30px;">
 													{{item.classNum}}人
+												</view>
+											</view>
+											<view class="cls_list2_icon" style="margin: auto 4px;font-size:20px;">
+												<van-icon name="arrow" />
+											</view>
+										</view>
+										<view class="line"></view>
+									</view>
+									<view v-for="item2 in item.classList" :key="item2.id" v-if="roleId">
+										<view class="cls_list_2" @click="managerCls(item.courseId,item2)" >
+											<view>
+												<view style="height: 50%;line-height: 30px;">
+													{{item2.className}}
+												</view>
+												<view style="color: #FF5722;height: 50%;line-height: 30px;">
+													{{item2.classNum}}人
 												</view>
 											</view>
 											<view class="cls_list2_icon" style="margin: auto 4px;font-size:20px;">
@@ -308,9 +318,14 @@
 				})
 				console.log(this.classInfo);
 			},
-			managerCls(item){
+			managerCls(courseId,item){
+				var data={
+					item:item,
+					courseId:courseId,
+					roleId:this.userInfo.roleId
+				}
 				uni.navigateTo({
-					url: '/pages/class/index?roleId='+this.userInfo.roleId+'&item='+encodeURIComponent(JSON.stringify(item))
+					url: '/pages/class/index?item='+encodeURIComponent(JSON.stringify(data))
 				});
 			},
 			async doGetStoreUserInfo() {
