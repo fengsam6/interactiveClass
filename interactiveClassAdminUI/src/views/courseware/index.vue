@@ -23,8 +23,8 @@
       <el-table-column type="index" width="80" align="center" />
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="课程名称" prop="courseName" />
-      <el-table-column label="班级名称" align="center" prop="className" />
-      <el-table-column label="上课人数" align="center" prop="classNum" />
+      <el-table-column label="班级名称" align="center" prop="classNameList" />
+      <el-table-column label="上课人数" align="center" prop="studentNum" />
       <el-table-column label="上课时间" align="center" prop="beginTime" />
       <el-table-column align="center" label="下课时间" prop="endTime" />
       <el-table-column

@@ -52,21 +52,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public void addCourse(CourseVo courseVo) {
         List<String> classNameList = courseVo.getClassNameList();
+        Assert.notNull(classNameList, "班级名称无效");
         String[] classNames = classNameList.toArray(new String[classNameList.size()]);
         List<Class> classes = classService.getClassByClassName(classNames);
-        Assert.notNull(classes,"班级名称无效");
+        Assert.notNull(classes, "班级名称无效");
+        Course course = new Course();
+        course.setCreatedUserId(courseVo.getCreatedUserId());
+        course.setCourseName(courseVo.getCourseName());
+        course.setBeginTime(courseVo.getBeginTime());
+        course.setEndTime(courseVo.getEndTime());
+        course.setCourseIntroduce(courseVo.getCourseIntroduce());
+        String courseId = UUIDUtil.getRandomUUID();
+        course.setId(courseId);
+        this.insert(course);
         for (Class clazz : classes) {
-            Course course1 = new Course();
-            course1.setCreatedUserId(courseVo.getCreatedUserId());
-            course1.setCourseName(courseVo.getCourseName());
-            course1.setBeginTime(courseVo.getBeginTime());
-            course1.setEndTime(courseVo.getEndTime());
-            course1.setCourseIntroduce(courseVo.getCourseIntroduce());
-            String courseId = UUIDUtil.getRandomUUID();
-            course1.setId(courseId);
-           classCourseService.save(clazz.getId(),courseId);
-            this.insert(course1);
+            classCourseService.save(clazz.getId(), courseId);
         }
+
     }
 
     @Override
@@ -90,7 +92,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Assert.notNull(classNameList, "班级名称不能为空");
         String[] array = classNameList.toArray(new String[classNameList.size()]);
         List<Class> classes = classService.getClassByClassName(array);
-        List<CourseResource> courseResources =new ArrayList<>() ;
+        List<CourseResource> courseResources = new ArrayList<>();
 
         Assert.notNull(classes, "班级名称无效");
 
@@ -102,33 +104,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setId(courseId);
         this.insert(course);
         for (Class clazz : classes) {
-            classCourseService.save(clazz.getId(),courseId);
+            classCourseService.save(clazz.getId(), courseId);
         }
-            //存储课程资源
-            List<CourseResource> pptResources = courseInfoVo.getPptResources();
-            if(pptResources!=null){
-                courseResources.addAll(pptResources);
-            }
-            List<CourseResource> videoResources = courseInfoVo.getVideoResources();
-            if(videoResources!=null){
-                courseResources.addAll(videoResources);
-            }
+        //存储课程资源
+        List<CourseResource> pptResources = courseInfoVo.getPptResources();
+        if (pptResources != null) {
+            courseResources.addAll(pptResources);
+        }
+        List<CourseResource> videoResources = courseInfoVo.getVideoResources();
+        if (videoResources != null) {
+            courseResources.addAll(videoResources);
+        }
 
-            if (!CollectionUtils.isEmpty(courseResources)) {
-                for (CourseResource courseResource : courseResources) {
-                    if (courseResource==null ||courseResource.getResourcePath()==null ) {
-                        continue;
-                    }
-                    String resourceName = getResourceName(courseResource.getResourcePath());
-                    courseResource.setCourseResourceName(resourceName);
-                    courseResource.setCourseId(courseId);
-//                    courseResource.setClassId(course.getClassId());
-                    courseResource.setUserId(userId);
-                    courseResource.setCreateTime(DateUtils.getCurTimeStr());
-                    courseResourceService.insert(courseResource);
+        if (!CollectionUtils.isEmpty(courseResources)) {
+            for (CourseResource courseResource : courseResources) {
+                if (courseResource == null || courseResource.getResourcePath() == null) {
+                    continue;
                 }
+                String resourceName = getResourceName(courseResource.getResourcePath());
+                courseResource.setCourseResourceName(resourceName);
+                courseResource.setCourseId(courseId);
+//                    courseResource.setClassId(course.getClassId());
+                courseResource.setUserId(userId);
+                courseResource.setCreateTime(DateUtils.getCurTimeStr());
+                courseResourceService.insert(courseResource);
             }
-
+        }
 
 
     }
@@ -140,7 +141,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         } else {
             resourceName = resourcePath.substring(resourcePath.lastIndexOf("/") + 1);
         }
-       return resourceName;
+        return resourceName;
     }
 
     @Override
@@ -162,7 +163,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Assert.notNull(classNameList, "班级名称不能为空");
         String[] array = classNameList.toArray(new String[classNameList.size()]);
         List<Class> classes = classService.getClassByClassName(array);
-        List<CourseResource> courseResources =new ArrayList<>() ;
+        List<CourseResource> courseResources = new ArrayList<>();
         Assert.notNull(classes, "班级名称无效");
         Course course = new Course();
         BeanUtils.copyProperties(courseInfoVo, course);
@@ -172,36 +173,36 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         for (Class clazz : classes) {
             classCourseService.save(clazz.getId(), course.getId());
         }
-            //存储课程资源
-            List<CourseResource> pptResources = courseInfoVo.getPptResources();
-            if(pptResources!=null){
-                courseResources.addAll(pptResources);
-            }
-            List<CourseResource> videoResources = courseInfoVo.getVideoResources();
-            if(videoResources!=null){
-                courseResources.addAll(videoResources);
-            }
-            if (!CollectionUtils.isEmpty(courseResources)) {
-                for (CourseResource courseResource : courseResources) {
-                    if (courseResource==null ||courseResource.getResourcePath()==null ) {
-                        continue;
-                    }
-                    String resourceName = getResourceName(courseResource.getResourcePath());
-                    courseResource.setCourseResourceName(resourceName);
-                    String courseId = course.getId();
-                    courseResource.setCourseId(courseId);
-                    courseResource.setUserId(userId);
-                    courseResource.setCreateTime(DateUtils.getCurTimeStr());
-                    String courseResourceId = courseResource.getId();
-                    if(StringUtils.isNull(courseResourceId)){
-                        courseResourceService.insert(courseResource);
-                    }else{
-                        courseResourceService.updateById(courseResource);
-                    }
-
+        //存储课程资源
+        List<CourseResource> pptResources = courseInfoVo.getPptResources();
+        if (pptResources != null) {
+            courseResources.addAll(pptResources);
+        }
+        List<CourseResource> videoResources = courseInfoVo.getVideoResources();
+        if (videoResources != null) {
+            courseResources.addAll(videoResources);
+        }
+        if (!CollectionUtils.isEmpty(courseResources)) {
+            for (CourseResource courseResource : courseResources) {
+                if (courseResource == null || courseResource.getResourcePath() == null) {
+                    continue;
                 }
+                String resourceName = getResourceName(courseResource.getResourcePath());
+                courseResource.setCourseResourceName(resourceName);
+                String courseId = course.getId();
+                courseResource.setCourseId(courseId);
+                courseResource.setUserId(userId);
+                courseResource.setCreateTime(DateUtils.getCurTimeStr());
+                String courseResourceId = courseResource.getId();
+                if (StringUtils.isNull(courseResourceId)) {
+                    courseResourceService.insert(courseResource);
+                } else {
+                    courseResourceService.updateById(courseResource);
+                }
+
             }
         }
+    }
 
     @Override
     public List queryTeachCourse(String userId) {
