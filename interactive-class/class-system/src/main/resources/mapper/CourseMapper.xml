@@ -101,7 +101,8 @@
 
         vr.id as vr_id,  vr.course_resource_name as vr_course_resource_name,
         vr.resource_path as vr_resource_path, vr.resource_type as vr_resource_type
-         from course c1 left join class cls on c1.class_id = cls.id
+         from course c1
+         left join class_course cc on c1.id = cc.id
          left join class_user cu on cu.class_id = cls.id
          left join course_resource pptr on c1.id = pptr.course_id and pptr.resource_type = 1
           left join course_resource vr on c1.id = vr.course_id and vr.resource_type = 2
