@@ -8,8 +8,10 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.core.util.UUIDUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -41,7 +43,8 @@ public class PaperQuestionServiceImpl extends ServiceImpl<PaperQuestionMapper, P
 
     @Override
     public boolean delPaper(String paperId) {
-
-        return this.deleteById(paperId);
+        Map<String,Object> map=new HashMap<>();
+        map.put("paper_id",paperId);
+        return this.deleteByMap(map);
     }
 }

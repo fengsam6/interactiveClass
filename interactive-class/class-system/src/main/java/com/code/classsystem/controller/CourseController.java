@@ -5,6 +5,7 @@ import com.code.classsystem.common.shiro.util.ShiroUtils;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.service.CourseService;
 import com.code.classsystem.vo.CourseInfoVo;
+import com.code.classsystem.vo.TeacherCourseVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
 import com.github.pagehelper.PageInfo;
@@ -60,7 +61,7 @@ public class CourseController {
     @PostMapping("/queryTeachCourse")
     public ResponseResult queryTeachCourse() {
         String userId = ShiroUtils.getUserId();
-        List list = courseService.queryTeachCourse(userId);
+        List<TeacherCourseVo> list = courseService.queryTeachCourse(userId);
         return ResponseResultUtil.renderSuccess(list);
     }
 

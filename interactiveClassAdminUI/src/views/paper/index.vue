@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { listPage} from '@/api/paper'
+import { listPage,delPaper} from '@/api/paper'
 import addFormDialog from './addFormDialog'
 import questionList from './questionList'
 import formDialog from './formDialog'

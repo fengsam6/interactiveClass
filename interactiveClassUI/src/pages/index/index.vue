@@ -139,10 +139,16 @@
 									<view @click="managerCls(item)">
 										<view class="cls_list_2">
 											<view>
-												<view style="height: 50%;line-height: 30px;">
+												<view style="height: 50%;line-height: 30px;" v-if="roleId">
+													{{item.classList[0].className}}
+												</view>
+												<view style="height: 50%;line-height: 30px;" v-if="!roleId">
 													{{item.className}}
 												</view>
-												<view style="color: #FF5722;height: 50%;line-height: 30px;">
+												<view style="color: #FF5722;height: 50%;line-height: 30px;" v-if="roleId">
+													{{item.classList[0].classNum}}人
+												</view>
+												<view style="color: #FF5722;height: 50%;line-height: 30px;" v-if="!roleId">
 													{{item.classNum}}人
 												</view>
 											</view>
@@ -203,6 +209,14 @@
 				}
 				if(this.userInfo.roleId==2){
 					return "我所教的课";
+				}
+			},
+			roleId:function () {
+				if(this.userInfo.roleId==1){
+					return false;
+				}
+				if(this.userInfo.roleId==2){
+					return true;
 				}
 			}
 		},
@@ -265,6 +279,9 @@
 			enjoinClass() {
 				joinClass({classCode:this.classCode}).then(resp => {
 					this.successAlert("加入班级成功");
+					this.joinClassshow = false;
+				}).then(resp=>{
+					this.queryMCourseInfo();
 				});
 				this.classCode='';
 			},

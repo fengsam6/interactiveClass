@@ -4,6 +4,7 @@ import com.code.classsystem.entity.Course;
 import com.baomidou.mybatisplus.service.IService;
 import com.code.classsystem.vo.CourseAndClass;
 import com.code.classsystem.vo.CourseInfoVo;
+import com.code.classsystem.vo.TeacherCourseVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -31,5 +32,5 @@ public interface CourseService extends IService<Course> {
 
     void updateCourse(CourseInfoVo course);
 
-    List queryTeachCourse(String userId);
+    List<TeacherCourseVo> queryTeachCourse(String userId);
 }

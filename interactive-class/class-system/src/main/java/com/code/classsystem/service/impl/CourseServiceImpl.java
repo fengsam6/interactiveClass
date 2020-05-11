@@ -12,6 +12,7 @@ import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.CourseService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.vo.CourseInfoVo;
+import com.code.classsystem.vo.TeacherCourseVo;
 import com.code.core.util.StringUtils;
 import com.code.core.util.UUIDUtil;
 import com.github.pagehelper.PageHelper;
@@ -206,7 +207,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public List queryTeachCourse(String userId) {
-        List<CourseAndClass> courseAndClassList = courseMapper.queryTeachCourse(userId);
+        List<TeacherCourseVo> courseAndClassList = courseMapper.queryTeachCourse(userId);
         return courseAndClassList;
     }
 }

@@ -84,7 +84,7 @@
         computed:{
             signInBtn:function () {
                 if(this.signQuery) {
-                    if (this.signQuery.signPreTime && this.signQuery.signPreTime != "") {
+                    if (this.signQuery.signPreTime != "") {
                         return false;
                     }
                     return true;
@@ -93,7 +93,7 @@
             },
             signOutBtn:function () {
                 if(this.signQuery) {
-                    if (this.signQuery.signNextTime && this.signQuery.signNextTime != "") {
+                    if (this.signQuery.signNextTime != "") {
                         return false;
                     }
                     return true;
@@ -142,7 +142,7 @@
                         this.successAlert("您已经签过到了");
                         return;
                     }
-                    this.signInBtn = false;
+                  //  this.signInBtn = false;
                     this.signQuery.signPreTime = now.format('HH:mm:ss');
                     this.signComData.signIn=1;
                     if(this.signQuery.signPlace==""){
@@ -161,7 +161,7 @@
                         this.successAlert("您已经签过到了");
                         return;
                     }
-                    this.signOutBtn = false;
+                  //  this.signOutBtn = false;
                     this.signQuery.signNextTime = now.format('HH:mm:ss');
                     this.signComData.signIn=0;
                     this.signComData.signTime=this.signQuery.signNextTime;

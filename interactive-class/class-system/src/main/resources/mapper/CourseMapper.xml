@@ -17,6 +17,21 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
+    <resultMap id="TeacherCourseInfoMap" type="com.code.classsystem.vo.TeacherCourseVo">
+            <id column="course_id" property="courseId" />
+            <result column="course_name" property="courseName"/>
+            <collection property="classList" javaType="list" ofType="com.code.classsystem.entity.Class">
+                <id column="id" property="id"/>
+                <result column="class_name" property="className"/>
+                <result column="class_num" property="classNum"/>
+                <result column="class_introduce" property="classIntroduce"/>
+                <result column="class_create_code" property="classCreateCode"/>
+                <result column="create_date" property="createDate"/>
+                <result column="update_date" property="updateDate"/>
+                <result column="is_delete" property="isDelete"/>
+            </collection>
+    </resultMap>
+
     <!-- 通用查询映射结果 -->
     <resultMap id="CourseInfoMap" type="com.code.classsystem.vo.CourseInfoVo">
         <id column="id" property="id"/>
@@ -72,8 +87,8 @@
           where c3.member_id=#{userId}
     </select>
 
-    <select id="queryTeachCourse" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
-        select c1.id as courseId,c2.id classId,c1.course_name as courseName,c2.class_name AS className,c2.class_num as classNum
+    <select id="queryTeachCourse" parameterType="String" resultMap="TeacherCourseInfoMap">
+        select c1.id as course_id,c1.course_name ,c2.*
          from course c1 left join class c2 on c1.class_id=c2.id
 		WHERE created_user_id=#{userId}
     </select>
