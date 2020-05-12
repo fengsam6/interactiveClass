@@ -4,9 +4,9 @@
             <van-row v-for="(msg,index) in messages" :key="index">
                 <view v-if="msg.userId === userInfo.id" class="selfMsg">
                     <van-col span="16" offset="2">
-                        <view>{{msg.content}}</view>
+                        <view class="msgCont">{{msg.content}}</view>
                     </van-col>
-                    <van-col span="6" >
+                    <van-col span="6">
                         <text>:</text>
                         <text class="userName">{{msg.userName}}</text>
                     </van-col>
@@ -18,7 +18,7 @@
                         <text>:</text>
                     </van-col>
                     <van-col span="18">
-                        <view>{{msg.content}}</view>
+                        <view class="msgCont">{{msg.content}}</view>
                     </van-col>
                 </view>
             </van-row>
@@ -36,7 +36,7 @@
                 </van-cell-group>
             </van-col>
             <van-col span="6">
-                <van-button type="info" @click="sendClassGroupMsg()" >发送</van-button>
+                <van-button type="info" @click="sendClassGroupMsg()">发送</van-button>
             </van-col>
         </van-row>
 
@@ -58,7 +58,7 @@
                 content: '',
                 userInfo: {},
                 messages: [],
-                classId:'',
+                classId: '',
                 socketTask: null
             }
         },
@@ -66,8 +66,8 @@
             // this.listLastNMsg()
         },
         onLoad(options) {
-            debugger
-           this.classId = options.classId
+        debugger
+            this.classId = options.classId
             console.log(this.classId)
             // this.listLastNMsg()
         },
@@ -109,7 +109,7 @@
                     this.is_open_socket = true;
                     // 注：只有连接正常打开中 ，才能正常收到消息
                     this.socketTask.onMessage((resp) => {
-                      let msgObj = JSON.parse(resp.data)
+                        let msgObj = JSON.parse(resp.data)
                         const userId = msgObj.userId
                         const content = msgObj.content
                         const userName = msgObj.userName || 'test'
@@ -170,11 +170,11 @@
                 this.appendJsonMsg(msg)
                 this.content = ''
             },
-          async  listLastNMsg(){
-          debugger
-             const {data}  = await listLastN({classId:this.classId})
-              this.messages = data
-              debugger
+            async listLastNMsg() {
+            debugger
+                const {data} = await listLastN({classId: this.classId})
+                this.messages = data
+            debugger
             },
             sendClassGroupMsg() {
                 const msg = this.contentToGroupJsonMsg(this.content)
@@ -199,7 +199,7 @@
                 const userId = this.userInfo.id
                 const userName = this.userInfo.name || 'test'
                 const classId = this.classId
-                const msg = {userId,classId,msgType:'classGroup', userName, content}
+                const msg = {userId, classId, msgType: 'classGroup', userName, content}
                 return msg;
             },
             appendSelfMsg(content) {
@@ -209,8 +209,6 @@
                 this.messages.push(msg)
             }
         }
-
-
     }
 </script>
 
@@ -222,6 +220,12 @@
 
     .userName {
         font-size: 16px;
+    }
+
+    .msgCont {
+        border: solid #f0f2f5 1px;
+        padding: 0 1px;
+        background-color: #f0f2f5;
     }
 
     .selfMsg {

@@ -106,7 +106,7 @@ public class FileUtils {
     public static String getShortName(String fileName) {
         int length = fileName.length();
         if (length >= 12) {
-            fileName = fileName.substring(length - 12 - 4, length);
+            fileName = fileName.substring(length - 12 , length);
         }
         return fileName;
     }

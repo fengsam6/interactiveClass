@@ -68,7 +68,7 @@
     </sql>
 
     <select id="mcourseInfo" parameterType="String" resultType="com.code.classsystem.vo.CourseAndClass">
-        select c1.id as courseId,cls.id classId,c1.course_name as courseName,
+        select DISTINCT c1.id as courseId,cls.id classId,c1.course_name as courseName,
         cls.class_name AS className,cls.class_num as classNum
          from course c1
          left join class_course cc on c1.id = cc.course_id
@@ -78,7 +78,7 @@
     </select>
 
     <select id="queryTeachCourse" parameterType="String" resultMap="TeacherCourseInfoMap">
-        select c1.id as course_id,c1.course_name ,cls.*
+        select DISTINCT c1.id as course_id,c1.course_name ,cls.*
          from course c1
         left join class_course cc on c1.id = cc.course_id
          left join class cls on cls.id = cc.class_id

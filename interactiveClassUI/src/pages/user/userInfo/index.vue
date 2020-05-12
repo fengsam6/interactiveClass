@@ -28,8 +28,8 @@
                 />
                 <view class="role">
                     <van-radio-group :value="formData.roleId" @change="onRoleChange">
-                        <van-radio name="1" value="1">学生</van-radio>
-                        <van-radio name="2" value="2">老师</van-radio>
+                        <van-radio :name="1" :value="1">学生</van-radio>
+                        <van-radio :name="2" :value="2">老师</van-radio>
                     </van-radio-group>
                 </view>
 
