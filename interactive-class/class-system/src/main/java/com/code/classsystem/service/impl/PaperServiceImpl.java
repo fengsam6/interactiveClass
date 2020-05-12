@@ -47,7 +47,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
     public List<Paper> queryPaper(Paper paper, int page, int limit) {
         Page<Paper> paperPage=new Page<>(page,limit);
         EntityWrapper<Paper> wrapper=new EntityWrapper<>();
-        wrapper.eq("class_id",paper.getClassId());
+        wrapper.eq("course_id",paper.getCourseId());
         wrapper.orderBy("publish_time",false);
         List<Paper>list=this.selectPage(paperPage,wrapper).getRecords();
         return list;

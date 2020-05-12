@@ -118,7 +118,10 @@
         data() {
             return {
                 teacher:true,
-                course:null,
+                course:{
+                    courseId:'',
+                    classId:''
+                },
                 userInfo:null,
                 showfbgg:false,
                 noticeArr:[],
@@ -147,16 +150,26 @@
         },
         onLoad(option) {
             const dataItem = JSON.parse(decodeURIComponent(option.item));
-            this.teacher=dataItem.roleId=='2';
-            this.className=dataItem.item.className;
-            this.notice.classId=dataItem.item.id;
-            this.notice.courseId=dataItem.courseId;
-            this.course=dataItem;
+            if(dataItem.roleId=='1'){
+                this.teacher=false;
+                this.className=dataItem.courseId.className;
+                this.notice.classId=dataItem.courseId.classId;
+                this.notice.courseId=dataItem.courseId.courseId;
+                this.course.classId=dataItem.courseId.classId;
+                this.course.courseId=dataItem.courseId.courseId;
+            }else{
+                this.teacher=dataItem.roleId=='2';
+                this.className=dataItem.item.className;
+                this.notice.classId=dataItem.item.id;
+                this.notice.courseId=dataItem.courseId;
+                this.course.classId=dataItem.item.id;
+                this.course.courseId=dataItem.courseId;
+            }
         },
         methods:{
             codeImg(){
                 uni.navigateTo({
-                    url: '/pages/class/codeImg/index?item='+this.course.item.id
+                    url: '/pages/class/codeImg/index?item='+this.course.classId
                 });
             },
             studentManager(){
@@ -167,7 +180,7 @@
             },
             userTalk(){
                 uni.navigateTo({
-                    url: '/pages/class/talk/index?classId='+ this.course.item.id
+                    url: '/pages/class/talk/index?classId='+ this.course.classId
                 });
             },
             checkAnalysis(){
@@ -202,14 +215,13 @@
                     this.queryPaper();
                 }
                 if(index==3){
-                    this.queryPersionSign();
+                 //   this.queryPersionSign();
                 }
             },
             queryNotice(){
                 var data={
                     courseId:this.notice.courseId,
                     classId:this.notice.classId,
-                    publishUserId:this.notice.publishUserId,
                     page:1,
                     limit:30
                 }

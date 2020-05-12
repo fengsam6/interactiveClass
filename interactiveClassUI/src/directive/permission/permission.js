@@ -1,4 +1,3 @@
-import store from '@/store'
 import {takeStoreUserInfo} from "@/api/user"
 export default {
   inserted(el, binding, vnode) {
