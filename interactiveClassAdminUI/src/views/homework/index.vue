@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="btn_group">
-      <el-button type="primary" plain size="small" @click="addForm">添加</el-button>
+      <el-button type="primary" plain size="small" @click="addForm" v-permission="['student']">添加</el-button>
       <el-button size="small" type="danger" @click="delCourseByIds">批量删除</el-button>
     </div>
     <el-table

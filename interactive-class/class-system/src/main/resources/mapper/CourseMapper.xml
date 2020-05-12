@@ -72,7 +72,7 @@
         cls.class_name AS className,cls.class_num as classNum
          from course c1
          left join class_course cc on c1.id = cc.course_id
-         left join class cls on c1.id = cc.class_id
+         left join class cls on cls.id = cc.class_id
          left join class_user c3 on c3.class_id = cls.id
           where c3.member_id = #{userId}
     </select>
