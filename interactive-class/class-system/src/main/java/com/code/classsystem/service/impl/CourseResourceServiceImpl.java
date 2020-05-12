@@ -42,7 +42,7 @@ public class CourseResourceServiceImpl extends ServiceImpl<CourseResourceMapper,
         EntityWrapper<CourseResource> wrapper=new EntityWrapper<>();
 //        wrapper.eq("class_id",course.getClassId());
         wrapper.eq("course_id",course.getId());
-        wrapper.eq("user_id",userId);
+      //  wrapper.eq("user_id",userId);
         Page<CourseResource>page=new Page(pageNum,pageSize);
         page= this.selectPage(page,wrapper);
         return page.getRecords();

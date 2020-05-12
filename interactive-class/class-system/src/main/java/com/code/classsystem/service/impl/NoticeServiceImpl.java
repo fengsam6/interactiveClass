@@ -36,7 +36,6 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         Page<Notice> noticePage=new Page<>(page,limit);
         EntityWrapper<Notice> wrapper=new EntityWrapper<>();
         wrapper.eq("class_id",notice.getClassId());
-        wrapper.eq("publish_user_id",notice.getPublishUserId());
         wrapper.eq("course_id",notice.getCourseId());
         wrapper.orderBy("publish_time",false);
         List<Notice>list=this.selectPage(noticePage,wrapper).getRecords();
