@@ -14,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -115,7 +116,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteByIds")
-    @RequiresRoles(value  ={"teacher","admin"})
+    @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
     @ApiOperation(value = "删除用户", notes = "删除用户")
     public ResponseResult deleteById(@RequestParam("ids") List<String> ids) {
         userService.deleteBatchIds(ids);
@@ -130,7 +131,7 @@ public class UserController {
     }
 
     @GetMapping("/listPage")
-    @RequiresRoles(value  ={"teacher","admin"})
+    @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
     @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
     public ResponseResult listPage(User user, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<UserInfoVo> userInfoVoPageInfo = userService.listPage(user, pageNum, pageSize);
