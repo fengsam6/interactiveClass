@@ -81,7 +81,7 @@
         select c1.id as course_id,c1.course_name ,cls.*
          from course c1
         left join class_course cc on c1.id = cc.course_id
-         left join class cls on c1.id = cc.class_id
+         left join class cls on cls.id = cc.class_id
 		WHERE created_user_id = #{userId}
     </select>
 

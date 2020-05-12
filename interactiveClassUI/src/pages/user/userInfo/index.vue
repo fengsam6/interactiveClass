@@ -51,7 +51,7 @@
                 formData: {
                     account: "",
                     password: "",
-                    roleId: "1"
+                    roleId: 1
                 }
             }
         },
