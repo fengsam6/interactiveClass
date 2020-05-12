@@ -103,4 +103,4 @@ system:
     doLoginUrl: /user/doLoginUrl
     loginOutUrl: /user/logout
 #    配置shiro请求白名单
-    whiteUrl:  /druid, /druid/**, /file/**, /img/**,/user/register
+    whiteUrl:  /druid, /druid/**, /file/**, /img/**,/user/register, /user/logout

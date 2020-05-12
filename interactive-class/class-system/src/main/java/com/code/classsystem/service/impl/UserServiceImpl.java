@@ -105,7 +105,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         Integer roleId = userEntity.getRoleId();
         if(roleId==1){
-            throw new BusinessException(ErrorEnum.BUSINESS_EXCEPTION.setMsg("权限不够，禁止访问"));
+            throw new BusinessException(ErrorEnum.UNAUTHORIZED.setMsg("权限不够，禁止访问"));
         }else if(roleId==2){
             String userId = user.getId();
             user.setId(userId);

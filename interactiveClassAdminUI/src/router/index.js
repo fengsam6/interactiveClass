@@ -42,7 +42,11 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
+  {
+    path: '/unAuthor',
+    component: () => import('@/views/unAuthor'),
+    hidden: true
+  },
   {
     path: '/',
     component: Layout,
@@ -63,7 +67,7 @@ export const constantRoutes = [
         path: 'index',
         name: '用户管理',
         component: () => import('@/views/user/index'),
-        meta: { title: '用户管理', icon: 'form' }
+        meta: { title: '用户管理', icon: 'form', role: ['teacher', 'admin'] }
       }
     ]
   },
@@ -75,7 +79,7 @@ export const constantRoutes = [
         path: 'index',
         name: '班级管理',
         component: () => import('@/views/class/index'),
-        meta: { title: '班级管理', icon: 'form' }
+        meta: { title: '班级管理', icon: 'form', role: ['teacher', 'admin'] }
       }
     ]
   },
@@ -87,7 +91,7 @@ export const constantRoutes = [
         path: 'index',
         name: '课件管理',
         component: () => import('@/views/courseware/index'),
-        meta: { title: '课件管理', icon: 'form' }
+        meta: { title: '课件管理', icon: 'form', role: ['teacher', 'admin'] }
       }
     ]
   },
@@ -99,7 +103,7 @@ export const constantRoutes = [
         path: 'index',
         name: '试卷管理',
         component: () => import('@/views/paper/index'),
-        meta: { title: '试卷管理', icon: 'form' }
+        meta: { title: '试卷管理', icon: 'form', role: ['teacher', 'admin'] }
       }
     ]
   },
@@ -120,7 +124,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

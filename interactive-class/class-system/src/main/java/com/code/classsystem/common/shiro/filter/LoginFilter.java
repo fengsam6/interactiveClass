@@ -59,7 +59,7 @@ public class LoginFilter extends FormAuthenticationFilter {
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
         //用户未登录返回json格式
         logger.info("----------------------用户认证失败----------");
-        printJsonMsg((HttpServletResponse) response, ErrorEnum.UNAUTHORIZED);
+        printJsonMsg((HttpServletResponse) response, ErrorEnum.USER_NOT_LOGIN);
     }
 
     @Override

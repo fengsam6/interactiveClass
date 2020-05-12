@@ -51,6 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
+    @RequiresRoles(value  ={"teacher","admin"})
     @ApiOperation(value = "添加用户接口", notes = "添加用户接口")
     public ResponseResult add(@Valid User user) {
         ValidationUtils.validate(user);
@@ -114,6 +115,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteByIds")
+    @RequiresRoles(value  ={"teacher","admin"})
     @ApiOperation(value = "删除用户", notes = "删除用户")
     public ResponseResult deleteById(@RequestParam("ids") List<String> ids) {
         userService.deleteBatchIds(ids);
@@ -128,6 +130,7 @@ public class UserController {
     }
 
     @GetMapping("/listPage")
+    @RequiresRoles(value  ={"teacher","admin"})
     @ApiOperation(value = "分页查找用户", notes = "分页查找用户")
     public ResponseResult listPage(User user, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<UserInfoVo> userInfoVoPageInfo = userService.listPage(user, pageNum, pageSize);

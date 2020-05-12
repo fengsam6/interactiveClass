@@ -3,6 +3,7 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import Qs from 'qs'
+import unAuthor from "@/views/unAuthor";
 const jsonDataType = 'json'
 const formDataHeader = 'application/x-www-form-urlencoded'
 // create an axios instance
@@ -11,7 +12,8 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 7000 // request timeout
 })
-
+const NO_LOGIN = 402
+const NO_AUTH = 401
 // request interceptor
 service.interceptors.request.use(
   config => {
@@ -58,7 +60,17 @@ service.interceptors.response.use(
       console.log(res)
       return res
     }
-    // if the custom code is not 200, it is judged as an error.
+    // 402: Token 过期 或者没有登录;
+    if (res.code === NO_LOGIN) {
+      setTimeout(function() {
+        store.dispatch('user/resetToken').then(r => {
+          location.reload()
+        })
+      }, 2000)
+    } else if (res.code === unAuthor){
+      window.location.href = '/unAuthor'
+    }
+
     if (res.code !== OK) {
       Message({
         message: res.message || 'Error',
@@ -66,20 +78,6 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      // 401: Token expired;
-      if (res.code === 401) {
-        // to re-login
-        window.location.href = '/'
-        MessageBox.confirm('你已经退出系统, 请重新登录或取消', '已经退出系统', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
-      }
       return Promise.reject(new Error(res.message || 'Error'))
     }
   },

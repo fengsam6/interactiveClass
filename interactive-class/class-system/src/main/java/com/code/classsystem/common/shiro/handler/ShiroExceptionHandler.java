@@ -25,6 +25,6 @@ public class ShiroExceptionHandler {
         String message = e.getMessage();
         log.error("--------{}错误提示: {}---- ----", e.getClass().getName(), message);
         e.printStackTrace();
-        return ResponseResultUtil.renderError(ErrorEnum.BUSINESS_EXCEPTION.setMsg("权限不够"));
+        return ResponseResultUtil.renderError(ErrorEnum.UNAUTHORIZED.setMsg("权限不够"));
     }
 }

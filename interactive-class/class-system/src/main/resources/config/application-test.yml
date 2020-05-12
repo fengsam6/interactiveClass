@@ -69,6 +69,7 @@ spring:
 # 所有通过 REST APIs 上传的文件都将存储在此目录下
 file:
   upload-dir: ./uploads
+
 #mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml
@@ -79,10 +80,11 @@ mybatis-plus:
     # true,Mybatisplus中的selectMaps方法返回值字段为空显示
     call-setters-on-nulls: true
 
-#  设置日志级别：debug，便于查看全局异常（关了，开发时候查看空指针异常很不方便）
+#  设置日志级别：debug，便于查看全局异常
 logging:
   level:
-    com.code: info
+    com.code: debug
+
 #  openTestEnv 为true，开启开发环境，不校验token有效性
 system:
   openTestEnv: false
@@ -101,5 +103,4 @@ system:
     doLoginUrl: /user/doLoginUrl
     loginOutUrl: /user/logout
     #    配置shiro请求白名单
-    whiteUrl:  /druid, /, /file, /img
-
+    whiteUrl:  /druid, /druid/**, /file/**, /img/**,/user/register, /user/logout

@@ -5,6 +5,7 @@ import {errorAlert} from './alert'
 //后端请求根路径url
 const url_base = config.url_base
 const OK = 200
+const NO_LOGIN = 402
 const NO_AUTH = 401
 //定义json格式
 const jsonDataType = 'json'
@@ -36,8 +37,8 @@ function handleResponse(res, resolve, reject) {
     if (code == OK) {
         //code==200，成功，直接返回data.data
         resolve(data.data);
-    } else if (code == NO_AUTH) {
-        const msg = 'token无效请,请重新登录'
+    } else if (code == NO_LOGIN) {
+        const msg = 'token无效,请重新登录'
         errorAlert(msg)
         //关闭所有页面，跳到登录页面
         setTimeout(() => {

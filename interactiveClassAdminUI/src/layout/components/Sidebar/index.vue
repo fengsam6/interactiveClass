@@ -13,12 +13,12 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in routes" :key="route.path" v-permission="['student','teacher','admin']" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in routes" :key="route.path" v-permission="['teacher','admin']" :item="route" :base-path="route.path" />
       </el-menu>
 
       <!--拓展左侧导航-->
       <el-menu
-        v-permission="['admin']"
+
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="variables.menuBg"
@@ -28,7 +28,11 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <el-submenu index="1">
+        <el-menu-item v-permission="['student']" index="2">
+          <i class="el-icon-s-cooperation" />
+          <a href="/homework/index">作业管理</a>
+        </el-menu-item>
+        <el-submenu v-permission="['admin']" index="1">
           <template slot="title">
             <i class="el-icon-menu" />
             <span>系统管理</span>

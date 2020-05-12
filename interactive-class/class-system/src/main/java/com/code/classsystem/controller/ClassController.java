@@ -10,6 +10,7 @@ import com.code.core.util.ResponseResultUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,7 @@ public class ClassController {
 
     @ApiOperation(value = "创建班级接口", notes = "创建班级接口")
     @PostMapping("/createClass")
+    @RequiresRoles(value  ={"teacher","admin"})
     public ResponseResult createClass(@Valid Class cla, BindingResult bindingResult) {
         classService.createClass(cla);
         return ResponseResultUtil.renderSuccess("创建班级成功！");
