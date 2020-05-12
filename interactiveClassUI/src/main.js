@@ -10,6 +10,8 @@ Vue.prototype.post=post;
 Vue.prototype.successAlert=successAlert;
 App.mpType = 'app'
 
+import permission from '@/directive/permission/index' // vue 自定义permission指令
+Vue.use(permission)
 const app = new Vue({
   ...App
 })
