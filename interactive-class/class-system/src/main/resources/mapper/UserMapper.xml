@@ -42,7 +42,8 @@
     on t.id = cu.member_id
     <where>
     <if test=" id != null ">
-        cu.class_id = (select class_id from class_user  cu2 cu2.id = #{id} )
+        cu.class_id in (select class_id from class_user cu2 where cu2.member_id = #{id} )
+        and t.role_id = 1
     </if>
     </where>
 </select>

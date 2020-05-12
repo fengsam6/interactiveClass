@@ -40,9 +40,9 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String userId = ShiroUtils.getUserId();
         UserInfoVo userInfoVo = userService.getUserInfoById(userId);
-        String roleType = userInfoVo.getRoleType();
+        String roleCode = userInfoVo.getRoleCode();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRole(roleType);
+        authorizationInfo.addRole(roleCode);
         return authorizationInfo;
     }
 

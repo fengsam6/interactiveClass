@@ -10,6 +10,7 @@ import com.code.core.util.ResponseResultUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -48,7 +49,7 @@ public class ClassController {
 
     @ApiOperation(value = "创建班级接口", notes = "创建班级接口")
     @PostMapping("/createClass")
-    @RequiresRoles(value  ={"teacher","admin"})
+    @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
     public ResponseResult createClass(@Valid Class cla, BindingResult bindingResult) {
         classService.createClass(cla);
         return ResponseResultUtil.renderSuccess("创建班级成功！");
@@ -56,6 +57,7 @@ public class ClassController {
 
     @ApiOperation(value = "更新班级接口", notes = "更新班级接口")
     @PostMapping("/updateClass")
+    @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
     public ResponseResult updateClass(@Valid Class cla) {
         classService.updateById(cla);
         return ResponseResultUtil.renderSuccess("更新班级成功！");
@@ -70,6 +72,7 @@ public class ClassController {
 
     @ApiOperation(value = "分页查询班级", notes = "分页查询班级")
     @GetMapping("/listPage")
+    @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
     public ResponseResult listPage(Class cla, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
         PageInfo<ClassVo> classVoPageInfo = classService.listPage(cla, pageNum, pageSize);
         return ResponseResultUtil.renderSuccess(classVoPageInfo);

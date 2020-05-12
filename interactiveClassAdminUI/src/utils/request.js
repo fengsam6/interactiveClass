@@ -62,11 +62,9 @@ service.interceptors.response.use(
     }
     // 402: Token 过期 或者没有登录;
     if (res.code === NO_LOGIN) {
-      setTimeout(function() {
-        store.dispatch('user/resetToken').then(r => {
-          location.reload()
-        })
-      }, 2000)
+      store.dispatch('user/resetToken').then(r => {
+        location.reload()
+      })
     } else if (res.code === unAuthor){
       window.location.href = '/unAuthor'
     }
