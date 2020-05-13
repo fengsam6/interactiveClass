@@ -25,7 +25,7 @@
               from class_course c1 LEFT JOIN course c2 on c1.course_id=c2.id
 							left join class c3 on c1.class_id=c3.id
 							left join user_sign u ON c2.id = u.course_id
-							left join class_user c4 on c4.class_id=c3.id
+							left join class_user c4 on c4.class_id=c3.id and c4.member_id=u.user_id
          where c4.member_id=#{userId} and c3.id=#{classId} and c2.id=#{courseId}
     </select>
 

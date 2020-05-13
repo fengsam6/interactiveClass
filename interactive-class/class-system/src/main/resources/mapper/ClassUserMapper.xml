@@ -30,10 +30,21 @@
 
     <select id="queryStuStatus" resultType="com.code.classsystem.entity.ClassStudent" parameterType="com.code.classsystem.vo.ClassStudentVo">
         select c1.id courseId,cc.class_id classId,u1.member_id stuId,u2.name stuName,
-        (case when u3.sign_in=1 and u3.sign_time &lt;= c1.begin_time and u3.sign_time is not null then '正常签到'
-        when u3.sign_in=1
-        and u3.sign_time > c1.begin_time and u3.sign_time is not null then '迟到'
-        when u3.sign_in=1 and u3.sign_time is null THEN '未签到' END) signStatus
+        (
+        CASE
+        WHEN u3.sign_in = 1
+        AND u3.sign_time  &lt;= substring(c1.begin_time,12)
+        AND u3.sign_time IS NOT NULL THEN
+        '正常签到'
+        WHEN u3.sign_in = 1
+        AND u3.sign_time > substring(c1.begin_time,12)
+        AND u3.sign_time IS NOT NULL THEN
+        '迟到'
+        WHEN u3.sign_in = 1
+        AND u3.sign_time IS NULL THEN
+        '未签到'
+        END
+        ) signStatus
         from class_user u1 LEFT JOIN user u2 ON u1.member_id = u2.id
         left join class_course cc on cc.class_id = u1.class_id
         left join course c1 on c1.id = cc.course_id

@@ -22,8 +22,9 @@
     <!--我的课件库 -->
     <select id="queryMyCourse" parameterType="String" resultType="com.code.classsystem.entity.CourseResource">
         select c1.*
-            from course_resource c1 left join course c2 on c1.course_id=c2.id and c1.class_id=c2.class_id
-            left join class_user c3 on c3.class_id=c2.class_id
+            from course_resource c1 left join course c2 on c1.course_id=c2.id
+				  left join class_course c4 on c4.course_id=c2.id
+                  left join class_user c3 on c3.class_id=c4.class_id
         where c3.member_id=#{userId}
     </select>
 </mapper>
