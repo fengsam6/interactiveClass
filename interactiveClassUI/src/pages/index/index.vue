@@ -201,7 +201,6 @@
 				joinClassshow:false,
 				classCode:'',
 				clsIsShow:false,
-				actions:[],
 				actionsCls:[
 					{
 						name: '管理'
@@ -221,6 +220,26 @@
 					return "我所教的课";
 				}
 			},
+			actions:function(){
+				if(this.userInfo.roleId=='1'){
+					return [
+						{
+							name: '加入班级'
+						}
+					];
+				}
+				if(this.userInfo.roleId=='2'){
+					return [
+						{
+							name: '创建班级'
+						},
+						{
+							name: '创建课程'
+						}
+					];
+				}
+			},
+
 			roleId:function () {
 				if(this.userInfo.roleId==1){
 					return false;
@@ -238,23 +257,6 @@
 			this.doGetStoreUserInfo();
 			this.classInfo.createUserId=this.userInfo.id;
 			this.queryMCourseInfo();
-			if(this.userInfo.roleId=='1'){
-				this.actions=[
-					{
-						name: '加入班级'
-					}
-				];
-			}
-			if(this.userInfo.roleId=='2'){
-				this.actions=[
-					{
-						name: '创建班级'
-					},
-					{
-						name: '创建课程'
-					}
-				];
-			}
 		},
 		onLoad() {
 

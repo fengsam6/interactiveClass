@@ -69,7 +69,7 @@
                     </van-tab>
                     <van-tab title="签到">
                         <van-row>
-                            <user-sign :signData="course"/>
+                            <user-sign :signData="course" ref="signFun"/>
                             <van-divider  custom-style="height:1px"/>
                         </van-row>
                     </van-tab>
@@ -215,7 +215,7 @@
                     this.queryPaper();
                 }
                 if(index==3){
-                 //   this.queryPersionSign();
+                    this.$refs.signFun.querySignInfo();
                 }
             },
             queryNotice(){

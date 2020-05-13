@@ -6,7 +6,7 @@
                 <view style="line-height: 50px">签到状态：</view>
                 <view style="line-height: 50px">{{item.signStatus}}</view>
                 <view class="kj_download" style="margin-left: 10px;line-height: 50px;  ">
-                    <van-button color="#1E9FFF"  size="small" @click="selefAnalysis(item.stuId)">分析</van-button>
+                    <van-button color="#1E9FFF"  size="small" @click="manage(item.stuId)">管理</van-button>
                 </view>
             </view>
             <view class="line"></view>
@@ -45,10 +45,14 @@
         },
         onLoad(option) {
             const dataItem = JSON.parse(decodeURIComponent(option.item));
-            this.studentCom.classId=dataItem.item.id;
+            this.studentCom.classId=dataItem.classId;
             this.studentCom.courseId=dataItem.courseId;
         },
         methods:{
+            manage(){
+                this.successAlert("尽情期待...");
+                return ;
+            },
             queryStuList(){
                 showClassUsers(this.studentCom).then(resp => {
                     this.studentList=resp;

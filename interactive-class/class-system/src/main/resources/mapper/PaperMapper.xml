@@ -32,21 +32,23 @@
 
     <select id="queryMyPaper" resultType="com.code.classsystem.entity.Paper" parameterType="String">
         SELECT paper.*
-            from paper LEFT JOIN class on paper.class_id=class.id
-            LEFT join class_user on class_user.class_id=class.id
+            from paper 	left join course c1 on c1.id=paper.course_id
+			LEFT JOIN class_course c2 on c2.course_id=c1.id
+            LEFT join class_user on class_user.class_id=c2.class_id
         WHERE class_user.member_id=#{userId}
     </select>
 
     <select id="queryPaperResult" resultType="com.code.classsystem.vo.PaperResultBinVo" parameterType="String">
-        select paper_id,class_id,class_name,(get_score/total_score) good_rate from (
-                    select p1.paper_id,c2.id,c2.class_name,sum(p1.score) total_score,sum(p2.score) get_score,p3.class_id
-                                from user_question p2 left join paper_question p1 on p1.id=p2.question_id
+        select paper_id,id,class_name,courseId,IFNULL((get_score/total_score),0) good_rate from (
+                    select p3.id paper_id,c2.id,c2.class_name,sum(p1.score) total_score,sum(p2.score) get_score,c5.course_id courseId
+                                from paper_question p1  left join user_question p2 on p1.id=p2.question_id
                                 left join class_user c1 on c1.member_id=p2.user_id
-                                left JOIN class c2 on c2.id=c1.class_id
-                                left join paper p3 on p3.id=p1.paper_id and p3.class_id=c2.id
-                                LEFT join course c3 on c3.class_id=c2.id
-                    WHERE  p2.user_id is not null and p3.class_id is not NULL and c3.id=#{courseId}
-				GROUP BY c2.id,c2.class_name,p1.paper_id,p3.class_id)a
+                                right JOIN class c2 on c2.id=c1.class_id
+																left JOIN class_course c5 on c5.class_id=c2.id and c5.class_id=c2.id
+                                left join paper p3 on p3.id=p1.paper_id and p3.course_id=c5.course_id
+                                LEFT join course c3 on c3.id=p3.course_id
+                   WHERE  c5.course_id=#{courseId}
+				GROUP BY c2.id,c2.class_name,p1.paper_id,c5.course_id )a
     </select>
 
 </mapper>
