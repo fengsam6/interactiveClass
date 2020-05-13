@@ -85,4 +85,9 @@ public class ClassUserServiceImpl extends ServiceImpl<ClassUserMapper, ClassUser
         list=classUserMapper.queryStuStatus(classStudentVo);
         return list;
     }
+
+    @Override
+    public List<Class> listTeacherClasses(String teacherId) {
+        return classUserMapper.listTeacherClasses(teacherId);
+    }
 }

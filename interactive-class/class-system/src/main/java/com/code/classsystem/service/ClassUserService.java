@@ -28,4 +28,6 @@ public interface ClassUserService extends IService<ClassUser> {
     List<User> showClassUsers(String classId);
 
     List<ClassStudent> queryStuStatus(ClassStudentVo classStudentVo);
+
+    List<Class> listTeacherClasses(String teacherId);
 }

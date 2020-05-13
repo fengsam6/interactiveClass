@@ -29,16 +29,22 @@
 </select>
 
     <select id="getClassByClassNameAndCurId" resultMap="BaseResultMap" parameterType="string">
-    select * from  class cl
+    select distinct * from  class cl
     inner join class_user cu on  cl.id = cu.class_id
     where cl.class_name = #{className} and cu.member_id = #{userId}
 </select>
 
-    <select id="listPage" resultMap="BaseResultMap" parameterType="com.code.classsystem.entity.Class">
-    select cl.*,u.name as createUserName
+    <select id="listPage" resultMap="BaseResultMap" parameterType="com.code.classsystem.vo.ClassSearchVo">
+    select distinct cl.*,u.name as createUserName
       from  class cl
-    left join class_user cu on  cl.id = cu.class_id
+      left join class_user cu on  cl.id = cu.class_id
      left join user u on  u.id = cu.created_user_id
+     <where>
+         <if test="creatorId != null">
+             cu.created_user_id = #{creatorId}
+         </if>
+     </where>
+     order by cl.class_name
 </select>
 
 

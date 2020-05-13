@@ -8,6 +8,7 @@ import com.code.classsystem.service.ClassUserService;
 import com.code.classsystem.vo.ClassStudentVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
+import com.code.core.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author coder
@@ -33,18 +34,29 @@ import java.util.List;
 public class ClassUserController {
     @Autowired
     private ClassUserService classUserService;
+
     @ApiOperation(value = "查看用户加入班级列表", notes = "查看用户加入班级列表")
     @GetMapping("/listClassByUserId")
     public ResponseResult listClassByUserId() {
         String userId = ShiroUtils.getUserId();
         List<Class> classList = classUserService.listClassByUserId(userId);
-        return ResponseResultUtil.renderSuccess(classList,"查看用户加入班级列表成功！");
+        return ResponseResultUtil.renderSuccess(classList, "查看用户加入班级列表成功！");
+    }
+
+    @ApiOperation(value = "查看老师创建班级", notes = "查看老师创建班级")
+    @GetMapping("/listTeacherClasses")
+    public ResponseResult listTeacherClasses(String teacherId) {
+        if(StringUtils.isNull(teacherId)){
+            teacherId = ShiroUtils.getUserId();
+        }
+        List<Class> classList = classUserService.listTeacherClasses(teacherId);
+        return ResponseResultUtil.renderSuccess(classList, "查看老师创建班级成功！");
     }
 
     @ApiOperation(value = "加入班级", notes = "加入班级")
     @PostMapping("/joinClass")
     public ResponseResult joinClass(String classCode) {
-          classUserService.joinClass(classCode);
+        classUserService.joinClass(classCode);
         return ResponseResultUtil.renderSuccess("加入班级成功！");
     }
 
@@ -55,10 +67,12 @@ public class ClassUserController {
         return ResponseResultUtil.renderSuccess(users,"创建班级成功！");
     }*/
 
+
+
     @ApiOperation(value = "查看班级成员", notes = "查看班级成员")
     @PostMapping("/showClassUsers")
     public ResponseResult showClassUsers(ClassStudentVo classStudentVo) {
-       List<ClassStudent> data=classUserService.queryStuStatus(classStudentVo);
+        List<ClassStudent> data = classUserService.queryStuStatus(classStudentVo);
         return ResponseResultUtil.renderSuccess(data);
     }
 }

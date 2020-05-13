@@ -5,16 +5,16 @@ import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.Course;
 import com.code.classsystem.dao.CourseMapper;
 import com.code.classsystem.entity.CourseResource;
+import com.code.classsystem.entity.User;
 import com.code.classsystem.service.ClassCourseService;
 import com.code.classsystem.service.CourseResourceService;
 import com.code.classsystem.util.DateUtils;
-import com.code.classsystem.vo.CourseAndClass;
+import com.code.classsystem.vo.*;
 import com.code.classsystem.service.ClassService;
 import com.code.classsystem.service.CourseService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.code.classsystem.vo.CourseInfoVo;
-import com.code.classsystem.vo.CourseVo;
-import com.code.classsystem.vo.TeacherCourseVo;
+import com.code.core.enums.ErrorEnum;
+import com.code.core.exception.BusinessException;
 import com.code.core.util.StringUtils;
 import com.code.core.util.UUIDUtil;
 import com.github.pagehelper.PageHelper;
@@ -83,9 +83,21 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public PageInfo<CourseInfoVo> listPage(Course course, int pageNum, int pageSize) {
+    public PageInfo<CourseInfoVo> listPage(Course search, int pageNum, int pageSize) {
+        if (search == null) {
+            search = new Course();
+        }
+        User userEntity = ShiroUtils.getUserEntity();
+
+        Integer roleId = userEntity.getRoleId();
+        if (roleId == 1) {
+            throw new BusinessException(ErrorEnum.UNAUTHORIZED.setMsg("权限不够，禁止访问"));
+        } else if (roleId == 2) {
+            String userId = userEntity.getId();
+            search.setCreatedUserId(userId);
+        }
         PageHelper.startPage(pageNum, pageSize);
-        List<CourseInfoVo> userInfoVos = courseMapper.listPage(course);
+        List<CourseInfoVo> userInfoVos = courseMapper.listPage(search);
         return new PageInfo<>(userInfoVos);
     }
 
