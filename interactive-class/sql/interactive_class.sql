@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50645
+Source Server         : interactive_class
+Source Server Version : 50724
 Source Host           : localhost:3306
 Source Database       : interactive_class
 
 Target Server Type    : MYSQL
-Target Server Version : 50645
+Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-05-11 21:24:56
+Date: 2020-05-13 19:16:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,13 +35,9 @@ CREATE TABLE `class` (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES ('18952731-e1db-4415-90ff-197ff048b6b4', '1502', '40', '1502班级简介。。。', '715596', '2020-04-25 23:48:35', '2020-04-25 23:48:35', '0');
-INSERT INTO `class` VALUES ('25b929ef-1134-4333-b747-30b34a9c78a8', '1401', '32', '这是1401班', '399343', '2020-05-07 23:46:39', '2020-05-07 23:46:39', '0');
-INSERT INTO `class` VALUES ('504bf968-0735-4892-ac3b-aa0d1a3257aa', '1403', '24', '这是1403班', '440325', '2020-05-07 23:47:20', '2020-05-07 23:47:20', '0');
-INSERT INTO `class` VALUES ('64f5fa91-8c22-43e6-a63c-6184d84711ad', '1506', '34', '777777', '940221', '2020-05-04 20:22:20', '2020-05-04 20:22:20', '0');
-INSERT INTO `class` VALUES ('9c68ae80-a913-435b-a434-722c97ad804f', '1501', '34', '1501班级简介。。。', '697042', '2020-04-25 23:48:17', '2020-04-25 23:48:17', '0');
-INSERT INTO `class` VALUES ('c77112f8-30bd-491a-b6af-c1bb0dc95674', '1402', '20', '这是1402班', '420185', '2020-05-07 23:47:00', '2020-05-07 23:47:00', '0');
-INSERT INTO `class` VALUES ('fc343902-b4ca-4e21-a238-c38539e587b2', 'test', '22', '22', '914360', '2020-05-08 09:55:14', '2020-05-08 09:55:14', '0');
+INSERT INTO `class` VALUES ('914678f8-a306-45de-b633-659d545332a5', '1201', '14', '这是1201班级简介。。。', '355405', '2020-05-13 18:39:15', '2020-05-13 18:39:15', '0');
+INSERT INTO `class` VALUES ('d2a0836c-d605-4787-bbce-6acb9e0e793e', '1203', '33', '这是1203班级简介。。。。', '395089', '2020-05-13 18:39:55', '2020-05-13 18:39:55', '0');
+INSERT INTO `class` VALUES ('f9f3c901-64c9-4882-80d3-9a59e81aaf4d', '1202', '23', '这是1201班级简介。。。。', '375048', '2020-05-13 18:39:35', '2020-05-13 18:39:35', '0');
 
 -- ----------------------------
 -- Table structure for class_course
@@ -59,6 +55,9 @@ CREATE TABLE `class_course` (
 -- ----------------------------
 -- Records of class_course
 -- ----------------------------
+INSERT INTO `class_course` VALUES ('5d191cf228d94dd7b542ff5d4cc1f74d', 'f9f3c901-64c9-4882-80d3-9a59e81aaf4d', '08bb02b9-ef3f-4b1d-b522-af960565bda1', '2020-05-13 18:41:53');
+INSERT INTO `class_course` VALUES ('914bc22d30644140a1c4f330f7955d5b', '914678f8-a306-45de-b633-659d545332a5', '08bb02b9-ef3f-4b1d-b522-af960565bda1', '2020-05-13 18:41:52');
+INSERT INTO `class_course` VALUES ('e8753cd543384e2aa8f534ac85da70ea', '914678f8-a306-45de-b633-659d545332a5', '7226e74a-20c8-4cce-b8cb-129f5464d6b2', '2020-05-13 18:44:36');
 
 -- ----------------------------
 -- Table structure for class_user
@@ -78,13 +77,11 @@ CREATE TABLE `class_user` (
 -- ----------------------------
 -- Records of class_user
 -- ----------------------------
-INSERT INTO `class_user` VALUES ('47fdedb98e5c4a4aaee08689983c7176', '64f5fa91-8c22-43e6-a63c-6184d84711ad', null, '99b9a2f574d94a3491f8bec131d1c502', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-04 20:22:20', '2020-05-04 20:22:20');
-INSERT INTO `class_user` VALUES ('661500a06b57439c96335d06d1e91b5e', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:47:00', '2020-05-07 23:47:00');
-INSERT INTO `class_user` VALUES ('662530fcbfba4127a4cb93028f651fd5', '18952731-e1db-4415-90ff-197ff048b6b4', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-04-26 00:21:40', '2020-04-26 00:21:40');
-INSERT INTO `class_user` VALUES ('70185e59b1b7484194ba18aa442d9ca4', '504bf968-0735-4892-ac3b-aa0d1a3257aa', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:47:20', '2020-05-07 23:47:20');
-INSERT INTO `class_user` VALUES ('8e89456304d14163bd479ffee94944fb', '25b929ef-1134-4333-b747-30b34a9c78a8', null, '68b9a2f57443803491f8bec131d1c254', '68b9a2f57443803491f8bec131d1c254', '2020-05-07 23:46:39', '2020-05-07 23:46:39');
-INSERT INTO `class_user` VALUES ('a6cace5927814ffa93fcd7f8d38db83d', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', null, '99b9a2f574d94a3491f8bec131d1c502', '', '2020-05-07 23:50:59', '2020-05-07 23:50:59');
-INSERT INTO `class_user` VALUES ('f088e10eae4444fd91ec25ce6922aec8', 'fc343902-b4ca-4e21-a238-c38539e587b2', null, '80dbfc1af25e49b7b8e38df7a66e3b91', '80dbfc1af25e49b7b8e38df7a66e3b91', '2020-05-08 09:55:14', '2020-05-08 09:55:14');
+INSERT INTO `class_user` VALUES ('3b79debf7be84b93b84c9b9e5685f7ba', '914678f8-a306-45de-b633-659d545332a5', null, '1e9ae21bfe584bc59b4934ac3a238ef9', '1e9ae21bfe584bc59b4934ac3a238ef9', '2020-05-13 18:39:15', '2020-05-13 18:39:15');
+INSERT INTO `class_user` VALUES ('626d3100766f4114995886a2e169f3f8', 'f9f3c901-64c9-4882-80d3-9a59e81aaf4d', null, '8f7c4cb963f74b8d91083f9e704c3f47', '', '2020-05-13 18:46:57', '2020-05-13 18:46:57');
+INSERT INTO `class_user` VALUES ('c901a2a3c01f4359b34f55758a0b5d48', 'd2a0836c-d605-4787-bbce-6acb9e0e793e', null, '1e9ae21bfe584bc59b4934ac3a238ef9', '1e9ae21bfe584bc59b4934ac3a238ef9', '2020-05-13 18:39:55', '2020-05-13 18:39:55');
+INSERT INTO `class_user` VALUES ('d122ba6555a74183a5ab42bb8e74c9c1', '914678f8-a306-45de-b633-659d545332a5', null, '9625bb6310744a71ae3e4dd53c313853', '', '2020-05-13 18:42:24', '2020-05-13 18:42:24');
+INSERT INTO `class_user` VALUES ('e7f2d16a6840450a8cd912d68f0bc237', 'f9f3c901-64c9-4882-80d3-9a59e81aaf4d', null, '1e9ae21bfe584bc59b4934ac3a238ef9', '1e9ae21bfe584bc59b4934ac3a238ef9', '2020-05-13 18:39:35', '2020-05-13 18:39:35');
 
 -- ----------------------------
 -- Table structure for course
@@ -106,10 +103,8 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', 'java课程', 'java课程简介', '', '20', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
-INSERT INTO `course` VALUES ('6bae0c16-84d8-4b23-9693-6621c08cd522', 'C++2', '这是一门C++课程', '', '4', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:30:00', '09:30:00');
-INSERT INTO `course` VALUES ('799c8d7e-bc3a-41f5-9d49-d256f075058d', 'java课程', 'java课程简介', '', '8', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:20:20', '10:10:11');
-INSERT INTO `course` VALUES ('d5ec1a87-aa24-4e33-94cd-5187df846799', 'C++', '这是一门C++课程', '', '5', '99b9a2f574d94a3491f8bec131d1c502', '0', '08:30:00', '09:30:00');
+INSERT INTO `course` VALUES ('08bb02b9-ef3f-4b1d-b522-af960565bda1', 'JAVA课程', '', '', '21', '1e9ae21bfe584bc59b4934ac3a238ef9', '37', '2020-04-27 08:00:00', '2020-04-27 10:00:00');
+INSERT INTO `course` VALUES ('7226e74a-20c8-4cce-b8cb-129f5464d6b2', 'C++课程', '', '', '45', '1e9ae21bfe584bc59b4934ac3a238ef9', '14', '2020-05-13 06:44:20', '2020-05-13 08:44:26');
 
 -- ----------------------------
 -- Table structure for course_resource
@@ -131,9 +126,6 @@ CREATE TABLE `course_resource` (
 -- ----------------------------
 -- Records of course_resource
 -- ----------------------------
-INSERT INTO `course_resource` VALUES ('458a957cdfe14e6ca66f983f22e12d58', '20200508184203.zip', 'ppt、word资源', '1', '202005/150847_刘博包1单位_20200508184203.zip', '99b9a2f574d94a3491f8bec131d1c502', 'd5ec1a87-aa24-4e33-94cd-5187df846799', '25b929ef-1134-4333-b747-30b34a9c78a8', '2020-05-11 20:29:11');
-INSERT INTO `course_resource` VALUES ('b4ce020f03724614a78ddbd0b8953e92', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/759264_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '0de9e3b0-e31b-47a0-83b1-43cf30cbdf37', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-04 00:52:49');
-INSERT INTO `course_resource` VALUES ('c1e7365e69e24c0490609c52b11e39f7', '演示文稿1.pptx', 'ppt、word资源', '1', '202005/832372_演示文稿1.pptx', '99b9a2f574d94a3491f8bec131d1c502', '799c8d7e-bc3a-41f5-9d49-d256f075058d', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-04 01:43:54');
 
 -- ----------------------------
 -- Table structure for home_work
@@ -157,7 +149,6 @@ CREATE TABLE `home_work` (
 -- ----------------------------
 -- Records of home_work
 -- ----------------------------
-INSERT INTO `home_work` VALUES ('4e3cf12041464cdcb3cc71d3716e68e8', '337', '33', '202005/659882_xxqr-personinfo导出.xls', '99b9a2f574d94a3491f8bec131d1c502', '2020-05-07 22:11:49', '99b9a2f574d94a3491f8bec131d1c502', '6bae0c16-84d8-4b23-9693-6621c08cd522', null, '0', null);
 
 -- ----------------------------
 -- Table structure for msg
@@ -178,9 +169,6 @@ CREATE TABLE `msg` (
 -- ----------------------------
 -- Records of msg
 -- ----------------------------
-INSERT INTO `msg` VALUES ('335ba64edf40473a9189381d2d37b34c', '2222', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-10 23:40:57', '');
-INSERT INTO `msg` VALUES ('484803487ee04b70b208010322b75a24', '222', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '18952731-e1db-4415-90ff-197ff048b6b4', '2020-05-10 21:02:11', '');
-INSERT INTO `msg` VALUES ('641388508a634908b5bb605b51d98f1b', '566', '99b9a2f574d94a3491f8bec131d1c502', '222', 'classGroup', '9c68ae80-a913-435b-a434-722c97ad804f', '2020-05-10 22:20:27', '');
 
 -- ----------------------------
 -- Table structure for notice
@@ -200,16 +188,8 @@ CREATE TABLE `notice` (
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
-INSERT INTO `notice` VALUES ('294771a1-a7c6-41c4-86f9-c4b88cde41a8', '公告标题1', '公告内容1', '2020-04-27 00:35:18', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('2a4111d4-f809-4526-b569-068deef1d453', '公告1标题', '公告1内容。。。。', '2020-05-03 21:35:25', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
-INSERT INTO `notice` VALUES ('41dce5e6-a790-4d97-a0b6-18d449879c90', '12233', '444558', '2020-04-28 00:05:09', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('4e559b3f-806b-4e0e-af0a-669ff8ef9ea8', '12233', '444558', '2020-04-28 00:06:01', '', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('72daf96f-bd52-4afd-b1f5-87f44fe05e2b', '公告标题3', '公告内容3', '2020-04-27 00:35:38', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('af63d126-6359-46c8-8356-a532a1f725fb', '77777', '88888。。。。。。。。。。。。。。。。。。。。。。。。。。。', '2020-04-28 00:10:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('dea363de-e705-46b0-888c-8532f7c8d198', '公告标题2', '公告内容2', '2020-04-27 00:35:29', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('dfb9c3cf-4d1a-4e4f-86b8-7b978d63a4bc', '公告标题5', '公告内容5.。。。。', '2020-04-27 16:17:04', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `notice` VALUES ('e58ac89c-c25f-4935-a491-fabbc653497f', '1401班第一条公告', '大家好好学习，天天向上。。。', '2020-05-07 23:57:04', '68b9a2f57443803491f8bec131d1c254', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '6bae0c16-84d8-4b23-9693-6621c08cd522');
-INSERT INTO `notice` VALUES ('f1d5682d-64f0-4abd-81ba-5924d22ba03c', '44', '444444.。。。', '2020-04-27 00:37:05', '99b9a2f574d94a3491f8bec131d1c502', '18952731-e1db-4415-90ff-197ff048b6b4', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
+INSERT INTO `notice` VALUES ('0007395b-7bab-4c84-aa1d-3792f1c9ac66', '(JAVA)1202班课后作业', 'P38,3,4,5,6后天上午交。。', '2020-05-13 18:53:41', '1e9ae21bfe584bc59b4934ac3a238ef9', 'f9f3c901-64c9-4882-80d3-9a59e81aaf4d', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
+INSERT INTO `notice` VALUES ('a8b3c1d9-8b4b-4f23-99f1-1ad94db742cd', '(JAVA)1201班的公告', '课后作业：P13,4,5,6,7,8,明天中午之前提交。', '2020-05-13 18:51:27', '1e9ae21bfe584bc59b4934ac3a238ef9', '914678f8-a306-45de-b633-659d545332a5', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
 
 -- ----------------------------
 -- Table structure for paper
@@ -234,9 +214,7 @@ CREATE TABLE `paper` (
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
-INSERT INTO `paper` VALUES ('11e81f9206d94dfbb135773d5db42613', '2019年12月份摸底考试', null, '120分钟', null, null, '68b9a2f57443803491f8bec131d1c254', '2020-57-07 11:57:56', '', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '6bae0c16-84d8-4b23-9693-6621c08cd522', null);
-INSERT INTO `paper` VALUES ('4ee2dddfa0a7483a8d573595cd903ea8', '2020年1月测试', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', '2020-31-04 08:31:52', '', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null);
-INSERT INTO `paper` VALUES ('7ec8dac0c545473a92373ed31a24922a', '2019年3月份月考', null, '120分钟', null, null, '99b9a2f574d94a3491f8bec131d1c502', '2020-58-03 10:58:45', '', '18952731-e1db-4415-90ff-197ff048b6b4', '799c8d7e-bc3a-41f5-9d49-d256f075058d', null);
+INSERT INTO `paper` VALUES ('7ce691615fe5493dbec4a564a8c8ff6d', 'JAVA测试', null, '120分钟', null, null, '1e9ae21bfe584bc59b4934ac3a238ef9', '2020-52-13 06:52:09', '', '914678f8-a306-45de-b633-659d545332a5', '08bb02b9-ef3f-4b1d-b522-af960565bda1', null);
 
 -- ----------------------------
 -- Table structure for paper_question
@@ -262,15 +240,16 @@ CREATE TABLE `paper_question` (
 -- ----------------------------
 -- Records of paper_question
 -- ----------------------------
-INSERT INTO `paper_question` VALUES ('33fb5dcd2d5f435d845f22dd0ee39aed', '下列javaDoc注释正确的是', '1', 'C', '4', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', '/*我爱北京天安门*/', '//我爱北京天安门*/', '/**我爱北京天安门*/', '/*我爱北京天安门**/', null);
-INSERT INTO `paper_question` VALUES ('3910895a15db4f94a09ad8be71ac2c95', '一个Java源程序是由若干个类组成。如果源文件中有多个类时，则只能有一个类是____类，并且这个类必须与源文件名同名。', '2', 'public', '6', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
-INSERT INTO `paper_question` VALUES ('6a457f5b04594476b52d523490ca6fb5', '变量命名规范说法正确的是', '1', 'B', '3', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', '变量由字母、下划线、数字、$符号随意组成', '变量不能以数字作为开头', 'A和a在java中是同一个变量', '不同类型的变量，可以起相同的名字', null);
-INSERT INTO `paper_question` VALUES ('7c3126e1b2e549f6902a7275c37283a6', '下列说法正确的是', '1', 'A', '2', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', 'JAVA程序的main方法必须写在类里面', 'JAVA程序中可以有多个main方法', 'JAVA程序中类名必须与文件名一样', 'JAVA程序的main方法中如果只有一条语句，可以不用{}(大括号)括起来', null);
-INSERT INTO `paper_question` VALUES ('8c91c81a5266470db11e8df1ccb0f8d9', 'JAVA所定义的版本中不包括', '1', 'C', '1', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', 'JAVA2 EE', 'JAVA2 Card', 'JAVA2 HE', 'JAVA2 ME', null);
-INSERT INTO `paper_question` VALUES ('a8c4f337ecff48f7afe3ec20f51fe847', '如果希望将自定义类Student的多个对象放入集合TreeSet，实现所有元素按照某个属性的自然顺序排列，则需要Student类实现____接口', '2', 'Comparable', '9', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
-INSERT INTO `paper_question` VALUES ('d0ada3512b534f9487607437608f0268', '为一个boolean类型变量赋值时，可以使用()方式', '1', 'B', '4', '4', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
-INSERT INTO `paper_question` VALUES ('e8cbd6430a724c4a9c55b02fa0900cb6', 'char c =\'a\';System.out.println(c+1);运行结果为', '2', '98', '7', '5', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
-INSERT INTO `paper_question` VALUES ('f523fec27fe447b19c88bf01279377de', 'char类型用来表示在Unicode编码表中的字符，长度是____个字节', '2', '2', '8', '2', '4ee2dddfa0a7483a8d573595cd903ea8', '1', ' boolean = 1', 'boolean a = (9 >= 10)', 'boolean a=\"真\"', ' boolean a = = false', null);
+INSERT INTO `paper_question` VALUES ('2f1313fa6da6464895bc03cd9ca132c8', '_____类是专门用来操作集合的工具类，提供一系列静态方法实现对各种集合的操作。', '2', 'Collections', '10', '5', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('3bd1e53530a4470dbc11975a467b163b', 'char类型用来表示在Unicode编码表中的字符，长度是_____个字节。', '2', '2', '8', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('6f15b1e573ff4116935fc16763f52271', '为一个boolean类型变量赋值时，可以使用()方式', '1', 'B', '5', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('91e7757e1acd43f789d367d0545c823d', '一个Java源程序是由若干个类组成。如果源文件中有多个类时，则只能有一个类是_____类，并且这个类必须与源文件名同名。', '2', 'public', '6', '5', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('a4c707e348bb4db6ba035b3caf7ce582', '下列javaDoc注释正确的是', '1', 'C', '4', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' /*我爱北京天安门*/', '//我爱北京天安门*/', '/**我爱北京天安门*/', '/*我爱北京天安门**/', null);
+INSERT INTO `paper_question` VALUES ('ac354c845c044a53a869d98f1e6274ec', 'Java的字节码文件的扩展名是_____，是一种平台独立的二进制文件。', '2', '.class', '9', '5', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('d2b5cb29c2a5402f9c484ccfe0428d34', '安装JDK后，为了告诉计算机javac.exe和java.exe等执行文件的位置，需要配置的环境变量是_____', '2', 'path', '7', '5', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' boolean = 1;', 'boolean a = (9 >= 10);', ' boolean a=\"真\";', 'boolean a = = false;', null);
+INSERT INTO `paper_question` VALUES ('e3c6460e7dc7427eadb27037c883a9e8', 'JAVA所定义的版本中不包括', '1', 'D', '1', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', 'JAVA2 EE', 'JAVA2 Card', 'JAVA2 ME', 'JAVA2 HE', null);
+INSERT INTO `paper_question` VALUES ('eff8f5b70aea4647887c48e0072613a3', '变量命名规范说法正确的是', '1', 'B', '3', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', ' 变量由字母、下划线、数字、$符号随意组成；', '变量不能以数字作为开头；', 'A和a在java中是同一个变量；', '不同类型的变量，可以起相同的名字', null);
+INSERT INTO `paper_question` VALUES ('ff7b6e7172ed4d1daa4537a53a7860aa', '下列说法正确的是', '1', 'A', '2', '4', '7ce691615fe5493dbec4a564a8c8ff6d', '1', 'JAVA程序的main方法必须写在类里面', 'JAVA程序中可以有多个main方法', 'JAVA程序中类名必须与文件名一样', 'JAVA程序的main方法中如果只有一条语句，可以不用{}(大括号)括起来', null);
 
 -- ----------------------------
 -- Table structure for role
@@ -319,10 +298,11 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1479574d4264403ca52384e87f6c1659', '123456', '0', '123456', '123456', '123456', '', '1', '127.0.0.1', '', '2020-04-25 23:47:16', '2020-04-25 23:47:16', '0', '1');
-INSERT INTO `user` VALUES ('68b9a2f57443803491f8bec131d1c254', '8888', '0', '8888', '8888', '8888', '', '1', '192.168.0.104', '2020-05-08 00:26:32', '2020-05-07 23:44:28', '2020-05-07 23:44:42', '0', '1');
-INSERT INTO `user` VALUES ('80dbfc1af25e49b7b8e38df7a66e3b91', 'tesT2', '0', '999', '999', '999', '', '2', '192.168.0.101', '2020-05-08 09:52:28', '2020-05-08 09:43:08', '2020-05-08 09:43:08', '0', '1');
-INSERT INTO `user` VALUES ('99b9a2f574d94a3491f8bec131d1c502', '222', '0', '222', '222', '222', '', '3', '127.0.0.1', '2020-05-11 21:23:30', '2020-04-25 23:46:52', '2020-05-10 23:05:55', '0', '1');
+INSERT INTO `user` VALUES ('1e9ae21bfe584bc59b4934ac3a238ef9', '1000', '0', '1000', '1000', '1000', '', '2', '127.0.0.1', '2020-05-13 19:14:44', '2020-05-13 18:27:38', '2020-05-13 18:27:38', '0', '1');
+INSERT INTO `user` VALUES ('2d7b902843dc4aa697f22f0ccfbbed2a', '1003', '0', '1003', '1003', '1003', '', '1', '192.168.3.14', '', '2020-05-13 18:28:34', '2020-05-13 18:28:34', '0', '1');
+INSERT INTO `user` VALUES ('8f7c4cb963f74b8d91083f9e704c3f47', '1002', '0', '1002', '1002', '1002', '', '1', '192.168.3.14', '2020-05-13 18:46:13', '2020-05-13 18:28:12', '2020-05-13 18:28:12', '0', '1');
+INSERT INTO `user` VALUES ('9625bb6310744a71ae3e4dd53c313853', '1001', '0', '1001', '1001', '1001', '', '1', '127.0.0.1', '2020-05-13 19:15:28', '2020-05-13 18:27:54', '2020-05-13 18:27:54', '0', '1');
+INSERT INTO `user` VALUES ('c44f9ae5381c4d2fa51bb05b0f638dab', 'admin', '0', 'admin', 'admin', '0000', '', '3', '127.0.0.1', '2020-05-13 19:11:18', '2020-05-13 18:28:58', '2020-05-13 19:11:10', '0', '1');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -342,15 +322,6 @@ CREATE TABLE `user_question` (
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
-INSERT INTO `user_question` VALUES ('6484192c8e5c4685b594bd58c4fe9bcf', '8c91c81a5266470db11e8df1ccb0f8d9', '99b9a2f574d94a3491f8bec131d1c502', 'C', null, '4', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('6206545c755e4ce7b2d404cdbb58b11b', '7c3126e1b2e549f6902a7275c37283a6', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '4', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('ce65765085384a2581448c843cfaeea5', '6a457f5b04594476b52d523490ca6fb5', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '5', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('f40322fb39884b5180b701c92a696064', '33fb5dcd2d5f435d845f22dd0ee39aed', '99b9a2f574d94a3491f8bec131d1c502', 'A', null, '0', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('5d8220b47bbf4bf69ef553cdfb9ad1b9', 'd0ada3512b534f9487607437608f0268', '99b9a2f574d94a3491f8bec131d1c502', 'B', null, '4', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('b9123df32ab148df85f5cf2b5f6dec63', '3910895a15db4f94a09ad8be71ac2c95', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('9887537988dc4d9d95ce8a681ecea038', 'e8cbd6430a724c4a9c55b02fa0900cb6', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '0', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('5a9be2b88021427e8c3bde3e49953da8', 'f523fec27fe447b19c88bf01279377de', '99b9a2f574d94a3491f8bec131d1c502', '2', null, '2', '2020-05-07 22:14:37', null);
-INSERT INTO `user_question` VALUES ('0d5464b809e34dd1b28912e509d3921a', 'a8c4f337ecff48f7afe3ec20f51fe847', '99b9a2f574d94a3491f8bec131d1c502', 'class', null, '0', '2020-05-07 22:14:37', null);
 
 -- ----------------------------
 -- Table structure for user_score
@@ -369,7 +340,6 @@ CREATE TABLE `user_score` (
 -- ----------------------------
 -- Records of user_score
 -- ----------------------------
-INSERT INTO `user_score` VALUES ('239c04b6ce9945819119658f19b46822', '99b9a2f574d94a3491f8bec131d1c502', '4ee2dddfa0a7483a8d573595cd903ea8', null, '19', '2020-05-07 22:14:37');
 
 -- ----------------------------
 -- Table structure for user_sign
@@ -391,9 +361,7 @@ CREATE TABLE `user_sign` (
 -- ----------------------------
 -- Records of user_sign
 -- ----------------------------
-INSERT INTO `user_sign` VALUES ('2d59b3f07fc248cea70ddf4458ce379c', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:42', '大悟县人民政府(府前街东)', '0', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `user_sign` VALUES ('3ec9527eb789407c8c4bcac2240f926b', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '68b9a2f57443803491f8bec131d1c254', '8888', '23:59:56', '大悟县人民政府(府前街东)', '0', '192.168.0.104', '6bae0c16-84d8-4b23-9693-6621c08cd522');
-INSERT INTO `user_sign` VALUES ('50816f497d97483483d7170b04b93ea6', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:04', 'undefined', '1', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
-INSERT INTO `user_sign` VALUES ('67fc85cc07c546f0a707fd9110cd59f8', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '17:03:41', '大悟县人民政府(府前街东)', '1', '192.168.0.104', 'bbc7f50e-702a-4314-b70a-fd30e3d682eb');
-INSERT INTO `user_sign` VALUES ('8b975fc74925400ea7aac6099c19d62e', '18952731-e1db-4415-90ff-197ff048b6b4', '99b9a2f574d94a3491f8bec131d1c502', '222', '22:13:11', 'undefined', '0', '192.168.0.104', '799c8d7e-bc3a-41f5-9d49-d256f075058d');
-INSERT INTO `user_sign` VALUES ('c038872929af42a0b73f91f3257df895', 'c77112f8-30bd-491a-b6af-c1bb0dc95674', '68b9a2f57443803491f8bec131d1c254', '8888', '23:59:53', '大悟县人民政府(府前街东)', '1', '192.168.0.104', '6bae0c16-84d8-4b23-9693-6621c08cd522');
+INSERT INTO `user_sign` VALUES ('48dd334b1de54fceb24e12e75fa29ca2', '914678f8-a306-45de-b633-659d545332a5', '1e9ae21bfe584bc59b4934ac3a238ef9', '1000', '18:52:36', '万柳中共北京市海淀区委员会', '0', '192.168.3.14', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
+INSERT INTO `user_sign` VALUES ('90cbafbdaebb4451a008c99cfe55ea86', '914678f8-a306-45de-b633-659d545332a5', '9625bb6310744a71ae3e4dd53c313853', '1001', '18:42:58', '万柳中共北京市海淀区委员会', '1', '192.168.3.14', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
+INSERT INTO `user_sign` VALUES ('b2fbe37cb502440c9634fb5914b19890', '914678f8-a306-45de-b633-659d545332a5', '1e9ae21bfe584bc59b4934ac3a238ef9', '1000', '18:52:34', '万柳中共北京市海淀区委员会', '1', '192.168.3.14', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
+INSERT INTO `user_sign` VALUES ('c7b8fc3f02f1499a834fe5c9d0f931ee', '914678f8-a306-45de-b633-659d545332a5', '9625bb6310744a71ae3e4dd53c313853', '1001', '18:42:59', '万柳中共北京市海淀区委员会', '0', '192.168.3.14', '08bb02b9-ef3f-4b1d-b522-af960565bda1');
