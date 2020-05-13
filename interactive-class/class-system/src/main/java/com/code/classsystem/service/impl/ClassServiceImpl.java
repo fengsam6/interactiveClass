@@ -3,10 +3,12 @@ package com.code.classsystem.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.code.classsystem.entity.Class;
 import com.code.classsystem.dao.ClassMapper;
+import com.code.classsystem.entity.User;
 import com.code.classsystem.service.ClassService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.code.classsystem.service.ClassUserService;
 import com.code.classsystem.common.shiro.util.ShiroUtils;
+import com.code.classsystem.vo.ClassSearchVo;
 import com.code.classsystem.vo.ClassVo;
 import com.code.core.enums.ErrorEnum;
 import com.code.core.exception.BusinessException;
@@ -75,9 +77,21 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
     }
 
     @Override
-    public PageInfo<ClassVo> listPage(Class cla, int pageNum, int pageSize) {
+    public PageInfo<ClassVo> listPage(ClassSearchVo searchVo, int pageNum, int pageSize) {
+        if(searchVo==null){
+            searchVo=new ClassSearchVo();
+        }
+        User userEntity = ShiroUtils.getUserEntity();
+
+        Integer roleId = userEntity.getRoleId();
+        if(roleId==1){
+            throw new BusinessException(ErrorEnum.UNAUTHORIZED.setMsg("权限不够，禁止访问"));
+        }else if(roleId==2){
+            String userId = userEntity.getId();
+            searchVo.setCreatorId(userId);
+        }
         PageHelper.startPage(pageNum, pageSize);
-        List<ClassVo> userInfoVos = classMapper.listPage(cla);
+        List<ClassVo> userInfoVos = classMapper.listPage(searchVo);
         return new PageInfo<>(userInfoVos);
     }
 

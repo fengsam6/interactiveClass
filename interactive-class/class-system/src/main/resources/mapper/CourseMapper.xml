@@ -99,7 +99,12 @@
          left join class_user cu on cu.class_id =cc.class_id
          left join course_resource pptr on c1.id = pptr.course_id and pptr.resource_type = 1
           left join course_resource vr on c1.id = vr.course_id and vr.resource_type = 2
-          order by c1.course_name, cls.class_name
+        <where>
+            <if test="createdUserId != null">
+                c1.created_user_id = #{createdUserId}
+            </if>
+        </where>
+        order by c1.course_name, cls.class_name
     </select>
 
     <select id="getDetailById" parameterType="string" resultMap="CourseInfoMap">

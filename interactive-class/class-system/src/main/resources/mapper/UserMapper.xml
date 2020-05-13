@@ -46,6 +46,7 @@
         and t.role_id = 1
     </if>
     </where>
+        order by t.name
 </select>
     <select id="getUserInfoByUserId" resultMap="UserInfoResultMap" parameterType="string">
   select t.*,

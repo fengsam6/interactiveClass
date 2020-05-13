@@ -21,7 +21,7 @@
         type="selection"
         width="55"
       />
-      <el-table-column type="index" width="80" align="center" />
+      <el-table-column type="index" width="80" align="center" label="序号"/>
       <!--      <el-table-column label="用户id" prop="id" width="280px" />-->
       <el-table-column label="班级名称" prop="className" />
       <el-table-column label="班级人数" align="center" prop="classNum" />

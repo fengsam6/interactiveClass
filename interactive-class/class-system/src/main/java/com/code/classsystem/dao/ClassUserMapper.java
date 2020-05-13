@@ -35,4 +35,6 @@ public interface ClassUserMapper extends BaseMapper<ClassUser> {
      * @return
      */
     List<ClassStudent> queryStuStatus(ClassStudentVo classStudentVo);
+
+    List<Class> listTeacherClasses(String teacherId);
 }

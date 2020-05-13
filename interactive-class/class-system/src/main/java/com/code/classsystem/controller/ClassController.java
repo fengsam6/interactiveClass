@@ -4,6 +4,7 @@ package com.code.classsystem.controller;
 import com.code.classsystem.entity.Class;
 import com.code.classsystem.entity.User;
 import com.code.classsystem.service.ClassService;
+import com.code.classsystem.vo.ClassSearchVo;
 import com.code.classsystem.vo.ClassVo;
 import com.code.core.entity.ResponseResult;
 import com.code.core.util.ResponseResultUtil;
@@ -73,9 +74,10 @@ public class ClassController {
     @ApiOperation(value = "分页查询班级", notes = "分页查询班级")
     @GetMapping("/listPage")
     @RequiresRoles(value  ={"teacher","admin"},logical = Logical.OR)
-    public ResponseResult listPage(Class cla, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
-        PageInfo<ClassVo> classVoPageInfo = classService.listPage(cla, pageNum, pageSize);
+    public ResponseResult listPage(ClassSearchVo searchVo, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "20") int pageSize) {
+        PageInfo<ClassVo> classVoPageInfo = classService.listPage(searchVo, pageNum, pageSize);
         return ResponseResultUtil.renderSuccess(classVoPageInfo);
     }
+
 }
 

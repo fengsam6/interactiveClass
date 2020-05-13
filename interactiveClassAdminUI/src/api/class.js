@@ -4,6 +4,10 @@ export function listClassByUserId(params) {
   return get('/classUser/listClassByUserId', params)
 }
 
+export function listTeacherClasses(params) {
+  return get('/classUser/listTeacherClasses', params)
+}
+
 export function getClassById(classId) {
   return get('/class/getClassById/' + classId)
 }

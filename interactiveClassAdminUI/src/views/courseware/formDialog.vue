@@ -120,13 +120,13 @@ export default {
     }
   },
   mounted() {
-    this.listClassesByUserId()
+    this.listTeacherClasses()
   },
   methods: {
     showDialog() {
       this.dialogVisible = true
     },
-    async  listClassesByUserId() {
+    async  listTeacherClasses() {
       const data = await listClassByUserId()
       const classes = data.data
       for (let i = 0; i < classes.length; i++) {
