@@ -43,7 +43,7 @@
 
 <script>
 import { addHomework, updateHomework, getDetailById } from '@/api/homework'
-import { listClassByUserId } from '@/api/class'
+import { listTeacherClasses } from '@/api/class'
 import { queryCourseInfoByCurUser } from '@/api/course'
 
 import fileRequest from '@/utils/fileRequest'
@@ -90,7 +90,7 @@ export default {
       this.courses = data
     },
     async  listClassesByUserId() {
-      const data = await listClassByUserId()
+      const data = await listTeacherClasses()
       const classes = data.data
       for (let i = 0; i < classes.length; i++) {
         this.classNames.push(classes[i].className)

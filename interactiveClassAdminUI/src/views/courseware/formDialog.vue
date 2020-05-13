@@ -77,7 +77,7 @@
 
 <script>
 import { addCourse, updateCourse, getDetailById } from '@/api/course'
-import { listClassByUserId } from '@/api/class'
+import { listTeacherClasses } from '@/api/class'
 
 import fileRequest from '@/utils/fileRequest'
 export default {
@@ -127,7 +127,7 @@ export default {
       this.dialogVisible = true
     },
     async  listTeacherClasses() {
-      const data = await listClassByUserId()
+      const data = await listTeacherClasses()
       const classes = data.data
       for (let i = 0; i < classes.length; i++) {
         this.classNames.push(classes[i].className)
