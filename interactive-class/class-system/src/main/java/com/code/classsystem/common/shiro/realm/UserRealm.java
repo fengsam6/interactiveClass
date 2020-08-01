@@ -61,7 +61,7 @@ public class UserRealm extends AuthorizingRealm {
 
         if (user == null) {
             logger.error("用户名错误：{}", userName);
-            throw new AuthenticationFailException(ErrorEnum.USER_NAME_ERROR.setMsg("用户名" + userName + "错误"));
+            throw new AuthenticationFailException(ErrorEnum.USER_NAME_ERROR.setMsg("用户名" + userName + "不存在"));
         }
         String loginPassword = new String(token.getPassword());
         if (StringUtils.isEmpty(loginPassword) || !loginPassword.equals(user.getPassword())) {
