@@ -38,7 +38,7 @@
     "@dcloudio/uni-stat": "^2.0.0-26920200403001",
     "core-js": "^3.6.4",
     "flyio": "^0.6.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "regenerator-runtime": "^0.12.1",
     "vant-weapp": "^0.5.28",
     "vue": "^2.6.11",
