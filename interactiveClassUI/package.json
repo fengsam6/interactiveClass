@@ -56,7 +56,7 @@
     "@types/html5plus": "*",
     "@types/uni-app": "*",
     "@vue/cli-plugin-babel": "^4.3.0",
-    "@vue/cli-service": "^4.3.0",
+    "@vue/cli-service": "^5.0.8",
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^7.0.2",
     "mini-types": "*",
